@@ -5,6 +5,7 @@
 
 - **不覆盖**原项目（`/home/zrq/Documents/muscle`）的 BIO 模型 / 患者 BVH 处理与分析功能。
 - 上游依赖只读放在 `external/`，本项目新增代码在 `hemirl/`。
+- **技术路线与设计理由见 [`docs/technical_route.md`](docs/technical_route.md)。**
 
 ## 第一阶段已完成
 
@@ -56,6 +57,7 @@ MUJOCO_GL=egl PYTHONPATH=. python scripts/run_tests.py --with-heavy
 | `hemirl/` | 本项目代码：肌群映射、肌力缩放、终止配置、评估、审计、渲染 |
 | `scripts/` | CLI 入口（可复制运行） |
 | `configs/` | 实验配置 |
+| `docs/` | 说明性文档（技术路线等） |
 | `artifacts/checkpoints/LocomotionFull/` | 官方 checkpoint（GitHub Release） |
 | `runs/` | 每次运行的 `run.json` / `episodes.json` / `summary.json` / `sweep.csv`（轨迹 `*.npz` 与视频不入库） |
 | `reports/` | 模型内省、肌群映射、审计与验证输出、阶段报告 |
@@ -98,6 +100,10 @@ MUJOCO_GL=egl PYTHONPATH=. python scripts/eval_official.py \
     --strength-mode active_only --tag eval_R_upper0.5
 ```
 
-## 阶段报告
+## 文档
 
-见 `reports/phase1_report.md`。
+| 文档 | 内容 |
+|---|---|
+| [`docs/technical_route.md`](docs/technical_route.md) | **技术路线**：闭环数据流、三层技术选择、关键工程决策、与旧路线的差异、下一步 |
+| [`reports/phase1_report.md`](reports/phase1_report.md) | **阶段报告**：代码核查结论、复现数据、验证结果、未解决问题 |
+| [`AGENTS.md`](AGENTS.md) | 工作区硬性约定（上游只读、不用运动学回放、禁止预设结论等） |
