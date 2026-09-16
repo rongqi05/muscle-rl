@@ -13,6 +13,7 @@ MS-Human-700 全身肌骨模型 + 强化学习（msgym）的偏瘫研究。**不
 | `external/msgym/` | 官方 Gymnasium 环境 + DynSyn-SAC 训练/评估脚本 |
 | `hemirl/` | **本工作区新增代码**：肌力参数化、终止配置、评估与扫描、审计与验证 |
 | `configs/` | 实验配置（JSON） |
+| `docs/` | 说明性文档（技术路线 `technical_route.md` 等） |
 | `scripts/` | 可复制运行的 CLI 入口（薄封装，逻辑在 `hemirl/`） |
 | `artifacts/` | 下载的 checkpoint、派生模型（不入 git） |
 | `runs/` | 每次运行一个子目录；`run.json`/`episodes.json`/`summary.json`/`sweep.csv` **入库**，轨迹 `*.npz` 与 `*.mp4` 不入库 |
@@ -24,7 +25,7 @@ MS-Human-700 全身肌骨模型 + 强化学习（msgym）的偏瘫研究。**不
    字段，或把派生 XML 写到 `artifacts/`。
 2. **不用运动学回放代替动力学**。`kinematic_play=True` 仅允许用于数据/接口自检，且必须在
    结果里显式标注。
-3. **肌力缩放必须从不可变基准计算**，禁止累乘（见 `hemirl/strength.py`）。
+3. **肌力缩放必须从不可变基准计算**，禁止累乘（见 `hemirl/muscle_actuator.py`）。
 4. **不得在奖励/数据处理/结果展示里预设患侧辅助最终更好**。临界点是待检验假设。
 5. 新增观测只能放在后续重新训练用的独立配置里，**不得**改变官方 checkpoint 的观测/动作接口。
 6. 每次运行必须落盘 provenance：仓库 commit、checkpoint 来源与哈希、依赖版本、随机种子。
