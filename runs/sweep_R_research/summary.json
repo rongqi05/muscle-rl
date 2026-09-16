@@ -1,0 +1,133 @@
+{
+  "aggregate": {
+    "A_upper": {
+      "1": {
+        "n": 5,
+        "scale": 1.0,
+        "steps_mean": 175.0,
+        "sim_time_mean": 3.5,
+        "displacement_mean": 3.358339926741764,
+        "speed_mean": 0.9595256933547898,
+        "min_pelvis_height_mean": 0.8747879439105792,
+        "qpos_track_err_mean": 0.03578461998058831,
+        "activation_mean": 0.16455678263577644,
+        "force_abs_mean": 31.260203911080858,
+        "n_terminated": 0,
+        "reasons": []
+      },
+      "0.75": {
+        "n": 5,
+        "scale": 0.75,
+        "steps_mean": 175.0,
+        "sim_time_mean": 3.5,
+        "displacement_mean": 3.405010370478876,
+        "speed_mean": 0.9728601058511075,
+        "min_pelvis_height_mean": 0.873212587842225,
+        "qpos_track_err_mean": 0.03771483817802739,
+        "activation_mean": 0.16379511228580396,
+        "force_abs_mean": 31.06498003299966,
+        "n_terminated": 0,
+        "reasons": []
+      },
+      "0.5": {
+        "n": 5,
+        "scale": 0.5,
+        "steps_mean": 175.0,
+        "sim_time_mean": 3.5,
+        "displacement_mean": 3.369355457373463,
+        "speed_mean": 0.9626729878209893,
+        "min_pelvis_height_mean": 0.8671791507036101,
+        "qpos_track_err_mean": 0.041333667228004564,
+        "activation_mean": 0.16201267712815454,
+        "force_abs_mean": 30.432287237087696,
+        "n_terminated": 0,
+        "reasons": []
+      },
+      "0.25": {
+        "n": 5,
+        "scale": 0.25,
+        "steps_mean": 175.0,
+        "sim_time_mean": 3.5,
+        "displacement_mean": 3.2366307668727488,
+        "speed_mean": 0.9247516476779282,
+        "min_pelvis_height_mean": 0.8668728599635953,
+        "qpos_track_err_mean": 0.04819754826803699,
+        "activation_mean": 0.16128661980167408,
+        "force_abs_mean": 30.02719420339697,
+        "n_terminated": 0,
+        "reasons": []
+      }
+    },
+    "B_lower": {
+      "1": {
+        "n": 5,
+        "scale": 1.0,
+        "steps_mean": 175.0,
+        "sim_time_mean": 3.5,
+        "displacement_mean": 3.358339926741764,
+        "speed_mean": 0.9595256933547898,
+        "min_pelvis_height_mean": 0.8747879439105792,
+        "qpos_track_err_mean": 0.03578461998058831,
+        "activation_mean": 0.16455678263577644,
+        "force_abs_mean": 31.260203911080858,
+        "n_terminated": 0,
+        "reasons": []
+      },
+      "0.75": {
+        "n": 5,
+        "scale": 0.75,
+        "steps_mean": 175.0,
+        "sim_time_mean": 3.5,
+        "displacement_mean": 3.2352366677938376,
+        "speed_mean": 0.9243533336553822,
+        "min_pelvis_height_mean": 0.8680487808841963,
+        "qpos_track_err_mean": 0.03898249012940979,
+        "activation_mean": 0.1719718009963485,
+        "force_abs_mean": 31.265363437088855,
+        "n_terminated": 0,
+        "reasons": []
+      },
+      "0.5": {
+        "n": 5,
+        "scale": 0.5,
+        "steps_mean": 90.0,
+        "sim_time_mean": 1.8,
+        "displacement_mean": 1.9443506926688159,
+        "speed_mean": 1.092362851882848,
+        "min_pelvis_height_mean": 0.5489061333130387,
+        "qpos_track_err_mean": 0.08786598691791063,
+        "activation_mean": 0.24069514836402703,
+        "force_abs_mean": 44.16699019402417,
+        "n_terminated": 5,
+        "reasons": [
+          "跌到骨盆高度 0.513 m < 0.55 m",
+          "跌到骨盆高度 0.529 m < 0.55 m",
+          "跌到骨盆高度 0.530 m < 0.55 m",
+          "跌到骨盆高度 0.535 m < 0.55 m",
+          "骨盆直立偏差 61.7° > 60.0°"
+        ]
+      },
+      "0.25": {
+        "n": 5,
+        "scale": 0.25,
+        "steps_mean": 37.0,
+        "sim_time_mean": 0.74,
+        "displacement_mean": 0.716169502113229,
+        "speed_mean": 0.9734620289105603,
+        "min_pelvis_height_mean": 0.5420244725445139,
+        "qpos_track_err_mean": 0.0946269778401825,
+        "activation_mean": 0.19293493909172205,
+        "force_abs_mean": 32.030928653081915,
+        "n_terminated": 5,
+        "reasons": [
+          "跌到骨盆高度 0.533 m < 0.55 m",
+          "跌到骨盆高度 0.538 m < 0.55 m",
+          "跌到骨盆高度 0.543 m < 0.55 m",
+          "跌到骨盆高度 0.547 m < 0.55 m",
+          "跌到骨盆高度 0.549 m < 0.55 m"
+        ]
+      }
+    }
+  },
+  "n_episodes": 40
+}

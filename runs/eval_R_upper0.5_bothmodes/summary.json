@@ -1,0 +1,122 @@
+{
+  "n_episodes": 2,
+  "metrics": {
+    "steps": {
+      "mean": 175.0,
+      "std": 0.0,
+      "min": 175.0,
+      "max": 175.0
+    },
+    "sim_time_s": {
+      "mean": 3.5,
+      "std": 0.0,
+      "min": 3.5,
+      "max": 3.5
+    },
+    "displacement_xy": {
+      "mean": 3.4006990159613144,
+      "std": 0.04947612960920433,
+      "min": 3.3512228863521103,
+      "max": 3.450175145570519
+    },
+    "mean_speed_xy": {
+      "mean": 0.9716282902746614,
+      "std": 0.014136037031201254,
+      "min": 0.9574922532434601,
+      "max": 0.9857643273058626
+    },
+    "mean_pelvis_height": {
+      "mean": 0.9117201488588507,
+      "std": 0.000968853701437622,
+      "min": 0.910751295157413,
+      "max": 0.9126890025602883
+    },
+    "min_pelvis_height": {
+      "mean": 0.8701452428195824,
+      "std": 0.002401135891113959,
+      "min": 0.8677441069284685,
+      "max": 0.8725463787106964
+    },
+    "max_pelvis_up_tilt_deg": {
+      "mean": 9.460105099757278,
+      "std": 0.9565532892467443,
+      "min": 8.503551810510533,
+      "max": 10.416658389004022
+    },
+    "mean_qpos_track_err": {
+      "mean": 0.041030700623510934,
+      "std": 0.00024361415755956572,
+      "min": 0.04078708646595137,
+      "max": 0.0412743147810705
+    },
+    "action_abs_mean": {
+      "mean": 0.7510478013393831,
+      "std": 0.0015754202210171986,
+      "min": 0.7494723811183659,
+      "max": 0.7526232215604003
+    },
+    "activation_mean": {
+      "mean": 0.16282942648942644,
+      "std": 0.0021834603814051973,
+      "min": 0.16064596610802126,
+      "max": 0.16501288687083165
+    },
+    "actuator_force_abs_mean": {
+      "mean": 30.57037809321121,
+      "std": 0.33004521723826663,
+      "min": 30.240332875972946,
+      "max": 30.90042331044948
+    },
+    "ncon_mean": {
+      "mean": 4.285714285714286,
+      "std": 0.02285714285714313,
+      "min": 4.2628571428571425,
+      "max": 4.308571428571429
+    },
+    "total_normal_force_mean": {
+      "mean": 590.4846132664384,
+      "std": 3.094349067931603,
+      "min": 587.3902641985068,
+      "max": 593.57896233437
+    },
+    "foot_contact_fraction": {
+      "mean": 1.0,
+      "std": 0.0,
+      "min": 1.0,
+      "max": 1.0
+    },
+    "max_abs_qvel": {
+      "mean": 20.423227970009442,
+      "std": 2.3895420784979162,
+      "min": 18.033685891511528,
+      "max": 22.81277004850736
+    }
+  },
+  "termination_reasons": {
+    "未终止": 2
+  },
+  "n_terminated": 0,
+  "n_truncated": 0,
+  "strength_spec": {
+    "paretic_side": "R",
+    "upper_scale": 0.5,
+    "lower_scale": 1.0,
+    "torso_scale": 1.0,
+    "group_scales": {},
+    "include_shoulder_girdle": false,
+    "mode": "active_and_passive",
+    "note": ""
+  },
+  "termination_config": {
+    "kind": "research",
+    "min_pelvis_height": 0.55,
+    "max_pelvis_up_tilt_deg": 60.0,
+    "max_root_speed": 10.0,
+    "max_root_ang_speed": 50.0,
+    "max_joint_speed_norm": 200.0,
+    "nan_check": true,
+    "time_limit_s": null,
+    "allow_reference_deviation_termination": false
+  },
+  "deterministic": true
+}

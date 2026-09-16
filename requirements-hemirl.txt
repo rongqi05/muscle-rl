@@ -1,0 +1,32 @@
+# muscle-rl 运行环境依赖（conda env: hemirl）
+#
+# 创建与安装（**不要**装到 env_isaaclab：pip 会把 torch 2.7.0 升级到 2.14，
+# 破坏 isaacsim/torchvision/torchaudio；2026-09-16 曾发生并已修回）：
+#
+#   conda create -y -n hemirl python=3.12
+#   H=/home/zrq/miniconda3/envs/hemirl/bin/python
+#   PIP_CONFIG_FILE=/dev/null $H -m pip install --upgrade pip
+#   PIP_CONFIG_FILE=/dev/null $H -m pip install \
+#       --index-url https://download.pytorch.org/whl/cpu torch==2.14.0+cpu
+#   PIP_CONFIG_FILE=/dev/null $H -m pip install -i https://mirrors.aliyun.com/pypi/simple/ \
+#       -r requirements-hemirl.txt
+#
+# 说明：
+#   * Python 3.12 是必须的——官方 checkpoint 的 cloudpickle 代码对象由 Python 3.12 编译，
+#     在 3.11 上执行会因 COMPARE_OP 编码不兼容而出错（详见 reports/phase1_report.md §8.1）。
+#   * numpy 2.x 也是必须的——checkpoint 的 pickle 记录了 numpy._core 路径与 numpy 2 的
+#     随机数构造器签名，在 numpy 1.x 下需要额外兼容层。
+#   * torch 用 CPU 版即可，策略推理不需要 GPU。
+#
+# 校验过的实际组合（2026-09-16）：
+
+mujoco==3.11.0
+gymnasium==1.2.3
+numpy==2.3.5
+scipy==1.18.1
+pandas==3.0.5
+cloudpickle==3.1.2
+imageio==2.37.4
+imageio-ffmpeg==0.6.0
+stable_baselines3==2.7.1
+sb3_contrib==2.7.1

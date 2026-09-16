@@ -1,0 +1,129 @@
+{
+  "aggregate": {
+    "A_upper": {
+      "1": {
+        "n": 3,
+        "scale": 1.0,
+        "steps_mean": 175.0,
+        "sim_time_mean": 3.5,
+        "displacement_mean": 3.3569088884970646,
+        "speed_mean": 0.9591168252848757,
+        "min_pelvis_height_mean": 0.8765220295517784,
+        "qpos_track_err_mean": 0.035448662649009345,
+        "activation_mean": 0.16345497524897534,
+        "force_abs_mean": 31.091009500660125,
+        "n_terminated": 0,
+        "reasons": []
+      },
+      "0.75": {
+        "n": 3,
+        "scale": 0.75,
+        "steps_mean": 175.0,
+        "sim_time_mean": 3.5,
+        "displacement_mean": 3.2501451834611896,
+        "speed_mean": 0.92861290956034,
+        "min_pelvis_height_mean": 0.8784134253738474,
+        "qpos_track_err_mean": 0.038685392297998424,
+        "activation_mean": 0.16136281455167742,
+        "force_abs_mean": 30.35529573651451,
+        "n_terminated": 0,
+        "reasons": []
+      },
+      "0.5": {
+        "n": 3,
+        "scale": 0.5,
+        "steps_mean": 175.0,
+        "sim_time_mean": 3.5,
+        "displacement_mean": 3.204117186250531,
+        "speed_mean": 0.9154620532144374,
+        "min_pelvis_height_mean": 0.8786165384317123,
+        "qpos_track_err_mean": 0.043807193281099506,
+        "activation_mean": 0.160799356532224,
+        "force_abs_mean": 29.921499579140626,
+        "n_terminated": 0,
+        "reasons": []
+      },
+      "0.25": {
+        "n": 3,
+        "scale": 0.25,
+        "steps_mean": 175.0,
+        "sim_time_mean": 3.5,
+        "displacement_mean": 3.054863056073419,
+        "speed_mean": 0.8728180160209768,
+        "min_pelvis_height_mean": 0.8700581006633333,
+        "qpos_track_err_mean": 0.0557274935562166,
+        "activation_mean": 0.1668587822687786,
+        "force_abs_mean": 30.70798055928743,
+        "n_terminated": 0,
+        "reasons": []
+      }
+    },
+    "B_lower": {
+      "1": {
+        "n": 3,
+        "scale": 1.0,
+        "steps_mean": 175.0,
+        "sim_time_mean": 3.5,
+        "displacement_mean": 3.3569088884970646,
+        "speed_mean": 0.9591168252848757,
+        "min_pelvis_height_mean": 0.8765220295517784,
+        "qpos_track_err_mean": 0.035448662649009345,
+        "activation_mean": 0.16345497524897534,
+        "force_abs_mean": 31.091009500660125,
+        "n_terminated": 0,
+        "reasons": []
+      },
+      "0.75": {
+        "n": 3,
+        "scale": 0.75,
+        "steps_mean": 175.0,
+        "sim_time_mean": 3.5,
+        "displacement_mean": 3.4199498296211606,
+        "speed_mean": 0.9771285227489029,
+        "min_pelvis_height_mean": 0.8708171461877066,
+        "qpos_track_err_mean": 0.03661813852804389,
+        "activation_mean": 0.168787239925014,
+        "force_abs_mean": 29.931617493770577,
+        "n_terminated": 0,
+        "reasons": []
+      },
+      "0.5": {
+        "n": 3,
+        "scale": 0.5,
+        "steps_mean": 131.33333333333334,
+        "sim_time_mean": 2.6266666666666665,
+        "displacement_mean": 2.08137293092294,
+        "speed_mean": 0.8199181169545925,
+        "min_pelvis_height_mean": 0.6018983539508179,
+        "qpos_track_err_mean": 0.10368167151024849,
+        "activation_mean": 0.24930617746673223,
+        "force_abs_mean": 46.4243849454237,
+        "n_terminated": 3,
+        "reasons": [
+          "跌到骨盆高度 0.543 m < 0.55 m",
+          "跌到骨盆高度 0.546 m < 0.55 m",
+          "骨盆直立偏差 60.5° > 60.0°"
+        ]
+      },
+      "0.25": {
+        "n": 3,
+        "scale": 0.25,
+        "steps_mean": 52.0,
+        "sim_time_mean": 1.04,
+        "displacement_mean": 0.7553058758999311,
+        "speed_mean": 0.7398948283896812,
+        "min_pelvis_height_mean": 0.7415847098152146,
+        "qpos_track_err_mean": 0.11523214280529193,
+        "activation_mean": 0.2729180994543204,
+        "force_abs_mean": 47.9945622919734,
+        "n_terminated": 3,
+        "reasons": [
+          "骨盆直立偏差 60.9° > 60.0°",
+          "骨盆直立偏差 61.5° > 60.0°",
+          "骨盆直立偏差 62.0° > 60.0°"
+        ]
+      }
+    }
+  },
+  "n_episodes": 24
+}

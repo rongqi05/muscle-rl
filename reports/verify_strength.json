@@ -1,0 +1,237 @@
+{
+  "n_checks": 16,
+  "n_pass": 16,
+  "all_pass": true,
+  "checks": [
+    {
+      "check": "V0 F0 槽位实测 == gainprm[2]/biasprm[2]",
+      "ok": true,
+      "detail": {
+        "active": "force(F0)",
+        "passive": "force(F0)",
+        "active_ratios": {
+          "range[0]": 1.1177,
+          "range[1]": 1.0431,
+          "force(F0)": 1.0999,
+          "scale": 1.0,
+          "lmin": 0.9592,
+          "lmax": 1.0003,
+          "vmax": 1.0,
+          "fpmax": 1.0,
+          "fvmax": 1.0
+        },
+        "passive_ratios": {
+          "range[0]": 11.3311,
+          "range[1]": 441.272,
+          "force(F0)": 1.1,
+          "scale": 1.0,
+          "lmin": 1.0,
+          "lmax": 0.6233,
+          "vmax": 1.0,
+          "fpmax": 1.1,
+          "fvmax": 1.0
+        },
+        "n_active_force_nonzero": 700,
+        "n_passive_force_nonzero": 41
+      }
+    },
+    {
+      "check": "V1 倍率 1.0 精确恢复基准参数",
+      "ok": true,
+      "detail": {
+        "max_abs_diff_gain": 0.0,
+        "max_abs_diff_bias": 0.0
+      }
+    },
+    {
+      "check": "V2 连续 0.5 → 0.75 结果 == 基准 × 0.75（无累乘）",
+      "ok": true,
+      "detail": {
+        "n_scaled": 111,
+        "unique_multipliers": [
+          0.75,
+          1.0
+        ],
+        "max_dev_from_0.75": 1.1102230246251565e-16
+      }
+    },
+    {
+      "check": "V3a 患侧=R 上肢 0.4 → 恰好缩放 R/upper",
+      "ok": true,
+      "detail": {
+        "n_got": 61,
+        "n_expect": 61,
+        "extra": [],
+        "missing": []
+      }
+    },
+    {
+      "check": "V3b 患侧=R 下肢 0.4 → 恰好缩放 R/lower",
+      "ok": true,
+      "detail": {
+        "n_got": 50,
+        "n_expect": 50
+      }
+    },
+    {
+      "check": "V3c 上下肢集合不相交且覆盖两侧肢体",
+      "ok": true,
+      "detail": {
+        "n_R_upper": 61,
+        "n_R_lower": 50,
+        "n_L_upper": 61,
+        "n_L_lower": 50
+      }
+    },
+    {
+      "check": "V3d 患侧=L → 缩放 L/upper ∪ L/lower，患对侧完全不变",
+      "ok": true,
+      "detail": {
+        "n_got": 111,
+        "n_R_scaled": 0
+      }
+    },
+    {
+      "check": "V4 指定组以外的肌肉参数逐元素不变（含健侧、躯干）",
+      "ok": true,
+      "detail": {
+        "n_unscaled": 589,
+        "gain_equal": true,
+        "bias_equal": true
+      }
+    },
+    {
+      "check": "V5 同姿态/速度/激活下，患侧上肢主动力按倍率变化（active_only）",
+      "ok": true,
+      "detail": {
+        "n_measured": 61,
+        "ratio_mean": 0.5000999204289958,
+        "ratio_min": 0.5,
+        "ratio_max": 0.5041647635046038
+      }
+    },
+    {
+      "check": "V5b 下肢倍率 1.0 时下肢力完全不变",
+      "ok": true,
+      "detail": {
+        "n_measured": 50
+      }
+    },
+    {
+      "check": "V5c 三个随机姿态下患侧上肢力比仍 ≈ 0.25",
+      "ok": true,
+      "detail": {
+        "ratios": [
+          0.25,
+          0.2501,
+          0.25
+        ]
+      }
+    },
+    {
+      "check": "V6 不同长度下缩放比恒定（只改幅值，不改 FL 形状）",
+      "ok": true,
+      "detail": {
+        "amplitudes": [
+          0.0,
+          0.2,
+          0.4,
+          0.6
+        ],
+        "baseline_mean_abs_force": [
+          266.543,
+          266.543,
+          266.543,
+          266.543
+        ],
+        "ratios": [
+          0.5001,
+          0.5001,
+          0.5001,
+          0.5001
+        ]
+      }
+    },
+    {
+      "check": "V7a active_only：被动力完全不变",
+      "ok": true,
+      "detail": {
+        "n_nonzero_passive": 3
+      }
+    },
+    {
+      "check": "V7b active_and_passive：被动力按倍率缩放",
+      "ok": true,
+      "detail": {
+        "n_nonzero_passive": 3,
+        "ratio_mean": 0.5
+      }
+    },
+    {
+      "check": "V7c 两种模式的被动力可区分",
+      "ok": true,
+      "detail": {
+        "max_abs_diff_passive_force": 0.8232903670002607
+      }
+    },
+    {
+      "check": "V8 reset 后与基准逐元素一致",
+      "ok": true,
+      "detail": {
+        "max_abs_diff": 0.0
+      }
+    }
+  ],
+  "slot_identification": {
+    "factor": 1.1,
+    "qpos_source": "key_qpos[0]",
+    "prm_slot_names": [
+      "range[0]",
+      "range[1]",
+      "force(F0)",
+      "scale",
+      "lmin",
+      "lmax",
+      "vmax",
+      "fpmax",
+      "fvmax"
+    ],
+    "active_response_gainprm": {
+      "range[0]": 1.1177169130351965,
+      "range[1]": 1.0430587036296424,
+      "force(F0)": 1.099904122462366,
+      "scale": 1.0,
+      "lmin": 0.9592362931614329,
+      "lmax": 1.0002778466890732,
+      "vmax": 1.0,
+      "fpmax": 1.0,
+      "fvmax": 1.0
+    },
+    "passive_response_biasprm": {
+      "range[0]": 11.331142765245014,
+      "range[1]": 441.27202898563,
+      "force(F0)": 1.1,
+      "scale": 1.0,
+      "lmin": 1.0,
+      "lmax": 0.6232686980609417,
+      "vmax": 1.0,
+      "fpmax": 1.1,
+      "fvmax": 1.0
+    },
+    "active_gain_slot": 2,
+    "passive_bias_slot": 2,
+    "active_slot_name": "force(F0)",
+    "passive_slot_name": "force(F0)",
+    "n_actuators_with_nonzero_active_force": 700,
+    "n_actuators_with_nonzero_passive_force": 41
+  },
+  "muscle_map_counts": {
+    "L/lower": 50,
+    "L/torso": 239,
+    "L/upper": 61,
+    "M/torso": 31,
+    "R/lower": 50,
+    "R/torso": 208,
+    "R/upper": 61
+  }
+}

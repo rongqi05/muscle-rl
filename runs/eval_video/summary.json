@@ -1,0 +1,123 @@
+{
+  "n_episodes": 1,
+  "metrics": {
+    "steps": {
+      "mean": 175.0,
+      "std": 0.0,
+      "min": 175.0,
+      "max": 175.0
+    },
+    "sim_time_s": {
+      "mean": 3.5,
+      "std": 0.0,
+      "min": 3.5,
+      "max": 3.5
+    },
+    "displacement_xy": {
+      "mean": 3.309610482862303,
+      "std": 0.0,
+      "min": 3.309610482862303,
+      "max": 3.309610482862303
+    },
+    "mean_speed_xy": {
+      "mean": 0.9456029951035152,
+      "std": 0.0,
+      "min": 0.9456029951035152,
+      "max": 0.9456029951035152
+    },
+    "mean_pelvis_height": {
+      "mean": 0.9132253932387626,
+      "std": 0.0,
+      "min": 0.9132253932387626,
+      "max": 0.9132253932387626
+    },
+    "min_pelvis_height": {
+      "mean": 0.875293546758,
+      "std": 0.0,
+      "min": 0.875293546758,
+      "max": 0.875293546758
+    },
+    "max_pelvis_up_tilt_deg": {
+      "mean": 11.714286357883726,
+      "std": 0.0,
+      "min": 11.714286357883726,
+      "max": 11.714286357883726
+    },
+    "mean_qpos_track_err": {
+      "mean": 0.035876331777159605,
+      "std": 0.0,
+      "min": 0.035876331777159605,
+      "max": 0.035876331777159605
+    },
+    "action_abs_mean": {
+      "mean": 0.742171789290467,
+      "std": 0.0,
+      "min": 0.742171789290467,
+      "max": 0.742171789290467
+    },
+    "activation_mean": {
+      "mean": 0.16516839260225769,
+      "std": 0.0,
+      "min": 0.16516839260225769,
+      "max": 0.16516839260225769
+    },
+    "actuator_force_abs_mean": {
+      "mean": 31.330643597551585,
+      "std": 0.0,
+      "min": 31.330643597551585,
+      "max": 31.330643597551585
+    },
+    "ncon_mean": {
+      "mean": 4.234285714285714,
+      "std": 0.0,
+      "min": 4.234285714285714,
+      "max": 4.234285714285714
+    },
+    "total_normal_force_mean": {
+      "mean": 589.928605285448,
+      "std": 0.0,
+      "min": 589.928605285448,
+      "max": 589.928605285448
+    },
+    "foot_contact_fraction": {
+      "mean": 1.0,
+      "std": 0.0,
+      "min": 1.0,
+      "max": 1.0
+    },
+    "max_abs_qvel": {
+      "mean": 19.523404555743383,
+      "std": 0.0,
+      "min": 19.523404555743383,
+      "max": 19.523404555743383
+    }
+  },
+  "termination_reasons": {
+    "未终止": 1
+  },
+  "n_terminated": 0,
+  "n_truncated": 0,
+  "strength_spec": null,
+  "termination_config": {
+    "kind": "official",
+    "min_pelvis_height": 0.55,
+    "max_pelvis_up_tilt_deg": 60.0,
+    "max_root_speed": 10.0,
+    "max_root_ang_speed": 50.0,
+    "max_joint_speed_norm": 200.0,
+    "nan_check": true,
+    "time_limit_s": null,
+    "allow_reference_deviation_termination": false
+  },
+  "deterministic": true,
+  "video": {
+    "requested": true,
+    "ok": true,
+    "path": "/home/zrq/Documents/muscle-rl/runs/eval_video/rollout.mp4",
+    "n_frames": 175,
+    "fps": 50.0,
+    "error": null,
+    "backend": "egl",
+    "note": "MuJoCo 离屏渲染（cameras: record_camera）"
+  }
+}

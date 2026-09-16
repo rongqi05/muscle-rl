@@ -1,0 +1,96 @@
+{
+  "n": 18,
+  "n_pass": 18,
+  "results": [
+    {
+      "test": "肌力缩放: F0 槽位实证结果 == gainprm[2] / biasprm[2]",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "肌群映射: 权威分组均为非 unknown，且无侧别不明的肢体肌肉",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "肌群映射: 与官方源文件分组计数一致 (50/50 lower, 61/61 upper, 478 torso)",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "策略组展开: 138 组 → 700 肌肉，索引语义与 DynSynLayer 一致",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "肌力缩放: 未知组键/肌肉名会报错，具体肌肉名可覆盖",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "肌群映射: 组之间互不重叠、并集覆盖全部执行器",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "肌群映射: 左右侧肢体肌群一一对应（同名去后缀）",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "肌力缩放: active_only 不改被动力, active_and_passive 改被动力",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "numpy 兼容层: 幂等且当前环境可用",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "策略组展开: 真实 checkpoint 的 138 个分组覆盖全部 700 块肌肉",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "肌力缩放: 1.0 精确还原基准；0.5 → 0.75 无累乘",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "肌力缩放: include_shoulder_girdle 会把 44 块躯干肩胛带肌肉纳入上肢组",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "终止配置: 未知字段报错，非法 kind 报错",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "终止配置: JSON 往返 + 注释键被忽略",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "终止配置: 拒绝「因偏离参考姿态而终止」的字段组合",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "终止配置: 骨盆过低 / 直立偏差过大 / 数值异常 都能触发",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "肌力缩放: 组外（健侧 + 躯干）参数逐元素不变",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "官方动作包装器: 与参考 sigmoid 逐点一致",
+      "ok": true,
+      "error": null
+    }
+  ]
+}

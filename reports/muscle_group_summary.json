@@ -1,0 +1,383 @@
+{
+  "n": 700,
+  "counts": {
+    "L/lower": 50,
+    "L/torso": 239,
+    "L/upper": 61,
+    "M/torso": 31,
+    "R/lower": 50,
+    "R/torso": 208,
+    "R/upper": 61
+  },
+  "n_no_movable_joint": 192,
+  "no_movable_joint_examples": [
+    "MF_m1s_r",
+    "MF_m1t_1_r",
+    "MF_m2s_r",
+    "MF_m1_laminar_r",
+    "MF_m2_laminar_r",
+    "MF_m3_laminar_r",
+    "IO1_r",
+    "IO2_r",
+    "IO3_r",
+    "deepmult-T2-T1"
+  ],
+  "n_crosses_other_limb_too": 44,
+  "n_geometry_disagreements": 44,
+  "geometry_disagreements": [
+    {
+      "name": "trap_acr_T1",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "trap_acr_T2",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "trap_acr_T3",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "trap_inf_T4",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "trap_inf_T5",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "trap_inf_T6",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "trap_inf_T7",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "trap_inf_T8",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "trap_inf_T9",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "trap_inf_T10",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "trap_inf_T11",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "trap_inf_T12",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "SerrAnt1_1_R",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "SerrAnt2_1_R",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "SerrAnt2_2_R",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "SerrAnt3_1_R",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "SerrAnt4_1_R",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "SerrAnt5_1_R",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "SerrAnt6_1_R",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "SerrAnt7_1_R",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "SerrAnt8_1_R",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "SerrAnt9_1_R",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "trap_acr_T1_L",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "trap_acr_T2_L",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "trap_acr_T3_L",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "trap_inf_T4_L",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "trap_inf_T5_L",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "trap_inf_T6_L",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "trap_inf_T7_L",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "trap_inf_T8_L",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "trap_inf_T9_L",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "trap_inf_T10_L",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "trap_inf_T11_L",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "trap_inf_T12_L",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "SerrAnt1_1_L",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "SerrAnt2_1_L",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "SerrAnt2_2_L",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "SerrAnt3_1_L",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "SerrAnt4_1_L",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "SerrAnt5_1_L",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "SerrAnt6_1_L",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "SerrAnt7_1_L",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "SerrAnt8_1_L",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    },
+    {
+      "name": "SerrAnt9_1_L",
+      "limb_group": "torso",
+      "crossed_limbs": [
+        "upper"
+      ],
+      "note": "跨关节(['upper']) 不含权威分组 torso"
+    }
+  ],
+  "xml": "/home/zrq/Documents/muscle-rl/external/MS-Human-700/MS-Human-700.xml",
+  "problems": []
+}

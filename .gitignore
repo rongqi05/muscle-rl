@@ -1,0 +1,25 @@
+# ---- 上游只读依赖：用 scripts/setup_external.sh 获取，不入库 ----
+external/
+
+# ---- 大体积产物：官方 checkpoint、派生模型 ----
+artifacts/
+
+# ---- 实验产物中的大文件 ----
+# runs/ 下的 run.json / episodes.json / summary.json / sweep.csv 是结果证据，需要入库；
+# 逐步轨迹与视频不入库。
+*.npz
+*.mp4
+*.gif
+*.pth
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.pytest_cache/
+
+# ---- 编辑器 / 系统 ----
+.vscode/
+.idea/
+.DS_Store

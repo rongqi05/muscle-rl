@@ -1,0 +1,12 @@
+{
+  "kind": "research",
+  "min_pelvis_height": 0.55,
+  "max_pelvis_up_tilt_deg": 60.0,
+  "max_root_speed": 10.0,
+  "max_root_ang_speed": 50.0,
+  "max_joint_speed_norm": 200.0,
+  "nan_check": true,
+  "time_limit_s": null,
+  "allow_reference_deviation_termination": false,
+  "_comment": "研究用终止规则。不再因偏离参考姿态终止。阈值量级来自实测：参考轨迹骨盆高度均值 0.9205 m（最低 0.9011）；min_pelvis_height=0.55 约为其 60%。参考步速 1.038 m/s，max_root_speed=10 m/s 只用于捕捉数值爆炸。使用时请核对 reports/model_inspection_full.json 与 runs/*/probe_env 输出。"
+}

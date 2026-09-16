@@ -1,0 +1,151 @@
+{
+  "nq": 85,
+  "root_joint_table": [
+    {
+      "jnt_id": 0,
+      "name": "pelvis_tz",
+      "qposadr": 0,
+      "dofadr": 0,
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "jnt_id": 1,
+      "name": "pelvis_ty",
+      "qposadr": 1,
+      "dofadr": 1,
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "jnt_id": 2,
+      "name": "pelvis_tx",
+      "qposadr": 2,
+      "dofadr": 2,
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "jnt_id": 3,
+      "name": "pelvis_tilt",
+      "qposadr": 3,
+      "dofadr": 3,
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "jnt_id": 4,
+      "name": "pelvis_list",
+      "qposadr": 4,
+      "dofadr": 4,
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "jnt_id": 5,
+      "name": "pelvis_rotation",
+      "qposadr": 5,
+      "dofadr": 5,
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "qpos_slot_effect": [
+    {
+      "qpos_idx": 0,
+      "delta": [
+        0.0,
+        -0.19999999999999996,
+        0.0
+      ],
+      "pos": [
+        0.0,
+        -0.19999999999999996,
+        0.95
+      ]
+    },
+    {
+      "qpos_idx": 1,
+      "delta": [
+        0.0,
+        4.4408920985006264e-17,
+        0.19999999999999996
+      ],
+      "pos": [
+        0.0,
+        4.4408920985006264e-17,
+        1.15
+      ]
+    },
+    {
+      "qpos_idx": 2,
+      "delta": [
+        0.2,
+        0.0,
+        0.0
+      ],
+      "pos": [
+        0.2,
+        0.0,
+        0.95
+      ]
+    },
+    {
+      "qpos_idx": 3,
+      "delta": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pos": [
+        0.0,
+        0.0,
+        0.95
+      ]
+    },
+    {
+      "qpos_idx": 4,
+      "delta": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pos": [
+        0.0,
+        0.0,
+        0.95
+      ]
+    },
+    {
+      "qpos_idx": 5,
+      "delta": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pos": [
+        0.0,
+        0.0,
+        0.95
+      ]
+    }
+  ]
+}

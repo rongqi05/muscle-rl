@@ -1,0 +1,3388 @@
+{
+  "episodes": [
+    {
+      "label": "A_upper_u1.0_l1.0",
+      "seed": 0,
+      "strength": {
+        "spec": {
+          "paretic_side": "L",
+          "upper_scale": 1.0,
+          "lower_scale": 1.0,
+          "torso_scale": 1.0,
+          "group_scales": {},
+          "include_shoulder_girdle": false,
+          "mode": "active_only",
+          "note": ""
+        },
+        "n_scaled": 0,
+        "n_unchanged": 700,
+        "group_counts": {},
+        "f0_multiplier_min": 1.0,
+        "f0_multiplier_max": 1.0,
+        "applied_slots": {
+          "gainprm": 2,
+          "biasprm": -1
+        }
+      },
+      "steps": 175,
+      "sim_time_s": 3.5,
+      "wall_time_s": 2.3632380799999737,
+      "terminated": false,
+      "truncated": false,
+      "termination_reason": null,
+      "termination_source": "research",
+      "n_official_term_flags": 0,
+      "n_steps_after_official_term": 0,
+      "root_start_pos": [
+        0.9938051914824523,
+        0.0351299562191073,
+        0.9088988275720309
+      ],
+      "root_end_pos": [
+        4.301956405088861,
+        0.13340048174173208,
+        0.9287370008723398
+      ],
+      "displacement_xy": 3.309610482862303,
+      "distance_3d": 3.309669938436753,
+      "mean_speed_xy": 0.9456029951035152,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9132253932387626,
+      "min_pelvis_height": 0.875293546758,
+      "max_pelvis_up_tilt_deg": 11.714286357883726,
+      "max_root_speed": 1.396853403027086,
+      "final_root_lin_vel": [
+        0.7497394992788945,
+        0.013851809343916686,
+        -0.003021653136849234
+      ],
+      "final_root_ang_vel": [
+        -1.416952529290669,
+        -0.08914680071566357,
+        0.888554610221181
+      ],
+      "mean_qpos_track_err": 0.035876331777159605,
+      "max_qpos_track_err": 0.05178424992183862,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.8452489800419687,
+          "excitation_mean": 0.06746956927504442,
+          "activation_mean": 0.07929451046699183,
+          "force_abs_mean": 17.57251982771493
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9209531868592916,
+          "excitation_mean": 0.0781465662434202,
+          "activation_mean": 0.08561185846237698,
+          "force_abs_mean": 13.548881174626949
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.6609442348480224,
+          "excitation_mean": 0.20932466777883071,
+          "activation_mean": 0.2462553359885912,
+          "force_abs_mean": 126.7853313337224
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7209422520433154,
+          "excitation_mean": 0.17368856710238784,
+          "activation_mean": 0.20547251756763663,
+          "force_abs_mean": 93.51891742054724
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.5763329637105564,
+          "excitation_mean": 0.14538302096863348,
+          "activation_mean": 0.18039570142429293,
+          "force_abs_mean": 16.233980127562948
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7241338541047415,
+          "excitation_mean": 0.12778459763723451,
+          "activation_mean": 0.1498821911401038,
+          "force_abs_mean": 18.148338547277696
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7295830912102055,
+          "excitation_mean": 0.17637483962925707,
+          "activation_mean": 0.19979847698288264,
+          "force_abs_mean": 20.08233808978823
+        }
+      },
+      "action_abs_mean": 0.742171789290467,
+      "action_abs_max": 0.8270487503494535,
+      "excitation_mean": 0.14252372162699917,
+      "activation_mean": 0.16516839260225769,
+      "actuator_force_abs_mean": 31.330643597551585,
+      "ncon_mean": 4.234285714285714,
+      "ncon_max": 8.0,
+      "total_normal_force_mean": 589.928605285448,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 19.523404555743383,
+      "max_abs_qacc": 20022.935795181096,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "trail": null,
+      "sweep": "A_upper",
+      "upper_scale": 1.0,
+      "lower_scale": 1.0,
+      "n_scaled_muscles": 0,
+      "group_counts": {},
+      "applied_slots": {
+        "gainprm": 2,
+        "biasprm": -1
+      }
+    },
+    {
+      "label": "A_upper_u1.0_l1.0",
+      "seed": 1,
+      "strength": {
+        "spec": {
+          "paretic_side": "L",
+          "upper_scale": 1.0,
+          "lower_scale": 1.0,
+          "torso_scale": 1.0,
+          "group_scales": {},
+          "include_shoulder_girdle": false,
+          "mode": "active_only",
+          "note": ""
+        },
+        "n_scaled": 0,
+        "n_unchanged": 700,
+        "group_counts": {},
+        "f0_multiplier_min": 1.0,
+        "f0_multiplier_max": 1.0,
+        "applied_slots": {
+          "gainprm": 2,
+          "biasprm": -1
+        }
+      },
+      "steps": 175,
+      "sim_time_s": 3.5,
+      "wall_time_s": 2.281308911999986,
+      "terminated": false,
+      "truncated": false,
+      "termination_reason": null,
+      "termination_source": "research",
+      "n_official_term_flags": 0,
+      "n_steps_after_official_term": 0,
+      "root_start_pos": [
+        0.5814191804746273,
+        0.014396046826729927,
+        0.9081504525495855
+      ],
+      "root_end_pos": [
+        4.01634117516926,
+        0.047464792108870175,
+        0.8974605510260709
+      ],
+      "displacement_xy": 3.4350811710280578,
+      "distance_3d": 3.435097804363956,
+      "mean_speed_xy": 0.9814517631508737,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9121738961649039,
+      "min_pelvis_height": 0.8755396682870107,
+      "max_pelvis_up_tilt_deg": 8.59525592695044,
+      "max_root_speed": 1.4088565227562322,
+      "final_root_lin_vel": [
+        0.7956110294572692,
+        0.266166734719133,
+        0.2630140029577557
+      ],
+      "final_root_ang_vel": [
+        0.6232567519251252,
+        -0.22447587064851002,
+        -0.2427103609569486
+      ],
+      "mean_qpos_track_err": 0.03480882818710437,
+      "max_qpos_track_err": 0.053408100776207404,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.8601209000346254,
+          "excitation_mean": 0.0761035369619546,
+          "activation_mean": 0.09026529845088282,
+          "force_abs_mean": 18.878767859437446
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9285083985161168,
+          "excitation_mean": 0.08277599250749453,
+          "activation_mean": 0.09058665665236645,
+          "force_abs_mean": 13.943668052340634
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.6677128827026911,
+          "excitation_mean": 0.2042949970593809,
+          "activation_mean": 0.2437455144762321,
+          "force_abs_mean": 124.22828270177395
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7355756178855896,
+          "excitation_mean": 0.17267442466240776,
+          "activation_mean": 0.20494145672968694,
+          "force_abs_mean": 91.60942739189606
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.5900413956949788,
+          "excitation_mean": 0.1444108467365289,
+          "activation_mean": 0.18093648216881975,
+          "force_abs_mean": 16.8693274121747
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7302738353868339,
+          "excitation_mean": 0.121649551712148,
+          "activation_mean": 0.14237994321510464,
+          "force_abs_mean": 17.517237755405223
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7239430453554615,
+          "excitation_mean": 0.16800198080503811,
+          "activation_mean": 0.1907770945718238,
+          "force_abs_mean": 19.433349496278638
+        }
+      },
+      "action_abs_mean": 0.7466824222842042,
+      "action_abs_max": 0.840184993488448,
+      "excitation_mean": 0.13862216214172787,
+      "activation_mean": 0.1611225583831099,
+      "actuator_force_abs_mean": 30.779656805495968,
+      "ncon_mean": 4.251428571428572,
+      "ncon_max": 9.0,
+      "total_normal_force_mean": 584.4545782733053,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 30.682069990119814,
+      "max_abs_qacc": 22055.49420093204,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "trail": null,
+      "sweep": "A_upper",
+      "upper_scale": 1.0,
+      "lower_scale": 1.0,
+      "n_scaled_muscles": 0,
+      "group_counts": {},
+      "applied_slots": {
+        "gainprm": 2,
+        "biasprm": -1
+      }
+    },
+    {
+      "label": "A_upper_u1.0_l1.0",
+      "seed": 2,
+      "strength": {
+        "spec": {
+          "paretic_side": "L",
+          "upper_scale": 1.0,
+          "lower_scale": 1.0,
+          "torso_scale": 1.0,
+          "group_scales": {},
+          "include_shoulder_girdle": false,
+          "mode": "active_only",
+          "note": ""
+        },
+        "n_scaled": 0,
+        "n_unchanged": 700,
+        "group_counts": {},
+        "f0_multiplier_min": 1.0,
+        "f0_multiplier_max": 1.0,
+        "applied_slots": {
+          "gainprm": 2,
+          "biasprm": -1
+        }
+      },
+      "steps": 175,
+      "sim_time_s": 3.5,
+      "wall_time_s": 2.547333804000118,
+      "terminated": false,
+      "truncated": false,
+      "termination_reason": null,
+      "termination_source": "research",
+      "n_official_term_flags": 0,
+      "n_steps_after_official_term": 0,
+      "root_start_pos": [
+        0.9723999483126454,
+        0.037036069645029805,
+        0.9127672532943142
+      ],
+      "root_end_pos": [
+        4.296947123372644,
+        0.13650957966222133,
+        0.9317763111106011
+      ],
+      "displacement_xy": 3.3260350116008333,
+      "distance_3d": 3.326089331733834,
+      "mean_speed_xy": 0.9502957176002381,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9130381725264101,
+      "min_pelvis_height": 0.8787328736103246,
+      "max_pelvis_up_tilt_deg": 11.477330234234673,
+      "max_root_speed": 1.4222775966427335,
+      "final_root_lin_vel": [
+        0.6674475039424371,
+        0.04035205629028217,
+        0.0012266733389232687
+      ],
+      "final_root_ang_vel": [
+        -1.4445611762585144,
+        0.2822186796039329,
+        0.7566614889974501
+      ],
+      "mean_qpos_track_err": 0.03566082798276408,
+      "max_qpos_track_err": 0.05137093256660227,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.8417683158546199,
+          "excitation_mean": 0.06907825896477182,
+          "activation_mean": 0.08163349538885606,
+          "force_abs_mean": 17.70092153712195
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9219956561999801,
+          "excitation_mean": 0.07789050249631496,
+          "activation_mean": 0.08576562693773532,
+          "force_abs_mean": 13.47247128078819
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.6654604900564466,
+          "excitation_mean": 0.21384707964014793,
+          "activation_mean": 0.2514912282753905,
+          "force_abs_mean": 128.0196484631917
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7272345583166395,
+          "excitation_mean": 0.1715067235534279,
+          "activation_mean": 0.2033789791231996,
+          "force_abs_mean": 92.38242705531889
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.5987397648661916,
+          "excitation_mean": 0.15065122800927463,
+          "activation_mean": 0.18671675207408583,
+          "force_abs_mean": 16.809218711920963
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7265938840066325,
+          "excitation_mean": 0.1249423464176869,
+          "activation_mean": 0.14652450148755466,
+          "force_abs_mean": 17.70878172476808
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7273820456338452,
+          "excitation_mean": 0.17466097645192266,
+          "activation_mean": 0.19754495351642826,
+          "force_abs_mean": 19.89780922666252
+        }
+      },
+      "action_abs_mean": 0.7439095588489455,
+      "action_abs_max": 0.8415122846194676,
+      "excitation_mean": 0.14156239510417098,
+      "activation_mean": 0.1640739747615584,
+      "actuator_force_abs_mean": 31.16272809893282,
+      "ncon_mean": 4.268571428571429,
+      "ncon_max": 10.0,
+      "total_normal_force_mean": 596.1316956265814,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 26.77327593251245,
+      "max_abs_qacc": 18528.836789285233,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "trail": null,
+      "sweep": "A_upper",
+      "upper_scale": 1.0,
+      "lower_scale": 1.0,
+      "n_scaled_muscles": 0,
+      "group_counts": {},
+      "applied_slots": {
+        "gainprm": 2,
+        "biasprm": -1
+      }
+    },
+    {
+      "label": "A_upper_u0.75_l1.0",
+      "seed": 0,
+      "strength": {
+        "spec": {
+          "paretic_side": "L",
+          "upper_scale": 0.75,
+          "lower_scale": 1.0,
+          "torso_scale": 1.0,
+          "group_scales": {},
+          "include_shoulder_girdle": false,
+          "mode": "active_only",
+          "note": ""
+        },
+        "n_scaled": 61,
+        "n_unchanged": 639,
+        "group_counts": {
+          "L/upper": 61
+        },
+        "f0_multiplier_min": 0.75,
+        "f0_multiplier_max": 1.0,
+        "applied_slots": {
+          "gainprm": 2,
+          "biasprm": -1
+        }
+      },
+      "steps": 175,
+      "sim_time_s": 3.5,
+      "wall_time_s": 2.272119626999938,
+      "terminated": false,
+      "truncated": false,
+      "termination_reason": null,
+      "termination_source": "research",
+      "n_official_term_flags": 0,
+      "n_steps_after_official_term": 0,
+      "root_start_pos": [
+        0.9938051914824523,
+        0.0351299562191073,
+        0.9088988275720309
+      ],
+      "root_end_pos": [
+        4.1745408794379335,
+        0.15175216063562155,
+        0.93069357501168
+      ],
+      "displacement_xy": 3.182872956182291,
+      "distance_3d": 3.1829475751593135,
+      "mean_speed_xy": 0.9093922731949402,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9135918499638481,
+      "min_pelvis_height": 0.8786880729538367,
+      "max_pelvis_up_tilt_deg": 11.079149756129308,
+      "max_root_speed": 1.3132803667508497,
+      "final_root_lin_vel": [
+        0.7249226970774693,
+        0.15914845971856642,
+        -0.0259168510582005
+      ],
+      "final_root_ang_vel": [
+        -0.9972197895498028,
+        -0.019376052653158973,
+        0.7293120470606859
+      ],
+      "mean_qpos_track_err": 0.039410394925854145,
+      "max_qpos_track_err": 0.05387499865572411,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.8630167875971113,
+          "excitation_mean": 0.062425067375459886,
+          "activation_mean": 0.07171408093908099,
+          "force_abs_mean": 13.400939715106917
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9216463321991774,
+          "excitation_mean": 0.0767632672739754,
+          "activation_mean": 0.08421295753168774,
+          "force_abs_mean": 13.169827220825542
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.6445940214088984,
+          "excitation_mean": 0.19896146229441009,
+          "activation_mean": 0.23874099739169644,
+          "force_abs_mean": 121.04051178252475
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.736824855879375,
+          "excitation_mean": 0.1738164377856667,
+          "activation_mean": 0.20418886623351418,
+          "force_abs_mean": 93.20937083364943
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.6025737022584484,
+          "excitation_mean": 0.1594092332961012,
+          "activation_mean": 0.19191834750823505,
+          "force_abs_mean": 16.898975944353186
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7057919292569659,
+          "excitation_mean": 0.13109946276359893,
+          "activation_mean": 0.15178602713650505,
+          "force_abs_mean": 18.518430858422388
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7249420663992783,
+          "excitation_mean": 0.1715404421387651,
+          "activation_mean": 0.19408248634370945,
+          "force_abs_mean": 19.913376284576497
+        }
+      },
+      "action_abs_mean": 0.7372677140649484,
+      "action_abs_max": 0.83516493167196,
+      "excitation_mean": 0.1415489331645169,
+      "activation_mean": 0.16321932706549855,
+      "actuator_force_abs_mean": 30.607237729329146,
+      "ncon_mean": 4.182857142857143,
+      "ncon_max": 8.0,
+      "total_normal_force_mean": 588.8590213110456,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 17.92528717394077,
+      "max_abs_qacc": 15773.486269599067,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "trail": null,
+      "sweep": "A_upper",
+      "upper_scale": 0.75,
+      "lower_scale": 1.0,
+      "n_scaled_muscles": 61,
+      "group_counts": {
+        "L/upper": 61
+      },
+      "applied_slots": {
+        "gainprm": 2,
+        "biasprm": -1
+      }
+    },
+    {
+      "label": "A_upper_u0.75_l1.0",
+      "seed": 1,
+      "strength": {
+        "spec": {
+          "paretic_side": "L",
+          "upper_scale": 0.75,
+          "lower_scale": 1.0,
+          "torso_scale": 1.0,
+          "group_scales": {},
+          "include_shoulder_girdle": false,
+          "mode": "active_only",
+          "note": ""
+        },
+        "n_scaled": 61,
+        "n_unchanged": 639,
+        "group_counts": {
+          "L/upper": 61
+        },
+        "f0_multiplier_min": 0.75,
+        "f0_multiplier_max": 1.0,
+        "applied_slots": {
+          "gainprm": 2,
+          "biasprm": -1
+        }
+      },
+      "steps": 175,
+      "sim_time_s": 3.5,
+      "wall_time_s": 2.732700553000086,
+      "terminated": false,
+      "truncated": false,
+      "termination_reason": null,
+      "termination_source": "research",
+      "n_official_term_flags": 0,
+      "n_steps_after_official_term": 0,
+      "root_start_pos": [
+        0.5814191804746273,
+        0.014396046826729927,
+        0.9081504525495855
+      ],
+      "root_end_pos": [
+        3.933161577534934,
+        0.04755190141695699,
+        0.8974995480675314
+      ],
+      "displacement_xy": 3.351906383976912,
+      "distance_3d": 3.3519233059113187,
+      "mean_speed_xy": 0.9576875382791178,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9136173939963416,
+      "min_pelvis_height": 0.8775579447158046,
+      "max_pelvis_up_tilt_deg": 7.717218798147075,
+      "max_root_speed": 1.4265512867966483,
+      "final_root_lin_vel": [
+        0.8195152986854144,
+        0.29628336935052846,
+        0.29224045792210734
+      ],
+      "final_root_ang_vel": [
+        0.30038133885628954,
+        -0.3115618007877368,
+        -1.0701292410622523
+      ],
+      "mean_qpos_track_err": 0.03732653026900531,
+      "max_qpos_track_err": 0.054764073695408616,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.870447720761042,
+          "excitation_mean": 0.0696766068517237,
+          "activation_mean": 0.08225036895873045,
+          "force_abs_mean": 14.464609460156044
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9276776778614214,
+          "excitation_mean": 0.08105731761039385,
+          "activation_mean": 0.08878578044642393,
+          "force_abs_mean": 13.696597020759
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.6582927070822034,
+          "excitation_mean": 0.19989971422223773,
+          "activation_mean": 0.23958992654132877,
+          "force_abs_mean": 120.11981583613417
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.739873908492497,
+          "excitation_mean": 0.17261408345065343,
+          "activation_mean": 0.20381458305209138,
+          "force_abs_mean": 92.59617822942676
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.581037693155526,
+          "excitation_mean": 0.14912964380141305,
+          "activation_mean": 0.1858367997764795,
+          "force_abs_mean": 16.821864759599688
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7200770635542155,
+          "excitation_mean": 0.1237298894225112,
+          "activation_mean": 0.14426566506232547,
+          "force_abs_mean": 17.86063701519264
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7222670459354316,
+          "excitation_mean": 0.16535260385285344,
+          "activation_mean": 0.18749218792181183,
+          "force_abs_mean": 19.429195637754116
+        }
+      },
+      "action_abs_mean": 0.7427658747522199,
+      "action_abs_max": 0.8333906193290438,
+      "excitation_mean": 0.13772609058150176,
+      "activation_mean": 0.15977462917726992,
+      "actuator_force_abs_mean": 30.264394350636206,
+      "ncon_mean": 4.222857142857142,
+      "ncon_max": 8.0,
+      "total_normal_force_mean": 588.2647822956895,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 21.39738618037568,
+      "max_abs_qacc": 18202.69689888903,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "trail": null,
+      "sweep": "A_upper",
+      "upper_scale": 0.75,
+      "lower_scale": 1.0,
+      "n_scaled_muscles": 61,
+      "group_counts": {
+        "L/upper": 61
+      },
+      "applied_slots": {
+        "gainprm": 2,
+        "biasprm": -1
+      }
+    },
+    {
+      "label": "A_upper_u0.75_l1.0",
+      "seed": 2,
+      "strength": {
+        "spec": {
+          "paretic_side": "L",
+          "upper_scale": 0.75,
+          "lower_scale": 1.0,
+          "torso_scale": 1.0,
+          "group_scales": {},
+          "include_shoulder_girdle": false,
+          "mode": "active_only",
+          "note": ""
+        },
+        "n_scaled": 61,
+        "n_unchanged": 639,
+        "group_counts": {
+          "L/upper": 61
+        },
+        "f0_multiplier_min": 0.75,
+        "f0_multiplier_max": 1.0,
+        "applied_slots": {
+          "gainprm": 2,
+          "biasprm": -1
+        }
+      },
+      "steps": 175,
+      "sim_time_s": 3.5,
+      "wall_time_s": 2.2187599819999377,
+      "terminated": false,
+      "truncated": false,
+      "termination_reason": null,
+      "termination_source": "research",
+      "n_official_term_flags": 0,
+      "n_steps_after_official_term": 0,
+      "root_start_pos": [
+        0.9723999483126454,
+        0.037036069645029805,
+        0.9127672532943142
+      ],
+      "root_end_pos": [
+        4.185529202951249,
+        0.16449294603900136,
+        0.9338989476389445
+      ],
+      "displacement_xy": 3.215656210224367,
+      "distance_3d": 3.21572564297087,
+      "mean_speed_xy": 0.918758917206962,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9132329070428327,
+      "min_pelvis_height": 0.8789942584519006,
+      "max_pelvis_up_tilt_deg": 10.804303797290428,
+      "max_root_speed": 1.3449226958791891,
+      "final_root_lin_vel": [
+        0.6651487918403803,
+        0.18358143840481334,
+        0.0029587394123188476
+      ],
+      "final_root_ang_vel": [
+        -0.8142613271405797,
+        -0.10155386182958964,
+        1.055101033552975
+      ],
+      "mean_qpos_track_err": 0.03931925169913583,
+      "max_qpos_track_err": 0.05272207690931013,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.8610093538040858,
+          "excitation_mean": 0.06496231525723083,
+          "activation_mean": 0.07513101469564089,
+          "force_abs_mean": 13.633492736700163
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9216186476312143,
+          "excitation_mean": 0.07735103592216594,
+          "activation_mean": 0.08512953130250407,
+          "force_abs_mean": 13.311475762198638
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.6562554544312612,
+          "excitation_mean": 0.19758756738192002,
+          "activation_mean": 0.23842196260269466,
+          "force_abs_mean": 120.4245014240643
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7256213422162191,
+          "excitation_mean": 0.17539145171368892,
+          "activation_mean": 0.20454676030359978,
+          "force_abs_mean": 92.44346677126542
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.6004028864939641,
+          "excitation_mean": 0.1459471832889171,
+          "activation_mean": 0.17462221413848558,
+          "force_abs_mean": 14.73000808426521
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.712562246103167,
+          "excitation_mean": 0.12703632056213626,
+          "activation_mean": 0.14775374475143307,
+          "force_abs_mean": 18.005023524817062
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7292889604168934,
+          "excitation_mean": 0.17040614462776624,
+          "activation_mean": 0.19286239472835323,
+          "force_abs_mean": 19.65916456472072
+        }
+      },
+      "action_abs_mean": 0.7406301685523016,
+      "action_abs_max": 0.8330764964648656,
+      "excitation_mean": 0.13951512393658003,
+      "activation_mean": 0.1610944874122637,
+      "actuator_force_abs_mean": 30.19425512957818,
+      "ncon_mean": 4.182857142857143,
+      "ncon_max": 10.0,
+      "total_normal_force_mean": 594.6681644478032,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 15.353833931045793,
+      "max_abs_qacc": 17102.17951662799,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "trail": null,
+      "sweep": "A_upper",
+      "upper_scale": 0.75,
+      "lower_scale": 1.0,
+      "n_scaled_muscles": 61,
+      "group_counts": {
+        "L/upper": 61
+      },
+      "applied_slots": {
+        "gainprm": 2,
+        "biasprm": -1
+      }
+    },
+    {
+      "label": "A_upper_u0.5_l1.0",
+      "seed": 0,
+      "strength": {
+        "spec": {
+          "paretic_side": "L",
+          "upper_scale": 0.5,
+          "lower_scale": 1.0,
+          "torso_scale": 1.0,
+          "group_scales": {},
+          "include_shoulder_girdle": false,
+          "mode": "active_only",
+          "note": ""
+        },
+        "n_scaled": 61,
+        "n_unchanged": 639,
+        "group_counts": {
+          "L/upper": 61
+        },
+        "f0_multiplier_min": 0.5,
+        "f0_multiplier_max": 1.0,
+        "applied_slots": {
+          "gainprm": 2,
+          "biasprm": -1
+        }
+      },
+      "steps": 175,
+      "sim_time_s": 3.5,
+      "wall_time_s": 4.282130071999745,
+      "terminated": false,
+      "truncated": false,
+      "termination_reason": null,
+      "termination_source": "research",
+      "n_official_term_flags": 3,
+      "n_steps_after_official_term": 3,
+      "root_start_pos": [
+        0.9938051914824523,
+        0.0351299562191073,
+        0.9088988275720309
+      ],
+      "root_end_pos": [
+        4.160687063390228,
+        0.1936930109040449,
+        0.9330021404592411
+      ],
+      "displacement_xy": 3.170848945145309,
+      "distance_3d": 3.1709405548860827,
+      "mean_speed_xy": 0.9059568414700883,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9138894241133465,
+      "min_pelvis_height": 0.8795311066822783,
+      "max_pelvis_up_tilt_deg": 10.496990368405237,
+      "max_root_speed": 1.2412570081909227,
+      "final_root_lin_vel": [
+        0.611609197550192,
+        0.21561585653033563,
+        0.0026624989823887863
+      ],
+      "final_root_ang_vel": [
+        -0.7489756966268217,
+        -0.2045962904502637,
+        1.3038144942144105
+      ],
+      "mean_qpos_track_err": 0.044774665690162536,
+      "max_qpos_track_err": 0.060150906464079806,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.8838222245589353,
+          "excitation_mean": 0.06730268761630125,
+          "activation_mean": 0.07529456099481135,
+          "force_abs_mean": 10.068135429285345
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9207192455521791,
+          "excitation_mean": 0.0766184847597338,
+          "activation_mean": 0.0841129462298052,
+          "force_abs_mean": 13.017279936734235
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.6522479701178414,
+          "excitation_mean": 0.19385765139485842,
+          "activation_mean": 0.23361336367515345,
+          "force_abs_mean": 118.74387422941601
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7538747754573822,
+          "excitation_mean": 0.1815012482313306,
+          "activation_mean": 0.21110264174106744,
+          "force_abs_mean": 94.79667018035722
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.6216499973112536,
+          "excitation_mean": 0.1793881820298491,
+          "activation_mean": 0.2065598563094701,
+          "force_abs_mean": 17.469679919676317
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7135355176771748,
+          "excitation_mean": 0.12971836231600908,
+          "activation_mean": 0.14840861029686364,
+          "force_abs_mean": 18.45303637939615
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7366851601610473,
+          "excitation_mean": 0.17067186769295214,
+          "activation_mean": 0.19147181607176694,
+          "force_abs_mean": 19.641340050489987
+        }
+      },
+      "action_abs_mean": 0.7477425984436152,
+      "action_abs_max": 0.8423641892841884,
+      "excitation_mean": 0.14230086744690448,
+      "activation_mean": 0.1623697276585488,
+      "actuator_force_abs_mean": 30.174960086433458,
+      "ncon_mean": 4.2457142857142856,
+      "ncon_max": 10.0,
+      "total_normal_force_mean": 592.7009340677777,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 22.55655143563099,
+      "max_abs_qacc": 20917.18725560901,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "trail": null,
+      "sweep": "A_upper",
+      "upper_scale": 0.5,
+      "lower_scale": 1.0,
+      "n_scaled_muscles": 61,
+      "group_counts": {
+        "L/upper": 61
+      },
+      "applied_slots": {
+        "gainprm": 2,
+        "biasprm": -1
+      }
+    },
+    {
+      "label": "A_upper_u0.5_l1.0",
+      "seed": 1,
+      "strength": {
+        "spec": {
+          "paretic_side": "L",
+          "upper_scale": 0.5,
+          "lower_scale": 1.0,
+          "torso_scale": 1.0,
+          "group_scales": {},
+          "include_shoulder_girdle": false,
+          "mode": "active_only",
+          "note": ""
+        },
+        "n_scaled": 61,
+        "n_unchanged": 639,
+        "group_counts": {
+          "L/upper": 61
+        },
+        "f0_multiplier_min": 0.5,
+        "f0_multiplier_max": 1.0,
+        "applied_slots": {
+          "gainprm": 2,
+          "biasprm": -1
+        }
+      },
+      "steps": 175,
+      "sim_time_s": 3.5,
+      "wall_time_s": 2.257106106000265,
+      "terminated": false,
+      "truncated": false,
+      "termination_reason": null,
+      "termination_source": "research",
+      "n_official_term_flags": 0,
+      "n_steps_after_official_term": 0,
+      "root_start_pos": [
+        0.5814191804746273,
+        0.014396046826729927,
+        0.9081504525495855
+      ],
+      "root_end_pos": [
+        3.899398142409182,
+        0.05176086277707442,
+        0.8960274277580856
+      ],
+      "displacement_xy": 3.318189343800517,
+      "distance_3d": 3.318211489498734,
+      "mean_speed_xy": 0.9480540982287192,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9130354987134826,
+      "min_pelvis_height": 0.8762436975392096,
+      "max_pelvis_up_tilt_deg": 9.216738823018494,
+      "max_root_speed": 1.3667144421391575,
+      "final_root_lin_vel": [
+        0.7702544305859421,
+        0.32483281282176957,
+        0.2862268962875808
+      ],
+      "final_root_ang_vel": [
+        0.578948652323526,
+        0.017343160428833482,
+        0.25490706813029873
+      ],
+      "mean_qpos_track_err": 0.041858843530268565,
+      "max_qpos_track_err": 0.05728753570421144,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.8921450496948296,
+          "excitation_mean": 0.06846036950584318,
+          "activation_mean": 0.07720414846675328,
+          "force_abs_mean": 10.474019469923887
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9298208434241159,
+          "excitation_mean": 0.07786237980636596,
+          "activation_mean": 0.08539764758119445,
+          "force_abs_mean": 13.037937012239054
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.6544993300165449,
+          "excitation_mean": 0.19603434696725702,
+          "activation_mean": 0.23688096361306774,
+          "force_abs_mean": 118.53396855940176
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7433209162030902,
+          "excitation_mean": 0.1766257810703545,
+          "activation_mean": 0.20658143658462863,
+          "force_abs_mean": 94.1743968865194
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.5865603096584021,
+          "excitation_mean": 0.16949093838916526,
+          "activation_mean": 0.20430783690434567,
+          "force_abs_mean": 17.76751819782571
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7227498076265612,
+          "excitation_mean": 0.1225904637476005,
+          "activation_mean": 0.14205969791467352,
+          "force_abs_mean": 17.621173617648502
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7394023291668396,
+          "excitation_mean": 0.16293118829745862,
+          "activation_mean": 0.18534651704594374,
+          "force_abs_mean": 19.273615126989494
+        }
+      },
+      "action_abs_mean": 0.7510674141144266,
+      "action_abs_max": 0.8429463981730597,
+      "excitation_mean": 0.1371453160021963,
+      "activation_mean": 0.1584710226571537,
+      "actuator_force_abs_mean": 29.772590175532002,
+      "ncon_mean": 4.285714285714286,
+      "ncon_max": 9.0,
+      "total_normal_force_mean": 592.7415682993151,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 21.58359333929104,
+      "max_abs_qacc": 18726.902103234504,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "trail": null,
+      "sweep": "A_upper",
+      "upper_scale": 0.5,
+      "lower_scale": 1.0,
+      "n_scaled_muscles": 61,
+      "group_counts": {
+        "L/upper": 61
+      },
+      "applied_slots": {
+        "gainprm": 2,
+        "biasprm": -1
+      }
+    },
+    {
+      "label": "A_upper_u0.5_l1.0",
+      "seed": 2,
+      "strength": {
+        "spec": {
+          "paretic_side": "L",
+          "upper_scale": 0.5,
+          "lower_scale": 1.0,
+          "torso_scale": 1.0,
+          "group_scales": {},
+          "include_shoulder_girdle": false,
+          "mode": "active_only",
+          "note": ""
+        },
+        "n_scaled": 61,
+        "n_unchanged": 639,
+        "group_counts": {
+          "L/upper": 61
+        },
+        "f0_multiplier_min": 0.5,
+        "f0_multiplier_max": 1.0,
+        "applied_slots": {
+          "gainprm": 2,
+          "biasprm": -1
+        }
+      },
+      "steps": 175,
+      "sim_time_s": 3.5,
+      "wall_time_s": 2.5427203130002454,
+      "terminated": false,
+      "truncated": false,
+      "termination_reason": null,
+      "termination_source": "research",
+      "n_official_term_flags": 2,
+      "n_steps_after_official_term": 2,
+      "root_start_pos": [
+        0.9723999483126454,
+        0.037036069645029805,
+        0.9127672532943142
+      ],
+      "root_end_pos": [
+        4.090601901750098,
+        0.21564838423627786,
+        0.9322105612455992
+      ],
+      "displacement_xy": 3.1233132698057666,
+      "distance_3d": 3.123373788640879,
+      "mean_speed_xy": 0.8923752199445047,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9136838915730244,
+      "min_pelvis_height": 0.8800748110736492,
+      "max_pelvis_up_tilt_deg": 10.459714319294003,
+      "max_root_speed": 1.27948988591802,
+      "final_root_lin_vel": [
+        0.49894325650236426,
+        0.27043088884507244,
+        0.01620997632273799
+      ],
+      "final_root_ang_vel": [
+        -0.5274311186924461,
+        -0.2777847338258094,
+        1.3024388024763214
+      ],
+      "mean_qpos_track_err": 0.04478807062286743,
+      "max_qpos_track_err": 0.06076368455025048,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.8863124939429398,
+          "excitation_mean": 0.06842734073833465,
+          "activation_mean": 0.07609695491022662,
+          "force_abs_mean": 10.039916529244357
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9237008233818572,
+          "excitation_mean": 0.07574796308538673,
+          "activation_mean": 0.08336837391716823,
+          "force_abs_mean": 12.840216948933053
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.6481767299379622,
+          "excitation_mean": 0.18558133728886023,
+          "activation_mean": 0.22751475597764628,
+          "force_abs_mean": 114.9130574939844
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7571223558834619,
+          "excitation_mean": 0.1843857560877821,
+          "activation_mean": 0.21256645806431906,
+          "force_abs_mean": 94.54750495792196
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.6169732080406857,
+          "excitation_mean": 0.18218246109340522,
+          "activation_mean": 0.2084615999644,
+          "force_abs_mean": 17.043363234548927
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7214283213256294,
+          "excitation_mean": 0.13094455808538746,
+          "activation_mean": 0.14895475596903512,
+          "force_abs_mean": 18.516155961443506
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7392774811714559,
+          "excitation_mean": 0.16835248029548713,
+          "activation_mean": 0.18892394932987264,
+          "force_abs_mean": 19.468471793266033
+        }
+      },
+      "action_abs_mean": 0.751418601396619,
+      "action_abs_max": 0.8435657045670918,
+      "excitation_mean": 0.14179109968549086,
+      "activation_mean": 0.1615573192809695,
+      "actuator_force_abs_mean": 29.81694847545641,
+      "ncon_mean": 4.2457142857142856,
+      "ncon_max": 9.0,
+      "total_normal_force_mean": 604.0464704831891,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 32.05807650326299,
+      "max_abs_qacc": 23984.266089700814,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "trail": null,
+      "sweep": "A_upper",
+      "upper_scale": 0.5,
+      "lower_scale": 1.0,
+      "n_scaled_muscles": 61,
+      "group_counts": {
+        "L/upper": 61
+      },
+      "applied_slots": {
+        "gainprm": 2,
+        "biasprm": -1
+      }
+    },
+    {
+      "label": "A_upper_u0.25_l1.0",
+      "seed": 0,
+      "strength": {
+        "spec": {
+          "paretic_side": "L",
+          "upper_scale": 0.25,
+          "lower_scale": 1.0,
+          "torso_scale": 1.0,
+          "group_scales": {},
+          "include_shoulder_girdle": false,
+          "mode": "active_only",
+          "note": ""
+        },
+        "n_scaled": 61,
+        "n_unchanged": 639,
+        "group_counts": {
+          "L/upper": 61
+        },
+        "f0_multiplier_min": 0.25,
+        "f0_multiplier_max": 1.0,
+        "applied_slots": {
+          "gainprm": 2,
+          "biasprm": -1
+        }
+      },
+      "steps": 175,
+      "sim_time_s": 3.5,
+      "wall_time_s": 2.4399948939999376,
+      "terminated": false,
+      "truncated": false,
+      "termination_reason": null,
+      "termination_source": "research",
+      "n_official_term_flags": 57,
+      "n_steps_after_official_term": 57,
+      "root_start_pos": [
+        0.9938051914824523,
+        0.0351299562191073,
+        0.9088988275720309
+      ],
+      "root_end_pos": [
+        3.935483589844195,
+        0.2930408835378662,
+        0.9179655898420586
+      ],
+      "displacement_xy": 2.9529628927263087,
+      "distance_3d": 2.952976811963919,
+      "mean_speed_xy": 0.8437036836360882,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9113543524070542,
+      "min_pelvis_height": 0.870733979391229,
+      "max_pelvis_up_tilt_deg": 13.047728273387722,
+      "max_root_speed": 1.2915130966569959,
+      "final_root_lin_vel": [
+        0.32329495215932025,
+        0.3337870408255374,
+        0.3096489786874366
+      ],
+      "final_root_ang_vel": [
+        -1.451747164971332,
+        -1.1282596195014296,
+        -1.4760935275431044
+      ],
+      "mean_qpos_track_err": 0.05825556415718538,
+      "max_qpos_track_err": 0.13808427313805594,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9085807456400692,
+          "excitation_mean": 0.07604664025597592,
+          "activation_mean": 0.08282508454974882,
+          "force_abs_mean": 5.8053059363383115
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9230960191049956,
+          "excitation_mean": 0.08596630157400097,
+          "activation_mean": 0.09223478469153738,
+          "force_abs_mean": 14.878946376169587
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.6997870534351893,
+          "excitation_mean": 0.18806992439680204,
+          "activation_mean": 0.22527755609719893,
+          "force_abs_mean": 120.49760963644493
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.773924084711075,
+          "excitation_mean": 0.19048509611244582,
+          "activation_mean": 0.21618722305967647,
+          "force_abs_mean": 95.85522840514646
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.6330647964082006,
+          "excitation_mean": 0.24337574963004024,
+          "activation_mean": 0.2720210577569608,
+          "force_abs_mean": 25.135779037887417
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7532625221493569,
+          "excitation_mean": 0.15016854961408418,
+          "activation_mean": 0.16755752960661421,
+          "force_abs_mean": 21.257759023462135
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7658029981383255,
+          "excitation_mean": 0.1602256898500811,
+          "activation_mean": 0.17787904653362416,
+          "force_abs_mean": 18.304897595539348
+        }
+      },
+      "action_abs_mean": 0.7776565923598349,
+      "action_abs_max": 0.999985545533044,
+      "excitation_mean": 0.15081773651743602,
+      "activation_mean": 0.16889947861000376,
+      "actuator_force_abs_mean": 31.066590785423852,
+      "ncon_mean": 4.434285714285714,
+      "ncon_max": 10.0,
+      "total_normal_force_mean": 601.2247340513388,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 19.826952382006123,
+      "max_abs_qacc": 8982.167889199663,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "trail": null,
+      "sweep": "A_upper",
+      "upper_scale": 0.25,
+      "lower_scale": 1.0,
+      "n_scaled_muscles": 61,
+      "group_counts": {
+        "L/upper": 61
+      },
+      "applied_slots": {
+        "gainprm": 2,
+        "biasprm": -1
+      }
+    },
+    {
+      "label": "A_upper_u0.25_l1.0",
+      "seed": 1,
+      "strength": {
+        "spec": {
+          "paretic_side": "L",
+          "upper_scale": 0.25,
+          "lower_scale": 1.0,
+          "torso_scale": 1.0,
+          "group_scales": {},
+          "include_shoulder_girdle": false,
+          "mode": "active_only",
+          "note": ""
+        },
+        "n_scaled": 61,
+        "n_unchanged": 639,
+        "group_counts": {
+          "L/upper": 61
+        },
+        "f0_multiplier_min": 0.25,
+        "f0_multiplier_max": 1.0,
+        "applied_slots": {
+          "gainprm": 2,
+          "biasprm": -1
+        }
+      },
+      "steps": 175,
+      "sim_time_s": 3.5,
+      "wall_time_s": 2.643494819999887,
+      "terminated": false,
+      "truncated": false,
+      "termination_reason": null,
+      "termination_source": "research",
+      "n_official_term_flags": 19,
+      "n_steps_after_official_term": 19,
+      "root_start_pos": [
+        0.5814191804746273,
+        0.014396046826729927,
+        0.9081504525495855
+      ],
+      "root_end_pos": [
+        3.864728043538948,
+        0.09374557313702128,
+        0.9011844184597402
+      ],
+      "displacement_xy": 3.284267564861668,
+      "distance_3d": 3.2842749524413044,
+      "mean_speed_xy": 0.9383621613890479,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9115804689118749,
+      "min_pelvis_height": 0.872793257275089,
+      "max_pelvis_up_tilt_deg": 9.103239376909674,
+      "max_root_speed": 1.3456757268900645,
+      "final_root_lin_vel": [
+        0.7315935896929338,
+        0.48984615343239357,
+        0.2804709452133688
+      ],
+      "final_root_ang_vel": [
+        0.45512098913481785,
+        -0.6081977492449154,
+        0.8135345037446635
+      ],
+      "mean_qpos_track_err": 0.0512814703993766,
+      "max_qpos_track_err": 0.07289463756004033,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9126868080813655,
+          "excitation_mean": 0.07242487311182737,
+          "activation_mean": 0.08071573867977906,
+          "force_abs_mean": 5.769992871996709
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9312363694367419,
+          "excitation_mean": 0.07642106789751502,
+          "activation_mean": 0.08365263018933877,
+          "force_abs_mean": 12.783255560878798
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.6721558884552546,
+          "excitation_mean": 0.20352028721423288,
+          "activation_mean": 0.2424537558875105,
+          "force_abs_mean": 119.53245824653048
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7741846578529903,
+          "excitation_mean": 0.18289667276215207,
+          "activation_mean": 0.21264573603921783,
+          "force_abs_mean": 94.19627245056947
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.558083827891108,
+          "excitation_mean": 0.20632951110607864,
+          "activation_mean": 0.2440572431904014,
+          "force_abs_mean": 21.254317294329287
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7484717980289062,
+          "excitation_mean": 0.13210176809309707,
+          "activation_mean": 0.15007449974451434,
+          "force_abs_mean": 18.919462303803208
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.736992871199663,
+          "excitation_mean": 0.1585287868567812,
+          "activation_mean": 0.17690915915796743,
+          "force_abs_mean": 18.85543000806711
+        }
+      },
+      "action_abs_mean": 0.7632517382101137,
+      "action_abs_max": 0.8369596751247134,
+      "excitation_mean": 0.1419185364073404,
+      "activation_mean": 0.161445900257216,
+      "actuator_force_abs_mean": 29.88678493953077,
+      "ncon_mean": 4.24,
+      "ncon_max": 8.0,
+      "total_normal_force_mean": 589.0909360136806,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 21.86907512035044,
+      "max_abs_qacc": 17507.744971315,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "trail": null,
+      "sweep": "A_upper",
+      "upper_scale": 0.25,
+      "lower_scale": 1.0,
+      "n_scaled_muscles": 61,
+      "group_counts": {
+        "L/upper": 61
+      },
+      "applied_slots": {
+        "gainprm": 2,
+        "biasprm": -1
+      }
+    },
+    {
+      "label": "A_upper_u0.25_l1.0",
+      "seed": 2,
+      "strength": {
+        "spec": {
+          "paretic_side": "L",
+          "upper_scale": 0.25,
+          "lower_scale": 1.0,
+          "torso_scale": 1.0,
+          "group_scales": {},
+          "include_shoulder_girdle": false,
+          "mode": "active_only",
+          "note": ""
+        },
+        "n_scaled": 61,
+        "n_unchanged": 639,
+        "group_counts": {
+          "L/upper": 61
+        },
+        "f0_multiplier_min": 0.25,
+        "f0_multiplier_max": 1.0,
+        "applied_slots": {
+          "gainprm": 2,
+          "biasprm": -1
+        }
+      },
+      "steps": 175,
+      "sim_time_s": 3.5,
+      "wall_time_s": 3.269423321999966,
+      "terminated": false,
+      "truncated": false,
+      "termination_reason": null,
+      "termination_source": "research",
+      "n_official_term_flags": 48,
+      "n_steps_after_official_term": 48,
+      "root_start_pos": [
+        0.9723999483126454,
+        0.037036069645029805,
+        0.9127672532943142
+      ],
+      "root_end_pos": [
+        3.8881669990463252,
+        0.29728888244540497,
+        0.9044729278965086
+      ],
+      "displacement_xy": 2.9273587106322805,
+      "distance_3d": 2.9273704611047253,
+      "mean_speed_xy": 0.8363882030377944,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9104924450784915,
+      "min_pelvis_height": 0.8666470653236819,
+      "max_pelvis_up_tilt_deg": 11.8124315146617,
+      "max_root_speed": 1.3607118365464208,
+      "final_root_lin_vel": [
+        0.1590781133342228,
+        0.5615219255061774,
+        0.1783606465658068
+      ],
+      "final_root_ang_vel": [
+        -0.6687909556433722,
+        -0.8361454650695669,
+        -0.19929223745485916
+      ],
+      "mean_qpos_track_err": 0.05764544611208783,
+      "max_qpos_track_err": 0.13548449276951177,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9064757157767964,
+          "excitation_mean": 0.07319991690303533,
+          "activation_mean": 0.07988542276823475,
+          "force_abs_mean": 5.759453513813993
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9244758315052864,
+          "excitation_mean": 0.08086477579478615,
+          "activation_mean": 0.08818049946106526,
+          "force_abs_mean": 14.20703868816321
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.6926420684473856,
+          "excitation_mean": 0.1895154286771414,
+          "activation_mean": 0.224850694828203,
+          "force_abs_mean": 118.47154146576688
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7702253878457205,
+          "excitation_mean": 0.18763288524006494,
+          "activation_mean": 0.21539937022593383,
+          "force_abs_mean": 94.84229967138293
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.6046989135917981,
+          "excitation_mean": 0.2454016100113658,
+          "activation_mean": 0.28009806572202445,
+          "force_abs_mean": 26.446573410588535
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7487812050530389,
+          "excitation_mean": 0.15283080405670899,
+          "activation_mean": 0.17110403525873114,
+          "force_abs_mean": 21.708938972609705
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.750438980694328,
+          "excitation_mean": 0.15990080386974304,
+          "activation_mean": 0.17942427204070938,
+          "force_abs_mean": 18.882057190746625
+        }
+      },
+      "action_abs_mean": 0.7694672850175779,
+      "action_abs_max": 0.9999635285139084,
+      "excitation_mean": 0.15092677319319966,
+      "activation_mean": 0.17023096793911596,
+      "actuator_force_abs_mean": 31.17056595290766,
+      "ncon_mean": 4.331428571428572,
+      "ncon_max": 10.0,
+      "total_normal_force_mean": 593.152341557403,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 20.503870634602535,
+      "max_abs_qacc": 18096.22531026266,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "trail": null,
+      "sweep": "A_upper",
+      "upper_scale": 0.25,
+      "lower_scale": 1.0,
+      "n_scaled_muscles": 61,
+      "group_counts": {
+        "L/upper": 61
+      },
+      "applied_slots": {
+        "gainprm": 2,
+        "biasprm": -1
+      }
+    },
+    {
+      "label": "B_lower_u1.0_l1.0",
+      "seed": 0,
+      "strength": {
+        "spec": {
+          "paretic_side": "L",
+          "upper_scale": 1.0,
+          "lower_scale": 1.0,
+          "torso_scale": 1.0,
+          "group_scales": {},
+          "include_shoulder_girdle": false,
+          "mode": "active_only",
+          "note": ""
+        },
+        "n_scaled": 0,
+        "n_unchanged": 700,
+        "group_counts": {},
+        "f0_multiplier_min": 1.0,
+        "f0_multiplier_max": 1.0,
+        "applied_slots": {
+          "gainprm": 2,
+          "biasprm": -1
+        }
+      },
+      "steps": 175,
+      "sim_time_s": 3.5,
+      "wall_time_s": 2.478586653000093,
+      "terminated": false,
+      "truncated": false,
+      "termination_reason": null,
+      "termination_source": "research",
+      "n_official_term_flags": 0,
+      "n_steps_after_official_term": 0,
+      "root_start_pos": [
+        0.9938051914824523,
+        0.0351299562191073,
+        0.9088988275720309
+      ],
+      "root_end_pos": [
+        4.301956405088861,
+        0.13340048174173208,
+        0.9287370008723398
+      ],
+      "displacement_xy": 3.309610482862303,
+      "distance_3d": 3.309669938436753,
+      "mean_speed_xy": 0.9456029951035152,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9132253932387626,
+      "min_pelvis_height": 0.875293546758,
+      "max_pelvis_up_tilt_deg": 11.714286357883726,
+      "max_root_speed": 1.396853403027086,
+      "final_root_lin_vel": [
+        0.7497394992788945,
+        0.013851809343916686,
+        -0.003021653136849234
+      ],
+      "final_root_ang_vel": [
+        -1.416952529290669,
+        -0.08914680071566357,
+        0.888554610221181
+      ],
+      "mean_qpos_track_err": 0.035876331777159605,
+      "max_qpos_track_err": 0.05178424992183862,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.8452489800419687,
+          "excitation_mean": 0.06746956927504442,
+          "activation_mean": 0.07929451046699183,
+          "force_abs_mean": 17.57251982771493
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9209531868592916,
+          "excitation_mean": 0.0781465662434202,
+          "activation_mean": 0.08561185846237698,
+          "force_abs_mean": 13.548881174626949
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.6609442348480224,
+          "excitation_mean": 0.20932466777883071,
+          "activation_mean": 0.2462553359885912,
+          "force_abs_mean": 126.7853313337224
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7209422520433154,
+          "excitation_mean": 0.17368856710238784,
+          "activation_mean": 0.20547251756763663,
+          "force_abs_mean": 93.51891742054724
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.5763329637105564,
+          "excitation_mean": 0.14538302096863348,
+          "activation_mean": 0.18039570142429293,
+          "force_abs_mean": 16.233980127562948
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7241338541047415,
+          "excitation_mean": 0.12778459763723451,
+          "activation_mean": 0.1498821911401038,
+          "force_abs_mean": 18.148338547277696
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7295830912102055,
+          "excitation_mean": 0.17637483962925707,
+          "activation_mean": 0.19979847698288264,
+          "force_abs_mean": 20.08233808978823
+        }
+      },
+      "action_abs_mean": 0.742171789290467,
+      "action_abs_max": 0.8270487503494535,
+      "excitation_mean": 0.14252372162699917,
+      "activation_mean": 0.16516839260225769,
+      "actuator_force_abs_mean": 31.330643597551585,
+      "ncon_mean": 4.234285714285714,
+      "ncon_max": 8.0,
+      "total_normal_force_mean": 589.928605285448,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 19.523404555743383,
+      "max_abs_qacc": 20022.935795181096,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "trail": null,
+      "sweep": "B_lower",
+      "upper_scale": 1.0,
+      "lower_scale": 1.0,
+      "n_scaled_muscles": 0,
+      "group_counts": {},
+      "applied_slots": {
+        "gainprm": 2,
+        "biasprm": -1
+      }
+    },
+    {
+      "label": "B_lower_u1.0_l1.0",
+      "seed": 1,
+      "strength": {
+        "spec": {
+          "paretic_side": "L",
+          "upper_scale": 1.0,
+          "lower_scale": 1.0,
+          "torso_scale": 1.0,
+          "group_scales": {},
+          "include_shoulder_girdle": false,
+          "mode": "active_only",
+          "note": ""
+        },
+        "n_scaled": 0,
+        "n_unchanged": 700,
+        "group_counts": {},
+        "f0_multiplier_min": 1.0,
+        "f0_multiplier_max": 1.0,
+        "applied_slots": {
+          "gainprm": 2,
+          "biasprm": -1
+        }
+      },
+      "steps": 175,
+      "sim_time_s": 3.5,
+      "wall_time_s": 2.1141499159998602,
+      "terminated": false,
+      "truncated": false,
+      "termination_reason": null,
+      "termination_source": "research",
+      "n_official_term_flags": 0,
+      "n_steps_after_official_term": 0,
+      "root_start_pos": [
+        0.5814191804746273,
+        0.014396046826729927,
+        0.9081504525495855
+      ],
+      "root_end_pos": [
+        4.01634117516926,
+        0.047464792108870175,
+        0.8974605510260709
+      ],
+      "displacement_xy": 3.4350811710280578,
+      "distance_3d": 3.435097804363956,
+      "mean_speed_xy": 0.9814517631508737,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9121738961649039,
+      "min_pelvis_height": 0.8755396682870107,
+      "max_pelvis_up_tilt_deg": 8.59525592695044,
+      "max_root_speed": 1.4088565227562322,
+      "final_root_lin_vel": [
+        0.7956110294572692,
+        0.266166734719133,
+        0.2630140029577557
+      ],
+      "final_root_ang_vel": [
+        0.6232567519251252,
+        -0.22447587064851002,
+        -0.2427103609569486
+      ],
+      "mean_qpos_track_err": 0.03480882818710437,
+      "max_qpos_track_err": 0.053408100776207404,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.8601209000346254,
+          "excitation_mean": 0.0761035369619546,
+          "activation_mean": 0.09026529845088282,
+          "force_abs_mean": 18.878767859437446
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9285083985161168,
+          "excitation_mean": 0.08277599250749453,
+          "activation_mean": 0.09058665665236645,
+          "force_abs_mean": 13.943668052340634
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.6677128827026911,
+          "excitation_mean": 0.2042949970593809,
+          "activation_mean": 0.2437455144762321,
+          "force_abs_mean": 124.22828270177395
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7355756178855896,
+          "excitation_mean": 0.17267442466240776,
+          "activation_mean": 0.20494145672968694,
+          "force_abs_mean": 91.60942739189606
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.5900413956949788,
+          "excitation_mean": 0.1444108467365289,
+          "activation_mean": 0.18093648216881975,
+          "force_abs_mean": 16.8693274121747
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7302738353868339,
+          "excitation_mean": 0.121649551712148,
+          "activation_mean": 0.14237994321510464,
+          "force_abs_mean": 17.517237755405223
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7239430453554615,
+          "excitation_mean": 0.16800198080503811,
+          "activation_mean": 0.1907770945718238,
+          "force_abs_mean": 19.433349496278638
+        }
+      },
+      "action_abs_mean": 0.7466824222842042,
+      "action_abs_max": 0.840184993488448,
+      "excitation_mean": 0.13862216214172787,
+      "activation_mean": 0.1611225583831099,
+      "actuator_force_abs_mean": 30.779656805495968,
+      "ncon_mean": 4.251428571428572,
+      "ncon_max": 9.0,
+      "total_normal_force_mean": 584.4545782733053,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 30.682069990119814,
+      "max_abs_qacc": 22055.49420093204,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "trail": null,
+      "sweep": "B_lower",
+      "upper_scale": 1.0,
+      "lower_scale": 1.0,
+      "n_scaled_muscles": 0,
+      "group_counts": {},
+      "applied_slots": {
+        "gainprm": 2,
+        "biasprm": -1
+      }
+    },
+    {
+      "label": "B_lower_u1.0_l1.0",
+      "seed": 2,
+      "strength": {
+        "spec": {
+          "paretic_side": "L",
+          "upper_scale": 1.0,
+          "lower_scale": 1.0,
+          "torso_scale": 1.0,
+          "group_scales": {},
+          "include_shoulder_girdle": false,
+          "mode": "active_only",
+          "note": ""
+        },
+        "n_scaled": 0,
+        "n_unchanged": 700,
+        "group_counts": {},
+        "f0_multiplier_min": 1.0,
+        "f0_multiplier_max": 1.0,
+        "applied_slots": {
+          "gainprm": 2,
+          "biasprm": -1
+        }
+      },
+      "steps": 175,
+      "sim_time_s": 3.5,
+      "wall_time_s": 2.159123660000205,
+      "terminated": false,
+      "truncated": false,
+      "termination_reason": null,
+      "termination_source": "research",
+      "n_official_term_flags": 0,
+      "n_steps_after_official_term": 0,
+      "root_start_pos": [
+        0.9723999483126454,
+        0.037036069645029805,
+        0.9127672532943142
+      ],
+      "root_end_pos": [
+        4.296947123372644,
+        0.13650957966222133,
+        0.9317763111106011
+      ],
+      "displacement_xy": 3.3260350116008333,
+      "distance_3d": 3.326089331733834,
+      "mean_speed_xy": 0.9502957176002381,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9130381725264101,
+      "min_pelvis_height": 0.8787328736103246,
+      "max_pelvis_up_tilt_deg": 11.477330234234673,
+      "max_root_speed": 1.4222775966427335,
+      "final_root_lin_vel": [
+        0.6674475039424371,
+        0.04035205629028217,
+        0.0012266733389232687
+      ],
+      "final_root_ang_vel": [
+        -1.4445611762585144,
+        0.2822186796039329,
+        0.7566614889974501
+      ],
+      "mean_qpos_track_err": 0.03566082798276408,
+      "max_qpos_track_err": 0.05137093256660227,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.8417683158546199,
+          "excitation_mean": 0.06907825896477182,
+          "activation_mean": 0.08163349538885606,
+          "force_abs_mean": 17.70092153712195
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9219956561999801,
+          "excitation_mean": 0.07789050249631496,
+          "activation_mean": 0.08576562693773532,
+          "force_abs_mean": 13.47247128078819
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.6654604900564466,
+          "excitation_mean": 0.21384707964014793,
+          "activation_mean": 0.2514912282753905,
+          "force_abs_mean": 128.0196484631917
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7272345583166395,
+          "excitation_mean": 0.1715067235534279,
+          "activation_mean": 0.2033789791231996,
+          "force_abs_mean": 92.38242705531889
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.5987397648661916,
+          "excitation_mean": 0.15065122800927463,
+          "activation_mean": 0.18671675207408583,
+          "force_abs_mean": 16.809218711920963
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7265938840066325,
+          "excitation_mean": 0.1249423464176869,
+          "activation_mean": 0.14652450148755466,
+          "force_abs_mean": 17.70878172476808
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7273820456338452,
+          "excitation_mean": 0.17466097645192266,
+          "activation_mean": 0.19754495351642826,
+          "force_abs_mean": 19.89780922666252
+        }
+      },
+      "action_abs_mean": 0.7439095588489455,
+      "action_abs_max": 0.8415122846194676,
+      "excitation_mean": 0.14156239510417098,
+      "activation_mean": 0.1640739747615584,
+      "actuator_force_abs_mean": 31.16272809893282,
+      "ncon_mean": 4.268571428571429,
+      "ncon_max": 10.0,
+      "total_normal_force_mean": 596.1316956265814,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 26.77327593251245,
+      "max_abs_qacc": 18528.836789285233,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "trail": null,
+      "sweep": "B_lower",
+      "upper_scale": 1.0,
+      "lower_scale": 1.0,
+      "n_scaled_muscles": 0,
+      "group_counts": {},
+      "applied_slots": {
+        "gainprm": 2,
+        "biasprm": -1
+      }
+    },
+    {
+      "label": "B_lower_u1.0_l0.75",
+      "seed": 0,
+      "strength": {
+        "spec": {
+          "paretic_side": "L",
+          "upper_scale": 1.0,
+          "lower_scale": 0.75,
+          "torso_scale": 1.0,
+          "group_scales": {},
+          "include_shoulder_girdle": false,
+          "mode": "active_only",
+          "note": ""
+        },
+        "n_scaled": 50,
+        "n_unchanged": 650,
+        "group_counts": {
+          "L/lower": 50
+        },
+        "f0_multiplier_min": 0.75,
+        "f0_multiplier_max": 1.0,
+        "applied_slots": {
+          "gainprm": 2,
+          "biasprm": -1
+        }
+      },
+      "steps": 175,
+      "sim_time_s": 3.5,
+      "wall_time_s": 2.4874965600001815,
+      "terminated": false,
+      "truncated": false,
+      "termination_reason": null,
+      "termination_source": "research",
+      "n_official_term_flags": 0,
+      "n_steps_after_official_term": 0,
+      "root_start_pos": [
+        0.9938051914824523,
+        0.0351299562191073,
+        0.9088988275720309
+      ],
+      "root_end_pos": [
+        4.335516682660736,
+        0.18993521919974843,
+        0.9119601604966131
+      ],
+      "displacement_xy": 3.3452952574801964,
+      "distance_3d": 3.3452966582171406,
+      "mean_speed_xy": 0.9557986449943419,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9114778869306992,
+      "min_pelvis_height": 0.8717706644215039,
+      "max_pelvis_up_tilt_deg": 10.958939415042869,
+      "max_root_speed": 1.3162512549928265,
+      "final_root_lin_vel": [
+        0.7678789793871194,
+        0.006618643063011204,
+        -0.10438536142467852
+      ],
+      "final_root_ang_vel": [
+        -1.0093756573444614,
+        0.17854032515064291,
+        1.5297252282915852
+      ],
+      "mean_qpos_track_err": 0.03768803559493693,
+      "max_qpos_track_err": 0.05192676781495455,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.8465860407023015,
+          "excitation_mean": 0.0647566051265951,
+          "activation_mean": 0.07582896180891913,
+          "force_abs_mean": 17.47793829422228
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9207823011020865,
+          "excitation_mean": 0.08173362249827483,
+          "activation_mean": 0.08907045130000366,
+          "force_abs_mean": 14.049892260009972
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.6902167407172066,
+          "excitation_mean": 0.2260527844524477,
+          "activation_mean": 0.2593387905543972,
+          "force_abs_mean": 102.25357572634697
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7201269731317247,
+          "excitation_mean": 0.17725802023923024,
+          "activation_mean": 0.2076791133211396,
+          "force_abs_mean": 93.68622723036978
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.6044719278867343,
+          "excitation_mean": 0.17544112984885027,
+          "activation_mean": 0.21010603389912538,
+          "force_abs_mean": 19.32631636246675
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7275667088201356,
+          "excitation_mean": 0.13406574303396598,
+          "activation_mean": 0.15640302153825103,
+          "force_abs_mean": 18.864109201067603
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7424316834944945,
+          "excitation_mean": 0.18235628596812925,
+          "activation_mean": 0.2023164072172341,
+          "force_abs_mean": 19.978131554433375
+        }
+      },
+      "action_abs_mean": 0.7505421684026717,
+      "action_abs_max": 0.8263262861967087,
+      "excitation_mean": 0.14930277030214864,
+      "activation_mean": 0.1705502589901724,
+      "actuator_force_abs_mean": 29.976110116082534,
+      "ncon_mean": 4.28,
+      "ncon_max": 9.0,
+      "total_normal_force_mean": 589.0545290316255,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 23.3897476310114,
+      "max_abs_qacc": 14203.228192075663,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "trail": null,
+      "sweep": "B_lower",
+      "upper_scale": 1.0,
+      "lower_scale": 0.75,
+      "n_scaled_muscles": 50,
+      "group_counts": {
+        "L/lower": 50
+      },
+      "applied_slots": {
+        "gainprm": 2,
+        "biasprm": -1
+      }
+    },
+    {
+      "label": "B_lower_u1.0_l0.75",
+      "seed": 1,
+      "strength": {
+        "spec": {
+          "paretic_side": "L",
+          "upper_scale": 1.0,
+          "lower_scale": 0.75,
+          "torso_scale": 1.0,
+          "group_scales": {},
+          "include_shoulder_girdle": false,
+          "mode": "active_only",
+          "note": ""
+        },
+        "n_scaled": 50,
+        "n_unchanged": 650,
+        "group_counts": {
+          "L/lower": 50
+        },
+        "f0_multiplier_min": 0.75,
+        "f0_multiplier_max": 1.0,
+        "applied_slots": {
+          "gainprm": 2,
+          "biasprm": -1
+        }
+      },
+      "steps": 175,
+      "sim_time_s": 3.5,
+      "wall_time_s": 2.2890373350001028,
+      "terminated": false,
+      "truncated": false,
+      "termination_reason": null,
+      "termination_source": "research",
+      "n_official_term_flags": 0,
+      "n_steps_after_official_term": 0,
+      "root_start_pos": [
+        0.5814191804746273,
+        0.014396046826729927,
+        0.9081504525495855
+      ],
+      "root_end_pos": [
+        4.126765904239754,
+        0.1224580437399985,
+        0.8973498533287142
+      ],
+      "displacement_xy": 3.546993203671104,
+      "distance_3d": 3.5470096475527852,
+      "mean_speed_xy": 1.0134266296203154,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9100689397373132,
+      "min_pelvis_height": 0.8660308421466268,
+      "max_pelvis_up_tilt_deg": 8.867508886701385,
+      "max_root_speed": 1.3642888566874372,
+      "final_root_lin_vel": [
+        0.9383432244887394,
+        0.20994653289369275,
+        0.31982354811962316
+      ],
+      "final_root_ang_vel": [
+        0.3781133197537314,
+        0.08494251391893948,
+        -1.003200182215283
+      ],
+      "mean_qpos_track_err": 0.03566839307649816,
+      "max_qpos_track_err": 0.05278046113561958,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.8583495123045785,
+          "excitation_mean": 0.07826574270099301,
+          "activation_mean": 0.09223485863784028,
+          "force_abs_mean": 19.430043300048535
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9259849380050946,
+          "excitation_mean": 0.08566764759393825,
+          "activation_mean": 0.0932300884629271,
+          "force_abs_mean": 14.539857428093715
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.6922996523312159,
+          "excitation_mean": 0.22229012782590332,
+          "activation_mean": 0.25689062073218494,
+          "force_abs_mean": 101.6592912492483
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7352841601712363,
+          "excitation_mean": 0.1814720056471681,
+          "activation_mean": 0.21315026917725333,
+          "force_abs_mean": 96.47858601111291
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.6186400447792721,
+          "excitation_mean": 0.1687608618949098,
+          "activation_mean": 0.20389145266059538,
+          "force_abs_mean": 19.609981518015452
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7345600808600216,
+          "excitation_mean": 0.1296538283536002,
+          "activation_mean": 0.14991936608288567,
+          "force_abs_mean": 18.475527636250096
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7438941442769962,
+          "excitation_mean": 0.174931223812901,
+          "activation_mean": 0.1954724536246525,
+          "force_abs_mean": 19.29878443613599
+        }
+      },
+      "action_abs_mean": 0.7567018211676149,
+      "action_abs_max": 0.8250958382231849,
+      "excitation_mean": 0.1468465567571149,
+      "activation_mean": 0.16803577164119227,
+      "actuator_force_abs_mean": 30.02395071753325,
+      "ncon_mean": 4.2628571428571425,
+      "ncon_max": 8.0,
+      "total_normal_force_mean": 596.7435375522175,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 20.521559050356405,
+      "max_abs_qacc": 18917.71243214348,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "trail": null,
+      "sweep": "B_lower",
+      "upper_scale": 1.0,
+      "lower_scale": 0.75,
+      "n_scaled_muscles": 50,
+      "group_counts": {
+        "L/lower": 50
+      },
+      "applied_slots": {
+        "gainprm": 2,
+        "biasprm": -1
+      }
+    },
+    {
+      "label": "B_lower_u1.0_l0.75",
+      "seed": 2,
+      "strength": {
+        "spec": {
+          "paretic_side": "L",
+          "upper_scale": 1.0,
+          "lower_scale": 0.75,
+          "torso_scale": 1.0,
+          "group_scales": {},
+          "include_shoulder_girdle": false,
+          "mode": "active_only",
+          "note": ""
+        },
+        "n_scaled": 50,
+        "n_unchanged": 650,
+        "group_counts": {
+          "L/lower": 50
+        },
+        "f0_multiplier_min": 0.75,
+        "f0_multiplier_max": 1.0,
+        "applied_slots": {
+          "gainprm": 2,
+          "biasprm": -1
+        }
+      },
+      "steps": 175,
+      "sim_time_s": 3.5,
+      "wall_time_s": 2.2512868730000264,
+      "terminated": false,
+      "truncated": false,
+      "termination_reason": null,
+      "termination_source": "research",
+      "n_official_term_flags": 0,
+      "n_steps_after_official_term": 0,
+      "root_start_pos": [
+        0.9723999483126454,
+        0.037036069645029805,
+        0.9127672532943142
+      ],
+      "root_end_pos": [
+        4.338669607720446,
+        0.1302876407653907,
+        0.896212483302789
+      ],
+      "displacement_xy": 3.3675610277121817,
+      "distance_3d": 3.3676017186976543,
+      "mean_speed_xy": 0.9621602936320519,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9102492839310683,
+      "min_pelvis_height": 0.8746499319949891,
+      "max_pelvis_up_tilt_deg": 10.739406758092311,
+      "max_root_speed": 1.3568572084485744,
+      "final_root_lin_vel": [
+        0.948537406098988,
+        0.029366060594981123,
+        -0.21688683644217305
+      ],
+      "final_root_ang_vel": [
+        -0.8065515885997984,
+        0.42185730086548034,
+        1.472492395349754
+      ],
+      "mean_qpos_track_err": 0.03649798691269657,
+      "max_qpos_track_err": 0.04888344669391825,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.8410167796047842,
+          "excitation_mean": 0.0672311322168181,
+          "activation_mean": 0.07976735094207531,
+          "force_abs_mean": 17.744204662673432
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.923506535417302,
+          "excitation_mean": 0.08207111221490607,
+          "activation_mean": 0.08997268861725527,
+          "force_abs_mean": 14.035242889215333
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.6781658584322249,
+          "excitation_mean": 0.21913652985414622,
+          "activation_mean": 0.25391862572877294,
+          "force_abs_mean": 101.08329275134048
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7226411796229226,
+          "excitation_mean": 0.1756808093433867,
+          "activation_mean": 0.20644568967295043,
+          "force_abs_mean": 94.05193783834552
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.5722203774166547,
+          "excitation_mean": 0.16418931173796933,
+          "activation_mean": 0.1991070027087626,
+          "force_abs_mean": 18.504948282988778
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7258777143537678,
+          "excitation_mean": 0.13288933103794462,
+          "activation_mean": 0.15546268299478636,
+          "force_abs_mean": 18.872648539419593
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7394108461809683,
+          "excitation_mean": 0.17548002774901217,
+          "activation_mean": 0.19587848989251525,
+          "force_abs_mean": 19.60014387280636
+        }
+      },
+      "action_abs_mean": 0.7467104793645896,
+      "action_abs_max": 0.8472057573284422,
+      "excitation_mean": 0.14599795489136025,
+      "activation_mean": 0.16777568914367727,
+      "actuator_force_abs_mean": 29.794791647695956,
+      "ncon_mean": 4.274285714285714,
+      "ncon_max": 10.0,
+      "total_normal_force_mean": 590.0994598591212,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 13.918605885412337,
+      "max_abs_qacc": 18678.91276533401,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "trail": null,
+      "sweep": "B_lower",
+      "upper_scale": 1.0,
+      "lower_scale": 0.75,
+      "n_scaled_muscles": 50,
+      "group_counts": {
+        "L/lower": 50
+      },
+      "applied_slots": {
+        "gainprm": 2,
+        "biasprm": -1
+      }
+    },
+    {
+      "label": "B_lower_u1.0_l0.5",
+      "seed": 0,
+      "strength": {
+        "spec": {
+          "paretic_side": "L",
+          "upper_scale": 1.0,
+          "lower_scale": 0.5,
+          "torso_scale": 1.0,
+          "group_scales": {},
+          "include_shoulder_girdle": false,
+          "mode": "active_only",
+          "note": ""
+        },
+        "n_scaled": 50,
+        "n_unchanged": 650,
+        "group_counts": {
+          "L/lower": 50
+        },
+        "f0_multiplier_min": 0.5,
+        "f0_multiplier_max": 1.0,
+        "applied_slots": {
+          "gainprm": 2,
+          "biasprm": -1
+        }
+      },
+      "steps": 159,
+      "sim_time_s": 3.18,
+      "wall_time_s": 2.195827349999945,
+      "terminated": true,
+      "truncated": false,
+      "termination_reason": "跌到骨盆高度 0.546 m < 0.55 m",
+      "termination_source": "research",
+      "n_official_term_flags": 77,
+      "n_steps_after_official_term": 77,
+      "root_start_pos": [
+        0.9938051914824523,
+        0.0351299562191073,
+        0.9088988275720309
+      ],
+      "root_end_pos": [
+        2.5923060604063646,
+        -0.6919348454557046,
+        0.5460838530175991
+      ],
+      "displacement_xy": 1.7560832137985194,
+      "distance_3d": 1.7931712019620072,
+      "mean_speed_xy": 0.5522274257228048,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.8804887168805193,
+      "min_pelvis_height": 0.5460838530175991,
+      "max_pelvis_up_tilt_deg": 38.62533751176865,
+      "max_root_speed": 2.0638461676930127,
+      "final_root_lin_vel": [
+        0.4939155366241344,
+        -1.2603005961613585,
+        -1.5579315947427708
+      ],
+      "final_root_ang_vel": [
+        2.109141899247123,
+        1.7699245222703863,
+        0.6989826199412847
+      ],
+      "mean_qpos_track_err": 0.13386902401172615,
+      "max_qpos_track_err": 0.3341007625549033,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9303420809559358,
+          "excitation_mean": 0.1717335612745067,
+          "activation_mean": 0.1757931267011045,
+          "force_abs_mean": 45.98034763565781
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9573072916589482,
+          "excitation_mean": 0.2748496860458328,
+          "activation_mean": 0.27930032125274545,
+          "force_abs_mean": 63.58858121689473
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.8460523940557203,
+          "excitation_mean": 0.2958151374209039,
+          "activation_mean": 0.31685920830671893,
+          "force_abs_mean": 115.50556443993204
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.8427836489827378,
+          "excitation_mean": 0.32155419436610694,
+          "activation_mean": 0.3429551838578367,
+          "force_abs_mean": 195.77178502453455
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.7853860024942494,
+          "excitation_mean": 0.27566813605049,
+          "activation_mean": 0.29521722958150726,
+          "force_abs_mean": 36.50508706882842
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.8493723343718708,
+          "excitation_mean": 0.332520798659994,
+          "activation_mean": 0.34587697126757777,
+          "force_abs_mean": 43.177957939932256
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.8481263894773389,
+          "excitation_mean": 0.20298910399798295,
+          "activation_mean": 0.22042675195887307,
+          "force_abs_mean": 23.871546031943975
+        }
+      },
+      "action_abs_mean": 0.8619223669784517,
+      "action_abs_max": 0.9999996659585407,
+      "excitation_mean": 0.26907137343539345,
+      "activation_mean": 0.28345216370119436,
+      "actuator_force_abs_mean": 55.234347649501245,
+      "ncon_mean": 3.7547169811320753,
+      "ncon_max": 10.0,
+      "total_normal_force_mean": 561.8325920606873,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 32.60315794394898,
+      "max_abs_qacc": 12017.889394010805,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "trail": null,
+      "sweep": "B_lower",
+      "upper_scale": 1.0,
+      "lower_scale": 0.5,
+      "n_scaled_muscles": 50,
+      "group_counts": {
+        "L/lower": 50
+      },
+      "applied_slots": {
+        "gainprm": 2,
+        "biasprm": -1
+      }
+    },
+    {
+      "label": "B_lower_u1.0_l0.5",
+      "seed": 1,
+      "strength": {
+        "spec": {
+          "paretic_side": "L",
+          "upper_scale": 1.0,
+          "lower_scale": 0.5,
+          "torso_scale": 1.0,
+          "group_scales": {},
+          "include_shoulder_girdle": false,
+          "mode": "active_only",
+          "note": ""
+        },
+        "n_scaled": 50,
+        "n_unchanged": 650,
+        "group_counts": {
+          "L/lower": 50
+        },
+        "f0_multiplier_min": 0.5,
+        "f0_multiplier_max": 1.0,
+        "applied_slots": {
+          "gainprm": 2,
+          "biasprm": -1
+        }
+      },
+      "steps": 112,
+      "sim_time_s": 2.24,
+      "wall_time_s": 2.2836668999998437,
+      "terminated": true,
+      "truncated": false,
+      "termination_reason": "骨盆直立偏差 60.5° > 60.0°",
+      "termination_source": "research",
+      "n_official_term_flags": 50,
+      "n_steps_after_official_term": 50,
+      "root_start_pos": [
+        0.5814191804746273,
+        0.014396046826729927,
+        0.9081504525495855
+      ],
+      "root_end_pos": [
+        2.6577594987630406,
+        0.16760140450777694,
+        0.7272535071295452
+      ],
+      "displacement_xy": 2.0819848700151997,
+      "distance_3d": 2.0898288695092977,
+      "mean_speed_xy": 0.9294575312567855,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.8560658870401462,
+      "min_pelvis_height": 0.7161220058259011,
+      "max_pelvis_up_tilt_deg": 60.47273025783455,
+      "max_root_speed": 1.6884241946260836,
+      "final_root_lin_vel": [
+        1.49321444885753,
+        0.30145311066654146,
+        -0.7281571896172606
+      ],
+      "final_root_ang_vel": [
+        0.6738336649767611,
+        3.5044021979981874,
+        1.0342552949081332
+      ],
+      "mean_qpos_track_err": 0.10756708435517928,
+      "max_qpos_track_err": 0.3115040152344464,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.8867639240130468,
+          "excitation_mean": 0.12920250728098406,
+          "activation_mean": 0.1380168400703604,
+          "force_abs_mean": 34.84160654283001
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9301127355100817,
+          "excitation_mean": 0.20264771171649265,
+          "activation_mean": 0.207647602866491,
+          "force_abs_mean": 42.27797715705051
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.8150836660393647,
+          "excitation_mean": 0.2506149858977317,
+          "activation_mean": 0.27180417173162735,
+          "force_abs_mean": 96.22796286279163
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7998571534987006,
+          "excitation_mean": 0.263738191917468,
+          "activation_mean": 0.28929257270315467,
+          "force_abs_mean": 149.7539003025502
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.7298431312536587,
+          "excitation_mean": 0.28228607247033344,
+          "activation_mean": 0.30611310149864895,
+          "force_abs_mean": 36.61964591129239
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.808859404568375,
+          "excitation_mean": 0.24912727688892425,
+          "activation_mean": 0.26283505939856383,
+          "force_abs_mean": 33.88765958606069
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.781806240323931,
+          "excitation_mean": 0.17444861809587645,
+          "activation_mean": 0.19219733540148262,
+          "force_abs_mean": 19.313718644109883
+        }
+      },
+      "action_abs_mean": 0.8144782142227098,
+      "action_abs_max": 0.9999999718155179,
+      "excitation_mean": 0.21505446033797368,
+      "activation_mean": 0.230606427638729,
+      "actuator_force_abs_mean": 43.221429866076036,
+      "ncon_mean": 4.1875,
+      "ncon_max": 9.0,
+      "total_normal_force_mean": 639.9583053309228,
+      "foot_contact_fraction": 0.9642857142857143,
+      "max_abs_qvel": 45.498119404199734,
+      "max_abs_qacc": 37172.75697352718,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "trail": null,
+      "sweep": "B_lower",
+      "upper_scale": 1.0,
+      "lower_scale": 0.5,
+      "n_scaled_muscles": 50,
+      "group_counts": {
+        "L/lower": 50
+      },
+      "applied_slots": {
+        "gainprm": 2,
+        "biasprm": -1
+      }
+    },
+    {
+      "label": "B_lower_u1.0_l0.5",
+      "seed": 2,
+      "strength": {
+        "spec": {
+          "paretic_side": "L",
+          "upper_scale": 1.0,
+          "lower_scale": 0.5,
+          "torso_scale": 1.0,
+          "group_scales": {},
+          "include_shoulder_girdle": false,
+          "mode": "active_only",
+          "note": ""
+        },
+        "n_scaled": 50,
+        "n_unchanged": 650,
+        "group_counts": {
+          "L/lower": 50
+        },
+        "f0_multiplier_min": 0.5,
+        "f0_multiplier_max": 1.0,
+        "applied_slots": {
+          "gainprm": 2,
+          "biasprm": -1
+        }
+      },
+      "steps": 123,
+      "sim_time_s": 2.46,
+      "wall_time_s": 1.663508713000283,
+      "terminated": true,
+      "truncated": false,
+      "termination_reason": "跌到骨盆高度 0.543 m < 0.55 m",
+      "termination_source": "research",
+      "n_official_term_flags": 40,
+      "n_steps_after_official_term": 40,
+      "root_start_pos": [
+        0.9723999483126454,
+        0.037036069645029805,
+        0.9127672532943142
+      ],
+      "root_end_pos": [
+        3.3546767448238546,
+        0.3744338747173651,
+        0.5434892030089535
+      ],
+      "displacement_xy": 2.4060507089551,
+      "distance_3d": 2.434223961036843,
+      "mean_speed_xy": 0.978069393884187,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.8769500708511072,
+      "min_pelvis_height": 0.5434892030089535,
+      "max_pelvis_up_tilt_deg": 32.177014810328856,
+      "max_root_speed": 2.3765903688282983,
+      "final_root_lin_vel": [
+        1.416136680024013,
+        0.17838668438128108,
+        -1.9002412677166673
+      ],
+      "final_root_ang_vel": [
+        -0.16201857076159762,
+        2.5560773177156206,
+        1.0471965616091286
+      ],
+      "mean_qpos_track_err": 0.06960890616384001,
+      "max_qpos_track_err": 0.2813684064668216,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.8892261568791037,
+          "excitation_mean": 0.10287843908568968,
+          "activation_mean": 0.11129031091762054,
+          "force_abs_mean": 26.145834961232648
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9185367806599997,
+          "excitation_mean": 0.14959347244459875,
+          "activation_mean": 0.15897298156533715,
+          "force_abs_mean": 31.976810832684713
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.8156824002227163,
+          "excitation_mean": 0.2723965745335028,
+          "activation_mean": 0.3003178417422534,
+          "force_abs_mean": 91.61976639977023
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.8054848354618723,
+          "excitation_mean": 0.26301894625886424,
+          "activation_mean": 0.2907385967339864,
+          "force_abs_mean": 138.70810195814013
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.673110400164124,
+          "excitation_mean": 0.28652858293706635,
+          "activation_mean": 0.31653784243234656,
+          "force_abs_mean": 37.811096791621786
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7896069340382756,
+          "excitation_mean": 0.23628517628718107,
+          "activation_mean": 0.2580890674376256,
+          "force_abs_mean": 31.35005899758093
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.8143176449004973,
+          "excitation_mean": 0.19863433469712563,
+          "activation_mean": 0.2219572872304023,
+          "force_abs_mean": 23.295582750957085
+        }
+      },
+      "action_abs_mean": 0.8147035010766482,
+      "action_abs_max": 0.9999996030330658,
+      "excitation_mean": 0.21263149637664772,
+      "activation_mean": 0.2338599410602733,
+      "actuator_force_abs_mean": 40.81737732069381,
+      "ncon_mean": 4.121951219512195,
+      "ncon_max": 11.0,
+      "total_normal_force_mean": 563.5327355400516,
+      "foot_contact_fraction": 0.959349593495935,
+      "max_abs_qvel": 37.160259906126186,
+      "max_abs_qacc": 16346.354243286067,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "trail": null,
+      "sweep": "B_lower",
+      "upper_scale": 1.0,
+      "lower_scale": 0.5,
+      "n_scaled_muscles": 50,
+      "group_counts": {
+        "L/lower": 50
+      },
+      "applied_slots": {
+        "gainprm": 2,
+        "biasprm": -1
+      }
+    },
+    {
+      "label": "B_lower_u1.0_l0.25",
+      "seed": 0,
+      "strength": {
+        "spec": {
+          "paretic_side": "L",
+          "upper_scale": 1.0,
+          "lower_scale": 0.25,
+          "torso_scale": 1.0,
+          "group_scales": {},
+          "include_shoulder_girdle": false,
+          "mode": "active_only",
+          "note": ""
+        },
+        "n_scaled": 50,
+        "n_unchanged": 650,
+        "group_counts": {
+          "L/lower": 50
+        },
+        "f0_multiplier_min": 0.25,
+        "f0_multiplier_max": 1.0,
+        "applied_slots": {
+          "gainprm": 2,
+          "biasprm": -1
+        }
+      },
+      "steps": 64,
+      "sim_time_s": 1.28,
+      "wall_time_s": 1.4988339129999986,
+      "terminated": true,
+      "truncated": false,
+      "termination_reason": "骨盆直立偏差 62.0° > 60.0°",
+      "termination_source": "research",
+      "n_official_term_flags": 33,
+      "n_steps_after_official_term": 33,
+      "root_start_pos": [
+        0.9938051914824523,
+        0.0351299562191073,
+        0.9088988275720309
+      ],
+      "root_end_pos": [
+        1.8560068564096153,
+        0.3189120793215552,
+        0.7341075028494327
+      ],
+      "displacement_xy": 0.9077025968871658,
+      "distance_3d": 0.9243787165409995,
+      "mean_speed_xy": 0.7091426538180983,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.8595944927507098,
+      "min_pelvis_height": 0.7341075028494327,
+      "max_pelvis_up_tilt_deg": 61.996906763908136,
+      "max_root_speed": 1.4305884957340178,
+      "final_root_lin_vel": [
+        0.5528673086671865,
+        1.0410899570726921,
+        -0.5726789516856053
+      ],
+      "final_root_ang_vel": [
+        -0.054669189808596974,
+        2.689379476283776,
+        -3.777998699426007
+      ],
+      "mean_qpos_track_err": 0.11660428829708565,
+      "max_qpos_track_err": 0.34606848828914416,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9291948492440287,
+          "excitation_mean": 0.13556388033959563,
+          "activation_mean": 0.13762538304182037,
+          "force_abs_mean": 33.73200993074109
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9496317871647779,
+          "excitation_mean": 0.23373242654015186,
+          "activation_mean": 0.23808960035167526,
+          "force_abs_mean": 52.00749334614197
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.8747416975721717,
+          "excitation_mean": 0.28949287543558966,
+          "activation_mean": 0.3097200014312527,
+          "force_abs_mean": 62.9969696261635
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.8293956520222128,
+          "excitation_mean": 0.29457235438716456,
+          "activation_mean": 0.3189962996679808,
+          "force_abs_mean": 174.39564605085664
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.7798533812465687,
+          "excitation_mean": 0.28565430578169804,
+          "activation_mean": 0.3119397645221538,
+          "force_abs_mean": 37.6254064377025
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.8029978716021178,
+          "excitation_mean": 0.3224340773850908,
+          "activation_mean": 0.34104175544149284,
+          "force_abs_mean": 42.02099596226352
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.8540398076919911,
+          "excitation_mean": 0.17753669972426697,
+          "activation_mean": 0.20097592213605084,
+          "force_abs_mean": 21.497812189369036
+        }
+      },
+      "action_abs_mean": 0.8479250263316291,
+      "action_abs_max": 0.999999555008752,
+      "excitation_mean": 0.24939285389674165,
+      "activation_mean": 0.2676236187099529,
+      "actuator_force_abs_mean": 46.82955864811341,
+      "ncon_mean": 3.921875,
+      "ncon_max": 10.0,
+      "total_normal_force_mean": 556.8051334428242,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 23.80438710332864,
+      "max_abs_qacc": 4241.027072327909,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "trail": null,
+      "sweep": "B_lower",
+      "upper_scale": 1.0,
+      "lower_scale": 0.25,
+      "n_scaled_muscles": 50,
+      "group_counts": {
+        "L/lower": 50
+      },
+      "applied_slots": {
+        "gainprm": 2,
+        "biasprm": -1
+      }
+    },
+    {
+      "label": "B_lower_u1.0_l0.25",
+      "seed": 1,
+      "strength": {
+        "spec": {
+          "paretic_side": "L",
+          "upper_scale": 1.0,
+          "lower_scale": 0.25,
+          "torso_scale": 1.0,
+          "group_scales": {},
+          "include_shoulder_girdle": false,
+          "mode": "active_only",
+          "note": ""
+        },
+        "n_scaled": 50,
+        "n_unchanged": 650,
+        "group_counts": {
+          "L/lower": 50
+        },
+        "f0_multiplier_min": 0.25,
+        "f0_multiplier_max": 1.0,
+        "applied_slots": {
+          "gainprm": 2,
+          "biasprm": -1
+        }
+      },
+      "steps": 30,
+      "sim_time_s": 0.6,
+      "wall_time_s": 0.4462131440000121,
+      "terminated": true,
+      "truncated": false,
+      "termination_reason": "骨盆直立偏差 61.5° > 60.0°",
+      "termination_source": "research",
+      "n_official_term_flags": 21,
+      "n_steps_after_official_term": 21,
+      "root_start_pos": [
+        0.5814191804746273,
+        0.014396046826729927,
+        0.9081504525495855
+      ],
+      "root_end_pos": [
+        1.0640971004150335,
+        0.014991767012711361,
+        0.7438258781440023
+      ],
+      "displacement_xy": 0.4826782875586359,
+      "distance_3d": 0.5098832170547617,
+      "mean_speed_xy": 0.8044638125977265,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.8338836292491583,
+      "min_pelvis_height": 0.7438258781440023,
+      "max_pelvis_up_tilt_deg": 61.54778308833904,
+      "max_root_speed": 1.2057425193660134,
+      "final_root_lin_vel": [
+        1.0758250572955075,
+        0.011380100861380879,
+        -0.5443215615852488
+      ],
+      "final_root_ang_vel": [
+        0.08891921909250189,
+        2.7532533263191774,
+        -2.1721002995506944
+      ],
+      "mean_qpos_track_err": 0.12593374597857673,
+      "max_qpos_track_err": 0.3025681750047754,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9196052945702454,
+          "excitation_mean": 0.1776793579764974,
+          "activation_mean": 0.19150886537752027,
+          "force_abs_mean": 46.35324349753816
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9045449238331592,
+          "excitation_mean": 0.3030395517987072,
+          "activation_mean": 0.311708878002302,
+          "force_abs_mean": 63.66361900701584
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.907432880282402,
+          "excitation_mean": 0.2742574832900816,
+          "activation_mean": 0.29213382962183737,
+          "force_abs_mean": 73.13601819442444
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.8864973899920782,
+          "excitation_mean": 0.37954816817111947,
+          "activation_mean": 0.4027977491732153,
+          "force_abs_mean": 211.94392199902347
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.8390646997318473,
+          "excitation_mean": 0.37717103253510514,
+          "activation_mean": 0.40817886793974684,
+          "force_abs_mean": 48.51223929782354
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.8631501038619831,
+          "excitation_mean": 0.3391753580675311,
+          "activation_mean": 0.35300744777654447,
+          "force_abs_mean": 44.77145726760525
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.8581501513719558,
+          "excitation_mean": 0.20286983125951305,
+          "activation_mean": 0.2244168546841612,
+          "force_abs_mean": 22.1831557241422
+        }
+      },
+      "action_abs_mean": 0.8739554126234281,
+      "action_abs_max": 0.999999555179051,
+      "excitation_mean": 0.28138039079722066,
+      "activation_mean": 0.29877698854993373,
+      "actuator_force_abs_mean": 53.97625674037422,
+      "ncon_mean": 4.033333333333333,
+      "ncon_max": 6.0,
+      "total_normal_force_mean": 484.65890970972504,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 35.12992393697702,
+      "max_abs_qacc": 18271.082790519624,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "trail": null,
+      "sweep": "B_lower",
+      "upper_scale": 1.0,
+      "lower_scale": 0.25,
+      "n_scaled_muscles": 50,
+      "group_counts": {
+        "L/lower": 50
+      },
+      "applied_slots": {
+        "gainprm": 2,
+        "biasprm": -1
+      }
+    },
+    {
+      "label": "B_lower_u1.0_l0.25",
+      "seed": 2,
+      "strength": {
+        "spec": {
+          "paretic_side": "L",
+          "upper_scale": 1.0,
+          "lower_scale": 0.25,
+          "torso_scale": 1.0,
+          "group_scales": {},
+          "include_shoulder_girdle": false,
+          "mode": "active_only",
+          "note": ""
+        },
+        "n_scaled": 50,
+        "n_unchanged": 650,
+        "group_counts": {
+          "L/lower": 50
+        },
+        "f0_multiplier_min": 0.25,
+        "f0_multiplier_max": 1.0,
+        "applied_slots": {
+          "gainprm": 2,
+          "biasprm": -1
+        }
+      },
+      "steps": 62,
+      "sim_time_s": 1.24,
+      "wall_time_s": 0.736258848000034,
+      "terminated": true,
+      "truncated": false,
+      "termination_reason": "骨盆直立偏差 60.9° > 60.0°",
+      "termination_source": "research",
+      "n_official_term_flags": 34,
+      "n_steps_after_official_term": 34,
+      "root_start_pos": [
+        0.9723999483126454,
+        0.037036069645029805,
+        0.9127672532943142
+      ],
+      "root_end_pos": [
+        1.8128460501506647,
+        0.28242339346817213,
+        0.746820748452209
+      ],
+      "displacement_xy": 0.8755367432539916,
+      "distance_3d": 0.8911244757367608,
+      "mean_speed_xy": 0.706078018753219,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.860995507287312,
+      "min_pelvis_height": 0.746820748452209,
+      "max_pelvis_up_tilt_deg": 60.940676591205005,
+      "max_root_speed": 1.4627111398497938,
+      "final_root_lin_vel": [
+        0.4862048936888099,
+        0.9687171431127163,
+        -0.4490511680305385
+      ],
+      "final_root_ang_vel": [
+        -0.13511496366822967,
+        3.162310150929975,
+        -4.328559980057079
+      ],
+      "mean_qpos_track_err": 0.10315839414021338,
+      "max_qpos_track_err": 0.35014055517249293,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9160898253124647,
+          "excitation_mean": 0.11718204126359695,
+          "activation_mean": 0.1203650636250143,
+          "force_abs_mean": 28.345717126392692
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.945559386016199,
+          "excitation_mean": 0.20927335348349083,
+          "activation_mean": 0.2153276098744091,
+          "force_abs_mean": 44.9506393024441
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.8644332395638189,
+          "excitation_mean": 0.2894559431993289,
+          "activation_mean": 0.3122054873123701,
+          "force_abs_mean": 58.84885960573674
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.8300350912732463,
+          "excitation_mean": 0.2883309809214459,
+          "activation_mean": 0.31336925248347036,
+          "force_abs_mean": 162.37468785417826
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.7626407502469114,
+          "excitation_mean": 0.25072778938814244,
+          "activation_mean": 0.2774723726023468,
+          "force_abs_mean": 33.10430443801602
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.8016717705927424,
+          "excitation_mean": 0.29985797236228967,
+          "activation_mean": 0.3193920513309725,
+          "force_abs_mean": 39.486695051411736
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.8493527461250057,
+          "excitation_mean": 0.17049194382180619,
+          "activation_mean": 0.19209254750057758,
+          "force_abs_mean": 20.330295053760132
+        }
+      },
+      "action_abs_mean": 0.843129722937461,
+      "action_abs_max": 0.9999986108711788,
+      "excitation_mean": 0.23386295209452346,
+      "activation_mean": 0.2523536911030745,
+      "actuator_force_abs_mean": 43.17787148743257,
+      "ncon_mean": 3.9516129032258065,
+      "ncon_max": 11.0,
+      "total_normal_force_mean": 549.185398629814,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 20.573258436590653,
+      "max_abs_qacc": 4702.144804938648,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "trail": null,
+      "sweep": "B_lower",
+      "upper_scale": 1.0,
+      "lower_scale": 0.25,
+      "n_scaled_muscles": 50,
+      "group_counts": {
+        "L/lower": 50
+      },
+      "applied_slots": {
+        "gainprm": 2,
+        "biasprm": -1
+      }
+    }
+  ]
+}

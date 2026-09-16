@@ -1,0 +1,302 @@
+{
+  "xml": "/home/zrq/Documents/muscle-rl/external/MS-Human-700/MS-Human-700.xml",
+  "model_name": null,
+  "counts": {
+    "nbody": 81,
+    "njnt": 85,
+    "nq": 85,
+    "nv": 85,
+    "nu": 700,
+    "na": 700,
+    "ngeom": 349,
+    "nsite": 2856,
+    "ntendon": 700,
+    "neq": 42,
+    "nsensor": 0,
+    "nkey": 1
+  },
+  "opt": {
+    "timestep": 0.002,
+    "gravity": [
+      0.0,
+      0.0,
+      -9.81
+    ],
+    "integrator": "mjINT_EULER",
+    "solver": "mjSOL_NEWTON",
+    "cone": "mjCONE_PYRAMIDAL",
+    "iterations": 100,
+    "disableflags": 0,
+    "enableflags": 0
+  },
+  "joint_type_counts": {
+    "mjJNT_SLIDE": 13,
+    "mjJNT_HINGE": 72
+  },
+  "root_bodies": [
+    {
+      "body": "pelvis",
+      "njoint": 6,
+      "joints": [
+        {
+          "name": "pelvis_tz",
+          "type": 2,
+          "nq": null
+        },
+        {
+          "name": "pelvis_ty",
+          "type": 2,
+          "nq": null
+        },
+        {
+          "name": "pelvis_tx",
+          "type": 2,
+          "nq": null
+        },
+        {
+          "name": "pelvis_tilt",
+          "type": 3,
+          "nq": null
+        },
+        {
+          "name": "pelvis_list",
+          "type": 3,
+          "nq": null
+        },
+        {
+          "name": "pelvis_rotation",
+          "type": 3,
+          "nq": null
+        }
+      ]
+    }
+  ],
+  "freejoints": [],
+  "geom_collision": {
+    "n_geoms_with_contact": 19,
+    "n_geoms": 349
+  },
+  "equality_types": {
+    "mjEQ_JOINT": 42
+  },
+  "passive_dof_params": {
+    "damping": {
+      "len": 85,
+      "n_nonzero": 79,
+      "min": 0.01,
+      "max": 5.0,
+      "unique_head": [
+        0.01,
+        0.05,
+        0.1,
+        0.3,
+        0.5,
+        0.6,
+        1.0,
+        5.0
+      ]
+    },
+    "armature": {
+      "len": 85,
+      "n_nonzero": 79,
+      "min": 0.0001,
+      "max": 0.1,
+      "unique_head": [
+        0.0001,
+        0.01,
+        0.1
+      ]
+    },
+    "frictionloss": {
+      "len": 85,
+      "n_nonzero": 0,
+      "min": 0.0,
+      "max": 0.0,
+      "unique_head": []
+    },
+    "stiffness(jnt)": {
+      "len": 85,
+      "n_nonzero": 35,
+      "min": 10.0,
+      "max": 10.0,
+      "unique_head": [
+        10.0
+      ]
+    }
+  },
+  "actuators": {
+    "nu": 700,
+    "n_muscle_dyntype": 700,
+    "dyntype_unique": [
+      4
+    ],
+    "gaintype_unique": [
+      2
+    ],
+    "biastype_unique": [
+      2
+    ],
+    "gainprm_nonzero_cols": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "biasprm_nonzero_cols": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "ctrlrange_unique": [
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "gear_nonzero_cols": [
+      0
+    ],
+    "gear_col0_unique": [
+      1.0
+    ],
+    "F0_from_gainprm_col0": {
+      "min": 0.75,
+      "max": 0.75,
+      "mean": 0.75,
+      "head5": [
+        0.75,
+        0.75,
+        0.75,
+        0.75,
+        0.75
+      ]
+    },
+    "gear_col0_for_muscle": {
+      "min": 1.0,
+      "max": 1.0
+    },
+    "sample_actuators": [
+      {
+        "id": 0,
+        "name": "addbrev_r",
+        "dyntype": 4,
+        "gainprm[:3]": [
+          0.75,
+          1.05,
+          625.82
+        ],
+        "biasprm[:3]": [
+          0.75,
+          1.05,
+          625.82
+        ],
+        "ctrlrange": [
+          0.0,
+          1.0
+        ],
+        "trnid": [
+          11,
+          -1
+        ],
+        "gear[:2]": [
+          1.0,
+          0.0
+        ]
+      },
+      {
+        "id": 1,
+        "name": "addlong_r",
+        "dyntype": 4,
+        "gainprm[:3]": [
+          0.75,
+          1.05,
+          916.8
+        ],
+        "biasprm[:3]": [
+          0.75,
+          1.05,
+          916.8
+        ],
+        "ctrlrange": [
+          0.0,
+          1.0
+        ],
+        "trnid": [
+          12,
+          -1
+        ],
+        "gear[:2]": [
+          1.0,
+          0.0
+        ]
+      },
+      {
+        "id": 2,
+        "name": "addmagDist_r",
+        "dyntype": 4,
+        "gainprm[:3]": [
+          0.75,
+          1.05,
+          597.295
+        ],
+        "biasprm[:3]": [
+          0.75,
+          1.05,
+          597.295
+        ],
+        "ctrlrange": [
+          0.0,
+          1.0
+        ],
+        "trnid": [
+          13,
+          -1
+        ],
+        "gear[:2]": [
+          1.0,
+          0.0
+        ]
+      }
+    ],
+    "n_unique_names": 700
+  },
+  "key_bodies": {
+    "pelvis": 1,
+    "sternum": 34,
+    "head_neck": 33,
+    "toes_r": 6,
+    "toes_l": 12,
+    "proximal_row_r": 44,
+    "proximal_row_l": 55
+  },
+  "keyframe0": {
+    "qpos_norm": 0.07829431652425353,
+    "qpos_head": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "qpos_first_actuated": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  }
+}
