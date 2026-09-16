@@ -10,7 +10,7 @@
 
 1. **复现官方全身肌骨模型预训练 RL 行走**：官方 DynSyn-SAC checkpoint（全身模型 700 肌肉）
    在真实动力学下走完 3 个步态周期（175 步 / 3.50 s），平均速度 0.96 m/s，
-   官方终止规则未触发，并导出视频 `runs/eval_video/rollout.mp4`。
+   官方终止规则未触发；已导出视频（`*.mp4` 不入库，关键帧见 `reports/video_frames/`）。
 2. **可重复、可恢复的患侧肌力参数化**：`hemirl/muscle_actuator.py`，
    从不可变基准计算 F0 倍率，支持左右侧 / 上下肢独立缩放、两种主动-被动模式。
 3. **动力学闭环核查**：`hemirl/dynamics_audit.py` + `scripts/audit_dynamics.py`，
