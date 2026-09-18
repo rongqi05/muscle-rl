@@ -16,29 +16,28 @@
   },
   "tol": 1e-05,
   "code_version": {
-    "commit": "26ab494f11b25b0d385271c40ff0925657dff2ec",
-    "commit_subject": "chore: 溯源区分代码脏与输出脏；用干净 commit 重跑全部实验并确认逐位可复现",
+    "commit": "196b7481724d11e7a96fed991afb9b13f5af4dec",
+    "commit_subject": "chore: 刷新验证产物，使 code_version 指向干净提交 26ab494",
     "branch": "main",
     "remote": "https://github.com/rongqi05/muscle-rl.git",
     "dirty": true,
     "code_dirty": false,
     "code_dirty_files": [],
     "other_dirty_files": [
-      "eports/reference_continuity.json",
-      "reports/verify_strength.json"
+      "emirl/policy_verify.py"
     ],
     "untracked_files": [
-      "eports/reference_continuity.json"
+      "emirl/policy_verify.py"
     ],
     "patch_sha256": null,
-    "patch_sha256_all": "d632b88404ba7fcf25b942d2f5ef2aa6b014d28b1b485c534cfefc55a8590fde",
+    "patch_sha256_all": "8151618a8c2c923d409b2f85674b1ac936acbe7babc8d9baf949615850259dae",
     "code_paths_used_for_describe": [
       "hemirl",
       "scripts",
       "tests",
       "configs"
     ],
-    "describe": "26ab494"
+    "describe": "196b748"
   },
   "checkpoint_sha256": {
     "best_model.zip": "0a3607c0a9d745a6bb5a5ffceb7539a7405d455943abf283d4f8107f22a47829",
@@ -240,8 +239,12 @@
     "env_ctrl_min": 0.0005710410726136104,
     "env_ctrl_max": 0.9174235455588438,
     "n_unique_group_values": 138,
-    "group_value_repeat_ok": false,
-    "in_range": true
+    "in_range": true,
+    "group_value_repeat_ok": true,
+    "n_groups_with_mixed_values": 0,
+    "n_elements_mismatched_legacy_formula": 697,
+    "formula": "a == a[first_of_group[group_of_muscle]]（组内同值）",
+    "legacy_formula_note": "旧写法 a == a[group_of_muscle] 要求 g[g[i]]==g[i]，在正确展开上也会为 False，已废弃"
   },
   "named_experiments": {
     "dynsyn_amp_nonzero": {
@@ -257,6 +260,7 @@
     "amp_none_equals_weight_one": true,
     "amp_branch_is_live": true,
     "action_within_range": true,
+    "group_value_repeat_ok": true,
     "no_layer_divergence": true,
     "max_abs_action_diff_within_tol": true
   },

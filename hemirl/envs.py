@@ -49,12 +49,21 @@ class OfficialEnvConfig:
 
     @classmethod
     def from_checkpoint(cls, checkpoint_dir: Path) -> "OfficialEnvConfig":
-        """从 checkpoint 目录的 json 读回训练时的环境配置（保证与权重匹配）。"""
+        """从 checkpoint 目录的 json 读回训练时的环境配置（保证与权重匹配）。
+
+        优先取名为 ``locomotionFull.json`` 的文件（官方 checkpoint 的命名），
+        否则取目录下排序最靠前的 ``*.json``。**显式优先**很重要：微调产物目录里还会
+        同时存在 ``run.json`` 等元数据文件，只有排序不是「恰好正确」才能保证不读错。
+        """
         checkpoint_dir = Path(checkpoint_dir)
-        jsons = sorted(checkpoint_dir.glob("*.json"))
-        if not jsons:
-            raise FileNotFoundError(f"checkpoint 目录下没有配置文件: {checkpoint_dir}")
-        cfg = json.loads(jsons[0].read_text(encoding="utf-8"))
+        preferred = checkpoint_dir / "locomotionFull.json"
+        if preferred.is_file():
+            cfg = json.loads(preferred.read_text(encoding="utf-8"))
+        else:
+            jsons = sorted(checkpoint_dir.glob("*.json"))
+            if not jsons:
+                raise FileNotFoundError(f"checkpoint 目录下没有配置文件: {checkpoint_dir}")
+            cfg = json.loads(jsons[0].read_text(encoding="utf-8"))
         return cls(
             env_name=cfg["env_name"],
             single_env_kwargs=cfg["single_env_kwargs"],

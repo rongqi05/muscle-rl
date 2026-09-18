@@ -115,6 +115,23 @@ flowchart LR
 拐杖接口的完整需求清单（几何、耦合、观测、奖励、编排、指标）见
 `reports/phase1_report.md` §9.2。
 
+## 第二阶段：正常肌力长时稳定性（已完成，未达门槛）
+
+详见 [`reports/phase3_long_horizon_report.md`](../reports/phase3_long_horizon_report.md)。
+
+**诊断结论**：侧向漂移是唯一在跌倒前显著发散的信号；观测裁剪经**命名对照**证实是结果非原因；
+参考循环边界跳变小于正常单步变化，但参考超前 1 个控制步对动作仍有 5.6% 的平均影响（未排除）。
+
+**微调入口**：`scripts/train_healthy.py`（支持 `--resume`）/ `scripts/eval_healthy.py` /
+`configs/train_healthy_v1.json`。沿用 DynSyn-SAC + 官方 actor，`critic/alpha` 初始化由
+2000-transition 对照实验决定（**keep**：重置 critic 会把验证集存活从 4.95 s 打到 0.64 s），
+`dynsyn_weight_amp` **显式固定 0.0**（否则上游 `train()` 会算出 0.075 并静默改动作语义）。
+
+**结果**：50,604 transitions / 12.51 分钟；配对评估（20 测试种子、20 s）存活
+4.97 → 5.60 s、侧偏 0.450 → 0.294 m、倾角 61.1° → 29.4°，但 20 s 完成率 **0/20**（门槛 18/20）。
+→ **未达到**进入损伤适应训练的条件。下一次单项调整：给侧向偏移加**终止条件** + 提高训练预算
+（当前 critic 对新回报尺度高估 36%）。
+
 ## 相关文档
 
 - [`README.md`](../README.md) — 环境准备、目录说明、可复制运行的命令

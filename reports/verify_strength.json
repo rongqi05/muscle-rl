@@ -296,29 +296,69 @@
     "R/upper": 61
   },
   "code_version": {
-    "commit": "26ab494f11b25b0d385271c40ff0925657dff2ec",
-    "commit_subject": "chore: 溯源区分代码脏与输出脏；用干净 commit 重跑全部实验并确认逐位可复现",
+    "commit": "196b7481724d11e7a96fed991afb9b13f5af4dec",
+    "commit_subject": "chore: 刷新验证产物，使 code_version 指向干净提交 26ab494",
     "branch": "main",
     "remote": "https://github.com/rongqi05/muscle-rl.git",
     "dirty": true,
-    "code_dirty": false,
-    "code_dirty_files": [],
+    "code_dirty": true,
+    "code_dirty_files": [
+      "hemirl/envs.py",
+      "hemirl/policy_verify.py",
+      "hemirl/research_env.py",
+      "configs/train_healthy_v1.json",
+      "hemirl/instability_diag.py",
+      "hemirl/reward_healthy.py",
+      "scripts/compare_policies.py",
+      "scripts/diagnose_instability.py",
+      "scripts/eval_healthy.py",
+      "scripts/measure_throughput.py",
+      "scripts/named_controls.py",
+      "scripts/train_healthy.py"
+    ],
     "other_dirty_files": [
-      "eports/reference_continuity.json",
-      "reports/verify_strength.json"
+      "gitignore",
+      "reports/verify_policy.json",
+      "reports/instability_diag.json",
+      "reports/named_controls.json",
+      "reports/phase3_long_horizon_report.md",
+      "reports/reward_calibration.json",
+      "reports/throughput.json",
+      "reports/train_check_init.json",
+      "reports/train_vs_baseline.json",
+      "runs/healthy_vs_official/",
+      "runs/train/"
     ],
     "untracked_files": [
-      "eports/reference_continuity.json"
+      "configs/train_healthy_v1.json",
+      "gitignore",
+      "hemirl/instability_diag.py",
+      "hemirl/reward_healthy.py",
+      "reports/instability_diag.json",
+      "reports/named_controls.json",
+      "reports/phase3_long_horizon_report.md",
+      "reports/reward_calibration.json",
+      "reports/throughput.json",
+      "reports/train_check_init.json",
+      "reports/train_vs_baseline.json",
+      "runs/healthy_vs_official/",
+      "runs/train/",
+      "scripts/compare_policies.py",
+      "scripts/diagnose_instability.py",
+      "scripts/eval_healthy.py",
+      "scripts/measure_throughput.py",
+      "scripts/named_controls.py",
+      "scripts/train_healthy.py"
     ],
-    "patch_sha256": null,
-    "patch_sha256_all": "3ca4159b30e8502f6c37f9fb3007798eef66ef978223144d4e4e3a2c2a615d7b",
+    "patch_sha256": "74dd4e897c5eb9a02d622867dd81cedb1639be92c20bbfa7f7b665b4b5e79178",
+    "patch_sha256_all": "e9f13ff095c15ea6e8e48c8536d276e374daa7246cb826ada2efeca2e44a0dca",
     "code_paths_used_for_describe": [
       "hemirl",
       "scripts",
       "tests",
       "configs"
     ],
-    "describe": "26ab494"
+    "describe": "196b748+code-dirty:74dd4e89"
   },
   "model_xml": {
     "path": "/home/zrq/Documents/muscle-rl/external/MS-Human-700/MS-Human-700.xml",

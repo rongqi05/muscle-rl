@@ -46,6 +46,7 @@ import gymnasium as gym
 import numpy as np
 
 from hemirl import paths
+from hemirl.reward_healthy import HealthyRewardConfig, compute as compute_extra_reward
 from hemirl.termination import (
     TerminationConfig,
     evaluate_research_termination,
@@ -107,6 +108,9 @@ class ResearchEnvConfig:
     #: 奖励返回模式。
     reward_mode: str = REWARD_MODE_OFFICIAL
     reward_split: RewardSplitConfig = field(default_factory=RewardSplitConfig)
+    #: 附加奖励项（直立/前进/侧向/滑步）；enable=False 时行为与上游一致。
+    #: 仅在 ``reward_mode='split'`` 时计入返回值。
+    extra_reward: Optional[HealthyRewardConfig] = None
     #: 是否保留逐步 ledger（长回合内存开销与步数成正比，默认开启，训练时可关）。
     keep_ledger: bool = True
     #: 便于溯源的名字。
@@ -136,6 +140,7 @@ class ResearchEnvConfig:
             "max_control_steps": self.max_control_steps,
             "reward_mode": self.reward_mode,
             "reward_split": self.reward_split.to_dict(),
+            "extra_reward": self.extra_reward.to_dict() if self.extra_reward is not None else None,
             "keep_ledger": self.keep_ledger,
             "suppresses_official_reference_termination": self.suppresses_official_reference_termination,
             "suppresses_official_time_truncation": self.suppresses_official_time_truncation,
@@ -153,11 +158,16 @@ class ResearchEnvConfig:
         payload = {k: v for k, v in payload.items() if not k.startswith("_")}
         term = payload.pop("termination", None)
         rsplit = payload.pop("reward_split", None)
+        extra = payload.pop("extra_reward", None)
+        payload.pop("suppresses_official_reference_termination", None)
+        payload.pop("suppresses_official_time_truncation", None)
         cfg = cls(**payload)
         if term is not None:
             cfg.termination = TerminationConfig.from_dict(term)
         if rsplit is not None:
             cfg.reward_split = RewardSplitConfig(**rsplit)
+        if extra is not None:
+            cfg.extra_reward = HealthyRewardConfig(**extra)
         return cfg
 
 
@@ -255,6 +265,7 @@ class ResearchLocomotionEnv(gym.Wrapper):
         self._truncated = False
         self._n_official_term_flags = 0
         self._n_steps_executed = 0
+        self._pelvis_y_start = 0.0
         self._last_info: Dict[str, Any] = {}
 
     # ------------------------------------------------------------ 兼容属性
@@ -351,6 +362,7 @@ class ResearchLocomotionEnv(gym.Wrapper):
         self._termination_source = None
         self._n_official_term_flags = 0
         self._reset_time = float(self.data.time)
+        self._pelvis_y_start = self._pelvis_y()
         # 按本回合参考姿态标定骨盆直立轴（pelvis body 局部坐标系与世界「上」不对齐）
         self._upright_local = pelvis_upright_local_axis(
             self.model, np.asarray(self.raw_env.qpos_ref), self.pelvis_id
@@ -445,7 +457,12 @@ class ResearchLocomotionEnv(gym.Wrapper):
     def _select_reward(self, reward_official: float, components: Dict[str, float]) -> float:
         if self.cfg.reward_mode == REWARD_MODE_OFFICIAL:
             return float(reward_official)
-        total = components["imitation"] + components["energy"] + components["survival_physical"]
+        total = (
+            components["imitation"]
+            + components["energy"]
+            + components["survival_physical"]
+            + components.get("extra_total", 0.0)
+        )
         if self.cfg.reward_split.include_official_healthy:
             total += components["official_healthy"]
         return float(total * self.cfg.reward_split.normalization)
@@ -466,7 +483,7 @@ class ResearchLocomotionEnv(gym.Wrapper):
         # 物理存活：只看骨盆高度与数值有限性，不看参考轨迹
         physically_alive = self._is_physically_alive()
         survival = float(self.cfg.reward_split.w_survival) if physically_alive else 0.0
-        return {
+        out = {
             "imitation": float(imitation),
             "energy": float(energy),
             "official_healthy": float(official_healthy),
@@ -474,6 +491,28 @@ class ResearchLocomotionEnv(gym.Wrapper):
             "survival_physical_is_reference_dependent": False,
             "official_healthy_is_reference_dependent": True,
         }
+        # 附加项（直立/前进/侧向/滑步）：只在 split 模式下计入返回值
+        extra_cfg = self.cfg.extra_reward
+        if extra_cfg is not None and extra_cfg.enable:
+            terms, total = compute_extra_reward(
+                extra_cfg,
+                pelvis_y=self._pelvis_y(),
+                ref_y=self._ref_y(),
+                pelvis_y_start=self._pelvis_y_start,
+                lin_vel=self._root_lin_vel(),
+                slip=self._foot_slip(),
+            )
+            out.update(terms)
+            out["extra_total"] = total
+        else:
+            out.update({
+                "extra_lateral_dev": 0.0,
+                "extra_lateral_vel": 0.0,
+                "extra_forward_shortfall": 0.0,
+                "extra_slip": 0.0,
+                "extra_total": 0.0,
+            })
+        return out
 
     def _is_physically_alive(self) -> bool:
         for arr in (self.data.qpos, self.data.qvel, self.data.qacc):
@@ -566,6 +605,47 @@ class ResearchLocomotionEnv(gym.Wrapper):
 
     def pelvis_height(self) -> float:
         return float(self.data.xpos[self.pelvis_id][2])
+
+    def _pelvis_y(self) -> float:
+        """骨盆世界系侧向位置（m）。"""
+        return float(self.data.xpos[self.pelvis_id][1])
+
+    def _ref_y(self) -> float:
+        """参考当前的世界系侧向位置（m）。qpos[0]=pelvis_tz 对应世界 −y。"""
+        return -float(np.asarray(self.raw_env.qpos_ref, dtype=float)[0])
+
+    def _root_lin_vel(self) -> np.ndarray:
+        """骨盆 body 原点的世界系线速度（旋转 Jacobian，不依赖槽位顺序）。"""
+        import mujoco
+
+        jacp = np.zeros((3, int(self.model.nv)))
+        jacr = np.zeros((3, int(self.model.nv)))
+        mujoco.mj_jacBody(self.model, self.data, jacp, jacr, int(self.pelvis_id))
+        return jacp @ np.asarray(self.data.qvel, dtype=float)
+
+    def _foot_slip(self) -> float:
+        """当前足部滑动代理量（m/s）：接触（法向力 > 20 N）足部 body 的水平速度。"""
+        import mujoco
+
+        buf = np.zeros(6, dtype=np.float64)
+        geom_f: Dict[int, float] = {}
+        for i in range(int(self.data.ncon)):
+            con = self.data.contact[i]
+            mujoco.mj_contactForce(self.model, self.data, i, buf)
+            f = float(abs(buf[0]))
+            for gid in (int(con.geom1), int(con.geom2)):
+                if f > geom_f.get(gid, 0.0):
+                    geom_f[gid] = f
+        slip = 0.0
+        for name in ("calcn_r", "calcn_l", "toes_r", "toes_l"):
+            bid = int(mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_BODY, name))
+            if bid < 0:
+                continue
+            adr, num = int(self.model.body_geomadr[bid]), int(self.model.body_geomnum[bid])
+            if any(geom_f.get(adr + g, 0.0) > 20.0 for g in range(num)):
+                v = np.asarray(self.data.cvel[bid][3:6], dtype=float)
+                slip = max(slip, float(np.linalg.norm(v)))
+        return slip
 
     def up_tilt_deg(self) -> float:
         rot = np.asarray(self.data.xmat[self.pelvis_id]).reshape(3, 3)

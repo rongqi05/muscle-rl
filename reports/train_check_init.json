@@ -1,0 +1,79 @@
+{
+  "purpose": "决定微调时 critic / 温度参数的初始化方式（不做未经比较的假定）",
+  "protocol": {
+    "transitions": 2000,
+    "n_envs": 12,
+    "train_freq": 2,
+    "batch_size": 256,
+    "val_seeds": [
+      101,
+      102,
+      103,
+      104,
+      105
+    ],
+    "val_episode_seconds": 6.0
+  },
+  "rows": [
+    {
+      "critic_init": "keep",
+      "alpha_init": "keep",
+      "transitions": 2004,
+      "n_gradient_updates": 83,
+      "policy_drift_max_abs": 1.365253210067749,
+      "policy_drift_mean_abs": 0.15568925440311432,
+      "val_success_rate": 0.0,
+      "val_mean_alive_time_s": 4.947999999999677,
+      "ent_coef_after": 0.20495770871639252,
+      "dynsyn_weight_amp_after": 0.0,
+      "reload_action_match": true,
+      "n_linear_layers_reset": 0
+    },
+    {
+      "critic_init": "keep",
+      "alpha_init": "reset",
+      "transitions": 2004,
+      "n_gradient_updates": 83,
+      "policy_drift_max_abs": 1.5060360431671143,
+      "policy_drift_mean_abs": 0.2668287456035614,
+      "val_success_rate": 0.0,
+      "val_mean_alive_time_s": 4.975999999999674,
+      "ent_coef_after": 0.9925374984741211,
+      "dynsyn_weight_amp_after": 0.0,
+      "reload_action_match": true,
+      "n_linear_layers_reset": 0
+    },
+    {
+      "critic_init": "reset",
+      "alpha_init": "keep",
+      "transitions": 2004,
+      "n_gradient_updates": 83,
+      "policy_drift_max_abs": 1.8581347465515137,
+      "policy_drift_mean_abs": 0.442561537027359,
+      "val_success_rate": 0.0,
+      "val_mean_alive_time_s": 0.6440000000000005,
+      "ent_coef_after": 0.19109518826007843,
+      "dynsyn_weight_amp_after": 0.0,
+      "reload_action_match": true,
+      "n_linear_layers_reset": 8
+    },
+    {
+      "critic_init": "reset",
+      "alpha_init": "reset",
+      "transitions": 2004,
+      "n_gradient_updates": 83,
+      "policy_drift_max_abs": 1.720859408378601,
+      "policy_drift_mean_abs": 0.5618680119514465,
+      "val_success_rate": 0.0,
+      "val_mean_alive_time_s": 0.7000000000000005,
+      "ent_coef_after": 0.999315083026886,
+      "dynsyn_weight_amp_after": 0.0,
+      "reload_action_match": true,
+      "n_linear_layers_reset": 8
+    }
+  ],
+  "conclusion": "keep+keep 与 keep+reset 都保持行走（4.95-4.98 s）；reset critic 的两组立刻崩溃（0.64 / 0.70 s）。→ 采用 critic_init=keep, alpha_init=keep。",
+  "baseline_reference": {
+    "note": "未微调的官方策略在 6s 回合下同样约 4.9s 触地（20s 长时会 4.46-4.90s 跌倒）"
+  }
+}

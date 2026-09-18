@@ -1,0 +1,23 @@
+{
+  "nominal": {
+    "lateral_dev_abs_mean": 0.039718058022161246,
+    "lateral_vel_abs_mean": 0.15329262800174,
+    "forward_shortfall_mean": 0.1190495848159825,
+    "slip_excess_mean": 1.5354982884295778,
+    "forward_speed_mean": 0.9445697289791295,
+    "slip_mean": 2.320883295792861,
+    "n_steps": 175
+  },
+  "calibrated": {
+    "enable": true,
+    "w_lateral_dev": 125.8873230209337,
+    "w_lateral_vel": 32.617354566739145,
+    "w_forward_shortfall": 41.99930648837295,
+    "w_slip": 3.256271946166558,
+    "forward_speed_target": 1.0378,
+    "slip_tolerance": 1.0,
+    "reference_lateral_from": "ref"
+  },
+  "target_magnitude": 5.0,
+  "existing_scale_note": "实测 imitation≈-15.6/步, energy≈-3.1/步, official 合计≈+81.3/步"
+}

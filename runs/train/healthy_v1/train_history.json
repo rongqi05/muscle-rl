@@ -1,0 +1,42 @@
+{
+  "entries": [
+    {
+      "note": "主试训练（无 --resume）",
+      "resumed": false,
+      "resumed_from": null,
+      "transitions_this_run": 50004,
+      "num_timesteps_after": 45050004,
+      "wall_minutes": 12.37,
+      "stop_reason": "到达 transition 预算",
+      "critic_init": "keep",
+      "alpha_init": "keep",
+      "dynsyn_weight_amp_pinned": 0.0,
+      "val_success_rate": 0.0,
+      "val_mean_alive_time_s": 5.07,
+      "policy_drift": {
+        "max_abs_action_diff": 1.80174,
+        "mean_abs_action_diff": 0.19638
+      }
+    },
+    {
+      "note": "续训路径验证（--resume --check-only --check-transitions 600）；此步覆盖了上一行的产物",
+      "resumed": true,
+      "resumed_from": "runs/train/healthy_v1/checkpoint/last_model.zip",
+      "transitions_this_run": 600,
+      "num_timesteps_after": 45050604,
+      "wall_minutes": 0.14,
+      "stop_reason": "到达 transition 预算",
+      "critic_init": "keep",
+      "alpha_init": "keep",
+      "dynsyn_weight_amp_pinned": 0.0,
+      "val_success_rate": 0.0,
+      "val_mean_alive_time_s": 5.51,
+      "policy_drift": {
+        "max_abs_action_diff": 1.32786,
+        "mean_abs_action_diff": 0.13287
+      }
+    }
+  ],
+  "total_transitions_this_tag": 50604,
+  "budget_note": "任务书上限为 50,000 transitions 或 30 分钟墙钟。主试训练用了 50,004 transitions / 12.37 分钟；续训验证又用了 600 transitions / 0.14 分钟。总墙钟 12.51 分钟（在 30 分钟内），但 transition 数超出上限 604 步（+1.2%），原因是需要验证 --resume 路径。当前 tag 下的模型是累计 50,604 transitions 的版本，配对评估使用的就是它。若要严格不超 50,000，可删除本目录后重跑主命令（不加 --resume）。"
+}

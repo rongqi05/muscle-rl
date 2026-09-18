@@ -27,13 +27,32 @@
 
 ### 已知结论（如实记录）
 
-* **固定策略无法完成 20 s 长时行走**：5 个种子全部在 4.46–4.90 s 因侧向失稳跌倒
+* **官方策略无法完成 20 s 长时行走**：5 个种子全部在 4.46–4.90 s 因侧向失稳跌倒
   （骨盆直立偏差 > 60°）。归因分析表明**不是**参考轨迹循环造成（周期边界跳变小于周期内
   正常单步变化），而是策略自身的长时稳定性问题。详见
   [`reports/phase2_acceptance_report.md`](reports/phase2_acceptance_report.md) 第 4.2 节。
 * **下肢损伤是主因**：下肢肌力 0.5 时基本全倒，0.25 时平均存活 < 1 s；
   上肢降到 0.25 仍能走完全程（速度仅 −3.6%）。
 * 以上均为**固定官方策略**的评估结果，**不是**偏瘫适应训练结果。
+
+## 第二阶段：正常肌力长时稳定性（已完成，未达门槛）
+
+详见 [`reports/phase3_long_horizon_report.md`](reports/phase3_long_horizon_report.md)。
+
+* **诊断**：侧向漂移是唯一在跌倒前显著发散的信号（人体 0.438 m vs 参考自身 0.076 m）；
+  动作饱和从 1.42 s 起就相对基线变化；只靠「物理存活」奖励无法早期发现失稳。
+  观测裁剪经**命名对照实验**证实是**结果而非原因**（取消裁剪：4.62 s → 4.61 s）。
+* **微调入口**：`scripts/train_healthy.py`（含 `--resume`）/ `scripts/eval_healthy.py` /
+  `configs/train_healthy_v1.json`。沿用 DynSyn-SAC 与官方 actor，显式固定
+  `dynsyn_weight_amp = 0.0`（否则上游 `train()` 会算出 0.075 并静默改变动作语义）。
+* **初始化定为 keep**：4 组共 2000-transition 对照显示，重置 critic 会把验证集存活
+  从 4.95 s 打到 **0.64 s**。
+* **试训练**：50,604 transitions / 12.51 分钟。配对评估（20 个测试种子，20 s）：
+  存活 **4.97 → 5.60 s**、速度 **0.893 → 0.965 m/s**、最大侧偏 **0.450 → 0.294 m**、
+  最大倾角 **61.1° → 29.4°**；但 20 s 完成率仍为 **0/20**。
+* **结论**：**未达到**进入损伤适应训练的门槛（要求 18/20 完成 20 s）。
+  下一次最有依据的单项调整：给侧向偏移加**终止条件**（而非继续用弱的密集惩罚），
+  并把训练预算提高到与 critic 收敛需求匹配（当前 Q 高估 36%）。
 
 ## 环境
 
@@ -142,6 +161,7 @@ MUJOCO_GL=egl PYTHONPATH=. python scripts/eval_official.py \
 | 文档 | 内容 |
 |---|---|
 | [`docs/technical_route.md`](docs/technical_route.md) | **技术路线**：闭环数据流、三层技术选择、关键工程决策、与旧路线的差异、下一步 |
+| [`reports/phase3_long_horizon_report.md`](reports/phase3_long_horizon_report.md) | **第二阶段报告**：长时失稳诊断、微调入口与资源开销、有限预算试训练、配对评估、下一次单项调整 |
 | [`reports/phase2_acceptance_report.md`](reports/phase2_acceptance_report.md) | **第一阶段修复验收报告**：逐项状态分类、口径变更、长时评估失败归因、下一阶段入口与阻塞 |
 | [`reports/phase1_report.md`](reports/phase1_report.md) | **阶段一历史记录**：代码核查结论、复现数据、验证结果（数字使用**修复前**的记录口径） |
 | `reports/acceptance.json` | 验收命令的结果（passed / failed / skipped） |

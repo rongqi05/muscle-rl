@@ -195,6 +195,44 @@ def dynsyn_amp_semantics(stack, normalized_obs: np.ndarray) -> Dict[str, Any]:
 # ------------------------------------------------------------------ 主验证
 
 
+def group_value_repeat_stats(a: np.ndarray, group_of_muscle: np.ndarray, groups=()) -> Dict[str, Any]:
+    """校验「按组展开」是否真的做到**组内取值相同**。
+
+    历史缺陷（已修正）：早期字段写作 ``np.array_equal(a, a[group_of_muscle])``。
+    该式要求 ``g[g[i]] == g[i]``（``g`` 为 ``group_of_muscle``），也就是要求
+    「肌肉下标恰好等于组号」这个巧合成立，因此在**完全正确**的展开上也会返回 False。
+    实测：真实 checkpoint 的 138 个组**组内全部同值**（不同值的组数 = 0），
+    而旧公式报 697/700 个元素“不等”。
+
+    正确判据：每组取一个代表下标 ``first_of_group[g[i]]``，则应有
+    ``a == a[first_of_group[group_of_muscle]]``。
+    """
+    a = np.asarray(a)
+    g = np.asarray(group_of_muscle)
+    n_groups = int(g.max()) + 1 if g.size else 0
+    first_of_group = np.zeros(n_groups, dtype=int)
+    for gi in range(n_groups):
+        idx = np.where(g == gi)[0]
+        first_of_group[gi] = int(idx.min()) if idx.size else 0
+    ok = bool(np.allclose(a, a[first_of_group[g]]))
+    n_bad_groups = 0
+    if groups:
+        for grp in groups:
+            vals = a[np.asarray(grp, dtype=int)]
+            if not np.allclose(vals, vals[0]):
+                n_bad_groups += 1
+    return {
+        "group_value_repeat_ok": ok,
+        "n_groups_with_mixed_values": int(n_bad_groups),
+        "n_elements_mismatched_legacy_formula": int(np.sum(~np.isclose(a, a[g]))),
+        "formula": "a == a[first_of_group[group_of_muscle]]（组内同值）",
+        "legacy_formula_note": (
+            "旧写法 a == a[group_of_muscle] 要求 g[g[i]]==g[i]，在正确展开上也会为 False，"
+            "已废弃"
+        ),
+    }
+
+
 @dataclass
 class PolicyVerifyConfig:
     """策略一致性验证的输入。"""
@@ -404,6 +442,7 @@ def verify_policy(
         # --- 动作统计（确认展开后仍落在 [-1,1] 且组内取值相同）
         a0 = np.asarray(stack.predict(obs_list[0]), dtype=float)
         env_action0 = env.action(a0)
+        repeat_stats = group_value_repeat_stats(a0, exp["group_of_muscle"], groups)
         report["action_stats"] = {
             "dim": int(a0.shape[-1]),
             "min": float(a0.min()),
@@ -412,10 +451,8 @@ def verify_policy(
             "env_ctrl_min": float(env_action0.min()),
             "env_ctrl_max": float(env_action0.max()),
             "n_unique_group_values": int(np.unique(np.round(a0, 6)).size),
-            "group_value_repeat_ok": bool(
-                np.array_equal(a0, a0[exp["group_of_muscle"]])
-            ),
             "in_range": bool(a0.min() >= -1.0 and a0.max() <= 1.0),
+            **repeat_stats,
         }
 
         # --- 命名实验：非官方 DynSyn 设置（不参与基线判定）
@@ -454,6 +491,7 @@ def verify_policy(
         "amp_none_equals_weight_one": bool(report["dynsyn_weight_amp_semantics"]["none_equals_weight_one"]),
         "amp_branch_is_live": bool(report["dynsyn_weight_amp_semantics"]["amp_branch_is_live"]),
         "action_within_range": bool(report["action_stats"]["in_range"]),
+        "group_value_repeat_ok": bool(report["action_stats"]["group_value_repeat_ok"]),
         "no_layer_divergence": report["layer_trace"]["first_divergent_stage"] is None,
         "max_abs_action_diff_within_tol": max_diff <= cfg.tol,
     }
@@ -494,6 +532,7 @@ __all__ = [
     "layer_trace_direct",
     "first_divergent_stage",
     "dynsyn_amp_semantics",
+    "group_value_repeat_stats",
     "collect_observations",
     "DEFAULT_TOL",
     "STAGE_ORDER",

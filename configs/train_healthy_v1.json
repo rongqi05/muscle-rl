@@ -1,0 +1,115 @@
+{
+  "_comment": "正常行走微调（fixed 肌力 1.0）。所有字段都会被落盘到 run 元数据里。",
+  "tag": "healthy_v1",
+  "checkpoint_dir": "artifacts/checkpoints/LocomotionFull",
+  "seed": 0,
+  "parallel_envs": 12,
+  "_parallel_note": "实测（scripts/measure_throughput.py）：12 进程合计 2457 steps/s，8 进程 1942，单进程 298；12 是本机 20 核下的吞吐最优档。",
+  "replay_buffer_size": 100000,
+  "_buffer_note": "32 KB/transition（obs 3601 + next_obs 3601 + act 700，float32）。1e5 → 2.94 GiB；上游的 1e6 需要 29.4 GiB，会耗尽 31 GiB 内存，不能用。",
+  "batch_size": 256,
+  "train_freq": 2,
+  "gradient_steps": 1,
+  "_train_freq_note": "SB3 每轮 collect_rollouts 收集 train_freq × n_envs 个 transition 后调用一次 train()，所以 n_updates = 50000 / (2 × 12) = 2083 次。实测完整 SAC 更新 3.6 次/s（275 ms/次，batch 128 与 256 几乎同速 → 瓶颈是固定开销而非 batch），故梯度约 580 s ≈ 10 分钟；环境推进 50000/2457 ≈ 20 s。合计约 10 分钟，在 30 分钟预算内。若 train_freq=16 则只有 260 次更新，策略几乎不动。",
+  "learning_starts": 200,
+  "_learning_starts_note": "上游 10000 步不做更新，在 50k 预算下会浪费 20%。此处 200 步即开始学习：critic 已从官方 checkpoint 继承（见 critic_init），不是从零学。",
+  "learning_rate": 0.0001,
+  "lr_schedule": "constant",
+  "_lr_note": "不继承 checkpoint 的 FloatSchedule（其进度为 0.1、对应 lr=1.25e-4）。改为显式常数 1e-4，避免「继承已完成训练的旧进度」带来的隐式变化。",
+  "critic_init": "keep",
+  "alpha_init": "keep",
+  "_init_note": "由 4 组 2000-transition 对照实验决定（reports/train_check_init.json）。指标=验证集(seed 101-105, 6s 回合)平均存活时间 / 策略漂移 mean|Δa|：keep+keep = 4.95s / 0.156；keep+reset = 4.98s / 0.267；reset+keep = 0.64s / 0.443（崩溃）；reset+reset = 0.70s / 0.562（崩溃）。结论：**重置 critic 会立刻摧毁已学会的行走**（存活时间掉到 0.6-0.7s），因此沿用官方 critic 与 alpha；这也与「split 奖励量级 ≈ 官方奖励量级（约 +81.3/步）」的判断一致，价值函数无需重建。",
+  "dynsyn_weight_amp": 0.0,
+  "_dynsyn_note": "必须显式固定！checkpoint 里 dynsyn_weight_amp=None、dynsyn_k=5e-9、dynsyn_a=3e7、num_timesteps=4.5e7，上游 train() 会算出 amp=0.075 并在训练中把协同权重重标定（weight=clamp(w*0.1,-amp,amp)+1），静默改变动作语义。固定为 0.0 时 weight 恒等于 1，与官方基线语义完全一致（已由 verify_policy 的 amp 语义检查证实：amp=None ≡ amp=0）。",
+  "vec_normalize_update": false,
+  "_vec_note": "训练与评估都冻结官方 VecNormalize 统计（training=False），保证策略看到的归一化与官方基线完全一致；评估环境绝不更新统计。",
+  "reward_mode": "split",
+  "reward_split": {
+    "w_survival": 100.0,
+    "include_official_healthy": false,
+    "normalization": 1.0
+  },
+  "extra_reward": {
+    "enable": true,
+    "w_lateral_dev": 125.8873230209337,
+    "w_lateral_vel": 32.617354566739145,
+    "w_forward_shortfall": 41.99930648837295,
+    "w_slip": 3.256271946166558,
+    "forward_speed_target": 1.0378,
+    "slip_tolerance": 1.0,
+    "reference_lateral_from": "ref"
+  },
+  "_extra_reward_note": "权重由 reports/reward_calibration.json 的实测原始量反解：目标「正常行走时每项 ≈ 5.0/步」，imitation 实测 ≈ -15.6/步。4 项合计 ≈ -20/步，不盖过 imitation。forward_shortfall 同时防止「原地站立」退化。",
+  "curriculum": {
+    "stages": [
+      {
+        "name": "s6",
+        "max_episode_seconds": 6.0,
+        "min_transitions": 0
+      },
+      {
+        "name": "s10",
+        "max_episode_seconds": 10.0,
+        "min_transitions": 15000
+      },
+      {
+        "name": "s20",
+        "max_episode_seconds": 20.0,
+        "min_transitions": 35000
+      }
+    ],
+    "promote_val_success_rate": 0.8,
+    "val_episodes": 5,
+    "val_seeds": [
+      101,
+      102,
+      103,
+      104,
+      105
+    ],
+    "_note": "升级需要「至少 min_transitions 且独立验证集成功率 ≥ promote_val_success_rate」，不能只看训练步数。验证种子与最终测试种子分离（测试用 201-220）。"
+  },
+  "eval": {
+    "test_seeds": [
+      201,
+      202,
+      203,
+      204,
+      205,
+      206,
+      207,
+      208,
+      209,
+      210,
+      211,
+      212,
+      213,
+      214,
+      215,
+      216,
+      217,
+      218,
+      219,
+      220
+    ],
+    "episode_seconds": 20.0,
+    "success": {
+      "min_episode_seconds": 20.0,
+      "min_mean_forward_speed": 0.6,
+      "max_lateral_drift_m": 0.35,
+      "max_pelvis_tilt_deg": 45.0,
+      "max_foot_slip_mean_mps": 3.0,
+      "allow_numeric_anomaly": false
+    },    "degenerate_speed": 0.20,
+    "_degenerate_note": "双足均承重（法向力>20N）且前进速度绝对值低于该值时记一步「站着不走」；完成回合并列平均前进速度低于该值判为退化行为。",    "gate": {
+      "n_episodes": 20,
+      "n_required": 18,
+      "_note": "阶段性工程门槛，不代表临床有效性；本次小预算试训练不要求达到。"
+    }
+  },
+  "budget": {
+    "max_transitions": 50000,
+    "max_minutes": 30.0,
+    "_note": "所有并行环境合计的 transition 数；先到者停止。不含梯度更新之外的额外扫描。"
+  }
+}
