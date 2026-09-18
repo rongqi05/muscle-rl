@@ -39,47 +39,28 @@
     "pose_wrap": "pose_wrap_discontinuity_max_rad>0 表示轨迹非严格周期，姿态在边界不闭合"
   },
   "code_version": {
-    "commit": "9326e19f627b4ddb9f19a51908fdc81ac9bb29d0",
-    "commit_subject": "fix: 修复验证与评估口径，统一研究环境，重跑基线与长时评估",
+    "commit": "26ab494f11b25b0d385271c40ff0925657dff2ec",
+    "commit_subject": "chore: 溯源区分代码脏与输出脏；用干净 commit 重跑全部实验并确认逐位可复现",
     "branch": "main",
     "remote": "https://github.com/rongqi05/muscle-rl.git",
     "dirty": true,
-    "code_dirty": true,
-    "code_dirty_files": [
-      "scripts/probe_reference_continuity.py",
-      "scripts/verify_strength.py"
-    ],
+    "code_dirty": false,
+    "code_dirty_files": [],
     "other_dirty_files": [
-      "emirl/provenance.py",
-      "reports/acceptance.json",
-      "reports/dynamics_audit.json",
-      "reports/muscle_closure_probe.json",
-      "reports/phase2_acceptance_report.md",
-      "reports/verify_policy.json",
-      "reports/verify_strength.json",
-      "runs/eval_long_research/episodes.json",
-      "runs/eval_long_research/run.json",
-      "runs/eval_long_research_video/episodes.json",
-      "runs/eval_long_research_video/run.json",
-      "runs/eval_short_baseline_official/episodes.json",
-      "runs/eval_short_baseline_official/run.json",
-      "runs/sweep_L_short_research/episodes.json",
-      "runs/sweep_L_short_research/run.json",
-      "runs/sweep_R_short_research/episodes.json",
-      "runs/sweep_R_short_research/run.json"
+      "eports/verify_strength.json"
     ],
     "untracked_files": [
-      "emirl/provenance.py"
+      "eports/verify_strength.json"
     ],
-    "patch_sha256": "6071747bcd944815ae5ef9a29ad32be26db76012dc4b5c54558957b179ddaa73",
-    "patch_sha256_all": "f5ed45f1160d57185ea8d6d473954ddd8fd06e194cb87f17ed761267ba86a7ab",
+    "patch_sha256": null,
+    "patch_sha256_all": "b81017b4f1ca2529d3f22256570b6371025ef43fa2c7b1839260228f3eb7cbad",
     "code_paths_used_for_describe": [
       "hemirl",
       "scripts",
       "tests",
       "configs"
     ],
-    "describe": "9326e19+code-dirty:6071747b"
+    "describe": "26ab494"
   },
   "model_xml": {
     "path": "/home/zrq/Documents/muscle-rl/external/MS-Human-700/MS-Human-700.xml",

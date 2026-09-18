@@ -2513,16 +2513,16 @@
     }
   },
   "provenance": {
-    "generated_at_utc": "2026-09-18T10:03:04.509416+00:00",
+    "generated_at_utc": "2026-09-18T10:05:25.115142+00:00",
     "workspace": "/home/zrq/Documents/muscle-rl",
     "repos": [
       {
         "label": "muscle-rl",
         "path": "/home/zrq/Documents/muscle-rl",
         "is_git": true,
-        "commit": "9326e19f627b4ddb9f19a51908fdc81ac9bb29d0",
-        "commit_date": "2026-09-18 17:55:52 +0800",
-        "commit_subject": "fix: 修复验证与评估口径，统一研究环境，重跑基线与长时评估",
+        "commit": "26ab494f11b25b0d385271c40ff0925657dff2ec",
+        "commit_date": "2026-09-18 18:04:30 +0800",
+        "commit_subject": "chore: 溯源区分代码脏与输出脏；用干净 commit 重跑全部实验并确认逐位可复现",
         "branch": "main",
         "remote": "https://github.com/rongqi05/muscle-rl.git",
         "dirty": true
@@ -3627,41 +3627,31 @@
       "out": "/home/zrq/Documents/muscle-rl/reports/dynamics_audit.json"
     },
     "code_version": {
-      "commit": "9326e19f627b4ddb9f19a51908fdc81ac9bb29d0",
-      "commit_subject": "fix: 修复验证与评估口径，统一研究环境，重跑基线与长时评估",
+      "commit": "26ab494f11b25b0d385271c40ff0925657dff2ec",
+      "commit_subject": "chore: 溯源区分代码脏与输出脏；用干净 commit 重跑全部实验并确认逐位可复现",
       "branch": "main",
       "remote": "https://github.com/rongqi05/muscle-rl.git",
       "dirty": true,
       "code_dirty": false,
       "code_dirty_files": [],
       "other_dirty_files": [
-        "emirl/provenance.py",
-        "reports/acceptance.json",
-        "reports/dynamics_audit.json",
+        "eports/acceptance.json",
+        "reports/reference_continuity.json",
         "reports/verify_policy.json",
-        "runs/eval_long_research/episodes.json",
-        "runs/eval_long_research/run.json",
-        "runs/eval_long_research_video/episodes.json",
-        "runs/eval_long_research_video/run.json",
-        "runs/eval_short_baseline_official/episodes.json",
-        "runs/eval_short_baseline_official/run.json",
-        "runs/sweep_L_short_research/episodes.json",
-        "runs/sweep_L_short_research/run.json",
-        "runs/sweep_R_short_research/episodes.json",
-        "runs/sweep_R_short_research/run.json"
+        "reports/verify_strength.json"
       ],
       "untracked_files": [
-        "emirl/provenance.py"
+        "eports/acceptance.json"
       ],
       "patch_sha256": null,
-      "patch_sha256_all": "eea623d87505ff001a45001a9cd660c5a43681c6b2fba7bd589926b09750d5f6",
+      "patch_sha256_all": "993e6f113e01b2c98625c50f0208b0402aa0a03497393fa610d4c578f3771cf4",
       "code_paths_used_for_describe": [
         "hemirl",
         "scripts",
         "tests",
         "configs"
       ],
-      "describe": "9326e19"
+      "describe": "26ab494"
     },
     "upstream": {
       "MS-Human-700": {
