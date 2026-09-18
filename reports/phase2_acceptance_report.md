@@ -22,6 +22,7 @@
 | 物理量修正（根节点世界角速度） | ✅ 已实现且验证通过（有限差分 + Jacobian 双重校验） |
 | 肌力验证修正（V6 重写） | ✅ 已实现且验证通过（22/22） |
 | 约束力分解（接触/限位/equality） | ✅ 已实现且验证通过（分解残差 2.3e-13） |
+| 可复现性 | ✅ 全部实验在干净 commit `9326e19` 下重跑，指标**逐位相同** |
 | 短时基线复验（5 seed） | ✅ 完成，与旧记录一致（差异已解释） |
 | 长时评估（20 s，5 seed） | ⚠️ **全部跌倒**（4.46–4.90 s），如实报告，未做任何隐藏支撑 |
 | 肌力扫描（左右各 5 seed） | ✅ 完成，走完/跌倒分开统计 |
@@ -74,7 +75,7 @@
 | 记录 passed/阈值/最大误差/样本数/代码版本/checkpoint 哈希 | 全部写入 `reports/verify_policy.json` |
 | 加入验收入口 | `scripts/acceptance.py` 第 4 步（检测到 checkpoint 才运行） |
 
-结果：**7/7 检查通过**，`max|Δa| = 5.960e-08`，`code_version = ab452c4+dirty:a7a30113`，
+结果：**7/7 检查通过**，`max|Δa| = 5.960e-08`，`code_version = 9326e19`，
 `best_model.zip sha256 = 0a3607c0a9d745a6…`。
 
 ---
@@ -338,13 +339,24 @@ done
 | 要求 | 字段 |
 |---|---|
 | 本项目 HEAD | `code_version.commit` / `branch` / `remote` |
-| 工作区 dirty 状态 | `code_version.dirty` |
-| 未提交修改的补丁/快照哈希 | `code_version.patch_sha256`（`git diff HEAD` 的 SHA-256）、`describe`（如 `ab452c4+dirty:a7a30113`）、`untracked_files` |
+| 工作区 dirty 状态 | `code_version.dirty`（任意改动）与 `code_version.code_dirty`（仅代码） |
+| 未提交修改的补丁/快照哈希 | `code_version.patch_sha256`（`git diff HEAD -- hemirl scripts tests configs` 的 SHA-256）、`patch_sha256_all`（全量）、`describe`（如 `9326e19+code-dirty:1f3c9a7e`）、`untracked_files` |
 | 上游 commit | `upstream.{MS-Human-700,msgym}.commit` |
 | 上游脏文件列表，区分符号链接与源码 | `upstream.*.dirty_raw`、`symlink_changes`、`source_changes`、`n_source_changes` |
 | checkpoint 与归一化文件哈希 | `checkpoint.model_zip_sha256`（`0a3607c0…`）、`env_zip_sha256`（`e359b32f…`） |
 | 实际加载的模型路径与关键文件哈希 | `loaded_model_file`（路径、是否符号链接、解析后路径、sha256、大小） |
 | 配置 / 依赖版本 / 种子 / 推理设置 / 实际肌力倍率 | `extra.research_env_config`、`dependencies`、`seeds`、`policy_inference`、`strength` |
+
+**一处设计取舍（值得记录）**：`describe` 只根据 `hemirl/`、`scripts/`、`tests/`、`configs/`
+这四个路径判断「代码是否变脏」。原因是运行本身会改写 `reports/` 与 `runs/`，
+若把它们计入，**每个结果都会带上 `+dirty` 而失去标识意义**。
+输出文件的变动仍完整记录在 `other_dirty_files` 中。
+因此本报告下的全部结果都带 `code_version = 9326e19`（干净代码快照）。
+
+全部实验在干净提交 `9326e19` 下重跑过一次，与先前的运行结果**逐位相同**
+（A 短时基线的 `steps/sim_time/speed/前向位移/最低骨盆`，B 长时的 `steps/sim_time/侧漂/最大倾角`，
+C 两侧扫描的 16 个 `(扫描, 倍率)` 组合的走完数与速度，全部 `identical=True`），
+即该评估链路在本环境下是**确定性可复现**的。
 
 旧结果**未被覆盖**：`eval_min_official`、`eval_repeats_research`、`eval_video`、
 `eval_R_upper0.5_bothmodes`、`sweep_L_research`、`sweep_R_research` 全部保留；

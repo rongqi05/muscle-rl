@@ -43,6 +43,11 @@ def main() -> int:
     finally:
         env.close()
 
+    rep["code_version"] = provenance.code_version()
+    rep["model_xml"] = {
+        "path": str(paths.MODEL_XML),
+        "sha256": provenance.file_sha256(paths.MODEL_XML),
+    }
     provenance.write_json(Path(args.out), rep)
 
     print("=== 参考轨迹连续性（按控制步长采样）===")

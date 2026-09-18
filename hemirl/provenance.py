@@ -13,7 +13,7 @@ import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, Optional, Sequence
+from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 from hemirl import paths
 
@@ -154,21 +154,24 @@ def dirty_files(root: Optional[Path] = None) -> List[str]:
     return files
 
 
-def dirty_patch_sha256(root: Optional[Path] = None) -> Optional[str]:
-    """未提交改动的补丁哈希（``git diff HEAD`` 的 SHA-256）。
+def dirty_patch_sha256(
+    root: Optional[Path] = None,
+    sub_paths: Optional[Sequence[str]] = None,
+) -> Optional[str]:
+    """未提交改动的补丁哈希（默认 ``git diff HEAD``，可限定路径）。
 
     用于在「工作区 dirty」时仍然能标识**代码快照**：同一 commit + 同一补丁哈希
-    才代表同一份代码。已跟踪文件的改动会被 ``git diff HEAD`` 覆盖；
-    未跟踪文件由 :func:`code_version` 的 ``untracked_files`` 一并记录。
+    才代表同一份代码。
+
+    注意参数名用 ``sub_paths`` 而非 ``paths``：后者与模块级的 ``hemirl.paths`` 同名，
+    会遮蔽掉默认值里的 ``paths.WORKSPACE_ROOT``。
     """
     root = Path(root) if root else paths.WORKSPACE_ROOT
+    cmd = ["git", "--no-pager", "diff", "HEAD"]
+    if sub_paths:
+        cmd += ["--", *sub_paths]
     try:
-        out = subprocess.run(
-            ["git", "--no-pager", "diff", "HEAD"],
-            cwd=str(root),
-            capture_output=True,
-            timeout=60,
-        )
+        out = subprocess.run(cmd, cwd=str(root), capture_output=True, timeout=60)
     except Exception:
         return None
     if out.returncode != 0:
@@ -176,34 +179,50 @@ def dirty_patch_sha256(root: Optional[Path] = None) -> Optional[str]:
     return hashlib.sha256(out.stdout).hexdigest()
 
 
-def code_version(root: Optional[Path] = None) -> Dict[str, Any]:
-    """本项目代码版本：commit + dirty 状态 + 补丁哈希 + 未跟踪文件。
+#: 参与「代码快照」判定的路径前缀：只有它们变脏才改变 ``describe``。
+#: 运行输出（``reports/`` / ``runs/``）会在实验过程中被自己改写，
+#: 若把它们算作脏，每个结果都会标上 ``+dirty`` 而失去标识意义。
+CODE_PATHS: Tuple[str, ...] = ("hemirl", "scripts", "tests", "configs")
 
-    ``describe`` 是可直接写进结果表的短标识；dirty 时形如
-    ``ab452c4+dirty:1f3c9a7e``，其中后缀是补丁哈希前 8 位。
+
+def code_version(root: Optional[Path] = None) -> Dict[str, Any]:
+    """本项目代码版本：commit + **代码**脏状态 + 代码补丁哈希 + 输出脏文件。
+
+    ``describe`` 是可直接写进结果表的短标识；只有 ``hemirl/`` / ``scripts/`` /
+    ``tests/`` / ``configs/`` 下的改动才会让后缀出现，形如
+    ``ab452c4+code-dirty:1f3c9a7e``。
+
+    字段说明：
+
+    * ``code_dirty_files`` / ``patch_sha256``：决定代码快照标识；
+    * ``other_dirty_files``（如 ``reports/`` / ``runs/`` / ``README.md``）：
+      记录但不影响 ``describe``；
+    * ``patch_sha256_all``：全量补丁哈希，供需要完整 diff 的场景使用。
     """
     root = Path(root) if root else paths.WORKSPACE_ROOT
     info = repo_info(root, "muscle-rl")
     files = dirty_files(root)
-    patch = dirty_patch_sha256(root)
-    untracked = sorted(
-        f for f in files if _git(["ls-files", "--error-unmatch", f], root) is None
-    )
+    code_files = [f for f in files if f.split("/", 1)[0] in CODE_PATHS]
+    other_files = [f for f in files if f.split("/", 1)[0] not in CODE_PATHS]
+    patch_code = dirty_patch_sha256(root, CODE_PATHS) if code_files else None
+    patch_all = dirty_patch_sha256(root) if files else None
+    untracked = sorted(f for f in files if _git(["ls-files", "--error-unmatch", f], root) is None)
     commit = info.get("commit") or "unknown"
     short = commit[:7] if commit != "unknown" else "unknown"
-    if files:
-        tag = f"+dirty:{patch[:8]}" if patch else "+dirty"
-    else:
-        tag = ""
+    tag = f"+code-dirty:{patch_code[:8]}" if code_files and patch_code else ("+code-dirty" if code_files else "")
     return {
         "commit": commit,
         "commit_subject": info.get("commit_subject"),
         "branch": info.get("branch"),
         "remote": info.get("remote"),
         "dirty": bool(files),
-        "dirty_files": files,
+        "code_dirty": bool(code_files),
+        "code_dirty_files": code_files,
+        "other_dirty_files": other_files,
         "untracked_files": untracked,
-        "patch_sha256": patch,
+        "patch_sha256": patch_code,
+        "patch_sha256_all": patch_all,
+        "code_paths_used_for_describe": list(CODE_PATHS),
         "describe": f"{short}{tag}",
     }
 

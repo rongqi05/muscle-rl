@@ -11,7 +11,7 @@
       "control_dt_s": 0.02,
       "sim_time_s": 4.459999999999731,
       "sim_time_nominal_s": 4.46,
-      "wall_time_s": 4.233088342999963,
+      "wall_time_s": 2.8743108809999285,
       "terminated": true,
       "truncated": false,
       "termination_reason": "骨盆直立偏差 62.0° > 60.0°",

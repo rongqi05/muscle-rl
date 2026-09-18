@@ -294,5 +294,52 @@
     "R/lower": 50,
     "R/torso": 208,
     "R/upper": 61
+  },
+  "code_version": {
+    "commit": "9326e19f627b4ddb9f19a51908fdc81ac9bb29d0",
+    "commit_subject": "fix: 修复验证与评估口径，统一研究环境，重跑基线与长时评估",
+    "branch": "main",
+    "remote": "https://github.com/rongqi05/muscle-rl.git",
+    "dirty": true,
+    "code_dirty": true,
+    "code_dirty_files": [
+      "scripts/probe_reference_continuity.py",
+      "scripts/verify_strength.py"
+    ],
+    "other_dirty_files": [
+      "emirl/provenance.py",
+      "reports/acceptance.json",
+      "reports/dynamics_audit.json",
+      "reports/muscle_closure_probe.json",
+      "reports/phase2_acceptance_report.md",
+      "reports/verify_policy.json",
+      "reports/verify_strength.json",
+      "runs/eval_long_research/episodes.json",
+      "runs/eval_long_research/run.json",
+      "runs/eval_long_research_video/episodes.json",
+      "runs/eval_long_research_video/run.json",
+      "runs/eval_short_baseline_official/episodes.json",
+      "runs/eval_short_baseline_official/run.json",
+      "runs/sweep_L_short_research/episodes.json",
+      "runs/sweep_L_short_research/run.json",
+      "runs/sweep_R_short_research/episodes.json",
+      "runs/sweep_R_short_research/run.json"
+    ],
+    "untracked_files": [
+      "emirl/provenance.py"
+    ],
+    "patch_sha256": "50c6382be8eb55ab21b4060f8a5cb696a9c5deeb60faca4a5ab18669de5f52e2",
+    "patch_sha256_all": "9905949e7f551c329f6674b2f5bc8b992b7e89affb062ff1e3baf2c3e8f117c3",
+    "code_paths_used_for_describe": [
+      "hemirl",
+      "scripts",
+      "tests",
+      "configs"
+    ],
+    "describe": "9326e19+code-dirty:50c6382b"
+  },
+  "model_xml": {
+    "path": "/home/zrq/Documents/muscle-rl/external/MS-Human-700/MS-Human-700.xml",
+    "sha256": "755124766e0e4ed9ddac60c8c4f505f94a6adaa2d51665108eee0cb1f677681d"
   }
 }

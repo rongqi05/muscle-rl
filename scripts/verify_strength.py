@@ -26,7 +26,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from hemirl import muscle_actuator as ma  # noqa: E402
-from hemirl import muscle_groups, paths  # noqa: E402
+from hemirl import muscle_groups, paths, provenance  # noqa: E402
 
 
 class Checker:
@@ -420,6 +420,8 @@ def main() -> None:
     summary = ck.summary()
     summary["slot_identification"] = slot_rep
     summary["muscle_map_counts"] = mapping.counts()
+    summary["code_version"] = provenance.code_version()
+    summary["model_xml"] = {"path": str(args.xml), "sha256": provenance.file_sha256(Path(args.xml))}
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8")

@@ -1,14 +1,14 @@
 {
-  "generated_at_utc": "2026-09-18T09:42:59.097992+00:00",
+  "generated_at_utc": "2026-09-18T09:58:00.412912+00:00",
   "workspace": "/home/zrq/Documents/muscle-rl",
   "repos": [
     {
       "label": "muscle-rl",
       "path": "/home/zrq/Documents/muscle-rl",
       "is_git": true,
-      "commit": "ab452c4a2d212bec2fa8f65ee3eef63532402fa0",
-      "commit_date": "2026-09-16 15:25:12 +0800",
-      "commit_subject": "docs: AGENTS.md 登记 docs/ 目录，修正过时的 strength.py 引用",
+      "commit": "9326e19f627b4ddb9f19a51908fdc81ac9bb29d0",
+      "commit_date": "2026-09-18 17:55:52 +0800",
+      "commit_subject": "fix: 修复验证与评估口径，统一研究环境，重跑基线与长时评估",
       "branch": "main",
       "remote": "https://github.com/rongqi05/muscle-rl.git",
       "dirty": true
@@ -1204,7 +1204,7 @@
     "physics_timestep": 0.002,
     "official_time_limit_s": 3.51,
     "effective_time_limit_s": null,
-    "max_control_steps": 175
+    "max_control_steps": 176
   },
   "entry": "scripts/eval_official.py",
   "args": {
@@ -1232,51 +1232,31 @@
     "no_final_force_decomposition": false
   },
   "code_version": {
-    "commit": "ab452c4a2d212bec2fa8f65ee3eef63532402fa0",
-    "commit_subject": "docs: AGENTS.md 登记 docs/ 目录，修正过时的 strength.py 引用",
+    "commit": "9326e19f627b4ddb9f19a51908fdc81ac9bb29d0",
+    "commit_subject": "fix: 修复验证与评估口径，统一研究环境，重跑基线与长时评估",
     "branch": "main",
     "remote": "https://github.com/rongqi05/muscle-rl.git",
     "dirty": true,
-    "dirty_files": [
-      "GENTS.md",
-      "hemirl/dynamics_audit.py",
-      "hemirl/policy.py",
-      "hemirl/provenance.py",
-      "hemirl/render.py",
-      "hemirl/rollout.py",
+    "code_dirty": false,
+    "code_dirty_files": [],
+    "other_dirty_files": [
+      "emirl/provenance.py",
+      "reports/acceptance.json",
       "reports/dynamics_audit.json",
-      "reports/verify_policy.json",
-      "reports/verify_strength.json",
-      "scripts/audit_dynamics.py",
-      "scripts/eval_official.py",
-      "scripts/run_tests.py",
-      "scripts/strength_sweep.py",
-      "scripts/verify_policy.py",
-      "scripts/verify_strength.py",
-      "MUJOCO_LOG.TXT",
-      "hemirl/forces.py",
-      "hemirl/policy_verify.py",
-      "hemirl/research_env.py",
-      "reports/reference_continuity.json",
-      "reports/verify_policy_pre_fix.json",
-      "scripts/acceptance.py",
-      "scripts/probe_reference_continuity.py",
-      "tests/test_research_env.py"
+      "reports/verify_policy.json"
     ],
     "untracked_files": [
-      "GENTS.md",
-      "MUJOCO_LOG.TXT",
-      "hemirl/forces.py",
-      "hemirl/policy_verify.py",
-      "hemirl/research_env.py",
-      "reports/reference_continuity.json",
-      "reports/verify_policy_pre_fix.json",
-      "scripts/acceptance.py",
-      "scripts/probe_reference_continuity.py",
-      "tests/test_research_env.py"
+      "emirl/provenance.py"
     ],
-    "patch_sha256": "c688e4ea3962b7efd87d7fc649f28f6960d105f34cd1c4f28f429d5aade65808",
-    "describe": "ab452c4+dirty:c688e4ea"
+    "patch_sha256": null,
+    "patch_sha256_all": "400230bd3a9083b2c437ddebf13837bad815917fcccee9d045a17f5e3b0fa4ef",
+    "code_paths_used_for_describe": [
+      "hemirl",
+      "scripts",
+      "tests",
+      "configs"
+    ],
+    "describe": "9326e19"
   },
   "upstream": {
     "MS-Human-700": {

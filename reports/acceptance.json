@@ -1,63 +1,47 @@
 {
-  "generated_at_utc": "2026-09-18T09:51:18.223007+00:00",
+  "generated_at_utc": "2026-09-18T10:04:14.205990+00:00",
   "code_version": {
-    "commit": "ab452c4a2d212bec2fa8f65ee3eef63532402fa0",
-    "commit_subject": "docs: AGENTS.md 登记 docs/ 目录，修正过时的 strength.py 引用",
+    "commit": "9326e19f627b4ddb9f19a51908fdc81ac9bb29d0",
+    "commit_subject": "fix: 修复验证与评估口径，统一研究环境，重跑基线与长时评估",
     "branch": "main",
     "remote": "https://github.com/rongqi05/muscle-rl.git",
     "dirty": true,
-    "dirty_files": [
-      "GENTS.md",
-      "hemirl/dynamics_audit.py",
-      "hemirl/policy.py",
-      "hemirl/provenance.py",
-      "hemirl/render.py",
-      "hemirl/rollout.py",
+    "code_dirty": true,
+    "code_dirty_files": [
+      "scripts/probe_reference_continuity.py",
+      "scripts/verify_strength.py"
+    ],
+    "other_dirty_files": [
+      "emirl/provenance.py",
+      "reports/acceptance.json",
       "reports/dynamics_audit.json",
+      "reports/muscle_closure_probe.json",
+      "reports/phase2_acceptance_report.md",
       "reports/verify_policy.json",
       "reports/verify_strength.json",
-      "scripts/audit_dynamics.py",
-      "scripts/eval_official.py",
-      "scripts/run_tests.py",
-      "scripts/strength_sweep.py",
-      "scripts/verify_policy.py",
-      "scripts/verify_strength.py",
-      "MUJOCO_LOG.TXT",
-      "hemirl/forces.py",
-      "hemirl/policy_verify.py",
-      "hemirl/research_env.py",
-      "reports/reference_continuity.json",
-      "reports/verify_policy_pre_fix.json",
-      "reports/video_frames_long/",
-      "runs/eval_long_research/",
-      "runs/eval_long_research_video/",
-      "runs/eval_short_baseline_official/",
-      "runs/sweep_L_short_research/",
-      "runs/sweep_R_short_research/",
-      "scripts/acceptance.py",
-      "scripts/probe_reference_continuity.py",
-      "tests/test_research_env.py"
+      "runs/eval_long_research/episodes.json",
+      "runs/eval_long_research/run.json",
+      "runs/eval_long_research_video/episodes.json",
+      "runs/eval_long_research_video/run.json",
+      "runs/eval_short_baseline_official/episodes.json",
+      "runs/eval_short_baseline_official/run.json",
+      "runs/sweep_L_short_research/episodes.json",
+      "runs/sweep_L_short_research/run.json",
+      "runs/sweep_R_short_research/episodes.json",
+      "runs/sweep_R_short_research/run.json"
     ],
     "untracked_files": [
-      "GENTS.md",
-      "MUJOCO_LOG.TXT",
-      "hemirl/forces.py",
-      "hemirl/policy_verify.py",
-      "hemirl/research_env.py",
-      "reports/reference_continuity.json",
-      "reports/verify_policy_pre_fix.json",
-      "reports/video_frames_long/",
-      "runs/eval_long_research/",
-      "runs/eval_long_research_video/",
-      "runs/eval_short_baseline_official/",
-      "runs/sweep_L_short_research/",
-      "runs/sweep_R_short_research/",
-      "scripts/acceptance.py",
-      "scripts/probe_reference_continuity.py",
-      "tests/test_research_env.py"
+      "emirl/provenance.py"
     ],
-    "patch_sha256": "f7827f7142d485e9a04723398de23c97caa62fd7f797320519cdf0e308bba5f3",
-    "describe": "ab452c4+dirty:f7827f71"
+    "patch_sha256": "50c6382be8eb55ab21b4060f8a5cb696a9c5deeb60faca4a5ab18669de5f52e2",
+    "patch_sha256_all": "5fefeacd859e95d5835245f82959b984e7dbf492d440f2a711f8b1f7a5272c5b",
+    "code_paths_used_for_describe": [
+      "hemirl",
+      "scripts",
+      "tests",
+      "configs"
+    ],
+    "describe": "9326e19+code-dirty:50c6382b"
   },
   "steps": [
     {
@@ -69,7 +53,7 @@
       "why": "肌群映射 / 肌力缩放语义 / F0 槽位 / 终止配置 / 组展开 / numpy 兼容层 + 研究环境回归",
       "status": "passed",
       "returncode": 0,
-      "wall_time_s": 36.783888072999844
+      "wall_time_s": 36.663367664999896
     },
     {
       "name": "verify_strength",
@@ -80,7 +64,7 @@
       "why": "F0 槽位实证、无累乘、组外不变、按关节名构造姿态的 F_active 缩放、被动通道对照",
       "status": "passed",
       "returncode": 0,
-      "wall_time_s": 1.39740757200002
+      "wall_time_s": 1.379326907000177
     },
     {
       "name": "verify_policy",
@@ -93,7 +77,7 @@
       "why": "官方 SB3 路径 vs 纯 torch 直读路径逐元素一致（含行走轨迹观测）",
       "status": "passed",
       "returncode": 0,
-      "wall_time_s": 5.808492865999824
+      "wall_time_s": 5.882012781999947
     }
   ],
   "n_passed": 3,
