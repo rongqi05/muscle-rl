@@ -43,6 +43,69 @@ class Checker:
                 "checks": self.results}
 
 
+# ------------------------------------------------------------------ 姿态与测量辅助
+
+
+def _state_at(model, qpos: np.ndarray, act: float):
+    """在给定 ``qpos``（``qvel=0``）与恒定激活下做一次前向，返回 (力, 长度)。
+
+    用 ``mj_forward`` 而不是 ``mj_step``，因此这是**等长**测量：长度由姿态完全决定，
+    速度为 0，主动力唯一地来自激活与 F0。
+    """
+    import mujoco
+
+    d = mujoco.MjData(model)
+    d.qpos[:] = np.asarray(qpos, dtype=float)
+    d.qvel[:] = 0.0
+    d.act[:] = float(act)
+    mujoco.mj_forward(model, d)
+    return np.asarray(d.actuator_force).copy(), np.asarray(d.actuator_length).copy()
+
+
+def _arm_postures(model, q_key: np.ndarray) -> dict:
+    """按**关节名**构造患侧（R）肩 / 肘姿态。
+
+    **不使用任何索引假设**：本模型没有 freejoint（``nq == nv == 85``，骨盆由 3 个 slide
+    + 3 个 hinge 组成），所以不存在「根节点四元数」需要保护；按名字改自由度才是稳定的做法。
+
+    偏移量均落在 ``jnt_range`` 内（关键姿态下这些角度为 0）：
+    ``shoulder_elv_r ∈ [0, 3.1]``、``elbow_flexion_r ∈ [0, 2.2]``、
+    ``elv_angle_r ∈ [-1.6, 2.2]``、``shoulder_rot_r ∈ [-0.8, 1.6]``。
+    """
+    out = {"key": np.asarray(q_key, dtype=float).copy()}
+
+    def with_offsets(offsets):
+        q = np.asarray(q_key, dtype=float).copy()
+        for jname, delta in offsets.items():
+            adr = int(model.joint(jname).qposadr[0])
+            q[adr] = float(q_key[adr]) + delta
+        return q
+
+    out["shoulder_elv"] = with_offsets({"shoulder_elv_r": 0.60})
+    out["elbow_flex"] = with_offsets({"elbow_flexion_r": 1.00})
+    out["combined"] = with_offsets(
+        {
+            "shoulder_elv_r": 0.50,
+            "elv_angle_r": 0.40,
+            "shoulder_rot_r": 0.30,
+            "elbow_flexion_r": 1.00,
+        }
+    )
+    return out
+
+
+def _muscles_crossing(mapping, joints, side: str, limb: str):
+    """返回属于 ``side/limb`` 组且跨越 ``joints`` 中任一关节的肌肉名。"""
+    idx = set(mapping.indices_for(side, limb))
+    out = []
+    for e in mapping.entries:
+        if e.index not in idx:
+            continue
+        if any(j in (e.crossed_joints or []) for j in joints):
+            out.append(e.name)
+    return out
+
+
 def main() -> None:
     import mujoco
 
@@ -194,12 +257,15 @@ def main() -> None:
         {"n_measured": int(mask_lo.sum())},
     )
 
-    # 多个姿态下重复，确认不是单点巧合（每次测量前都 reset 取基准）
+    # 多个姿态下重复，确认不是单点巧合（每次测量前都 reset 取基准）。
+    #
+    # 注意：本模型**没有 freejoint**（nq == nv == 85；骨盆是 3 个 slide + 3 个 hinge），
+    # 因此不存在需要保护的「根节点四元数」。旧版本里 `q[3:7] = key[3:7]` 的做法来自
+    # 对 freejoint 布局的假设，在本模型上既无意义又掩盖了真实自由度。
+    # 姿态一律按**关节名**构造（见 `_arm_postures`），不使用任何索引假设。
+    postures = _arm_postures(model, q_key)
     ratios_multi = []
-    rng = np.random.default_rng(0)
-    for _ in range(3):
-        q = q_key + rng.normal(0, 0.15, size=model.nq)
-        q[3:7] = q_key[3:7]  # 保持根节点四元数合法
+    for posture_name, q in postures.items():
         scaler.reset()
         fa = force_at(q, 1.0)
         scaler.apply(ma.StrengthSpec(paretic_side="R", upper_scale=0.25, lower_scale=1.0))
@@ -207,38 +273,117 @@ def main() -> None:
         idx = np.array(sorted(mapping.indices_for("R", "upper")))
         m = np.abs(fa[idx]) > 1e-3
         if m.any():
-            ratios_multi.append(float(np.mean(fb[idx][m] / fa[idx][m])))
+            ratios_multi.append((posture_name, float(np.mean(fb[idx][m] / fa[idx][m]))))
     ck.check(
-        "V5c 三个随机姿态下患侧上肢力比仍 ≈ 0.25",
-        len(ratios_multi) == 3 and all(abs(r - 0.25) < 0.03 for r in ratios_multi),
-        {"ratios": [round(r, 4) for r in ratios_multi]},
+        "V5c 多个（按关节名构造的）姿态下患侧上肢力比仍 ≈ 0.25",
+        len(ratios_multi) == len(postures) and all(abs(r - 0.25) < 0.03 for _, r in ratios_multi),
+        {"postures": [p for p, _ in ratios_multi], "ratios": [round(r, 4) for _, r in ratios_multi]},
     )
 
     # ---------------------------------------------------------- V6
-    # 等长力-长度曲线：改变 qpos 幅度，检查缩放前后比值是否恒定
-    scaler.reset()
-    curve_base, curve_scaled = [], []
-    amps = [0.0, 0.2, 0.4, 0.6]
-    for amp in amps:
-        q = q_key.copy()
-        q[7:] = q_key[7:] * (1.0 + amp)
+    # 主动力缩放验证。旧版本用「放大初始关节角」改变姿态，四组基准上肢肌肉力完全一致，
+    # 说明那些肌肉的长度根本没变（= 没有真正测到 FL 曲线），因此结论是空的。
+    # 现在按**关节名**选肩/肘，并分三步：
+    #   (a) 先证明目标肌肉的长度**确实改变**；
+    #   (b) 再用 F_active(a) = F(a) - F(0) 分离主动分量，验证缩放比恒等于倍率；
+    #   (c) 同时给出被动力对照（active_only 不变 / active_and_passive 按倍率变）。
+    shoulder_joints = ("elv_angle_r", "shoulder_elv_r", "shoulder_rot_r")
+    elbow_joints = ("elbow_flexion_r",)
+    shoulder_muscles = _muscles_crossing(mapping, shoulder_joints, side="R", limb="upper")
+    elbow_muscles = _muscles_crossing(mapping, elbow_joints, side="R", limb="upper")
+
+    length_evidence: dict = {}
+    active_ratios: dict = {}
+    passive_evidence: dict = {}
+    idx_all = np.array(sorted(mapping.indices_for("R", "upper")))
+    name_to_index = {e.name: e.index for e in mapping.entries}
+
+    for posture_name, q in postures.items():
+        if posture_name == "key":
+            continue
+
+        # (a) 长度确实改变（与关键姿态对照）
         scaler.reset()
-        fb = force_at(q, 1.0)
-        scaler.apply(ma.StrengthSpec(paretic_side="R", upper_scale=0.5, lower_scale=1.0))
-        fs = force_at(q, 1.0)
-        idx = np.array(sorted(mapping.indices_for("R", "upper")))
-        m = np.abs(fb[idx]) > 1e-3
-        curve_base.append(float(np.abs(fb[idx][m]).mean()) if m.any() else 0.0)
-        curve_scaled.append(float(np.mean(fs[idx][m] / fb[idx][m])) if m.any() else np.nan)
+        _, length_base = _state_at(model, q, act=0.0)
+        _, length_key = _state_at(model, q_key, act=0.0)
+        for label, names in (("shoulder", shoulder_muscles), ("elbow", elbow_muscles)):
+            sel = [name_to_index[n] for n in names if n in name_to_index]
+            sel = [i for i in sel if i in set(idx_all.tolist())]
+            if not sel:
+                continue
+            d_len = np.abs(np.asarray(length_base)[sel] - np.asarray(length_key)[sel])
+            length_evidence[f"{posture_name}/{label}"] = {
+                "n_muscles": len(sel),
+                "max_abs_length_change_m": float(np.max(d_len)) if d_len.size else 0.0,
+                "mean_abs_length_change_m": float(np.mean(d_len)) if d_len.size else 0.0,
+                "changed": bool(d_len.size and np.max(d_len) > 1e-4),
+            }
+        ck.check(
+            f"V6a[{posture_name}] 目标肌肉长度确实改变（姿态按关节名构造）",
+            all(v["changed"] for k, v in length_evidence.items() if k.startswith(posture_name + "/")),
+            {k: round(v["max_abs_length_change_m"], 5)
+             for k, v in length_evidence.items() if k.startswith(posture_name + "/")},
+        )
+
+        # (b) 主动分量 F_active = F(act=1) - F(act=0) 按倍率缩放
+        scaler.reset()
+        f_act_base, _ = _state_at(model, q, act=1.0)
+        scaler.reset()
+        f_pas_base, _ = _state_at(model, q, act=0.0)
+        scaler.apply(ma.StrengthSpec(paretic_side="R", upper_scale=0.5, lower_scale=1.0, mode=ma.MODE_ACTIVE_ONLY))
+        f_act_scaled, _ = _state_at(model, q, act=1.0)
+        f_pas_scaled, _ = _state_at(model, q, act=0.0)
+
+        active_base = f_act_base - f_pas_base
+        active_scaled = f_act_scaled - f_pas_scaled
+        m = np.abs(active_base[idx_all]) > 1e-2  # 主动分量足够大才有意义
+        ratio_active = active_scaled[idx_all][m] / active_base[idx_all][m] if m.any() else np.array([])
+        active_ratios[posture_name] = {
+            "n_measured": int(m.sum()),
+            "mean": float(ratio_active.mean()) if ratio_active.size else None,
+            "min": float(ratio_active.min()) if ratio_active.size else None,
+            "max": float(ratio_active.max()) if ratio_active.size else None,
+        }
+        ck.check(
+            f"V6b[{posture_name}] 同姿态/速度/激活下 F_active 按倍率缩放（0.5）",
+            m.sum() > 0 and bool(np.allclose(ratio_active, 0.5, atol=0.02)),
+            active_ratios[posture_name],
+        )
+
+        # (c) 被动力对照
+        pm = np.abs(f_pas_base[idx_all]) > 1e-3
+        passive_evidence[posture_name] = {
+            "n_nonzero_passive": int(pm.sum()),
+            "active_only_unchanged": bool(
+                np.array_equal(f_pas_scaled[idx_all][pm], f_pas_base[idx_all][pm])
+            ),
+        }
+        scaler.reset()
+        scaler.apply(
+            ma.StrengthSpec(
+                paretic_side="R", upper_scale=0.5, lower_scale=1.0, mode=ma.MODE_ACTIVE_AND_PASSIVE
+            )
+        )
+        f_pas_both, _ = _state_at(model, q, act=0.0)
+        r_both = f_pas_both[idx_all][pm] / f_pas_base[idx_all][pm] if pm.any() else np.array([])
+        passive_evidence[posture_name]["active_and_passive_ratio_mean"] = (
+            float(r_both.mean()) if r_both.size else None
+        )
+        passive_evidence[posture_name]["active_and_passive_scales_passive"] = bool(
+            r_both.size == 0 or np.allclose(r_both, 0.5, atol=0.02)
+        )
     ck.check(
-        "V6 不同长度下缩放比恒定（只改幅值，不改 FL 形状）",
-        all((not np.isnan(r)) and abs(r - 0.5) < 0.03 for r in curve_scaled),
-        {"amplitudes": amps, "baseline_mean_abs_force": [round(v, 3) for v in curve_base],
-         "ratios": [round(float(r), 4) for r in curve_scaled]},
+        "V6c 被动力对照：active_only 逐元素不变、active_and_passive 按倍率缩放",
+        all(
+            v["active_only_unchanged"] and v["active_and_passive_scales_passive"]
+            for v in passive_evidence.values()
+        ),
+        passive_evidence,
     )
 
     # ---------------------------------------------------------- V7
-    # 被动通道：act = 0
+    # 被动通道（act = 0）：再在关键姿态上确认一次两种模式的区分度
+    scaler.reset()
     p_base = force_at(q_key, 0.0)
     scaler.reset()
     scaler.apply(ma.StrengthSpec(paretic_side="R", upper_scale=0.5, mode=ma.MODE_ACTIVE_ONLY))

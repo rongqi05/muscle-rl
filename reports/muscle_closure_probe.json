@@ -1,68 +1,68 @@
 {
-  "n_steps": 40,
+  "n_steps": 12,
   "n_actuators": 700,
   "n_actuators_nonzero_force": 700,
-  "force_abs_mean": 32.51353606612052,
+  "force_abs_mean": 28.92887918203666,
   "model_force_sign": {
     "n_negative": 700,
     "n_positive": 0,
-    "min": -1363.1278345158137,
-    "max": -0.02504521128402415
+    "min": -1678.2727944407832,
+    "max": -0.020773173849553052
   },
   "gain_sign": {
     "n_negative": 700,
     "n_positive": 0,
-    "min": -7078.35397410235,
-    "max": -4.25564185316718
+    "min": -7242.871553517097,
+    "max": -1.4718252621675212
   },
   "bias_sign": {
-    "n_negative": 53,
+    "n_negative": 51,
     "n_positive": 0
   },
   "candidates": {
     "F1: g(vel)*act + b": {
-      "max_abs_err": 19.91505894032963,
-      "mean_abs_err": 0.4294325504554475,
-      "mean_abs_err_over_active": 0.4294325504554475
+      "max_abs_err": 17.65796920503078,
+      "mean_abs_err": 0.36335929012685664,
+      "mean_abs_err_over_active": 0.36335929012685664
     },
     "F2: g(-vel)*act + b": {
-      "max_abs_err": 313.128008135829,
-      "mean_abs_err": 8.560135427077308,
-      "mean_abs_err_over_active": 8.560135427077308
+      "max_abs_err": 666.0530045136647,
+      "mean_abs_err": 11.219054499678435,
+      "mean_abs_err_over_active": 11.219054499678435
     },
     "F3: -(g(vel)*act + b)": {
-      "max_abs_err": 2732.114174235221,
-      "mean_abs_err": 64.92756940821161,
-      "mean_abs_err_over_active": 64.92756940821161
+      "max_abs_err": 3357.1418065336493,
+      "mean_abs_err": 57.648400691444145,
+      "mean_abs_err_over_active": 57.648400691444145
     },
     "F4: -(g(-vel)*act + b)": {
-      "max_abs_err": 2514.9647932257167,
-      "mean_abs_err": 68.79548675491874,
-      "mean_abs_err_over_active": 68.79548675491874
+      "max_abs_err": 2778.4008983628455,
+      "mean_abs_err": 60.69475707990769,
+      "mean_abs_err_over_active": 60.69475707990769
     },
     "F5: -g(vel)*act + b": {
-      "max_abs_err": 2732.114174235221,
-      "mean_abs_err": 62.95425842209134,
-      "mean_abs_err_over_active": 62.95425842209134
+      "max_abs_err": 3357.1418065336493,
+      "mean_abs_err": 55.11810016678098,
+      "mean_abs_err_over_active": 55.11810016678098
     },
     "F6: g(vel)*act - b": {
-      "max_abs_err": 321.32637916144444,
-      "mean_abs_err": 2.3597031248476137,
-      "mean_abs_err_over_active": 2.3597031248476137
+      "max_abs_err": 463.24639495692463,
+      "mean_abs_err": 2.8909744435187203,
+      "mean_abs_err_over_active": 2.8909744435187203
     }
   },
   "best_candidate": "F1: g(vel)*act + b",
-  "best_max_abs_err": 19.91505894032963,
+  "best_max_abs_err": 17.65796920503078,
   "static_check": {
     "max_abs_err": 0.0,
     "mean_abs_err": 0.0,
-    "force_abs_mean": 34.980880495506646
+    "force_abs_mean": 31.738670515098015
   },
   "same_state_consistency_check": {
     "max_abs_err": 0.0,
     "mean_abs_err": 0.0,
     "n_nonzero_velocity": 508,
-    "max_abs_velocity": 0.1903129587983572,
+    "max_abs_velocity": 0.25993477522276,
     "note": "同一状态下公式与 data.actuator_force 逐元素一致。运动轨迹上的残余误差来自 actuator_velocity 是步后采样（半隐式欧拉：mj_step 先用步前速度算力，再积分）"
   }
 }

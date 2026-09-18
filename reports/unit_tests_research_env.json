@@ -1,0 +1,61 @@
+{
+  "n": 11,
+  "n_pass": 11,
+  "results": [
+    {
+      "test": "T10 约束力分解：按类型拆开后残差为 0，不把 qfrc_constraint 整体归因 equality",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "T11 参考轨迹连续性：边界跳变可量化，且给出是否需要护栏的结论",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "T1 终止步被记录：ledger 覆盖全部已执行控制步，含触发终止的最后一步",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "T2 时间截断：研究模式用规定时长（不是官方 3.51 s），且带明确截断标志",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "T3 计时来源：运行时间 = data.time 差（实际仿真时间），且与步数一致",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "T4 物理跌倒：terminated=True 且 source=physical_fall（不是 truncated）",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "T5 官方参考误差终止：官方模式保留，研究模式覆盖但被记录",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "T6 数值异常：单独归类为 numeric_anomaly，不混入生理性跌倒",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "T7 终止后不得继续推进：再 step 直接抛错，且不会自动 reset",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "T8 奖励拆分：物理存活项不依赖参考，官方 healthy 项依赖参考",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "T9 根节点速度：世界系线速度/角速度与 Jacobian 和有限差分一致",
+      "ok": true,
+      "error": null
+    }
+  ]
+}

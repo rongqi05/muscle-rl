@@ -1,0 +1,221 @@
+{
+  "n_episodes": 5,
+  "metrics": {
+    "steps": {
+      "mean": 230.8,
+      "std": 8.471127433818948,
+      "min": 223.0,
+      "max": 245.0
+    },
+    "sim_time_s": {
+      "mean": 4.615999999999714,
+      "std": 0.16942254867636028,
+      "min": 4.459999999999731,
+      "max": 4.899999999999682
+    },
+    "displacement_xy": {
+      "mean": 4.101049344341048,
+      "std": 0.15405422304460908,
+      "min": 3.9355917968225427,
+      "max": 4.3892448147706205
+    },
+    "forward_displacement_x": {
+      "mean": 4.075342407607573,
+      "std": 0.15611005309544726,
+      "min": 3.9087470748397655,
+      "max": 4.36803062939158
+    },
+    "lateral_drift_y": {
+      "mean": 0.45602342353016656,
+      "std": 0.039937171002652413,
+      "min": 0.4011231311498493,
+      "max": 0.5206197339011079
+    },
+    "mean_speed_xy": {
+      "mean": 0.8885303198614585,
+      "std": 0.014035990576221131,
+      "min": 0.8669282593773234,
+      "max": 0.9092348030365965
+    },
+    "forward_speed_x": {
+      "mean": 0.8829542884335272,
+      "std": 0.015003951805934921,
+      "min": 0.8598827492129124,
+      "max": 0.9048155379765109
+    },
+    "mean_pelvis_height": {
+      "mean": 0.9027058745517055,
+      "std": 0.001294631588097227,
+      "min": 0.9009999266302005,
+      "max": 0.9047620661641083
+    },
+    "min_pelvis_height": {
+      "mean": 0.6864475307533521,
+      "std": 0.01601976037619435,
+      "min": 0.6655713917171928,
+      "max": 0.7114333036336995
+    },
+    "final_pelvis_height": {
+      "mean": 0.6864475307533521,
+      "std": 0.01601976037619435,
+      "min": 0.6655713917171928,
+      "max": 0.7114333036336995
+    },
+    "max_pelvis_up_tilt_deg": {
+      "mean": 61.41631212846062,
+      "std": 0.6220726325473085,
+      "min": 60.63194952080062,
+      "max": 62.099883364586844
+    },
+    "final_pelvis_up_tilt_deg": {
+      "mean": 61.41631212846062,
+      "std": 0.6220726325473085,
+      "min": 60.63194952080062,
+      "max": 62.099883364586844
+    },
+    "posture_change_deg": {
+      "mean": 60.733479546528976,
+      "std": 0.749225635208812,
+      "min": 59.84211469303852,
+      "max": 61.55694967146791
+    },
+    "max_root_speed": {
+      "mean": 2.050098802185869,
+      "std": 0.06435494182139645,
+      "min": 1.9323314665272378,
+      "max": 2.1270233672809997
+    },
+    "max_root_ang_speed": {
+      "mean": 4.165035052063224,
+      "std": 0.8274579877701149,
+      "min": 3.1649058646221437,
+      "max": 5.513954549954523
+    },
+    "mean_qpos_track_err": {
+      "mean": 0.059359659975431356,
+      "std": 0.0018370077077035445,
+      "min": 0.05601170465330583,
+      "max": 0.06119754975457543
+    },
+    "max_qpos_track_err": {
+      "mean": 0.29869750653872196,
+      "std": 0.0034554900128824675,
+      "min": 0.29358675527456796,
+      "max": 0.30273608164328447
+    },
+    "final_qpos_track_err": {
+      "mean": 0.2953384139788762,
+      "std": 0.00578271707520728,
+      "min": 0.28725517417420465,
+      "max": 0.30273608164328447
+    },
+    "action_abs_mean": {
+      "mean": 0.7610349880928595,
+      "std": 0.00220206695957305,
+      "min": 0.7575543302846719,
+      "max": 0.7635547478523639
+    },
+    "activation_mean": {
+      "mean": 0.19662431425326213,
+      "std": 0.003602005813155709,
+      "min": 0.19127223149080463,
+      "max": 0.2018583147941339
+    },
+    "actuator_force_abs_mean": {
+      "mean": 38.69407385645235,
+      "std": 0.8496147674931585,
+      "min": 37.63259471671319,
+      "max": 39.94766068755994
+    },
+    "ncon_mean": {
+      "mean": 4.105698216015803,
+      "std": 0.040673654848613745,
+      "min": 4.044642857142857,
+      "max": 4.150442477876106
+    },
+    "total_normal_force_mean": {
+      "mean": 573.7816323716685,
+      "std": 2.6348557767094065,
+      "min": 570.3728540800978,
+      "max": 577.1570128843248
+    },
+    "foot_contact_fraction": {
+      "mean": 0.9991150442477876,
+      "std": 0.0017699115044247816,
+      "min": 0.995575221238938,
+      "max": 1.0
+    },
+    "max_abs_qvel": {
+      "mean": 32.941308740309765,
+      "std": 7.615006245196249,
+      "min": 18.420305961993368,
+      "max": 39.39917061136372
+    },
+    "jacobian_vs_index_max_diff": {
+      "mean": 2.074194266888809,
+      "std": 0.14283795991279763,
+      "min": 1.9372584144860254,
+      "max": 2.316566075380763
+    }
+  },
+  "outcome_counts": {
+    "physical_fall": 5,
+    "numeric_anomaly": 0,
+    "completed_planned_duration": 0,
+    "other": 0
+  },
+  "termination_reasons": {
+    "骨盆直立偏差 62.0° > 60.0°": 1,
+    "骨盆直立偏差 60.7° > 60.0°": 1,
+    "骨盆直立偏差 61.6° > 60.0°": 1,
+    "骨盆直立偏差 62.1° > 60.0°": 1,
+    "骨盆直立偏差 60.6° > 60.0°": 1
+  },
+  "termination_sources": {
+    "physical_fall": 5
+  },
+  "n_terminated": 5,
+  "n_truncated": 0,
+  "planned_duration_s": 20.0,
+  "fallen_only_speed_mean": 0.8885303198614585,
+  "fallen_only_alive_time_mean": 4.615999999999714,
+  "fallen_only_note": "跌倒前平均速度只描述「跌倒前跑了多快」，不代表任务完成或效果改善",
+  "strength_spec": null,
+  "termination_config": {
+    "kind": "research",
+    "min_pelvis_height": 0.55,
+    "max_pelvis_up_tilt_deg": 60.0,
+    "max_root_speed": 10.0,
+    "max_root_ang_speed": 50.0,
+    "max_joint_speed_norm": 200.0,
+    "nan_check": true,
+    "time_limit_s": null,
+    "allow_reference_deviation_termination": false
+  },
+  "research_env_config": {
+    "name": "eval_research",
+    "termination": {
+      "kind": "research",
+      "min_pelvis_height": 0.55,
+      "max_pelvis_up_tilt_deg": 60.0,
+      "max_root_speed": 10.0,
+      "max_root_ang_speed": 50.0,
+      "max_joint_speed_norm": 200.0,
+      "nan_check": true,
+      "time_limit_s": null,
+      "allow_reference_deviation_termination": false
+    },
+    "max_episode_seconds": 20.0,
+    "max_control_steps": null,
+    "reward_mode": "official",
+    "reward_split": {
+      "w_survival": 100.0,
+      "include_official_healthy": false,
+      "normalization": 1.0
+    },
+    "keep_ledger": true,
+    "suppresses_official_reference_termination": true,
+    "suppresses_official_time_truncation": true
+  },
+  "deterministic": true
+}

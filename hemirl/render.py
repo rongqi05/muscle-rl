@@ -89,11 +89,13 @@ def record_video(
             )
         evaluator.scaler.reset()
         if spec is not None:
+            if spec.mode != evaluator.scaler.mode:
+                evaluator.scaler.mode = spec.mode
             evaluator.scaler.apply(spec)
         obs, _ = env.reset(seed=seed)
         frames: List[np.ndarray] = []
-        n_max = evaluator.max_steps(evaluator.cfg.termination)
-        for _ in range(n_max):
+        n_max = evaluator.max_steps
+        for _ in range(n_max + 1):
             frame = env.render()
             if frame is not None:
                 frames.append(np.asarray(frame, dtype=np.uint8))
@@ -101,8 +103,12 @@ def record_video(
                 break
             normalized = evaluator.stack.normalize_obs(obs)
             action = evaluator.stack.predict(normalized)
-            obs, _r, _t, trunc, _i = env.step(action)
-            if trunc:
+            obs, _r, terminated, truncated, _i = env.step(action)
+            if terminated or truncated:
+                # 终止的那一步也要渲染，因此先渲染再退出
+                frame = env.render()
+                if frame is not None:
+                    frames.append(np.asarray(frame, dtype=np.uint8))
                 break
         if not frames:
             return VideoResult(ok=False, error="未取到任何渲染帧", backend=backend)

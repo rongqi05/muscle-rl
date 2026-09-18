@@ -10,14 +10,30 @@
 ## 第一阶段已完成
 
 1. **复现官方全身肌骨模型预训练 RL 行走**：官方 DynSyn-SAC checkpoint（全身模型 700 肌肉）
-   在真实动力学下走完 3 个步态周期（175 步 / 3.50 s），平均速度 0.96 m/s，
-   官方终止规则未触发；已导出视频（`*.mp4` 不入库，关键帧见 `reports/video_frames/`）。
+   在真实动力学下走完 3 个步态周期（**176 步 / 3.52 s**），平均速度 **0.958 ± 0.013 m/s**，
+   官方终止规则未触发（5/5 均为时间上限，非参考偏差）；已导出视频
+   （`*.mp4` 不入库，关键帧见 `reports/video_frames/`）。
 2. **可重复、可恢复的患侧肌力参数化**：`hemirl/muscle_actuator.py`，
    从不可变基准计算 F0 倍率，支持左右侧 / 上下肢独立缩放、两种主动-被动模式。
-3. **动力学闭环核查**：`hemirl/dynamics_audit.py` + `scripts/audit_dynamics.py`，
-   静态代码审计 + 模型结构审计 + 运行时审计，证据见 `reports/dynamics_audit.json`。
-4. **环境接口与实验记录**：`scripts/eval_official.py`、`scripts/strength_sweep.py`，
-   每次运行落盘 provenance（commit / checkpoint 哈希 / 依赖版本 / 种子）。
+3. **动力学闭环核查**：`hemirl/dynamics_audit.py` + `hemirl/forces.py`，
+   静态代码审计 + 模型结构审计 + 运行时审计 + 约束力分类分解，证据见 `reports/dynamics_audit.json`。
+4. **统一的研究环境**：`hemirl/research_env.py`（训练与评估共用），
+   严格区分 `terminated`（物理跌倒 / 数值异常）与 `truncated`（规定时长 / 本地上限），
+   记录**每一步（含终止步）**，运行时间取自**实际仿真时间差**。
+5. **策略一致性验证**：`hemirl/policy_verify.py`，官方 SB3 路径与纯 torch 直读路径
+   在 126 个观测上逐元素一致（`max|Δa| = 5.96e-08 ≤ 1e-5`）。
+6. **环境接口与实验记录**：每次运行落盘完整 provenance（HEAD + dirty 补丁哈希 /
+   上游 commit 与脏文件分类 / checkpoint 与模型文件哈希 / 依赖版本 / 种子 / 实际肌力倍率）。
+
+### 已知结论（如实记录）
+
+* **固定策略无法完成 20 s 长时行走**：5 个种子全部在 4.46–4.90 s 因侧向失稳跌倒
+  （骨盆直立偏差 > 60°）。归因分析表明**不是**参考轨迹循环造成（周期边界跳变小于周期内
+  正常单步变化），而是策略自身的长时稳定性问题。详见
+  [`reports/phase2_acceptance_report.md`](reports/phase2_acceptance_report.md) 第 4.2 节。
+* **下肢损伤是主因**：下肢肌力 0.5 时基本全倒，0.25 时平均存活 < 1 s；
+  上肢降到 0.25 仍能走完全程（速度仅 −3.6%）。
+* 以上均为**固定官方策略**的评估结果，**不是**偏瘫适应训练结果。
 
 ## 环境
 
@@ -41,7 +57,7 @@ mkdir -p artifacts/checkpoints && cd artifacts/checkpoints
 curl -L -O https://github.com/LNSGroup/msgym/releases/download/Checkpoints/LocomotionFull.zip
 unzip -q LocomotionFull.zip && cd ../..
 
-# 3) 自检（18 项单元测试 + 16 项肌力专项验证）
+# 3) 自检（18 项核心单元测试 + 11 项研究环境回归 + 22 项肌力专项）
 MUJOCO_GL=egl PYTHONPATH=. python scripts/run_tests.py --with-heavy
 ```
 
@@ -54,7 +70,7 @@ MUJOCO_GL=egl PYTHONPATH=. python scripts/run_tests.py --with-heavy
 |---|---|
 | `external/MS-Human-700/` | 官方模型 XML + 资产（commit `2d68695`，用 `scripts/setup_external.sh` 获取，不入库） |
 | `external/msgym/` | 官方 Gymnasium 环境与 DynSyn-SAC 脚本（commit `ad3aac1`，同上） |
-| `hemirl/` | 本项目代码：肌群映射、肌力缩放、终止配置、评估、审计、渲染 |
+| `hemirl/` | 本项目代码：肌群映射、肌力缩放、研究环境、终止配置、评估、审计、力分解、渲染 |
 | `scripts/` | CLI 入口（可复制运行） |
 | `configs/` | 实验配置 |
 | `docs/` | 说明性文档（技术路线等） |
@@ -65,29 +81,36 @@ MUJOCO_GL=egl PYTHONPATH=. python scripts/run_tests.py --with-heavy
 ## 快速开始
 
 ```bash
-# 0) 单元测试 + 肌力验证（无需 checkpoint 之外的大依赖）
-MUJOCO_GL=egl PYTHONPATH=. python scripts/run_tests.py --with-heavy
+# 0) 验收：一条命令跑完全部验证（失败/必需项被跳过时返回非零退出码）
+MUJOCO_GL=egl PYTHONPATH=. python scripts/acceptance.py
 
-# 1) 官方行走最小复现（官方终止规则）
+# 1) 官方行走最小复现（官方终止规则，保留原语义）
 MUJOCO_GL=egl PYTHONPATH=. python scripts/eval_official.py \
     --episodes 1 --termination official --tag eval_min_official
 
-# 2) 多次重复（研究终止规则，保存轨迹）
+# 2) 短时基线复验（官方配置，5 个种子）
 MUJOCO_GL=egl PYTHONPATH=. python scripts/eval_official.py \
-    --episodes 5 --termination research --save-traj --tag eval_repeats_research
+    --episodes 5 --seed 0 --termination official --tag eval_short_baseline_official
 
-# 3) 导出视频
+# 3) 研究环境长时评估（20 s；先做参考连续性前置检查）
+MUJOCO_GL=egl PYTHONPATH=. python scripts/probe_reference_continuity.py --cycles 20
 MUJOCO_GL=egl PYTHONPATH=. python scripts/eval_official.py \
-    --episodes 1 --termination official --video --tag eval_video
+    --episodes 5 --seed 0 --termination research --max-episode-seconds 20 \
+    --save-traj --tag eval_long_research
 
-# 4) 动力学闭环审计
+# 4) 导出视频（含终止帧）
+MUJOCO_GL=egl PYTHONPATH=. python scripts/eval_official.py \
+    --episodes 1 --termination research --max-episode-seconds 20 \
+    --video --tag eval_long_research_video
+
+# 5) 动力学闭环审计（含约束力分类分解）
 MUJOCO_GL=egl PYTHONPATH=. python scripts/audit_dynamics.py --steps 80
 
-# 5) 肌力扫描（A 上肢 / B 下肢，配对种子）
+# 6) 肌力扫描（A 上肢 / B 下肢，配对种子；走完与跌倒分开统计）
 MUJOCO_GL=egl PYTHONPATH=. python scripts/strength_sweep.py \
-    --paretic-side R --seeds 0 1 2 3 4 --termination research --tag sweep_R_research
+    --paretic-side R --seeds 0 1 2 3 4 --termination research --tag sweep_R_short_research
 
-# 6) 肌肉分组映射导出
+# 7) 肌肉分组映射导出
 PYTHONPATH=. python scripts/export_muscle_map.py
 ```
 
@@ -100,10 +123,26 @@ MUJOCO_GL=egl PYTHONPATH=. python scripts/eval_official.py \
     --strength-mode active_only --tag eval_R_upper0.5
 ```
 
+### 两种评估模式的差别
+
+| 模式 | `terminated` | `truncated` |
+|---|---|---|
+| `--termination official` | 上游 `not is_healthy`（偏离参考姿态）或达到官方 3.51 s | 达到官方 3.51 s |
+| `--termination research` | 物理跌倒 / 数值异常（单独归类） | 达到 `--max-episode-seconds`（默认 20 s）或本地控制步上限 |
+
+### 代码入口
+
+| 用途 | 入口 |
+|---|---|
+| 官方环境（复现 checkpoint 原语义） | `hemirl/envs.py: build_env()` |
+| **研究环境（训练与评估共用）** | `hemirl/research_env.py: build_research_env()` |
+
 ## 文档
 
 | 文档 | 内容 |
 |---|---|
 | [`docs/technical_route.md`](docs/technical_route.md) | **技术路线**：闭环数据流、三层技术选择、关键工程决策、与旧路线的差异、下一步 |
-| [`reports/phase1_report.md`](reports/phase1_report.md) | **阶段报告**：代码核查结论、复现数据、验证结果、未解决问题 |
+| [`reports/phase2_acceptance_report.md`](reports/phase2_acceptance_report.md) | **第一阶段修复验收报告**：逐项状态分类、口径变更、长时评估失败归因、下一阶段入口与阻塞 |
+| [`reports/phase1_report.md`](reports/phase1_report.md) | **阶段一历史记录**：代码核查结论、复现数据、验证结果（数字使用**修复前**的记录口径） |
+| `reports/acceptance.json` | 验收命令的结果（passed / failed / skipped） |
 | [`AGENTS.md`](AGENTS.md) | 工作区硬性约定（上游只读、不用运动学回放、禁止预设结论等） |

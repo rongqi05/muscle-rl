@@ -13,7 +13,7 @@ import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Sequence
 
 from hemirl import paths
 
@@ -134,10 +134,173 @@ def write_json(path: Path, payload: Dict[str, Any]) -> Path:
     return path
 
 
+# ------------------------------------------------------------------ 代码版本
+
+
+def dirty_files(root: Optional[Path] = None) -> List[str]:
+    """工作区未提交改动的文件清单（``git status --porcelain`` 的路径部分）。"""
+    root = Path(root) if root else paths.WORKSPACE_ROOT
+    out = _git(["status", "--porcelain"], root)
+    if not out:
+        return []
+    files: List[str] = []
+    for line in out.splitlines():
+        if len(line) < 4:
+            continue
+        path = line[3:].strip()
+        if " -> " in path:  # 重命名：取目标路径
+            path = path.split(" -> ")[-1]
+        files.append(path)
+    return files
+
+
+def dirty_patch_sha256(root: Optional[Path] = None) -> Optional[str]:
+    """未提交改动的补丁哈希（``git diff HEAD`` 的 SHA-256）。
+
+    用于在「工作区 dirty」时仍然能标识**代码快照**：同一 commit + 同一补丁哈希
+    才代表同一份代码。已跟踪文件的改动会被 ``git diff HEAD`` 覆盖；
+    未跟踪文件由 :func:`code_version` 的 ``untracked_files`` 一并记录。
+    """
+    root = Path(root) if root else paths.WORKSPACE_ROOT
+    try:
+        out = subprocess.run(
+            ["git", "--no-pager", "diff", "HEAD"],
+            cwd=str(root),
+            capture_output=True,
+            timeout=60,
+        )
+    except Exception:
+        return None
+    if out.returncode != 0:
+        return None
+    return hashlib.sha256(out.stdout).hexdigest()
+
+
+def code_version(root: Optional[Path] = None) -> Dict[str, Any]:
+    """本项目代码版本：commit + dirty 状态 + 补丁哈希 + 未跟踪文件。
+
+    ``describe`` 是可直接写进结果表的短标识；dirty 时形如
+    ``ab452c4+dirty:1f3c9a7e``，其中后缀是补丁哈希前 8 位。
+    """
+    root = Path(root) if root else paths.WORKSPACE_ROOT
+    info = repo_info(root, "muscle-rl")
+    files = dirty_files(root)
+    patch = dirty_patch_sha256(root)
+    untracked = sorted(
+        f for f in files if _git(["ls-files", "--error-unmatch", f], root) is None
+    )
+    commit = info.get("commit") or "unknown"
+    short = commit[:7] if commit != "unknown" else "unknown"
+    if files:
+        tag = f"+dirty:{patch[:8]}" if patch else "+dirty"
+    else:
+        tag = ""
+    return {
+        "commit": commit,
+        "commit_subject": info.get("commit_subject"),
+        "branch": info.get("branch"),
+        "remote": info.get("remote"),
+        "dirty": bool(files),
+        "dirty_files": files,
+        "untracked_files": untracked,
+        "patch_sha256": patch,
+        "describe": f"{short}{tag}",
+    }
+
+
+def upstream_dirty(root: Path) -> Dict[str, Any]:
+    """上游仓库的脏文件列表，并区分「模型符号链接变化」与「源码变化」。
+
+    本工作区会在 ``msgym`` 内建立 ``msgym/MS-Human-700`` 符号链接（上游 submodule 未
+    初始化时的空目录会被替换），这属于**非源码**变化，必须与真正的源码改动区分开，
+    否则「上游只读」这一约定无法核对。
+    """
+    root = Path(root)
+    if not (root / ".git").exists():
+        return {"path": str(root), "is_git": False, "dirty": False}
+    raw = _git(["status", "--porcelain"], root) or ""
+    symlink_changes: List[str] = []
+    source_changes: List[str] = []
+    for line in raw.splitlines():
+        if len(line) < 4:
+            continue
+        path = line[3:].strip()
+        if " -> " in path:
+            path = path.split(" -> ")[-1]
+        full = root / path
+        if full.is_symlink() or path.endswith("MS-Human-700"):
+            symlink_changes.append(path)
+        else:
+            source_changes.append(path)
+    return {
+        "path": str(root),
+        "is_git": True,
+        "dirty": bool(raw.splitlines()),
+        "dirty_raw": raw.splitlines(),
+        "symlink_changes": symlink_changes,
+        "source_changes": source_changes,
+        "n_source_changes": len(source_changes),
+    }
+
+
+def model_file_info(path: Path) -> Dict[str, Any]:
+    """实际加载的模型文件：路径、是否为符号链接、解析后的真实路径与哈希。"""
+    path = Path(path)
+    info: Dict[str, Any] = {
+        "path": str(path),
+        "exists": path.exists(),
+        "is_symlink": path.is_symlink(),
+    }
+    if path.is_symlink():
+        info["symlink_target"] = os.readlink(path)
+    if path.exists():
+        info["resolved"] = str(path.resolve())
+        info["sha256"] = file_sha256(path)
+        info["size_bytes"] = path.stat().st_size
+    return info
+
+
+def run_provenance(
+    *,
+    entry: str,
+    args: Dict[str, Any],
+    extra: Optional[Dict[str, Any]] = None,
+    checkpoint_dir: Optional[Path] = None,
+    loaded_model_path: Optional[Path] = None,
+    strength: Optional[Dict[str, Any]] = None,
+    policy_inference: Optional[Dict[str, Any]] = None,
+    seeds: Optional[Sequence[int]] = None,
+) -> Dict[str, Any]:
+    """一次运行的完整 provenance（覆盖任务书第七节的全部字段）。"""
+    prov = build_provenance(extra=extra, checkpoint_dir=checkpoint_dir)
+    prov["entry"] = entry
+    prov["args"] = args
+    prov["code_version"] = code_version()
+    prov["upstream"] = {
+        "MS-Human-700": {**repo_info(paths.MSHUMAN_ROOT, "MS-Human-700"), **upstream_dirty(paths.MSHUMAN_ROOT)},
+        "msgym": {**repo_info(paths.MSGYM_ROOT, "msgym"), **upstream_dirty(paths.MSGYM_ROOT)},
+    }
+    if loaded_model_path is not None:
+        prov["loaded_model_file"] = model_file_info(loaded_model_path)
+    if strength is not None:
+        prov["strength"] = strength
+    if policy_inference is not None:
+        prov["policy_inference"] = policy_inference
+    if seeds is not None:
+        prov["seeds"] = list(seeds)
+    return prov
+
+
 __all__ = [
     "repo_info",
     "file_sha256",
     "dependency_versions",
     "build_provenance",
     "write_json",
+    "code_version",
+    "dirty_files",
+    "dirty_patch_sha256",
+    "upstream_dirty",
+    "model_file_info",
+    "run_provenance",
 ]

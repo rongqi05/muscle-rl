@@ -50,5 +50,13 @@ MS-Human-700 全身肌骨模型 + 强化学习（msgym）的偏瘫研究。**不
 ## 术语
 
 - **患侧 (paretic)**：`L` 或 `R`，与 XML 中 `_l` / `_r` 后缀一致。
-- **F0**：肌肉最大等长力（MuJoCo muscle actuator 的 `gainprm[0]`，对应 XML `force`）。
+- **F0**：肌肉最大等长力。**在 ``gainprm[2]``（主动通道）与 ``biasprm[2]``（被动通道）**，
+  不是 ``gainprm[0]``。前 9 个有效槽位语义为
+  ``range[0], range[1], force(F0), scale, lmin, lmax, vmax, fpmax, fvmax``。
+  该结论由扰动–响应实证得出（逐个缩放槽位，观察 ``data.actuator_force`` 的响应比），
+  实现见 `hemirl/muscle_actuator.py:identify_f0_slots`，验证见 `reports/verify_strength.json`
+  的 V0 与 `tests/test_core.py::test_f0_slots`。**不要**按 XML 里的字段顺序去猜槽位。
 - **upper / lower**：上肢（肩/肘/腕/手）与下肢（髋/膝/踝/趾）肌群，**独立缩放**。
+- **terminated / truncated 的严格区分**（见 `hemirl/research_env.py`）：
+  ``terminated`` = 物理跌倒或数值异常；``truncated`` = 达到规定评估时长/本地步数上限。
+  数值异常必须单独记为 ``termination_source='numeric_anomaly'``，不得混入跌倒统计。

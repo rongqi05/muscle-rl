@@ -153,6 +153,7 @@ class PolicyStack:
     vec_normalize: Any
     deterministic: bool = True
     load_notes: Dict[str, Any] = field(default_factory=dict)
+    device: str = "cpu"
 
     def normalize_obs(self, obs: np.ndarray) -> np.ndarray:
         """按官方 VecNormalize 做观测归一化；输入 (dim,) 或 (n_envs, dim)。"""
@@ -211,7 +212,12 @@ def load_sb3_stack(
     with patched_float_schedule() as records:
         model = SAC_DynSyn.load(str(model_path), device=device)
     model.policy.eval()
-    stack = PolicyStack(model=model, vec_normalize=vec_normalize, deterministic=deterministic)
+    stack = PolicyStack(
+        model=model,
+        vec_normalize=vec_normalize,
+        deterministic=deterministic,
+        device=device,
+    )
     stack.load_notes = {
         "float_schedule_fallbacks": list(records),
         "vec_normalize_load_mode": getattr(vec_normalize, "_load_mode", "unknown"),

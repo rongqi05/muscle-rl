@@ -1,0 +1,104 @@
+{
+  "generated_at_utc": "2026-09-18T09:51:18.223007+00:00",
+  "code_version": {
+    "commit": "ab452c4a2d212bec2fa8f65ee3eef63532402fa0",
+    "commit_subject": "docs: AGENTS.md 登记 docs/ 目录，修正过时的 strength.py 引用",
+    "branch": "main",
+    "remote": "https://github.com/rongqi05/muscle-rl.git",
+    "dirty": true,
+    "dirty_files": [
+      "GENTS.md",
+      "hemirl/dynamics_audit.py",
+      "hemirl/policy.py",
+      "hemirl/provenance.py",
+      "hemirl/render.py",
+      "hemirl/rollout.py",
+      "reports/dynamics_audit.json",
+      "reports/verify_policy.json",
+      "reports/verify_strength.json",
+      "scripts/audit_dynamics.py",
+      "scripts/eval_official.py",
+      "scripts/run_tests.py",
+      "scripts/strength_sweep.py",
+      "scripts/verify_policy.py",
+      "scripts/verify_strength.py",
+      "MUJOCO_LOG.TXT",
+      "hemirl/forces.py",
+      "hemirl/policy_verify.py",
+      "hemirl/research_env.py",
+      "reports/reference_continuity.json",
+      "reports/verify_policy_pre_fix.json",
+      "reports/video_frames_long/",
+      "runs/eval_long_research/",
+      "runs/eval_long_research_video/",
+      "runs/eval_short_baseline_official/",
+      "runs/sweep_L_short_research/",
+      "runs/sweep_R_short_research/",
+      "scripts/acceptance.py",
+      "scripts/probe_reference_continuity.py",
+      "tests/test_research_env.py"
+    ],
+    "untracked_files": [
+      "GENTS.md",
+      "MUJOCO_LOG.TXT",
+      "hemirl/forces.py",
+      "hemirl/policy_verify.py",
+      "hemirl/research_env.py",
+      "reports/reference_continuity.json",
+      "reports/verify_policy_pre_fix.json",
+      "reports/video_frames_long/",
+      "runs/eval_long_research/",
+      "runs/eval_long_research_video/",
+      "runs/eval_short_baseline_official/",
+      "runs/sweep_L_short_research/",
+      "runs/sweep_R_short_research/",
+      "scripts/acceptance.py",
+      "scripts/probe_reference_continuity.py",
+      "tests/test_research_env.py"
+    ],
+    "patch_sha256": "f7827f7142d485e9a04723398de23c97caa62fd7f797320519cdf0e308bba5f3",
+    "describe": "ab452c4+dirty:f7827f71"
+  },
+  "steps": [
+    {
+      "name": "unit_tests",
+      "cmd": [
+        "/home/zrq/miniconda3/envs/hemirl/bin/python",
+        "/home/zrq/Documents/muscle-rl/scripts/run_tests.py"
+      ],
+      "why": "肌群映射 / 肌力缩放语义 / F0 槽位 / 终止配置 / 组展开 / numpy 兼容层 + 研究环境回归",
+      "status": "passed",
+      "returncode": 0,
+      "wall_time_s": 36.783888072999844
+    },
+    {
+      "name": "verify_strength",
+      "cmd": [
+        "/home/zrq/miniconda3/envs/hemirl/bin/python",
+        "/home/zrq/Documents/muscle-rl/scripts/verify_strength.py"
+      ],
+      "why": "F0 槽位实证、无累乘、组外不变、按关节名构造姿态的 F_active 缩放、被动通道对照",
+      "status": "passed",
+      "returncode": 0,
+      "wall_time_s": 1.39740757200002
+    },
+    {
+      "name": "verify_policy",
+      "cmd": [
+        "/home/zrq/miniconda3/envs/hemirl/bin/python",
+        "/home/zrq/Documents/muscle-rl/scripts/verify_policy.py",
+        "--checkpoint-dir",
+        "/home/zrq/Documents/muscle-rl/artifacts/checkpoints/LocomotionFull"
+      ],
+      "why": "官方 SB3 路径 vs 纯 torch 直读路径逐元素一致（含行走轨迹观测）",
+      "status": "passed",
+      "returncode": 0,
+      "wall_time_s": 5.808492865999824
+    }
+  ],
+  "n_passed": 3,
+  "n_failed": 0,
+  "n_skipped": 0,
+  "ok": true,
+  "note": "skipped 也需要显式处理：默认把「该跑但没跑」视为验收未完成，可用 --allow-missing-checkpoint 放宽"
+}

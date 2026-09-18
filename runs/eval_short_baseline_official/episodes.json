@@ -1,0 +1,1434 @@
+{
+  "episodes": [
+    {
+      "label": "ep0",
+      "seed": 0,
+      "strength": {
+        "spec": null
+      },
+      "steps": 176,
+      "n_physics_steps": 1760,
+      "control_dt_s": 0.02,
+      "sim_time_s": 3.519999999999834,
+      "sim_time_nominal_s": 3.52,
+      "wall_time_s": 3.055488078000053,
+      "terminated": true,
+      "truncated": true,
+      "termination_reason": "官方规则: 达到官方时间上限",
+      "termination_source": "official_time_limit",
+      "is_numeric_anomaly": false,
+      "is_physical_fall": false,
+      "n_official_term_flags": 1,
+      "n_steps_after_official_term": 0,
+      "reached_time_limit": true,
+      "reached_step_cap": false,
+      "root_start_pos": [
+        0.9938051914824523,
+        0.0351299562191073,
+        0.9088988275720309
+      ],
+      "root_end_pos": [
+        4.316884184185649,
+        0.13333693886454331,
+        0.9286088408953547
+      ],
+      "displacement_xy": 3.3245298318988827,
+      "forward_displacement_x": 3.3230789927031967,
+      "lateral_drift_y": 0.09820698264543601,
+      "distance_3d": 3.3245882583879194,
+      "mean_speed_xy": 0.9444687022440453,
+      "forward_speed_x": 0.9440565320179981,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9133127991913569,
+      "min_pelvis_height": 0.875293546758,
+      "final_pelvis_height": 0.9286088408953547,
+      "max_pelvis_up_tilt_deg": 11.714286357883726,
+      "final_pelvis_up_tilt_deg": 5.134454780688774,
+      "posture_change_deg": 4.55832567397644,
+      "max_root_speed": 1.396853403027086,
+      "max_root_ang_speed": 3.0823925617733896,
+      "final_root_lin_vel": [
+        0.7446171742877543,
+        -0.015123385301301428,
+        -0.012896499078076912
+      ],
+      "final_root_ang_vel": [
+        -1.2889240837379266,
+        0.00694054256800633,
+        1.0168668762645747
+      ],
+      "mean_qpos_track_err": 0.03591422760343163,
+      "max_qpos_track_err": 0.05178424992183862,
+      "final_qpos_track_err": 0.04254599720103695,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.8446945583478349,
+          "excitation_mean": 0.06744617158436549,
+          "activation_mean": 0.07923433778652807,
+          "force_abs_mean": 17.564778556027814
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9199970282347743,
+          "excitation_mean": 0.0779454730072974,
+          "activation_mean": 0.08546546064235643,
+          "force_abs_mean": 13.509380201447419
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.6604297025095334,
+          "excitation_mean": 0.2094907415830477,
+          "activation_mean": 0.24634864255648478,
+          "force_abs_mean": 126.74123297401401
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7205970331349156,
+          "excitation_mean": 0.17366297441579678,
+          "activation_mean": 0.20543480614221457,
+          "force_abs_mean": 93.6298958772753
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.5750497393200824,
+          "excitation_mean": 0.1462028077618666,
+          "activation_mean": 0.1812906919352124,
+          "force_abs_mean": 16.359760040979495
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7230833660004913,
+          "excitation_mean": 0.1279911079449114,
+          "activation_mean": 0.1500088729745871,
+          "force_abs_mean": 18.171053201493006
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7295442916684087,
+          "excitation_mean": 0.17696327440493426,
+          "activation_mean": 0.20041486678461354,
+          "force_abs_mean": 20.119049513318473
+        }
+      },
+      "action_abs_mean": 0.7415517180340437,
+      "action_abs_max": 0.8270487503494535,
+      "excitation_mean": 0.14279585576530238,
+      "activation_mean": 0.16542040645887776,
+      "actuator_force_abs_mean": 31.35553814566841,
+      "reward_totals": {
+        "official_total": 13949.376107510709,
+        "imitation": -3098.7664211255296,
+        "energy": -551.8574713637643,
+        "survival_physical": 17600.0,
+        "official_healthy": 17600.0
+      },
+      "ncon_mean": 4.232954545454546,
+      "ncon_max": 8.0,
+      "total_normal_force_mean": 589.4959913343525,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 19.523404555743383,
+      "max_abs_qacc": 20022.935795181096,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "jacobian_vs_index_max_diff": 0.22173659624744002,
+      "accounting": {
+        "n_control_steps_recorded": 176,
+        "n_control_steps_executed": 176,
+        "all_steps_recorded": true,
+        "n_physics_steps": 1760,
+        "physics_step_size_s": 0.002,
+        "control_dt_s": 0.02,
+        "elapsed_time_s": 3.519999999999834,
+        "nominal_time_s": 3.52,
+        "time_source": "data.time 差（实际仿真时间），非步数×dt",
+        "max_abs_diff_elapsed_vs_nominal": 1.6608936448392342e-13,
+        "per_step_gap_max_dev": 2.203098814490545e-15,
+        "last_step_recorded": true,
+        "last_step_termination_source": "official_time_limit",
+        "ledger_covers_terminating_step": true
+      },
+      "final_force_terms": {
+        "qfrc_actuator_norm": 3200.1501699731407,
+        "qfrc_actuator_absmax": 2521.2309763371522,
+        "qfrc_passive_norm": 14.367385213674428,
+        "qfrc_passive_absmax": 7.718036118568915,
+        "qfrc_bias_norm": 602.9597172729926,
+        "qfrc_bias_absmax": 597.3628836343797,
+        "qfrc_constraint_norm": 3215.7911227719396,
+        "qfrc_constraint_absmax": 2497.59453892321,
+        "qfrc_applied_norm": 0.0,
+        "qfrc_applied_absmax": 0.0,
+        "xfrc_applied_norm": 0.0,
+        "xfrc_applied_absmax": 0.0,
+        "qfrc_inverse_norm": 0.0,
+        "qfrc_inverse_absmax": 0.0,
+        "qacc_norm": 272.8756833021741,
+        "qacc_absmax": 185.76982245860762,
+        "n_translational_dofs": 0,
+        "unit_note": "qfrc_* 为广义力，混合 N 与 N·m；范数只用于量级/突变检测，不能解释为承重或贡献占比"
+      },
+      "final_constraint_decomposition": {
+        "nefc": 66,
+        "sign_convention": "+J^T·f",
+        "per_type_norm": {
+          "equality": 2926.931760116879,
+          "friction_dof": 0.0,
+          "friction_tendon": 0.0,
+          "limit_joint": 756.3737912615935,
+          "limit_tendon": 0.0,
+          "contact_frictionless": 0.0,
+          "contact_pyramidal": 735.1894749953916,
+          "contact_elliptic": 0.0
+        },
+        "per_type_absmax": {
+          "equality": 1952.124791552236,
+          "friction_dof": 0.0,
+          "friction_tendon": 0.0,
+          "limit_joint": 755.8843873323502,
+          "limit_tendon": 0.0,
+          "contact_frictionless": 0.0,
+          "contact_pyramidal": 513.7885498926394,
+          "contact_elliptic": 0.0
+        },
+        "per_group_norm": {
+          "equality": 2926.931760116879,
+          "limit": 756.3737912615935,
+          "contact": 735.1894749953916,
+          "friction": 0.0
+        },
+        "target_qfrc_constraint_norm": 3215.7911227719396,
+        "decomposition_residual_absmax": 2.2737367544323206e-13,
+        "decomposition_ok": true,
+        "n_active_by_type": {
+          "equality": 42,
+          "limit_joint": 8,
+          "contact_pyramidal": 16
+        },
+        "note": "qfrc_constraint 是接触/限位/equality/摩擦的合计；本表按 mjCNSTR_* 类型拆开，残差接近 0 才说明拆解正确（而不是把整体归因于某一类）"
+      },
+      "final_muscle_split": {
+        "n_actuators": 700,
+        "total_force": {
+          "mean_abs": 35.712084066113185,
+          "abs_max": 1117.5507989790237,
+          "mean_signed": -35.712084066113185
+        },
+        "active_force": {
+          "mean_abs": 34.931076760426826,
+          "abs_max": 1117.5507989790237,
+          "mean_signed": -34.931076760426826
+        },
+        "passive_force": {
+          "mean_abs": 0.7810073056863545,
+          "abs_max": 132.11044264330044,
+          "mean_signed": -0.7810073056863545
+        },
+        "active_matches_definition_absmax": 7.105427357601002e-15,
+        "act_mean": 0.20952283136739672,
+        "definition": "F_active = F(act) - F(act=0)；F_passive = F(act=0)"
+      },
+      "ledger_tail": [
+        {
+          "index": 173,
+          "sim_time_before": 3.4599999999998405,
+          "sim_time_after": 3.4799999999998383,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": 64.8373549929652,
+          "reward_imitation": -32.006812385656886,
+          "reward_energy": -3.1558326213779058,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 100.0,
+          "qpos_track_err": 0.04124583643802461,
+          "pelvis_z": 0.9288452559781734,
+          "up_tilt_deg": 3.7605390312734697,
+          "official_terminated_flag": false,
+          "official_truncated_flag": false,
+          "termination_source": null
+        },
+        {
+          "index": 174,
+          "sim_time_before": 3.4799999999998383,
+          "sim_time_after": 3.499999999999836,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": 62.11302565146577,
+          "reward_imitation": -34.427274321341145,
+          "reward_energy": -3.4597000271930876,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 100.0,
+          "qpos_track_err": 0.041384453143222345,
+          "pelvis_z": 0.9287370008723398,
+          "up_tilt_deg": 4.225474709230132,
+          "official_terminated_flag": false,
+          "official_truncated_flag": false,
+          "termination_source": null
+        },
+        {
+          "index": 175,
+          "sim_time_before": 3.499999999999836,
+          "sim_time_after": 3.519999999999834,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": 59.61979848497269,
+          "reward_imitation": -36.80899310841599,
+          "reward_energy": -3.5712084066113188,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 100.0,
+          "qpos_track_err": 0.04254599720103695,
+          "pelvis_z": 0.9286088408953547,
+          "up_tilt_deg": 5.134454780688774,
+          "official_terminated_flag": true,
+          "official_truncated_flag": true,
+          "termination_source": "official_time_limit"
+        }
+      ],
+      "trail": null
+    },
+    {
+      "label": "ep1",
+      "seed": 1,
+      "strength": {
+        "spec": null
+      },
+      "steps": 176,
+      "n_physics_steps": 1760,
+      "control_dt_s": 0.02,
+      "sim_time_s": 3.519999999999834,
+      "sim_time_nominal_s": 3.52,
+      "wall_time_s": 2.490052572999957,
+      "terminated": true,
+      "truncated": true,
+      "termination_reason": "官方规则: 达到官方时间上限",
+      "termination_source": "official_time_limit",
+      "is_numeric_anomaly": false,
+      "is_physical_fall": false,
+      "n_official_term_flags": 1,
+      "n_steps_after_official_term": 0,
+      "reached_time_limit": true,
+      "reached_step_cap": false,
+      "root_start_pos": [
+        0.5814191804746273,
+        0.014396046826729927,
+        0.9081504525495855
+      ],
+      "root_end_pos": [
+        4.032304140349502,
+        0.05225162755935435,
+        0.9025893876793589
+      ],
+      "displacement_xy": 3.451092588048489,
+      "forward_displacement_x": 3.4508849598748745,
+      "lateral_drift_y": 0.03785558073262442,
+      "distance_3d": 3.451097068574819,
+      "mean_speed_xy": 0.9804240306956398,
+      "forward_speed_x": 0.9803650454190447,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9121194387303269,
+      "min_pelvis_height": 0.8755396682870107,
+      "final_pelvis_height": 0.9025893876793589,
+      "max_pelvis_up_tilt_deg": 8.59525592695044,
+      "final_pelvis_up_tilt_deg": 2.8609279812433503,
+      "posture_change_deg": 1.9744903815490473,
+      "max_root_speed": 1.4088565227562322,
+      "max_root_ang_speed": 2.4512463314791257,
+      "final_root_lin_vel": [
+        0.8032453531130619,
+        0.21405129584703939,
+        0.2660304994822733
+      ],
+      "final_root_ang_vel": [
+        0.013039364486657212,
+        0.23954543837766062,
+        -1.1709788749053993
+      ],
+      "mean_qpos_track_err": 0.03486651533531218,
+      "max_qpos_track_err": 0.053408100776207404,
+      "final_qpos_track_err": 0.04496176627167923,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.858800928773228,
+          "excitation_mean": 0.07586188632977975,
+          "activation_mean": 0.08998405693827707,
+          "force_abs_mean": 18.812093046613118
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.92842527417863,
+          "excitation_mean": 0.08330021483066719,
+          "activation_mean": 0.09107676600279477,
+          "force_abs_mean": 13.99291471247442
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.6680817385627464,
+          "excitation_mean": 0.20418777921883288,
+          "activation_mean": 0.24347049990751649,
+          "force_abs_mean": 124.23718888726702
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7347422747110777,
+          "excitation_mean": 0.17291925047753798,
+          "activation_mean": 0.20501730087090084,
+          "force_abs_mean": 91.74315123200141
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.590944257769679,
+          "excitation_mean": 0.14473434430483473,
+          "activation_mean": 0.1810511247160815,
+          "force_abs_mean": 16.85467613726976
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.730064067740196,
+          "excitation_mean": 0.12188134888965067,
+          "activation_mean": 0.14259874044361312,
+          "force_abs_mean": 17.550464820172873
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7240819998681415,
+          "excitation_mean": 0.16784140983861642,
+          "activation_mean": 0.19072129681876246,
+          "force_abs_mean": 19.43342018014629
+        }
+      },
+      "action_abs_mean": 0.7465366274244212,
+      "action_abs_max": 0.840184993488448,
+      "excitation_mean": 0.138702371371592,
+      "activation_mean": 0.16118973401264416,
+      "actuator_force_abs_mean": 30.799042755735524,
+      "reward_totals": {
+        "official_total": 14392.019972006618,
+        "imitation": -2665.916875492426,
+        "energy": -542.063152500945,
+        "survival_physical": 17600.0,
+        "official_healthy": 17600.0
+      },
+      "ncon_mean": 4.255681818181818,
+      "ncon_max": 9.0,
+      "total_normal_force_mean": 585.1597700597383,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 30.682069990119814,
+      "max_abs_qacc": 22055.49420093204,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "jacobian_vs_index_max_diff": 0.1970209203311013,
+      "accounting": {
+        "n_control_steps_recorded": 176,
+        "n_control_steps_executed": 176,
+        "all_steps_recorded": true,
+        "n_physics_steps": 1760,
+        "physics_step_size_s": 0.002,
+        "control_dt_s": 0.02,
+        "elapsed_time_s": 3.519999999999834,
+        "nominal_time_s": 3.52,
+        "time_source": "data.time 差（实际仿真时间），非步数×dt",
+        "max_abs_diff_elapsed_vs_nominal": 1.6608936448392342e-13,
+        "per_step_gap_max_dev": 2.203098814490545e-15,
+        "last_step_recorded": true,
+        "last_step_termination_source": "official_time_limit",
+        "ledger_covers_terminating_step": true
+      },
+      "final_force_terms": {
+        "qfrc_actuator_norm": 3992.2182594442856,
+        "qfrc_actuator_absmax": 2553.8632524783075,
+        "qfrc_passive_norm": 10.256512966835382,
+        "qfrc_passive_absmax": 6.816437459264303,
+        "qfrc_bias_norm": 604.5750801912907,
+        "qfrc_bias_absmax": 600.3221367532698,
+        "qfrc_constraint_norm": 4018.6334175609,
+        "qfrc_constraint_absmax": 2522.6904123382897,
+        "qfrc_applied_norm": 0.0,
+        "qfrc_applied_absmax": 0.0,
+        "xfrc_applied_norm": 0.0,
+        "xfrc_applied_absmax": 0.0,
+        "qfrc_inverse_norm": 0.0,
+        "qfrc_inverse_absmax": 0.0,
+        "qacc_norm": 759.6015816766144,
+        "qacc_absmax": 677.9135214236935,
+        "n_translational_dofs": 0,
+        "unit_note": "qfrc_* 为广义力，混合 N 与 N·m；范数只用于量级/突变检测，不能解释为承重或贡献占比"
+      },
+      "final_constraint_decomposition": {
+        "nefc": 70,
+        "sign_convention": "+J^T·f",
+        "per_type_norm": {
+          "equality": 2687.083625624137,
+          "friction_dof": 0.0,
+          "friction_tendon": 0.0,
+          "limit_joint": 2169.617788561918,
+          "limit_tendon": 0.0,
+          "contact_frictionless": 0.0,
+          "contact_pyramidal": 946.6235889672006,
+          "contact_elliptic": 0.0
+        },
+        "per_type_absmax": {
+          "equality": 1299.7952857559103,
+          "friction_dof": 0.0,
+          "friction_tendon": 0.0,
+          "limit_joint": 1689.905529632918,
+          "limit_tendon": 0.0,
+          "contact_frictionless": 0.0,
+          "contact_pyramidal": 708.5683326854914,
+          "contact_elliptic": 0.0
+        },
+        "per_group_norm": {
+          "equality": 2687.083625624137,
+          "limit": 2169.617788561918,
+          "contact": 946.6235889672006,
+          "friction": 0.0
+        },
+        "target_qfrc_constraint_norm": 4018.6334175609,
+        "decomposition_residual_absmax": 2.2737367544323206e-13,
+        "decomposition_ok": true,
+        "n_active_by_type": {
+          "equality": 42,
+          "limit_joint": 8,
+          "contact_pyramidal": 20
+        },
+        "note": "qfrc_constraint 是接触/限位/equality/摩擦的合计；本表按 mjCNSTR_* 类型拆开，残差接近 0 才说明拆解正确（而不是把整体归因于某一类）"
+      },
+      "final_muscle_split": {
+        "n_actuators": 700,
+        "total_force": {
+          "mean_abs": 34.19158404765666,
+          "abs_max": 1199.8839781810327,
+          "mean_signed": -34.19158404765666
+        },
+        "active_force": {
+          "mean_abs": 32.600446383371526,
+          "abs_max": 1199.8839781810327,
+          "mean_signed": -32.600446383371526
+        },
+        "passive_force": {
+          "mean_abs": 1.5911376642851363,
+          "abs_max": 241.5219401988388,
+          "mean_signed": -1.5911376642851363
+        },
+        "active_matches_definition_absmax": 0.0,
+        "act_mean": 0.172945469181139,
+        "definition": "F_active = F(act) - F(act=0)；F_passive = F(act=0)"
+      },
+      "ledger_tail": [
+        {
+          "index": 173,
+          "sim_time_before": 3.4599999999998405,
+          "sim_time_after": 3.4799999999998383,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": 74.08293372930154,
+          "reward_imitation": -23.162988729823695,
+          "reward_energy": -2.754077540874766,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 100.0,
+          "qpos_track_err": 0.04336399452217379,
+          "pelvis_z": 0.8925209840831733,
+          "up_tilt_deg": 1.880182857207163,
+          "official_terminated_flag": false,
+          "official_truncated_flag": false,
+          "termination_source": null
+        },
+        {
+          "index": 174,
+          "sim_time_before": 3.4799999999998383,
+          "sim_time_after": 3.499999999999836,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": 74.06718940512417,
+          "reward_imitation": -23.025761421870108,
+          "reward_energy": -2.9070491730057326,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 100.0,
+          "qpos_track_err": 0.04455463291615388,
+          "pelvis_z": 0.8974605510260709,
+          "up_tilt_deg": 2.461192063306299,
+          "official_terminated_flag": false,
+          "official_truncated_flag": false,
+          "termination_source": null
+        },
+        {
+          "index": 175,
+          "sim_time_before": 3.499999999999836,
+          "sim_time_after": 3.519999999999834,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": 73.94659069878699,
+          "reward_imitation": -22.634250896447334,
+          "reward_energy": -3.4191584047656662,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 100.0,
+          "qpos_track_err": 0.04496176627167923,
+          "pelvis_z": 0.9025893876793589,
+          "up_tilt_deg": 2.8609279812433503,
+          "official_terminated_flag": true,
+          "official_truncated_flag": true,
+          "termination_source": "official_time_limit"
+        }
+      ],
+      "trail": null
+    },
+    {
+      "label": "ep2",
+      "seed": 2,
+      "strength": {
+        "spec": null
+      },
+      "steps": 176,
+      "n_physics_steps": 1760,
+      "control_dt_s": 0.02,
+      "sim_time_s": 3.519999999999834,
+      "sim_time_nominal_s": 3.52,
+      "wall_time_s": 2.4418338709999716,
+      "terminated": true,
+      "truncated": true,
+      "termination_reason": "官方规则: 达到官方时间上限",
+      "termination_source": "official_time_limit",
+      "is_numeric_anomaly": false,
+      "is_physical_fall": false,
+      "n_official_term_flags": 1,
+      "n_steps_after_official_term": 0,
+      "reached_time_limit": true,
+      "reached_step_cap": false,
+      "root_start_pos": [
+        0.9723999483126454,
+        0.037036069645029805,
+        0.9127672532943142
+      ],
+      "root_end_pos": [
+        4.310238758640763,
+        0.13690216756548562,
+        0.9318125563053676
+      ],
+      "displacement_xy": 3.3393324424570965,
+      "forward_displacement_x": 3.337838810328117,
+      "lateral_drift_y": 0.09986609792045581,
+      "distance_3d": 3.33938675280556,
+      "mean_speed_xy": 0.9486739893344471,
+      "forward_speed_x": 0.948249662025078,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9131448451615177,
+      "min_pelvis_height": 0.8787328736103246,
+      "final_pelvis_height": 0.9318125563053676,
+      "max_pelvis_up_tilt_deg": 11.477330234234673,
+      "final_pelvis_up_tilt_deg": 4.734203489027666,
+      "posture_change_deg": 4.115375806657072,
+      "max_root_speed": 1.4222775966427335,
+      "max_root_ang_speed": 2.8481319282453414,
+      "final_root_lin_vel": [
+        0.6795232955779427,
+        0.008598512826509865,
+        0.0025925339682569388
+      ],
+      "final_root_ang_vel": [
+        -1.4457488495356317,
+        0.31797792320337726,
+        0.8163792560113842
+      ],
+      "mean_qpos_track_err": 0.03568364560982715,
+      "max_qpos_track_err": 0.05137093256660227,
+      "final_qpos_track_err": 0.03967673034586341,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.8414183922400685,
+          "excitation_mean": 0.06921206062860918,
+          "activation_mean": 0.0817091496422381,
+          "force_abs_mean": 17.711784874801456
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9211989620758773,
+          "excitation_mean": 0.07776623041033502,
+          "activation_mean": 0.0856800025557028,
+          "force_abs_mean": 13.437961959268277
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.66467185894874,
+          "excitation_mean": 0.213661563855117,
+          "activation_mean": 0.2514242555780817,
+          "force_abs_mean": 127.8968415830433
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7265388149023055,
+          "excitation_mean": 0.17125858508618627,
+          "activation_mean": 0.20332633698912775,
+          "force_abs_mean": 92.40872416997637
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.5975623015762249,
+          "excitation_mean": 0.15176860746306267,
+          "activation_mean": 0.18764053611895057,
+          "force_abs_mean": 16.923899348300964
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7253223464485242,
+          "excitation_mean": 0.12520579663756684,
+          "activation_mean": 0.14672703337061918,
+          "force_abs_mean": 17.738662078370748
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7272786763301314,
+          "excitation_mean": 0.17549899830287102,
+          "activation_mean": 0.19831538509597316,
+          "force_abs_mean": 19.944028095393183
+        }
+      },
+      "action_abs_mean": 0.7431866130465036,
+      "action_abs_max": 0.8415122846194676,
+      "excitation_mean": 0.1419206958216734,
+      "activation_mean": 0.1644035508680896,
+      "actuator_force_abs_mean": 31.18278829271279,
+      "reward_totals": {
+        "official_total": 14096.946017609347,
+        "imitation": -2954.236908438908,
+        "energy": -548.8170739517451,
+        "survival_physical": 17600.0,
+        "official_healthy": 17600.0
+      },
+      "ncon_mean": 4.267045454545454,
+      "ncon_max": 10.0,
+      "total_normal_force_mean": 595.819878732244,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 26.77327593251245,
+      "max_abs_qacc": 18528.836789285233,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "jacobian_vs_index_max_diff": 0.21941077470214634,
+      "accounting": {
+        "n_control_steps_recorded": 176,
+        "n_control_steps_executed": 176,
+        "all_steps_recorded": true,
+        "n_physics_steps": 1760,
+        "physics_step_size_s": 0.002,
+        "control_dt_s": 0.02,
+        "elapsed_time_s": 3.519999999999834,
+        "nominal_time_s": 3.52,
+        "time_source": "data.time 差（实际仿真时间），非步数×dt",
+        "max_abs_diff_elapsed_vs_nominal": 1.6608936448392342e-13,
+        "per_step_gap_max_dev": 2.203098814490545e-15,
+        "last_step_recorded": true,
+        "last_step_termination_source": "official_time_limit",
+        "ledger_covers_terminating_step": true
+      },
+      "final_force_terms": {
+        "qfrc_actuator_norm": 3299.559483213131,
+        "qfrc_actuator_absmax": 2421.497527941083,
+        "qfrc_passive_norm": 14.72213220097539,
+        "qfrc_passive_absmax": 7.447818358615571,
+        "qfrc_bias_norm": 600.2289690957036,
+        "qfrc_bias_absmax": 594.9034896201839,
+        "qfrc_constraint_norm": 3313.4502819334443,
+        "qfrc_constraint_absmax": 2389.734779233422,
+        "qfrc_applied_norm": 0.0,
+        "qfrc_applied_absmax": 0.0,
+        "xfrc_applied_norm": 0.0,
+        "xfrc_applied_absmax": 0.0,
+        "qfrc_inverse_norm": 0.0,
+        "qfrc_inverse_absmax": 0.0,
+        "qacc_norm": 930.2666193047329,
+        "qacc_absmax": 912.8649883744637,
+        "n_translational_dofs": 0,
+        "unit_note": "qfrc_* 为广义力，混合 N 与 N·m；范数只用于量级/突变检测，不能解释为承重或贡献占比"
+      },
+      "final_constraint_decomposition": {
+        "nefc": 66,
+        "sign_convention": "+J^T·f",
+        "per_type_norm": {
+          "equality": 3080.979705228862,
+          "friction_dof": 0.0,
+          "friction_tendon": 0.0,
+          "limit_joint": 859.7630535410132,
+          "limit_tendon": 0.0,
+          "contact_frictionless": 0.0,
+          "contact_pyramidal": 771.1602528451666,
+          "contact_elliptic": 0.0
+        },
+        "per_type_absmax": {
+          "equality": 2275.4748708556276,
+          "friction_dof": 0.0,
+          "friction_tendon": 0.0,
+          "limit_joint": 858.9269428467492,
+          "limit_tendon": 0.0,
+          "contact_frictionless": 0.0,
+          "contact_pyramidal": 541.4132465628835,
+          "contact_elliptic": 0.0
+        },
+        "per_group_norm": {
+          "equality": 3080.979705228862,
+          "limit": 859.7630535410132,
+          "contact": 771.1602528451666,
+          "friction": 0.0
+        },
+        "target_qfrc_constraint_norm": 3313.4502819334443,
+        "decomposition_residual_absmax": 2.2737367544323206e-13,
+        "decomposition_ok": true,
+        "n_active_by_type": {
+          "equality": 42,
+          "limit_joint": 8,
+          "contact_pyramidal": 16
+        },
+        "note": "qfrc_constraint 是接触/限位/equality/摩擦的合计；本表按 mjCNSTR_* 类型拆开，残差接近 0 才说明拆解正确（而不是把整体归因于某一类）"
+      },
+      "final_muscle_split": {
+        "n_actuators": 700,
+        "total_force": {
+          "mean_abs": 34.69332220420828,
+          "abs_max": 1147.326287655349,
+          "mean_signed": -34.69332220420828
+        },
+        "active_force": {
+          "mean_abs": 33.902077855451296,
+          "abs_max": 1147.326287655349,
+          "mean_signed": -33.902077855451296
+        },
+        "passive_force": {
+          "mean_abs": 0.7912443487569928,
+          "abs_max": 119.59060785863785,
+          "mean_signed": -0.7912443487569928
+        },
+        "active_matches_definition_absmax": 0.0,
+        "act_mean": 0.22207936951104962,
+        "definition": "F_active = F(act) - F(act=0)；F_passive = F(act=0)"
+      },
+      "ledger_tail": [
+        {
+          "index": 173,
+          "sim_time_before": 3.4599999999998405,
+          "sim_time_after": 3.4799999999998383,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": 69.74713372401123,
+          "reward_imitation": -27.176794469790558,
+          "reward_energy": -3.0760718061982066,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 100.0,
+          "qpos_track_err": 0.04052535921180997,
+          "pelvis_z": 0.9317148574666426,
+          "up_tilt_deg": 4.200453628998151,
+          "official_terminated_flag": false,
+          "official_truncated_flag": false,
+          "termination_source": null
+        },
+        {
+          "index": 174,
+          "sim_time_before": 3.4799999999998383,
+          "sim_time_after": 3.499999999999836,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": 67.56307226594305,
+          "reward_imitation": -29.07524108663979,
+          "reward_energy": -3.3616866474171587,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 100.0,
+          "qpos_track_err": 0.03870429225877245,
+          "pelvis_z": 0.9317763111106011,
+          "up_tilt_deg": 4.2415397733045745,
+          "official_terminated_flag": false,
+          "official_truncated_flag": false,
+          "termination_source": null
+        },
+        {
+          "index": 175,
+          "sim_time_before": 3.499999999999836,
+          "sim_time_after": 3.519999999999834,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": 63.13237725562678,
+          "reward_imitation": -33.3982905239524,
+          "reward_energy": -3.469332220420828,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 100.0,
+          "qpos_track_err": 0.03967673034586341,
+          "pelvis_z": 0.9318125563053676,
+          "up_tilt_deg": 4.734203489027666,
+          "official_terminated_flag": true,
+          "official_truncated_flag": true,
+          "termination_source": "official_time_limit"
+        }
+      ],
+      "trail": null
+    },
+    {
+      "label": "ep3",
+      "seed": 3,
+      "strength": {
+        "spec": null
+      },
+      "steps": 176,
+      "n_physics_steps": 1760,
+      "control_dt_s": 0.02,
+      "sim_time_s": 3.519999999999834,
+      "sim_time_nominal_s": 3.52,
+      "wall_time_s": 2.335913354000013,
+      "terminated": true,
+      "truncated": true,
+      "termination_reason": "官方规则: 达到官方时间上限",
+      "termination_source": "official_time_limit",
+      "is_numeric_anomaly": false,
+      "is_physical_fall": false,
+      "n_official_term_flags": 1,
+      "n_steps_after_official_term": 0,
+      "reached_time_limit": true,
+      "reached_step_cap": false,
+      "root_start_pos": [
+        0.9522203743727269,
+        0.03882285499331566,
+        0.9156223226223054
+      ],
+      "root_end_pos": [
+        4.303879724340316,
+        0.11944767478434938,
+        0.9145222377957702
+      ],
+      "displacement_xy": 3.352628932612659,
+      "forward_displacement_x": 3.351659349967589,
+      "lateral_drift_y": 0.08062481979103372,
+      "distance_3d": 3.352629113095888,
+      "mean_speed_xy": 0.9524514013104594,
+      "forward_speed_x": 0.9521759516953827,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9128643258201957,
+      "min_pelvis_height": 0.873960573329106,
+      "final_pelvis_height": 0.9145222377957702,
+      "max_pelvis_up_tilt_deg": 11.080880836603674,
+      "final_pelvis_up_tilt_deg": 2.7142698176665965,
+      "posture_change_deg": 2.171336124547663,
+      "max_root_speed": 1.3474815187341558,
+      "max_root_ang_speed": 2.8739392458567026,
+      "final_root_lin_vel": [
+        0.8897276267331434,
+        -0.01612317034763226,
+        -0.10285752730206033
+      ],
+      "final_root_ang_vel": [
+        -1.0967897509778144,
+        0.09682690385049604,
+        0.8995950256111775
+      ],
+      "mean_qpos_track_err": 0.03684039022616878,
+      "max_qpos_track_err": 0.05245867384853141,
+      "final_qpos_track_err": 0.041070153444882136,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.8422401994633337,
+          "excitation_mean": 0.06969828922070456,
+          "activation_mean": 0.08361376493872189,
+          "force_abs_mean": 17.773756916708866
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9219809544956987,
+          "excitation_mean": 0.08167372153597938,
+          "activation_mean": 0.08950132845868791,
+          "force_abs_mean": 14.023588205023344
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.6682759954170746,
+          "excitation_mean": 0.21177025608664818,
+          "activation_mean": 0.250394432142764,
+          "force_abs_mean": 127.17900099435684
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7304996626079081,
+          "excitation_mean": 0.17937542398528342,
+          "activation_mean": 0.20820674147957724,
+          "force_abs_mean": 94.58810407232117
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.564959377181495,
+          "excitation_mean": 0.14174877092433594,
+          "activation_mean": 0.175933238359217,
+          "force_abs_mean": 15.685890914648398
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7206452662779175,
+          "excitation_mean": 0.13068797556513043,
+          "activation_mean": 0.1541544386764433,
+          "force_abs_mean": 18.8086742252629
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7354212033975922,
+          "excitation_mean": 0.17775810611118736,
+          "activation_mean": 0.19983724734290592,
+          "force_abs_mean": 19.94481683627379
+        }
+      },
+      "action_abs_mean": 0.7432454899035684,
+      "action_abs_max": 0.8280707991974694,
+      "excitation_mean": 0.1448475725565741,
+      "activation_mean": 0.16764724008355597,
+      "actuator_force_abs_mean": 31.65435852270921,
+      "reward_totals": {
+        "official_total": 13777.412934918264,
+        "imitation": -3265.4703550820586,
+        "energy": -557.1167099996823,
+        "survival_physical": 17600.0,
+        "official_healthy": 17600.0
+      },
+      "ncon_mean": 4.238636363636363,
+      "ncon_max": 10.0,
+      "total_normal_force_mean": 592.0860598272305,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 14.924183098883645,
+      "max_abs_qacc": 17687.747127908096,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "jacobian_vs_index_max_diff": 0.19649834818561845,
+      "accounting": {
+        "n_control_steps_recorded": 176,
+        "n_control_steps_executed": 176,
+        "all_steps_recorded": true,
+        "n_physics_steps": 1760,
+        "physics_step_size_s": 0.002,
+        "control_dt_s": 0.02,
+        "elapsed_time_s": 3.519999999999834,
+        "nominal_time_s": 3.52,
+        "time_source": "data.time 差（实际仿真时间），非步数×dt",
+        "max_abs_diff_elapsed_vs_nominal": 1.6608936448392342e-13,
+        "per_step_gap_max_dev": 2.203098814490545e-15,
+        "last_step_recorded": true,
+        "last_step_termination_source": "official_time_limit",
+        "ledger_covers_terminating_step": true
+      },
+      "final_force_terms": {
+        "qfrc_actuator_norm": 3685.7345397898157,
+        "qfrc_actuator_absmax": 2458.7907710961495,
+        "qfrc_passive_norm": 13.573389236198855,
+        "qfrc_passive_absmax": 7.030146250289551,
+        "qfrc_bias_norm": 603.8731471805993,
+        "qfrc_bias_absmax": 598.4805146811681,
+        "qfrc_constraint_norm": 3694.0212503418065,
+        "qfrc_constraint_absmax": 2418.937290601035,
+        "qfrc_applied_norm": 0.0,
+        "qfrc_applied_absmax": 0.0,
+        "xfrc_applied_norm": 0.0,
+        "xfrc_applied_absmax": 0.0,
+        "qfrc_inverse_norm": 0.0,
+        "qfrc_inverse_absmax": 0.0,
+        "qacc_norm": 177.94179327296246,
+        "qacc_absmax": 96.23294978295301,
+        "n_translational_dofs": 0,
+        "unit_note": "qfrc_* 为广义力，混合 N 与 N·m；范数只用于量级/突变检测，不能解释为承重或贡献占比"
+      },
+      "final_constraint_decomposition": {
+        "nefc": 61,
+        "sign_convention": "+J^T·f",
+        "per_type_norm": {
+          "equality": 3086.636860279438,
+          "friction_dof": 0.0,
+          "friction_tendon": 0.0,
+          "limit_joint": 1090.8623269346638,
+          "limit_tendon": 0.0,
+          "contact_frictionless": 0.0,
+          "contact_pyramidal": 849.744907356118,
+          "contact_elliptic": 0.0
+        },
+        "per_type_absmax": {
+          "equality": 2146.9480353477256,
+          "friction_dof": 0.0,
+          "friction_tendon": 0.0,
+          "limit_joint": 864.4109976239635,
+          "limit_tendon": 0.0,
+          "contact_frictionless": 0.0,
+          "contact_pyramidal": 592.4217423706536,
+          "contact_elliptic": 0.0
+        },
+        "per_group_norm": {
+          "equality": 3086.636860279438,
+          "limit": 1090.8623269346638,
+          "contact": 849.744907356118,
+          "friction": 0.0
+        },
+        "target_qfrc_constraint_norm": 3694.0212503418065,
+        "decomposition_residual_absmax": 4.547473508864641e-13,
+        "decomposition_ok": true,
+        "n_active_by_type": {
+          "equality": 42,
+          "limit_joint": 3,
+          "contact_pyramidal": 16
+        },
+        "note": "qfrc_constraint 是接触/限位/equality/摩擦的合计；本表按 mjCNSTR_* 类型拆开，残差接近 0 才说明拆解正确（而不是把整体归因于某一类）"
+      },
+      "final_muscle_split": {
+        "n_actuators": 700,
+        "total_force": {
+          "mean_abs": 36.622401242962276,
+          "abs_max": 1340.501085192258,
+          "mean_signed": -36.622401242962276
+        },
+        "active_force": {
+          "mean_abs": 35.76733322130549,
+          "abs_max": 1340.501085192258,
+          "mean_signed": -35.76733322130549
+        },
+        "passive_force": {
+          "mean_abs": 0.8550680216567816,
+          "abs_max": 134.8001165774022,
+          "mean_signed": -0.8550680216567816
+        },
+        "active_matches_definition_absmax": 0.0,
+        "act_mean": 0.21227845840866288,
+        "definition": "F_active = F(act) - F(act=0)；F_passive = F(act=0)"
+      },
+      "ledger_tail": [
+        {
+          "index": 173,
+          "sim_time_before": 3.4599999999998405,
+          "sim_time_after": 3.4799999999998383,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": 63.18708145227237,
+          "reward_imitation": -33.680937743936255,
+          "reward_energy": -3.1319808037913717,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 100.0,
+          "qpos_track_err": 0.04489797060294519,
+          "pelvis_z": 0.9177215765234895,
+          "up_tilt_deg": 3.9171446206891076,
+          "official_terminated_flag": false,
+          "official_truncated_flag": false,
+          "termination_source": null
+        },
+        {
+          "index": 174,
+          "sim_time_before": 3.4799999999998383,
+          "sim_time_after": 3.499999999999836,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": 65.08778460250053,
+          "reward_imitation": -31.612597834860466,
+          "reward_energy": -3.2996175626389928,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 100.0,
+          "qpos_track_err": 0.04290171482207948,
+          "pelvis_z": 0.9163659301625632,
+          "up_tilt_deg": 3.419965710362815,
+          "official_terminated_flag": false,
+          "official_truncated_flag": false,
+          "termination_source": null
+        },
+        {
+          "index": 175,
+          "sim_time_before": 3.499999999999836,
+          "sim_time_after": 3.519999999999834,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": 65.96726970487398,
+          "reward_imitation": -30.370490170829786,
+          "reward_energy": -3.6622401242962277,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 100.0,
+          "qpos_track_err": 0.041070153444882136,
+          "pelvis_z": 0.9145222377957702,
+          "up_tilt_deg": 2.7142698176665965,
+          "official_terminated_flag": true,
+          "official_truncated_flag": true,
+          "termination_source": "official_time_limit"
+        }
+      ],
+      "trail": null
+    },
+    {
+      "label": "ep4",
+      "seed": 4,
+      "strength": {
+        "spec": null
+      },
+      "steps": 176,
+      "n_physics_steps": 1760,
+      "control_dt_s": 0.02,
+      "sim_time_s": 3.519999999999834,
+      "sim_time_nominal_s": 3.52,
+      "wall_time_s": 3.0886222550000184,
+      "terminated": true,
+      "truncated": true,
+      "termination_reason": "官方规则: 达到官方时间上限",
+      "termination_source": "official_time_limit",
+      "is_numeric_anomaly": false,
+      "is_physical_fall": false,
+      "n_official_term_flags": 1,
+      "n_steps_after_official_term": 0,
+      "reached_time_limit": true,
+      "reached_step_cap": false,
+      "root_start_pos": [
+        0.8524877542774054,
+        0.0426589867710688,
+        0.9316075186901448
+      ],
+      "root_end_pos": [
+        4.247556644489386,
+        0.14376331588450084,
+        0.9311194234756258
+      ],
+      "displacement_xy": 3.3965739878075207,
+      "forward_displacement_x": 3.3950688902119803,
+      "lateral_drift_y": 0.10110432911343203,
+      "distance_3d": 3.396574022877703,
+      "mean_speed_xy": 0.9649357919908185,
+      "forward_speed_x": 0.9645082074466308,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9114355180303921,
+      "min_pelvis_height": 0.8704130575684553,
+      "final_pelvis_height": 0.9311194234756258,
+      "max_pelvis_up_tilt_deg": 8.7975208870528,
+      "final_pelvis_up_tilt_deg": 3.9387567250143247,
+      "posture_change_deg": 3.1489218972522264,
+      "max_root_speed": 1.4790243050437484,
+      "max_root_ang_speed": 2.908068816177965,
+      "final_root_lin_vel": [
+        0.5327197984715083,
+        0.22635187263088843,
+        -0.020633682454858707
+      ],
+      "final_root_ang_vel": [
+        -0.11830576452041082,
+        0.020671362563058016,
+        2.9055878373364896
+      ],
+      "mean_qpos_track_err": 0.03579441855306304,
+      "max_qpos_track_err": 0.052484017159950894,
+      "final_qpos_track_err": 0.04166159941505588,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.8415715733068356,
+          "excitation_mean": 0.07308442263117126,
+          "activation_mean": 0.0869481076133911,
+          "force_abs_mean": 18.12007189290569
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9232028933400191,
+          "excitation_mean": 0.07916851248077617,
+          "activation_mean": 0.08684287817603349,
+          "force_abs_mean": 13.147346141653236
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.672317837544463,
+          "excitation_mean": 0.22127971666530358,
+          "activation_mean": 0.2567793226330355,
+          "force_abs_mean": 131.75090124179
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7243966164507648,
+          "excitation_mean": 0.17555594169503655,
+          "activation_mean": 0.20794771715462354,
+          "force_abs_mean": 92.53820170612168
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.6128717094900146,
+          "excitation_mean": 0.1417858883194272,
+          "activation_mean": 0.17182472738570043,
+          "force_abs_mean": 15.329260801674149
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7215934280885654,
+          "excitation_mean": 0.12907262935444397,
+          "activation_mean": 0.15132470811578463,
+          "force_abs_mean": 18.06279639931287
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7254445262715689,
+          "excitation_mean": 0.1691927115770598,
+          "activation_mean": 0.1934814379863419,
+          "force_abs_mean": 19.56120154147335
+        }
+      },
+      "action_abs_mean": 0.742627541338662,
+      "action_abs_max": 0.8243719969476972,
+      "excitation_mean": 0.14223573845926943,
+      "activation_mean": 0.16510701858903742,
+      "actuator_force_abs_mean": 31.403875703454013,
+      "reward_totals": {
+        "official_total": 14065.034550041024,
+        "imitation": -2982.257237578183,
+        "energy": -552.7082123807907,
+        "survival_physical": 17600.0,
+        "official_healthy": 17600.0
+      },
+      "ncon_mean": 4.318181818181818,
+      "ncon_max": 10.0,
+      "total_normal_force_mean": 593.3575433748708,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 16.89770100449565,
+      "max_abs_qacc": 18557.52251825522,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "jacobian_vs_index_max_diff": 0.16794857233147398,
+      "accounting": {
+        "n_control_steps_recorded": 176,
+        "n_control_steps_executed": 176,
+        "all_steps_recorded": true,
+        "n_physics_steps": 1760,
+        "physics_step_size_s": 0.002,
+        "control_dt_s": 0.02,
+        "elapsed_time_s": 3.519999999999834,
+        "nominal_time_s": 3.52,
+        "time_source": "data.time 差（实际仿真时间），非步数×dt",
+        "max_abs_diff_elapsed_vs_nominal": 1.6608936448392342e-13,
+        "per_step_gap_max_dev": 2.203098814490545e-15,
+        "last_step_recorded": true,
+        "last_step_termination_source": "official_time_limit",
+        "ledger_covers_terminating_step": true
+      },
+      "final_force_terms": {
+        "qfrc_actuator_norm": 3555.911005719503,
+        "qfrc_actuator_absmax": 2959.176465136431,
+        "qfrc_passive_norm": 13.967478344369356,
+        "qfrc_passive_absmax": 6.238442477522192,
+        "qfrc_bias_norm": 614.3848137529831,
+        "qfrc_bias_absmax": 608.6198842392992,
+        "qfrc_constraint_norm": 3561.71788512985,
+        "qfrc_constraint_absmax": 2922.590065260386,
+        "qfrc_applied_norm": 0.0,
+        "qfrc_applied_absmax": 0.0,
+        "xfrc_applied_norm": 0.0,
+        "xfrc_applied_absmax": 0.0,
+        "qfrc_inverse_norm": 0.0,
+        "qfrc_inverse_absmax": 0.0,
+        "qacc_norm": 172.19761738291297,
+        "qacc_absmax": 135.52894693420726,
+        "n_translational_dofs": 0,
+        "unit_note": "qfrc_* 为广义力，混合 N 与 N·m；范数只用于量级/突变检测，不能解释为承重或贡献占比"
+      },
+      "final_constraint_decomposition": {
+        "nefc": 66,
+        "sign_convention": "+J^T·f",
+        "per_type_norm": {
+          "equality": 3108.9785341775173,
+          "friction_dof": 0.0,
+          "friction_tendon": 0.0,
+          "limit_joint": 1067.3317172981936,
+          "limit_tendon": 0.0,
+          "contact_frictionless": 0.0,
+          "contact_pyramidal": 929.419380780529,
+          "contact_elliptic": 0.0
+        },
+        "per_type_absmax": {
+          "equality": 2527.393241990957,
+          "friction_dof": 0.0,
+          "friction_tendon": 0.0,
+          "limit_joint": 1047.640856863509,
+          "limit_tendon": 0.0,
+          "contact_frictionless": 0.0,
+          "contact_pyramidal": 652.4440335940798,
+          "contact_elliptic": 0.0
+        },
+        "per_group_norm": {
+          "equality": 3108.9785341775173,
+          "limit": 1067.3317172981936,
+          "contact": 929.419380780529,
+          "friction": 0.0
+        },
+        "target_qfrc_constraint_norm": 3561.71788512985,
+        "decomposition_residual_absmax": 1.1368683772161603e-13,
+        "decomposition_ok": true,
+        "n_active_by_type": {
+          "equality": 42,
+          "limit_joint": 8,
+          "contact_pyramidal": 16
+        },
+        "note": "qfrc_constraint 是接触/限位/equality/摩擦的合计；本表按 mjCNSTR_* 类型拆开，残差接近 0 才说明拆解正确（而不是把整体归因于某一类）"
+      },
+      "final_muscle_split": {
+        "n_actuators": 700,
+        "total_force": {
+          "mean_abs": 31.728388212582093,
+          "abs_max": 1386.873066229399,
+          "mean_signed": -31.728388212582093
+        },
+        "active_force": {
+          "mean_abs": 30.763838269822163,
+          "abs_max": 1386.873066229399,
+          "mean_signed": -30.763838269822163
+        },
+        "passive_force": {
+          "mean_abs": 0.9645499427599297,
+          "abs_max": 128.31524718802814,
+          "mean_signed": -0.9645499427599297
+        },
+        "active_matches_definition_absmax": 0.0,
+        "act_mean": 0.1791482673754344,
+        "definition": "F_active = F(act) - F(act=0)；F_passive = F(act=0)"
+      },
+      "ledger_tail": [
+        {
+          "index": 173,
+          "sim_time_before": 3.4599999999998405,
+          "sim_time_after": 3.4799999999998383,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": 75.61397662278262,
+          "reward_imitation": -21.248652249285563,
+          "reward_energy": -3.1373711279318246,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 100.0,
+          "qpos_track_err": 0.03927748543821013,
+          "pelvis_z": 0.9311700497809678,
+          "up_tilt_deg": 3.526436907296962,
+          "official_terminated_flag": false,
+          "official_truncated_flag": false,
+          "termination_source": null
+        },
+        {
+          "index": 174,
+          "sim_time_before": 3.4799999999998383,
+          "sim_time_after": 3.499999999999836,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": 75.16392669078613,
+          "reward_imitation": -21.609112886555636,
+          "reward_energy": -3.2269604226582453,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 100.0,
+          "qpos_track_err": 0.040475607641048864,
+          "pelvis_z": 0.93126946738445,
+          "up_tilt_deg": 3.8393496772727014,
+          "official_terminated_flag": false,
+          "official_truncated_flag": false,
+          "termination_source": null
+        },
+        {
+          "index": 175,
+          "sim_time_before": 3.499999999999836,
+          "sim_time_after": 3.519999999999834,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": 73.6117722490298,
+          "reward_imitation": -23.215388929712,
+          "reward_energy": -3.1728388212582095,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 100.0,
+          "qpos_track_err": 0.04166159941505588,
+          "pelvis_z": 0.9311194234756258,
+          "up_tilt_deg": 3.9387567250143247,
+          "official_terminated_flag": true,
+          "official_truncated_flag": true,
+          "termination_source": "official_time_limit"
+        }
+      ],
+      "trail": null
+    }
+  ]
+}

@@ -1,0 +1,218 @@
+{
+  "aggregate": {
+    "A_upper": {
+      "1": {
+        "n": 5,
+        "scale": 1.0,
+        "n_completed": 5,
+        "n_fell": 0,
+        "n_numeric_anomaly": 0,
+        "alive_time_mean_s": 3.519999999999834,
+        "alive_time_mean_s_completed_only": 3.519999999999834,
+        "alive_time_mean_s_fallen_only": null,
+        "steps_mean": 176.0,
+        "forward_displacement_mean_m": 3.371706200617152,
+        "lateral_drift_mean_m": 0.08353156204059639,
+        "speed_mean_all_mps": 0.958190783115082,
+        "speed_mean_completed_only_mps": 0.958190783115082,
+        "speed_mean_fallen_only_mps": null,
+        "min_pelvis_height_mean_m": 0.8747879439105792,
+        "qpos_track_err_mean": 0.035819839465560555,
+        "activation_mean": 0.164753590002441,
+        "force_abs_mean": 31.27912068405599,
+        "reasons": [
+          "达到规定评估时长 3.51 s"
+        ],
+        "interpretation": "speed_mean_fallen_only_mps 只描述「跌倒前跑得多快」，不能解释为效果改善；只有 speed_mean_completed_only_mps 与 n_completed 才有「走完」的含义"
+      },
+      "0.75": {
+        "n": 5,
+        "scale": 0.75,
+        "n_completed": 5,
+        "n_fell": 0,
+        "n_numeric_anomaly": 0,
+        "alive_time_mean_s": 3.519999999999834,
+        "alive_time_mean_s_completed_only": 3.519999999999834,
+        "alive_time_mean_s_fallen_only": null,
+        "steps_mean": 176.0,
+        "forward_displacement_mean_m": 3.4192118313573836,
+        "lateral_drift_mean_m": 0.0870916834413844,
+        "speed_mean_all_mps": 0.9716905950101007,
+        "speed_mean_completed_only_mps": 0.9716905950101007,
+        "speed_mean_fallen_only_mps": null,
+        "min_pelvis_height_mean_m": 0.873212587842225,
+        "qpos_track_err_mean": 0.03775027278359569,
+        "activation_mean": 0.16393623079990802,
+        "force_abs_mean": 31.079488930964054,
+        "reasons": [
+          "达到规定评估时长 3.51 s"
+        ],
+        "interpretation": "speed_mean_fallen_only_mps 只描述「跌倒前跑得多快」，不能解释为效果改善；只有 speed_mean_completed_only_mps 与 n_completed 才有「走完」的含义"
+      },
+      "0.5": {
+        "n": 5,
+        "scale": 0.5,
+        "n_completed": 5,
+        "n_fell": 0,
+        "n_numeric_anomaly": 0,
+        "alive_time_mean_s": 3.519999999999834,
+        "alive_time_mean_s_completed_only": 3.519999999999834,
+        "alive_time_mean_s_fallen_only": null,
+        "steps_mean": 176.0,
+        "forward_displacement_mean_m": 3.3810746625504438,
+        "lateral_drift_mean_m": 0.11109246037250911,
+        "speed_mean_all_mps": 0.9610951069759537,
+        "speed_mean_completed_only_mps": 0.9610951069759537,
+        "speed_mean_fallen_only_mps": null,
+        "min_pelvis_height_mean_m": 0.8671791507036101,
+        "qpos_track_err_mean": 0.0413636454313082,
+        "activation_mean": 0.16219047045240947,
+        "force_abs_mean": 30.4470981414831,
+        "reasons": [
+          "达到规定评估时长 3.51 s"
+        ],
+        "interpretation": "speed_mean_fallen_only_mps 只描述「跌倒前跑得多快」，不能解释为效果改善；只有 speed_mean_completed_only_mps 与 n_completed 才有「走完」的含义"
+      },
+      "0.25": {
+        "n": 5,
+        "scale": 0.25,
+        "n_completed": 5,
+        "n_fell": 0,
+        "n_numeric_anomaly": 0,
+        "alive_time_mean_s": 3.519999999999834,
+        "alive_time_mean_s_completed_only": 3.519999999999834,
+        "alive_time_mean_s_fallen_only": null,
+        "steps_mean": 176.0,
+        "forward_displacement_mean_m": 3.2481597803636157,
+        "lateral_drift_mean_m": 0.12156607856456396,
+        "speed_mean_all_mps": 0.9234318028632776,
+        "speed_mean_completed_only_mps": 0.9234318028632776,
+        "speed_mean_fallen_only_mps": null,
+        "min_pelvis_height_mean_m": 0.8668728599635953,
+        "qpos_track_err_mean": 0.048224296210490084,
+        "activation_mean": 0.16146459196683188,
+        "force_abs_mean": 30.04731878296831,
+        "reasons": [
+          "达到规定评估时长 3.51 s"
+        ],
+        "interpretation": "speed_mean_fallen_only_mps 只描述「跌倒前跑得多快」，不能解释为效果改善；只有 speed_mean_completed_only_mps 与 n_completed 才有「走完」的含义"
+      }
+    },
+    "B_lower": {
+      "1": {
+        "n": 5,
+        "scale": 1.0,
+        "n_completed": 5,
+        "n_fell": 0,
+        "n_numeric_anomaly": 0,
+        "alive_time_mean_s": 3.519999999999834,
+        "alive_time_mean_s_completed_only": 3.519999999999834,
+        "alive_time_mean_s_fallen_only": null,
+        "steps_mean": 176.0,
+        "forward_displacement_mean_m": 3.371706200617152,
+        "lateral_drift_mean_m": 0.08353156204059639,
+        "speed_mean_all_mps": 0.958190783115082,
+        "speed_mean_completed_only_mps": 0.958190783115082,
+        "speed_mean_fallen_only_mps": null,
+        "min_pelvis_height_mean_m": 0.8747879439105792,
+        "qpos_track_err_mean": 0.035819839465560555,
+        "activation_mean": 0.164753590002441,
+        "force_abs_mean": 31.27912068405599,
+        "reasons": [
+          "达到规定评估时长 3.51 s"
+        ],
+        "interpretation": "speed_mean_fallen_only_mps 只描述「跌倒前跑得多快」，不能解释为效果改善；只有 speed_mean_completed_only_mps 与 n_completed 才有「走完」的含义"
+      },
+      "0.75": {
+        "n": 5,
+        "scale": 0.75,
+        "n_completed": 5,
+        "n_fell": 0,
+        "n_numeric_anomaly": 0,
+        "alive_time_mean_s": 3.519999999999834,
+        "alive_time_mean_s_completed_only": 3.519999999999834,
+        "alive_time_mean_s_fallen_only": null,
+        "steps_mean": 176.0,
+        "forward_displacement_mean_m": 3.2497327895396793,
+        "lateral_drift_mean_m": -0.009204835501754187,
+        "speed_mean_all_mps": 0.9232484842993356,
+        "speed_mean_completed_only_mps": 0.9232484842993356,
+        "speed_mean_fallen_only_mps": null,
+        "min_pelvis_height_mean_m": 0.8680487808841963,
+        "qpos_track_err_mean": 0.039013447823714804,
+        "activation_mean": 0.1721752389630849,
+        "force_abs_mean": 31.28071324979087,
+        "reasons": [
+          "达到规定评估时长 3.51 s"
+        ],
+        "interpretation": "speed_mean_fallen_only_mps 只描述「跌倒前跑得多快」，不能解释为效果改善；只有 speed_mean_completed_only_mps 与 n_completed 才有「走完」的含义"
+      },
+      "0.5": {
+        "n": 5,
+        "scale": 0.5,
+        "n_completed": 0,
+        "n_fell": 5,
+        "n_numeric_anomaly": 0,
+        "alive_time_mean_s": 1.7999999999999932,
+        "alive_time_mean_s_completed_only": null,
+        "alive_time_mean_s_fallen_only": 1.7999999999999932,
+        "steps_mean": 90.0,
+        "forward_displacement_mean_m": 1.9382435772089814,
+        "lateral_drift_mean_m": -0.06092822651992781,
+        "speed_mean_all_mps": 1.092362851882851,
+        "speed_mean_completed_only_mps": null,
+        "speed_mean_fallen_only_mps": 1.092362851882851,
+        "min_pelvis_height_mean_m": 0.5489061333130387,
+        "qpos_track_err_mean": 0.08786598691791063,
+        "activation_mean": 0.24069514836402703,
+        "force_abs_mean": 44.16699019402417,
+        "reasons": [
+          "跌到骨盆高度 0.513 m < 0.55 m",
+          "跌到骨盆高度 0.529 m < 0.55 m",
+          "跌到骨盆高度 0.530 m < 0.55 m",
+          "跌到骨盆高度 0.535 m < 0.55 m",
+          "骨盆直立偏差 61.7° > 60.0°"
+        ],
+        "interpretation": "speed_mean_fallen_only_mps 只描述「跌倒前跑得多快」，不能解释为效果改善；只有 speed_mean_completed_only_mps 与 n_completed 才有「走完」的含义"
+      },
+      "0.25": {
+        "n": 5,
+        "scale": 0.25,
+        "n_completed": 0,
+        "n_fell": 5,
+        "n_numeric_anomaly": 0,
+        "alive_time_mean_s": 0.7400000000000005,
+        "alive_time_mean_s_completed_only": null,
+        "alive_time_mean_s_fallen_only": 0.7400000000000005,
+        "steps_mean": 37.0,
+        "forward_displacement_mean_m": 0.713304420824764,
+        "lateral_drift_mean_m": -0.0525710125587169,
+        "speed_mean_all_mps": 0.9734620289105596,
+        "speed_mean_completed_only_mps": null,
+        "speed_mean_fallen_only_mps": 0.9734620289105596,
+        "min_pelvis_height_mean_m": 0.5420244725445139,
+        "qpos_track_err_mean": 0.0946269778401825,
+        "activation_mean": 0.19293493909172205,
+        "force_abs_mean": 32.030928653081915,
+        "reasons": [
+          "跌到骨盆高度 0.533 m < 0.55 m",
+          "跌到骨盆高度 0.538 m < 0.55 m",
+          "跌到骨盆高度 0.543 m < 0.55 m",
+          "跌到骨盆高度 0.547 m < 0.55 m",
+          "跌到骨盆高度 0.549 m < 0.55 m"
+        ],
+        "interpretation": "speed_mean_fallen_only_mps 只描述「跌倒前跑得多快」，不能解释为效果改善；只有 speed_mean_completed_only_mps 与 n_completed 才有「走完」的含义"
+      }
+    }
+  },
+  "n_episodes": 40,
+  "paretic_side": "R",
+  "strength_mode": "active_only",
+  "max_episode_seconds": null,
+  "outcome_totals": {
+    "completed": 30,
+    "fell": 10,
+    "numeric_anomaly": 0,
+    "unfinished": 0
+  }
+}

@@ -1,5 +1,9 @@
 # Phase 1 阶段报告 — MS-Human-700 + msgym 正常行走复现与患侧肌力参数化
-
+> **历史记录提示（2026-09-18 追加）**：本报告的运行时间 / 步数使用**修复前**的记录口径
+> （终止步未被记录：175 步 / 3.50 s），且 `reports/verify_policy.json` 当时保存的是修复前的
+> 中间结果（`max_abs_action_diff = 1.9731`）。修复后的口径与验收结果见
+> [`reports/phase2_acceptance_report.md`](phase2_acceptance_report.md)。
+> 本文内容**保持原样**作为历史记录，未做改写。
 > 生成日期：2026-09-16
 > 工作区：`/home/zrq/Documents/muscle-rl`（`muscle-pt` 项目的独立新增后端，未覆盖原实现）
 > 环境：conda `hemirl`（Python 3.12.13，mujoco 3.11.0，gymnasium 1.2.3，stable_baselines3 2.7.1，torch 2.14.0+cpu，numpy 2.3.5）

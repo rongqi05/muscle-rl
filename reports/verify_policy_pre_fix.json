@@ -1,0 +1,37 @@
+{
+  "wrapper_equivalence": {
+    "n_points": 21,
+    "max_abs_diff": 0.0,
+    "equivalent": true,
+    "sample": {
+      "-1.00": 0.0005527786369235996,
+      "-0.50": 0.0066928509242848554,
+      "0.50": 0.5,
+      "1.00": 0.9241418199787566
+    }
+  },
+  "group_expansion": {
+    "n_groups": 138,
+    "muscle_dims": 700,
+    "target_entropy_in_ckpt": -138.0,
+    "unique_muscle_indices": 138
+  },
+  "dynsyn_weight_amp_at_load": null,
+  "max_abs_action_diff": 1.9731438159942627,
+  "per_sample_diffs": [
+    1.9682869911193848,
+    1.9512397050857544,
+    1.9057631492614746,
+    1.9625966548919678,
+    1.9731438159942627
+  ],
+  "action_stats": {
+    "dim": 700,
+    "min": -0.9932693243026733,
+    "max": 0.9682018756866455,
+    "mean": -0.42154982686042786,
+    "env_ctrl_min": 0.0005716871819458902,
+    "env_ctrl_max": 0.9122169017791748,
+    "n_unique_group_values": 138
+  }
+}

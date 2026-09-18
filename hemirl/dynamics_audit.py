@@ -31,6 +31,8 @@ from typing import Any, Dict, List
 import numpy as np
 
 from hemirl import paths
+from hemirl.forces import decompose_constraint_forces, muscle_active_passive_split
+from hemirl.rollout import root_state
 
 
 # ------------------------------------------------------------------ A 静态
@@ -250,7 +252,7 @@ def runtime_audit(evaluator, n_steps: int = 60, zero_action: bool = False) -> Di
     """在真实环境上跑若干步，采集力项与闭环证据。"""
     import mujoco
 
-    raw = evaluator.raw_env.unwrapped
+    raw = evaluator.raw_env
     model = evaluator.model
     data = evaluator.data
 
@@ -276,6 +278,9 @@ def runtime_audit(evaluator, n_steps: int = 60, zero_action: bool = False) -> Di
     }
     muscle_force_formula_err: List[float] = []
     pd_perturbation: List[float] = []
+    root_vel_lin_diff: List[float] = []
+    root_vel_ang_diff: List[float] = []
+    constraint_groups: List[Dict[str, float]] = []
 
     lr_all = np.asarray(model.actuator_lengthrange)
     acc_all = np.asarray(model.actuator_acc0)
@@ -288,7 +293,7 @@ def runtime_audit(evaluator, n_steps: int = 60, zero_action: bool = False) -> Di
         else:
             normalized = evaluator.stack.normalize_obs(obs)
             action = evaluator.stack.predict(normalized)
-        obs, _r, _t, trunc, _i = evaluator.env.step(action)
+        obs, _r, terminated, truncated, _i = evaluator.env.step(action)
 
         length = np.asarray(data.actuator_length)
         vel = np.asarray(data.actuator_velocity)
@@ -319,7 +324,15 @@ def runtime_audit(evaluator, n_steps: int = 60, zero_action: bool = False) -> Di
 
         # 参考轨迹下一次是否会覆盖当前状态：把当前状态与参考比较
         pd_perturbation.append(float(np.linalg.norm(np.asarray(data.qpos)[:3] - qref[:3])))
-        if trunc:
+
+        # 根节点速度：Jacobian 写法的世界系角速度 vs 旧式「槽位重排」写法
+        rs = root_state(model, data, evaluator.pelvis_id)
+        root_vel_lin_diff.append(float(np.max(np.abs(rs["lin_vel"] - rs["lin_vel_index_formula"]))))
+        root_vel_ang_diff.append(float(np.max(np.abs(rs["ang_vel"] - rs["ang_vel_index_formula"]))))
+
+        # 约束力按类型分解（不把 qfrc_constraint 整体归因 equality）
+        constraint_groups.append(decompose_constraint_forces(model, data)["per_group_norm"])
+        if terminated or truncated:
             break
 
     out: Dict[str, Any] = {
@@ -354,6 +367,27 @@ def runtime_audit(evaluator, n_steps: int = 60, zero_action: bool = False) -> Di
         "state_is_not_overwritten_by_reference": bool(
             rec["qpos_ref_dev"][-1] > 1e-9 and rec["qpos_ref_dev"][-1] != rec["qpos_ref_dev"][0]
         ),
+        # 根速度：Jacobian 与旧写法的偏差（旧写法仅 lin 分量的槽位顺序恰好正确）
+        "root_velocity": {
+            "method": "mujoco.mj_jacBody(qpos) @ qvel",
+            "frame": "world",
+            "lin_vel_index_formula_max_abs_diff": float(np.max(root_vel_lin_diff)) if root_vel_lin_diff else None,
+            "ang_vel_index_formula_max_abs_diff": float(np.max(root_vel_ang_diff)) if root_vel_ang_diff else None,
+            "note": (
+                "线速度的旧槽位写法在该模型上恰好等价；角速度**不等价**，"
+                "因此一律改用旋转 Jacobian（与模型结构无关，不会随关节顺序变化而静默失效）"
+            ),
+        },
+        # 约束力分解：接触 / 限位 / equality / 摩擦各自的实际贡献
+        "constraint_decomposition": {
+            "per_group_norm_mean": _mean_of_dicts(constraint_groups),
+            "n_steps": len(constraint_groups),
+            "note": (
+                "qfrc_constraint 是接触 + 限位 + equality + 摩擦的**合计**；"
+                "本项按 mjCNSTR_* 类型拆开，因此可以判断到底是谁在受力，"
+                "而不是把整体范数归因于 equality。"
+            ),
+        },
         "series": {k: [float(v) for v in vals] for k, vals in rec.items()},
     }
 
@@ -383,6 +417,25 @@ def runtime_audit(evaluator, n_steps: int = 60, zero_action: bool = False) -> Di
         "max_abs_velocity": float(np.abs(v3).max()),
         "exact": bool(err3.max() == 0.0),
     }
+
+    # 肌肉力拆分：F_active = F(act) - F(act=0)，与肌力缩放验证使用同一套定义
+    out["muscle_active_passive_split"] = muscle_active_passive_split(model, data)
+
+    # 终止元数据：每一步（含终止步）都被记录，运行时间来自实际仿真时间差
+    out["termination_metadata"] = evaluator.env.termination_metadata()
+    out["accounting"] = evaluator.env.accounting_report()
+    return out
+
+
+def _mean_of_dicts(rows: List[Dict[str, float]]) -> Dict[str, float]:
+    """对一组同键字典逐键取均值。"""
+    if not rows:
+        return {}
+    keys = sorted({k for r in rows for k in r})
+    out: Dict[str, float] = {}
+    for k in keys:
+        vals = [float(r[k]) for r in rows if k in r]
+        out[k] = float(np.mean(vals)) if vals else float("nan")
     return out
 
 

@@ -1,6 +1,6 @@
 {
-  "n_checks": 16,
-  "n_pass": 16,
+  "n_checks": 22,
+  "n_pass": 22,
   "all_pass": true,
   "checks": [
     {
@@ -118,38 +118,99 @@
       }
     },
     {
-      "check": "V5c 三个随机姿态下患侧上肢力比仍 ≈ 0.25",
+      "check": "V5c 多个（按关节名构造的）姿态下患侧上肢力比仍 ≈ 0.25",
       "ok": true,
       "detail": {
+        "postures": [
+          "key",
+          "shoulder_elv",
+          "elbow_flex",
+          "combined"
+        ],
         "ratios": [
-          0.25,
           0.2501,
-          0.25
+          0.2501,
+          0.2501,
+          0.2501
         ]
       }
     },
     {
-      "check": "V6 不同长度下缩放比恒定（只改幅值，不改 FL 形状）",
+      "check": "V6a[shoulder_elv] 目标肌肉长度确实改变（姿态按关节名构造）",
       "ok": true,
       "detail": {
-        "amplitudes": [
-          0.0,
-          0.2,
-          0.4,
-          0.6
-        ],
-        "baseline_mean_abs_force": [
-          266.543,
-          266.543,
-          266.543,
-          266.543
-        ],
-        "ratios": [
-          0.5001,
-          0.5001,
-          0.5001,
-          0.5001
-        ]
+        "shoulder_elv/shoulder": 0.02341,
+        "shoulder_elv/elbow": 0.02341
+      }
+    },
+    {
+      "check": "V6b[shoulder_elv] 同姿态/速度/激活下 F_active 按倍率缩放（0.5）",
+      "ok": true,
+      "detail": {
+        "n_measured": 61,
+        "mean": 0.5,
+        "min": 0.5,
+        "max": 0.5
+      }
+    },
+    {
+      "check": "V6a[elbow_flex] 目标肌肉长度确实改变（姿态按关节名构造）",
+      "ok": true,
+      "detail": {
+        "elbow_flex/shoulder": 0.02316,
+        "elbow_flex/elbow": 0.03129
+      }
+    },
+    {
+      "check": "V6b[elbow_flex] 同姿态/速度/激活下 F_active 按倍率缩放（0.5）",
+      "ok": true,
+      "detail": {
+        "n_measured": 61,
+        "mean": 0.5,
+        "min": 0.5,
+        "max": 0.5
+      }
+    },
+    {
+      "check": "V6a[combined] 目标肌肉长度确实改变（姿态按关节名构造）",
+      "ok": true,
+      "detail": {
+        "combined/shoulder": 0.04536,
+        "combined/elbow": 0.04536
+      }
+    },
+    {
+      "check": "V6b[combined] 同姿态/速度/激活下 F_active 按倍率缩放（0.5）",
+      "ok": true,
+      "detail": {
+        "n_measured": 61,
+        "mean": 0.5,
+        "min": 0.5,
+        "max": 0.5
+      }
+    },
+    {
+      "check": "V6c 被动力对照：active_only 逐元素不变、active_and_passive 按倍率缩放",
+      "ok": true,
+      "detail": {
+        "shoulder_elv": {
+          "n_nonzero_passive": 3,
+          "active_only_unchanged": true,
+          "active_and_passive_ratio_mean": 0.5,
+          "active_and_passive_scales_passive": true
+        },
+        "elbow_flex": {
+          "n_nonzero_passive": 2,
+          "active_only_unchanged": true,
+          "active_and_passive_ratio_mean": 0.5,
+          "active_and_passive_scales_passive": true
+        },
+        "combined": {
+          "n_nonzero_passive": 3,
+          "active_only_unchanged": true,
+          "active_and_passive_ratio_mean": 0.5,
+          "active_and_passive_scales_passive": true
+        }
       }
     },
     {

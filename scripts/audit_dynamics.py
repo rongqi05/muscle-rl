@@ -15,11 +15,12 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from hemirl import dynamics_audit, paths, provenance  # noqa: E402
+from hemirl.research_env import ResearchEnvConfig  # noqa: E402
 from hemirl.rollout import EvaluatorConfig, LocomotionEvaluator  # noqa: E402
 from hemirl.termination import TerminationConfig  # noqa: E402
 
 
-def main() -> None:
+def main() -> int:
     parser = argparse.ArgumentParser(description="动力学闭环审计")
     parser.add_argument("--checkpoint-dir", type=str, default=str(paths.checkpoint_dir("LocomotionFull")))
     parser.add_argument("--steps", type=int, default=60)
@@ -48,6 +49,12 @@ def main() -> None:
         checkpoint_dir=Path(args.checkpoint_dir),
         deterministic=True,
         termination=TerminationConfig(kind="research"),
+        research=ResearchEnvConfig(
+            termination=TerminationConfig(kind="research"),
+            max_episode_seconds=float(args.steps) * 0.02 + 2.0,
+            name="audit",
+        ),
+        final_force_decomposition=True,
     )
 
     print("\n=== B. 模型结构审计 ===")
@@ -78,14 +85,17 @@ def main() -> None:
                 print(f"  {k}: {v}")
         report["runtime_zero_action"] = rt0
 
-    report["provenance"] = provenance.build_provenance(
-        extra={"entry": "scripts/audit_dynamics.py", "args": vars(args)},
+    report["provenance"] = provenance.run_provenance(
+        entry="scripts/audit_dynamics.py",
+        args=vars(args),
         checkpoint_dir=Path(args.checkpoint_dir),
     )
 
     out = provenance.write_json(Path(args.out), report)
     print(f"\n[saved] {out}")
+    # 审计本身不带「通过/失败」语义，只要跑完即是成功
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

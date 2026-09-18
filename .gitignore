@@ -19,6 +19,9 @@ __pycache__/
 .ipynb_checkpoints/
 .pytest_cache/
 
+# ---- MuJoCo 运行期日志（每次 step 都会写，与结果无关）----
+MUJOCO_LOG.TXT
+
 # ---- 编辑器 / 系统 ----
 .vscode/
 .idea/

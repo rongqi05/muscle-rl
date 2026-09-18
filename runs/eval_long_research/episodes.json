@@ -1,0 +1,1434 @@
+{
+  "episodes": [
+    {
+      "label": "ep0",
+      "seed": 0,
+      "strength": {
+        "spec": null
+      },
+      "steps": 223,
+      "n_physics_steps": 2230,
+      "control_dt_s": 0.02,
+      "sim_time_s": 4.459999999999731,
+      "sim_time_nominal_s": 4.46,
+      "wall_time_s": 6.928611700999909,
+      "terminated": true,
+      "truncated": false,
+      "termination_reason": "骨盆直立偏差 62.0° > 60.0°",
+      "termination_source": "physical_fall",
+      "is_numeric_anomaly": false,
+      "is_physical_fall": true,
+      "n_official_term_flags": 48,
+      "n_steps_after_official_term": 47,
+      "reached_time_limit": false,
+      "reached_step_cap": false,
+      "root_start_pos": [
+        0.9938051914824523,
+        0.0351299562191073,
+        0.9088988275720309
+      ],
+      "root_end_pos": [
+        4.902552266322218,
+        0.4940189364185314,
+        0.6966803606725616
+      ],
+      "displacement_xy": 3.9355917968225427,
+      "forward_displacement_x": 3.9087470748397655,
+      "lateral_drift_y": 0.4588889801994241,
+      "distance_3d": 3.941309359706499,
+      "mean_speed_xy": 0.8824196853862736,
+      "forward_speed_x": 0.8764006894260092,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9034769643621932,
+      "min_pelvis_height": 0.6966803606725616,
+      "final_pelvis_height": 0.6966803606725616,
+      "max_pelvis_up_tilt_deg": 62.029353349077056,
+      "final_pelvis_up_tilt_deg": 62.029353349077056,
+      "posture_change_deg": 61.45322424236472,
+      "max_root_speed": 2.0494109361157093,
+      "max_root_ang_speed": 5.513954549954523,
+      "final_root_lin_vel": [
+        0.9229222739710496,
+        1.1916550051958206,
+        -1.3886173014443264
+      ],
+      "final_root_ang_vel": [
+        -1.746546465923883,
+        1.4630304866654862,
+        0.21000040059607705
+      ],
+      "mean_qpos_track_err": 0.06053345667854452,
+      "max_qpos_track_err": 0.301091772385232,
+      "final_qpos_track_err": 0.3010900458325996,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.854280229417715,
+          "excitation_mean": 0.09665803310324429,
+          "activation_mean": 0.10662584211125431,
+          "force_abs_mean": 25.775698590498404
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9183950712599666,
+          "excitation_mean": 0.12708161983667912,
+          "activation_mean": 0.13319382754857392,
+          "force_abs_mean": 26.350934058072273
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.6913510590871887,
+          "excitation_mean": 0.2148354886617352,
+          "activation_mean": 0.24747943052282734,
+          "force_abs_mean": 141.65759132290052
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7476993388712674,
+          "excitation_mean": 0.20345407893738685,
+          "activation_mean": 0.23091325287973816,
+          "force_abs_mean": 119.45475812584364
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.6200205965909843,
+          "excitation_mean": 0.22714535559015264,
+          "activation_mean": 0.2577988309674495,
+          "force_abs_mean": 27.223116087818042
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7423974578147119,
+          "excitation_mean": 0.19245285451804484,
+          "activation_mean": 0.21159115983576623,
+          "force_abs_mean": 26.05632983988565
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7570020369594264,
+          "excitation_mean": 0.17962861099049637,
+          "activation_mean": 0.2014336826897136,
+          "force_abs_mean": 20.399426405660428
+        }
+      },
+      "action_abs_mean": 0.7631368111983696,
+      "action_abs_max": 0.9999994776078633,
+      "excitation_mean": 0.1785186950691745,
+      "activation_mean": 0.1985841299708247,
+      "actuator_force_abs_mean": 39.35686026690345,
+      "reward_totals": {
+        "official_total": -5486.954044197797,
+        "imitation": -22909.296060245855,
+        "energy": -877.6579839519474,
+        "survival_physical": 22300.0,
+        "official_healthy": 18300.0
+      },
+      "ncon_mean": 4.071748878923767,
+      "ncon_max": 8.0,
+      "total_normal_force_mean": 571.0252915658474,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 38.84149990008555,
+      "max_abs_qacc": 42190.03129623799,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "jacobian_vs_index_max_diff": 2.156252399295842,
+      "accounting": {
+        "n_control_steps_recorded": 223,
+        "n_control_steps_executed": 223,
+        "all_steps_recorded": true,
+        "n_physics_steps": 2230,
+        "physics_step_size_s": 0.002,
+        "control_dt_s": 0.02,
+        "elapsed_time_s": 4.459999999999731,
+        "nominal_time_s": 4.46,
+        "time_source": "data.time 差（实际仿真时间），非步数×dt",
+        "max_abs_diff_elapsed_vs_nominal": 2.6911806116913795e-13,
+        "per_step_gap_max_dev": 2.203098814490545e-15,
+        "last_step_recorded": true,
+        "last_step_termination_source": "physical_fall",
+        "ledger_covers_terminating_step": true
+      },
+      "final_force_terms": {
+        "qfrc_actuator_norm": 13827.174905889888,
+        "qfrc_actuator_absmax": 9379.497958826598,
+        "qfrc_passive_norm": 21.0702867595155,
+        "qfrc_passive_absmax": 15.394745427756458,
+        "qfrc_bias_norm": 627.0511802551362,
+        "qfrc_bias_absmax": 607.5728694396663,
+        "qfrc_constraint_norm": 13815.42325291858,
+        "qfrc_constraint_absmax": 9367.402069211093,
+        "qfrc_applied_norm": 0.0,
+        "qfrc_applied_absmax": 0.0,
+        "xfrc_applied_norm": 0.0,
+        "xfrc_applied_absmax": 0.0,
+        "qfrc_inverse_norm": 0.0,
+        "qfrc_inverse_absmax": 0.0,
+        "qacc_norm": 117.30730515865562,
+        "qacc_absmax": 106.41724004726365,
+        "n_translational_dofs": 0,
+        "unit_note": "qfrc_* 为广义力，混合 N 与 N·m；范数只用于量级/突变检测，不能解释为承重或贡献占比"
+      },
+      "final_constraint_decomposition": {
+        "nefc": 72,
+        "sign_convention": "+J^T·f",
+        "per_type_norm": {
+          "equality": 5770.145312624786,
+          "friction_dof": 0.0,
+          "friction_tendon": 0.0,
+          "limit_joint": 9274.885757455824,
+          "limit_tendon": 0.0,
+          "contact_frictionless": 0.0,
+          "contact_pyramidal": 119.13380574469771,
+          "contact_elliptic": 0.0
+        },
+        "per_type_absmax": {
+          "equality": 2647.8349601541136,
+          "friction_dof": 0.0,
+          "friction_tendon": 0.0,
+          "limit_joint": 6729.347626148512,
+          "limit_tendon": 0.0,
+          "contact_frictionless": 0.0,
+          "contact_pyramidal": 52.74096436861761,
+          "contact_elliptic": 0.0
+        },
+        "per_group_norm": {
+          "equality": 5770.145312624786,
+          "limit": 9274.885757455824,
+          "contact": 119.13380574469771,
+          "friction": 0.0
+        },
+        "target_qfrc_constraint_norm": 13815.42325291858,
+        "decomposition_residual_absmax": 5.684341886080802e-14,
+        "decomposition_ok": true,
+        "n_active_by_type": {
+          "equality": 42,
+          "limit_joint": 26,
+          "contact_pyramidal": 4
+        },
+        "note": "qfrc_constraint 是接触/限位/equality/摩擦的合计；本表按 mjCNSTR_* 类型拆开，残差接近 0 才说明拆解正确（而不是把整体归因于某一类）"
+      },
+      "final_muscle_split": {
+        "n_actuators": 700,
+        "total_force": {
+          "mean_abs": 115.61451188636232,
+          "abs_max": 2962.639916808283,
+          "mean_signed": -115.61451188636232
+        },
+        "active_force": {
+          "mean_abs": 114.98356153096046,
+          "abs_max": 2962.639916808283,
+          "mean_signed": -114.98356153096046
+        },
+        "passive_force": {
+          "mean_abs": 0.6309503554018571,
+          "abs_max": 150.16700727389107,
+          "mean_signed": -0.6309503554018571
+        },
+        "active_matches_definition_absmax": 0.0,
+        "act_mean": 0.47303184382505825,
+        "definition": "F_active = F(act) - F(act=0)；F_passive = F(act=0)"
+      },
+      "ledger_tail": [
+        {
+          "index": 220,
+          "sim_time_before": 4.3999999999997375,
+          "sim_time_after": 4.419999999999735,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": -1128.5653852343905,
+          "reward_imitation": -1117.0235108596416,
+          "reward_energy": -11.541874374748884,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 0.0,
+          "qpos_track_err": 0.29892916178266254,
+          "pelvis_z": 0.7443193034125929,
+          "up_tilt_deg": 57.04960226089612,
+          "official_terminated_flag": true,
+          "official_truncated_flag": true,
+          "termination_source": null
+        },
+        {
+          "index": 221,
+          "sim_time_before": 4.419999999999735,
+          "sim_time_after": 4.439999999999733,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": -1137.749336079094,
+          "reward_imitation": -1126.2099857197065,
+          "reward_energy": -11.539350359387418,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 0.0,
+          "qpos_track_err": 0.2992794508881185,
+          "pelvis_z": 0.7223942972502809,
+          "up_tilt_deg": 59.49985668642596,
+          "official_terminated_flag": true,
+          "official_truncated_flag": true,
+          "termination_source": null
+        },
+        {
+          "index": 222,
+          "sim_time_before": 4.439999999999733,
+          "sim_time_after": 4.459999999999731,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": -1150.3610716342675,
+          "reward_imitation": -1138.7996204456313,
+          "reward_energy": -11.561451188636234,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 0.0,
+          "qpos_track_err": 0.3010900458325996,
+          "pelvis_z": 0.6966803606725616,
+          "up_tilt_deg": 62.029353349077056,
+          "official_terminated_flag": true,
+          "official_truncated_flag": true,
+          "termination_source": "physical_fall"
+        }
+      ],
+      "trail": "/home/zrq/Documents/muscle-rl/runs/eval_long_research/trajectories/ep0_seed0.npz"
+    },
+    {
+      "label": "ep1",
+      "seed": 1,
+      "strength": {
+        "spec": null
+      },
+      "steps": 245,
+      "n_physics_steps": 2450,
+      "control_dt_s": 0.02,
+      "sim_time_s": 4.899999999999682,
+      "sim_time_nominal_s": 4.9,
+      "wall_time_s": 5.069793991000097,
+      "terminated": true,
+      "truncated": false,
+      "termination_reason": "骨盆直立偏差 60.7° > 60.0°",
+      "termination_source": "physical_fall",
+      "is_numeric_anomaly": false,
+      "is_physical_fall": true,
+      "n_official_term_flags": 70,
+      "n_steps_after_official_term": 69,
+      "reached_time_limit": false,
+      "reached_step_cap": false,
+      "root_start_pos": [
+        0.5814191804746273,
+        0.014396046826729927,
+        0.9081504525495855
+      ],
+      "root_end_pos": [
+        4.949449809866207,
+        0.44541630700921175,
+        0.7114333036336995
+      ],
+      "displacement_xy": 4.3892448147706205,
+      "forward_displacement_x": 4.36803062939158,
+      "lateral_drift_y": 0.43102026018248185,
+      "distance_3d": 4.393650837363885,
+      "mean_speed_xy": 0.8957642479124296,
+      "forward_speed_x": 0.89143482232487,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9047620661641083,
+      "min_pelvis_height": 0.7114333036336995,
+      "final_pelvis_height": 0.7114333036336995,
+      "max_pelvis_up_tilt_deg": 60.74464059188289,
+      "final_pelvis_up_tilt_deg": 60.74464059188289,
+      "posture_change_deg": 59.85820299218859,
+      "max_root_speed": 1.9323314665272378,
+      "max_root_ang_speed": 4.550403761735876,
+      "final_root_lin_vel": [
+        0.9243129898770028,
+        1.2826889528744558,
+        -1.1109722964366722
+      ],
+      "final_root_ang_vel": [
+        -1.8012621702480214,
+        1.2574595912471254,
+        0.16028625226192716
+      ],
+      "mean_qpos_track_err": 0.05601170465330583,
+      "max_qpos_track_err": 0.30034576021131876,
+      "final_qpos_track_err": 0.29202401296972436,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.852219562847186,
+          "excitation_mean": 0.09392272589934891,
+          "activation_mean": 0.10599616671715914,
+          "force_abs_mean": 25.021113898062588
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9196779378324338,
+          "excitation_mean": 0.12047603339394296,
+          "activation_mean": 0.12748396391273983,
+          "force_abs_mean": 23.72137978040281
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.6933041860132801,
+          "excitation_mean": 0.21465821276238298,
+          "activation_mean": 0.24851484438119256,
+          "force_abs_mean": 138.04686827468447
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7409935065970129,
+          "excitation_mean": 0.19345314582788425,
+          "activation_mean": 0.22192736010024536,
+          "force_abs_mean": 113.60489342932729
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.6024051751644695,
+          "excitation_mean": 0.21764928024220653,
+          "activation_mean": 0.2493318926129403,
+          "force_abs_mean": 26.37844062131912
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7394936284413459,
+          "excitation_mean": 0.17829633022207675,
+          "activation_mean": 0.1965914636699479,
+          "force_abs_mean": 24.221656556088508
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7455474105755706,
+          "excitation_mean": 0.17779547998914244,
+          "activation_mean": 0.19909382386033084,
+          "force_abs_mean": 20.09725252858757
+        }
+      },
+      "action_abs_mean": 0.7575543302846719,
+      "action_abs_max": 0.9999999710491725,
+      "excitation_mean": 0.17117900384961504,
+      "activation_mean": 0.19127223149080463,
+      "actuator_force_abs_mean": 37.63259471671319,
+      "reward_totals": {
+        "official_total": -205.9190289352223,
+        "imitation": -20183.92045837574,
+        "energy": -921.998570559473,
+        "survival_physical": 24500.0,
+        "official_healthy": 20900.0
+      },
+      "ncon_mean": 4.1387755102040815,
+      "ncon_max": 9.0,
+      "total_normal_force_mean": 570.3728540800978,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 33.68613289637098,
+      "max_abs_qacc": 50447.461448369955,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "jacobian_vs_index_max_diff": 1.9702653998502784,
+      "accounting": {
+        "n_control_steps_recorded": 245,
+        "n_control_steps_executed": 245,
+        "all_steps_recorded": true,
+        "n_physics_steps": 2450,
+        "physics_step_size_s": 0.002,
+        "control_dt_s": 0.02,
+        "elapsed_time_s": 4.899999999999682,
+        "nominal_time_s": 4.9,
+        "time_source": "data.time 差（实际仿真时间），非步数×dt",
+        "max_abs_diff_elapsed_vs_nominal": 3.1796787425264483e-13,
+        "per_step_gap_max_dev": 2.203098814490545e-15,
+        "last_step_recorded": true,
+        "last_step_termination_source": "physical_fall",
+        "ledger_covers_terminating_step": true
+      },
+      "final_force_terms": {
+        "qfrc_actuator_norm": 14074.964256513153,
+        "qfrc_actuator_absmax": 9551.483918690383,
+        "qfrc_passive_norm": 20.176372401825773,
+        "qfrc_passive_absmax": 14.560635325354427,
+        "qfrc_bias_norm": 619.2423287285328,
+        "qfrc_bias_absmax": 600.6330137099686,
+        "qfrc_constraint_norm": 14059.56797153377,
+        "qfrc_constraint_absmax": 9538.84297113659,
+        "qfrc_applied_norm": 0.0,
+        "qfrc_applied_absmax": 0.0,
+        "xfrc_applied_norm": 0.0,
+        "xfrc_applied_absmax": 0.0,
+        "qfrc_inverse_norm": 0.0,
+        "qfrc_inverse_absmax": 0.0,
+        "qacc_norm": 239.33164953202058,
+        "qacc_absmax": 202.8968078359515,
+        "n_translational_dofs": 0,
+        "unit_note": "qfrc_* 为广义力，混合 N 与 N·m；范数只用于量级/突变检测，不能解释为承重或贡献占比"
+      },
+      "final_constraint_decomposition": {
+        "nefc": 69,
+        "sign_convention": "+J^T·f",
+        "per_type_norm": {
+          "equality": 5785.113174919668,
+          "friction_dof": 0.0,
+          "friction_tendon": 0.0,
+          "limit_joint": 9524.144693146593,
+          "limit_tendon": 0.0,
+          "contact_frictionless": 0.0,
+          "contact_pyramidal": 141.0588655113016,
+          "contact_elliptic": 0.0
+        },
+        "per_type_absmax": {
+          "equality": 2651.4520095222074,
+          "friction_dof": 0.0,
+          "friction_tendon": 0.0,
+          "limit_joint": 6902.730364012338,
+          "limit_tendon": 0.0,
+          "contact_frictionless": 0.0,
+          "contact_pyramidal": 57.826576714453154,
+          "contact_elliptic": 0.0
+        },
+        "per_group_norm": {
+          "equality": 5785.113174919668,
+          "limit": 9524.144693146593,
+          "contact": 141.0588655113016,
+          "friction": 0.0
+        },
+        "target_qfrc_constraint_norm": 14059.56797153377,
+        "decomposition_residual_absmax": 5.684341886080802e-14,
+        "decomposition_ok": true,
+        "n_active_by_type": {
+          "equality": 42,
+          "limit_joint": 23,
+          "contact_pyramidal": 4
+        },
+        "note": "qfrc_constraint 是接触/限位/equality/摩擦的合计；本表按 mjCNSTR_* 类型拆开，残差接近 0 才说明拆解正确（而不是把整体归因于某一类）"
+      },
+      "final_muscle_split": {
+        "n_actuators": 700,
+        "total_force": {
+          "mean_abs": 114.56085576200489,
+          "abs_max": 3028.7410873040467,
+          "mean_signed": -114.56085576200489
+        },
+        "active_force": {
+          "mean_abs": 114.00397140773696,
+          "abs_max": 3028.7410873040467,
+          "mean_signed": -114.00397140773696
+        },
+        "passive_force": {
+          "mean_abs": 0.5568843542679504,
+          "abs_max": 62.44389717297195,
+          "mean_signed": -0.5568843542679504
+        },
+        "active_matches_definition_absmax": 0.0,
+        "act_mean": 0.4732254332899767,
+        "definition": "F_active = F(act) - F(act=0)；F_passive = F(act=0)"
+      },
+      "ledger_tail": [
+        {
+          "index": 242,
+          "sim_time_before": 4.839999999999689,
+          "sim_time_after": 4.859999999999687,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": -1053.201603451399,
+          "reward_imitation": -1041.7054911484713,
+          "reward_energy": -11.496112302927813,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 0.0,
+          "qpos_track_err": 0.29739567227069064,
+          "pelvis_z": 0.7488274519102505,
+          "up_tilt_deg": 56.10385911748399,
+          "official_terminated_flag": true,
+          "official_truncated_flag": true,
+          "termination_source": null
+        },
+        {
+          "index": 243,
+          "sim_time_before": 4.859999999999687,
+          "sim_time_after": 4.879999999999685,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": -1045.8139962886266,
+          "reward_imitation": -1034.3033081605713,
+          "reward_energy": -11.510688128055284,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 0.0,
+          "qpos_track_err": 0.29395585039625627,
+          "pelvis_z": 0.7314722884772722,
+          "up_tilt_deg": 58.3716725288176,
+          "official_terminated_flag": true,
+          "official_truncated_flag": true,
+          "termination_source": null
+        },
+        {
+          "index": 244,
+          "sim_time_before": 4.879999999999685,
+          "sim_time_after": 4.899999999999682,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": -1050.0190178172325,
+          "reward_imitation": -1038.562932241032,
+          "reward_energy": -11.45608557620049,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 0.0,
+          "qpos_track_err": 0.29202401296972436,
+          "pelvis_z": 0.7114333036336995,
+          "up_tilt_deg": 60.74464059188289,
+          "official_terminated_flag": true,
+          "official_truncated_flag": true,
+          "termination_source": "physical_fall"
+        }
+      ],
+      "trail": "/home/zrq/Documents/muscle-rl/runs/eval_long_research/trajectories/ep1_seed1.npz"
+    },
+    {
+      "label": "ep2",
+      "seed": 2,
+      "strength": {
+        "spec": null
+      },
+      "steps": 226,
+      "n_physics_steps": 2260,
+      "control_dt_s": 0.02,
+      "sim_time_s": 4.519999999999724,
+      "sim_time_nominal_s": 4.5200000000000005,
+      "wall_time_s": 3.604914309999913,
+      "terminated": true,
+      "truncated": false,
+      "termination_reason": "骨盆直立偏差 61.6° > 60.0°",
+      "termination_source": "physical_fall",
+      "is_numeric_anomaly": false,
+      "is_physical_fall": true,
+      "n_official_term_flags": 51,
+      "n_steps_after_official_term": 50,
+      "reached_time_limit": false,
+      "reached_step_cap": false,
+      "root_start_pos": [
+        0.9723999483126454,
+        0.037036069645029805,
+        0.9127672532943142
+      ],
+      "root_end_pos": [
+        4.960114095699947,
+        0.5055010818629992,
+        0.6655713917171928
+      ],
+      "displacement_xy": 4.015136808247662,
+      "forward_displacement_x": 3.987714147387302,
+      "lateral_drift_y": 0.46846501221796943,
+      "distance_3d": 4.022739039873961,
+      "mean_speed_xy": 0.8883046035946697,
+      "forward_speed_x": 0.882237643227333,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.902242415260063,
+      "min_pelvis_height": 0.6655713917171928,
+      "final_pelvis_height": 0.6655713917171928,
+      "max_pelvis_up_tilt_deg": 61.575733815955715,
+      "final_pelvis_up_tilt_deg": 61.575733815955715,
+      "posture_change_deg": 60.95690613358512,
+      "max_root_speed": 2.076267294183041,
+      "max_root_ang_speed": 4.102576313167608,
+      "final_root_lin_vel": [
+        0.9995608615672393,
+        1.258143538719172,
+        -1.3148531465134519
+      ],
+      "final_root_ang_vel": [
+        -1.9197170797114689,
+        1.0834303122137185,
+        -0.20721341488968448
+      ],
+      "mean_qpos_track_err": 0.05887510540166032,
+      "max_qpos_track_err": 0.2957271631792069,
+      "final_qpos_track_err": 0.28725517417420465,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.850227949616872,
+          "excitation_mean": 0.09318833634525749,
+          "activation_mean": 0.10386576502870923,
+          "force_abs_mean": 24.379982538347313
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9156119495945886,
+          "excitation_mean": 0.11802941355314334,
+          "activation_mean": 0.12435428535391391,
+          "force_abs_mean": 23.871141464512423
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.6933215745518693,
+          "excitation_mean": 0.214033215446171,
+          "activation_mean": 0.24727692309927662,
+          "force_abs_mean": 138.08277555433756
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7480224179324851,
+          "excitation_mean": 0.19642013738669487,
+          "activation_mean": 0.224030573928943,
+          "force_abs_mean": 114.54466525135221
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.6326682656586529,
+          "excitation_mean": 0.23360147729655842,
+          "activation_mean": 0.2644046933417581,
+          "force_abs_mean": 28.038425229561042
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.738833498309444,
+          "excitation_mean": 0.18437555893049107,
+          "activation_mean": 0.20304288774150991,
+          "force_abs_mean": 24.958857072119734
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7536812983744906,
+          "excitation_mean": 0.18015377823785664,
+          "activation_mean": 0.2013616563931571,
+          "force_abs_mean": 20.27023902918124
+        }
+      },
+      "action_abs_mean": 0.7610615226705517,
+      "action_abs_max": 0.9999984923430851,
+      "excitation_mean": 0.1745519151992866,
+      "activation_mean": 0.1944197401690615,
+      "actuator_force_abs_mean": 38.03608334983091,
+      "reward_totals": {
+        "official_total": -3713.994418883756,
+        "imitation": -21154.378935177574,
+        "energy": -859.6154837061791,
+        "survival_physical": 22600.0,
+        "official_healthy": 18300.0
+      },
+      "ncon_mean": 4.150442477876106,
+      "ncon_max": 10.0,
+      "total_normal_force_mean": 575.5010216561597,
+      "foot_contact_fraction": 0.995575221238938,
+      "max_abs_qvel": 34.359434331735194,
+      "max_abs_qacc": 50320.38710093106,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "jacobian_vs_index_max_diff": 2.316566075380763,
+      "accounting": {
+        "n_control_steps_recorded": 226,
+        "n_control_steps_executed": 226,
+        "all_steps_recorded": true,
+        "n_physics_steps": 2260,
+        "physics_step_size_s": 0.002,
+        "control_dt_s": 0.02,
+        "elapsed_time_s": 4.519999999999724,
+        "nominal_time_s": 4.5200000000000005,
+        "time_source": "data.time 差（实际仿真时间），非步数×dt",
+        "max_abs_diff_elapsed_vs_nominal": 2.7622348852673895e-13,
+        "per_step_gap_max_dev": 2.203098814490545e-15,
+        "last_step_recorded": true,
+        "last_step_termination_source": "physical_fall",
+        "ledger_covers_terminating_step": true
+      },
+      "final_force_terms": {
+        "qfrc_actuator_norm": 13935.192578794316,
+        "qfrc_actuator_absmax": 9423.518902194812,
+        "qfrc_passive_norm": 21.100436881769713,
+        "qfrc_passive_absmax": 14.997623044008016,
+        "qfrc_bias_norm": 614.3439994368981,
+        "qfrc_bias_absmax": 595.283187930923,
+        "qfrc_constraint_norm": 13918.607242909487,
+        "qfrc_constraint_absmax": 9392.605977568759,
+        "qfrc_applied_norm": 0.0,
+        "qfrc_applied_absmax": 0.0,
+        "xfrc_applied_norm": 0.0,
+        "xfrc_applied_absmax": 0.0,
+        "qfrc_inverse_norm": 0.0,
+        "qfrc_inverse_absmax": 0.0,
+        "qacc_norm": 353.5122576806149,
+        "qacc_absmax": 347.01734809146444,
+        "n_translational_dofs": 0,
+        "unit_note": "qfrc_* 为广义力，混合 N 与 N·m；范数只用于量级/突变检测，不能解释为承重或贡献占比"
+      },
+      "final_constraint_decomposition": {
+        "nefc": 74,
+        "sign_convention": "+J^T·f",
+        "per_type_norm": {
+          "equality": 5765.216702498799,
+          "friction_dof": 0.0,
+          "friction_tendon": 0.0,
+          "limit_joint": 9475.047991602443,
+          "limit_tendon": 0.0,
+          "contact_frictionless": 0.0,
+          "contact_pyramidal": 410.9805988103665,
+          "contact_elliptic": 0.0
+        },
+        "per_type_absmax": {
+          "equality": 2649.8811338435976,
+          "friction_dof": 0.0,
+          "friction_tendon": 0.0,
+          "limit_joint": 6831.941943493982,
+          "limit_tendon": 0.0,
+          "contact_frictionless": 0.0,
+          "contact_pyramidal": 238.75048827633702,
+          "contact_elliptic": 0.0
+        },
+        "per_group_norm": {
+          "equality": 5765.216702498799,
+          "limit": 9475.047991602443,
+          "contact": 410.9805988103665,
+          "friction": 0.0
+        },
+        "target_qfrc_constraint_norm": 13918.607242909487,
+        "decomposition_residual_absmax": 1.4210854715202004e-14,
+        "decomposition_ok": true,
+        "n_active_by_type": {
+          "equality": 42,
+          "limit_joint": 24,
+          "contact_pyramidal": 8
+        },
+        "note": "qfrc_constraint 是接触/限位/equality/摩擦的合计；本表按 mjCNSTR_* 类型拆开，残差接近 0 才说明拆解正确（而不是把整体归因于某一类）"
+      },
+      "final_muscle_split": {
+        "n_actuators": 700,
+        "total_force": {
+          "mean_abs": 116.6903045732663,
+          "abs_max": 2954.534106135036,
+          "mean_signed": -116.6903045732663
+        },
+        "active_force": {
+          "mean_abs": 114.71285679190842,
+          "abs_max": 2954.534106135036,
+          "mean_signed": -114.71285679190842
+        },
+        "passive_force": {
+          "mean_abs": 1.9774477813578997,
+          "abs_max": 948.3283171368397,
+          "mean_signed": -1.9774477813578997
+        },
+        "active_matches_definition_absmax": 0.0,
+        "act_mean": 0.4731063795273251,
+        "definition": "F_active = F(act) - F(act=0)；F_passive = F(act=0)"
+      },
+      "ledger_tail": [
+        {
+          "index": 223,
+          "sim_time_before": 4.459999999999731,
+          "sim_time_after": 4.479999999999729,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": -1047.614060161818,
+          "reward_imitation": -1036.1395821910746,
+          "reward_energy": -11.474477970743411,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 0.0,
+          "qpos_track_err": 0.2920619983592425,
+          "pelvis_z": 0.7126272143618151,
+          "up_tilt_deg": 57.10406664946328,
+          "official_terminated_flag": true,
+          "official_truncated_flag": true,
+          "termination_source": null
+        },
+        {
+          "index": 224,
+          "sim_time_before": 4.479999999999729,
+          "sim_time_after": 4.499999999999726,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": -1044.548428659255,
+          "reward_imitation": -1032.9697911672358,
+          "reward_energy": -11.578637492019295,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 0.0,
+          "qpos_track_err": 0.28847965972219924,
+          "pelvis_z": 0.6907364395438063,
+          "up_tilt_deg": 59.11071668042765,
+          "official_terminated_flag": true,
+          "official_truncated_flag": true,
+          "termination_source": null
+        },
+        {
+          "index": 225,
+          "sim_time_before": 4.499999999999726,
+          "sim_time_after": 4.519999999999724,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": -1052.9187209861095,
+          "reward_imitation": -1041.2496905287828,
+          "reward_energy": -11.669030457326631,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 0.0,
+          "qpos_track_err": 0.28725517417420465,
+          "pelvis_z": 0.6655713917171928,
+          "up_tilt_deg": 61.575733815955715,
+          "official_terminated_flag": true,
+          "official_truncated_flag": true,
+          "termination_source": "physical_fall"
+        }
+      ],
+      "trail": "/home/zrq/Documents/muscle-rl/runs/eval_long_research/trajectories/ep2_seed2.npz"
+    },
+    {
+      "label": "ep3",
+      "seed": 3,
+      "strength": {
+        "spec": null
+      },
+      "steps": 224,
+      "n_physics_steps": 2240,
+      "control_dt_s": 0.02,
+      "sim_time_s": 4.479999999999729,
+      "sim_time_nominal_s": 4.48,
+      "wall_time_s": 2.510944625000093,
+      "terminated": true,
+      "truncated": false,
+      "termination_reason": "骨盆直立偏差 62.1° > 60.0°",
+      "termination_source": "physical_fall",
+      "is_numeric_anomaly": false,
+      "is_physical_fall": true,
+      "n_official_term_flags": 49,
+      "n_steps_after_official_term": 48,
+      "reached_time_limit": false,
+      "reached_step_cap": false,
+      "root_start_pos": [
+        0.9522203743727269,
+        0.03882285499331566,
+        0.9156223226223054
+      ],
+      "root_end_pos": [
+        5.0057939845072505,
+        0.439945986143165,
+        0.6820599694260137
+      ],
+      "displacement_xy": 4.073371917603706,
+      "forward_displacement_x": 4.053573610134523,
+      "lateral_drift_y": 0.4011231311498493,
+      "distance_3d": 4.080062518142716,
+      "mean_speed_xy": 0.9092348030365965,
+      "forward_speed_x": 0.9048155379765109,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9020480003419623,
+      "min_pelvis_height": 0.6820599694260137,
+      "final_pelvis_height": 0.6820599694260137,
+      "max_pelvis_up_tilt_deg": 62.099883364586844,
+      "final_pelvis_up_tilt_deg": 62.099883364586844,
+      "posture_change_deg": 61.55694967146791,
+      "max_root_speed": 2.1270233672809997,
+      "max_root_ang_speed": 3.4933347708359688,
+      "final_root_lin_vel": [
+        0.9579949580004993,
+        1.1751600844689147,
+        -1.4918018773537043
+      ],
+      "final_root_ang_vel": [
+        -1.8101126475292808,
+        1.5165899487404095,
+        0.17439611831550839
+      ],
+      "mean_qpos_track_err": 0.06119754975457543,
+      "max_qpos_track_err": 0.30273608164328447,
+      "final_qpos_track_err": 0.30273608164328447,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.8542789757618162,
+          "excitation_mean": 0.09786923628301825,
+          "activation_mean": 0.10916328443844933,
+          "force_abs_mean": 25.92658364793067
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9210375647346295,
+          "excitation_mean": 0.1302705835447848,
+          "activation_mean": 0.13628952636999128,
+          "force_abs_mean": 26.76704829797415
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.6958303183104312,
+          "excitation_mean": 0.21864101140069708,
+          "activation_mean": 0.25312651560674454,
+          "force_abs_mean": 144.24733242838195
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7569541428823555,
+          "excitation_mean": 0.20707980499372622,
+          "activation_mean": 0.23217122991262307,
+          "force_abs_mean": 120.44661821019555
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.6111163526670449,
+          "excitation_mean": 0.22593910644275134,
+          "activation_mean": 0.25612042683984965,
+          "force_abs_mean": 27.011340928809236
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7386398441628627,
+          "excitation_mean": 0.1971588045189606,
+          "activation_mean": 0.2178941116071344,
+          "force_abs_mean": 26.850370477799647
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7599772200919688,
+          "excitation_mean": 0.18047537238769593,
+          "activation_mean": 0.202148489011875,
+          "force_abs_mean": 20.479631190748485
+        }
+      },
+      "action_abs_mean": 0.7635547478523639,
+      "action_abs_max": 0.9999995057071959,
+      "excitation_mean": 0.18123787695087826,
+      "activation_mean": 0.2018583147941339,
+      "actuator_force_abs_mean": 39.94766068755994,
+      "reward_totals": {
+        "official_total": -4873.412295145252,
+        "imitation": -22978.584695743913,
+        "energy": -894.8275994013427,
+        "survival_physical": 22400.0,
+        "official_healthy": 19000.0
+      },
+      "ncon_mean": 4.044642857142857,
+      "ncon_max": 10.0,
+      "total_normal_force_mean": 577.1570128843248,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 18.420305961993368,
+      "max_abs_qacc": 17831.682796481244,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "jacobian_vs_index_max_diff": 1.9906290454311364,
+      "accounting": {
+        "n_control_steps_recorded": 224,
+        "n_control_steps_executed": 224,
+        "all_steps_recorded": true,
+        "n_physics_steps": 2240,
+        "physics_step_size_s": 0.002,
+        "control_dt_s": 0.02,
+        "elapsed_time_s": 4.479999999999729,
+        "nominal_time_s": 4.48,
+        "time_source": "data.time 差（实际仿真时间），非步数×dt",
+        "max_abs_diff_elapsed_vs_nominal": 2.717825964282383e-13,
+        "per_step_gap_max_dev": 2.203098814490545e-15,
+        "last_step_recorded": true,
+        "last_step_termination_source": "physical_fall",
+        "ledger_covers_terminating_step": true
+      },
+      "final_force_terms": {
+        "qfrc_actuator_norm": 13933.407836654986,
+        "qfrc_actuator_absmax": 9377.482538484006,
+        "qfrc_passive_norm": 20.493110956844955,
+        "qfrc_passive_absmax": 15.326336380311329,
+        "qfrc_bias_norm": 623.1426026839353,
+        "qfrc_bias_absmax": 602.8885144630059,
+        "qfrc_constraint_norm": 13919.96366092912,
+        "qfrc_constraint_absmax": 9364.230843055286,
+        "qfrc_applied_norm": 0.0,
+        "qfrc_applied_absmax": 0.0,
+        "xfrc_applied_norm": 0.0,
+        "xfrc_applied_absmax": 0.0,
+        "qfrc_inverse_norm": 0.0,
+        "qfrc_inverse_absmax": 0.0,
+        "qacc_norm": 127.83039517181012,
+        "qacc_absmax": 121.61682842502351,
+        "n_translational_dofs": 0,
+        "unit_note": "qfrc_* 为广义力，混合 N 与 N·m；范数只用于量级/突变检测，不能解释为承重或贡献占比"
+      },
+      "final_constraint_decomposition": {
+        "nefc": 72,
+        "sign_convention": "+J^T·f",
+        "per_type_norm": {
+          "equality": 5786.914343464652,
+          "friction_dof": 0.0,
+          "friction_tendon": 0.0,
+          "limit_joint": 9374.410996893543,
+          "limit_tendon": 0.0,
+          "contact_frictionless": 0.0,
+          "contact_pyramidal": 105.82840282157375,
+          "contact_elliptic": 0.0
+        },
+        "per_type_absmax": {
+          "equality": 2647.709143700306,
+          "friction_dof": 0.0,
+          "friction_tendon": 0.0,
+          "limit_joint": 6723.047118932218,
+          "limit_tendon": 0.0,
+          "contact_frictionless": 0.0,
+          "contact_pyramidal": 45.4268303540501,
+          "contact_elliptic": 0.0
+        },
+        "per_group_norm": {
+          "equality": 5786.914343464652,
+          "limit": 9374.410996893543,
+          "contact": 105.82840282157375,
+          "friction": 0.0
+        },
+        "target_qfrc_constraint_norm": 13919.96366092912,
+        "decomposition_residual_absmax": 5.684341886080802e-14,
+        "decomposition_ok": true,
+        "n_active_by_type": {
+          "equality": 42,
+          "limit_joint": 26,
+          "contact_pyramidal": 4
+        },
+        "note": "qfrc_constraint 是接触/限位/equality/摩擦的合计；本表按 mjCNSTR_* 类型拆开，残差接近 0 才说明拆解正确（而不是把整体归因于某一类）"
+      },
+      "final_muscle_split": {
+        "n_actuators": 700,
+        "total_force": {
+          "mean_abs": 115.60812571292479,
+          "abs_max": 2960.205287943764,
+          "mean_signed": -115.60812571292479
+        },
+        "active_force": {
+          "mean_abs": 115.03937528557458,
+          "abs_max": 2960.205287943764,
+          "mean_signed": -115.03937528557458
+        },
+        "passive_force": {
+          "mean_abs": 0.56875042735019,
+          "abs_max": 147.97539170880464,
+          "mean_signed": -0.56875042735019
+        },
+        "active_matches_definition_absmax": 2.842170943040401e-14,
+        "act_mean": 0.4730424615261206,
+        "definition": "F_active = F(act) - F(act=0)；F_passive = F(act=0)"
+      },
+      "ledger_tail": [
+        {
+          "index": 221,
+          "sim_time_before": 4.419999999999735,
+          "sim_time_after": 4.439999999999733,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": -1134.1697017762635,
+          "reward_imitation": -1122.616641625478,
+          "reward_energy": -11.553060150785468,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 0.0,
+          "qpos_track_err": 0.30189400398951605,
+          "pelvis_z": 0.7336446382997754,
+          "up_tilt_deg": 56.983035329962426,
+          "official_terminated_flag": true,
+          "official_truncated_flag": true,
+          "termination_source": null
+        },
+        {
+          "index": 222,
+          "sim_time_before": 4.439999999999733,
+          "sim_time_after": 4.459999999999731,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": -1145.1750024514577,
+          "reward_imitation": -1133.620861225752,
+          "reward_energy": -11.554141225705822,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 0.0,
+          "qpos_track_err": 0.30155496701637385,
+          "pelvis_z": 0.7097745122095516,
+          "up_tilt_deg": 59.50092298954616,
+          "official_terminated_flag": true,
+          "official_truncated_flag": true,
+          "termination_source": null
+        },
+        {
+          "index": 223,
+          "sim_time_before": 4.459999999999731,
+          "sim_time_after": 4.479999999999729,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": -1157.6143796167885,
+          "reward_imitation": -1146.053567045496,
+          "reward_energy": -11.56081257129248,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 0.0,
+          "qpos_track_err": 0.30273608164328447,
+          "pelvis_z": 0.6820599694260137,
+          "up_tilt_deg": 62.099883364586844,
+          "official_terminated_flag": true,
+          "official_truncated_flag": true,
+          "termination_source": "physical_fall"
+        }
+      ],
+      "trail": "/home/zrq/Documents/muscle-rl/runs/eval_long_research/trajectories/ep3_seed3.npz"
+    },
+    {
+      "label": "ep4",
+      "seed": 4,
+      "strength": {
+        "spec": null
+      },
+      "steps": 236,
+      "n_physics_steps": 2360,
+      "control_dt_s": 0.02,
+      "sim_time_s": 4.719999999999702,
+      "sim_time_nominal_s": 4.72,
+      "wall_time_s": 5.30391101500004,
+      "terminated": true,
+      "truncated": false,
+      "termination_reason": "骨盆直立偏差 60.6° > 60.0°",
+      "termination_source": "physical_fall",
+      "is_numeric_anomaly": false,
+      "is_physical_fall": true,
+      "n_official_term_flags": 61,
+      "n_steps_after_official_term": 60,
+      "reached_time_limit": false,
+      "reached_step_cap": false,
+      "root_start_pos": [
+        0.8524877542774054,
+        0.0426589867710688,
+        0.9316075186901448
+      ],
+      "root_end_pos": [
+        4.9111343305620965,
+        0.5632787206721768,
+        0.6764926283172932
+      ],
+      "displacement_xy": 4.091901384260709,
+      "forward_displacement_x": 4.058646576284691,
+      "lateral_drift_y": 0.5206197339011079,
+      "distance_3d": 4.099846405147961,
+      "mean_speed_xy": 0.8669282593773234,
+      "forward_speed_x": 0.8598827492129124,
+      "ref_forward_speed": 1.037841953725355,
+      "mean_pelvis_height": 0.9009999266302005,
+      "min_pelvis_height": 0.6764926283172932,
+      "final_pelvis_height": 0.6764926283172932,
+      "max_pelvis_up_tilt_deg": 60.63194952080062,
+      "final_pelvis_up_tilt_deg": 60.63194952080062,
+      "posture_change_deg": 59.84211469303852,
+      "max_root_speed": 2.065460946822356,
+      "max_root_ang_speed": 3.1649058646221437,
+      "final_root_lin_vel": [
+        0.807706660098322,
+        1.4307931063525516,
+        -1.2516269256032853
+      ],
+      "final_root_ang_vel": [
+        -1.6663647240796147,
+        1.1088817539684546,
+        0.17320452478507975
+      ],
+      "mean_qpos_track_err": 0.06018048338907068,
+      "max_qpos_track_err": 0.29358675527456796,
+      "final_qpos_track_err": 0.29358675527456796,
+      "group_stats": {
+        "L/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.8498749626315477,
+          "excitation_mean": 0.09631725958083649,
+          "activation_mean": 0.10765174412666603,
+          "force_abs_mean": 25.163510481142662
+        },
+        "R/upper": {
+          "n_muscles": 61,
+          "action_abs_mean": 0.9173872861995668,
+          "excitation_mean": 0.12132333031873865,
+          "activation_mean": 0.12737738620711272,
+          "force_abs_mean": 24.173454782710326
+        },
+        "L/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.698684842056137,
+          "excitation_mean": 0.2195322724349325,
+          "activation_mean": 0.25135082898882904,
+          "force_abs_mean": 141.41614516292537
+        },
+        "R/lower": {
+          "n_muscles": 50,
+          "action_abs_mean": 0.7458702208228031,
+          "excitation_mean": 0.19944851546313508,
+          "activation_mean": 0.2269217872869402,
+          "force_abs_mean": 114.16997259281632
+        },
+        "M/torso": {
+          "n_muscles": 31,
+          "action_abs_mean": 0.6389169870112488,
+          "excitation_mean": 0.22836460840594322,
+          "activation_mean": 0.2544685891273316,
+          "force_abs_mean": 26.992517847250696
+        },
+        "L/torso": {
+          "n_muscles": 239,
+          "action_abs_mean": 0.7356504342341015,
+          "excitation_mean": 0.19031831975495114,
+          "activation_mean": 0.20938105165986853,
+          "force_abs_mean": 25.472383898489948
+        },
+        "R/torso": {
+          "n_muscles": 208,
+          "action_abs_mean": 0.7512001885523755,
+          "excitation_mean": 0.17801577174440733,
+          "activation_mean": 0.20052886065016942,
+          "force_abs_mean": 20.358127927846215
+        }
+      },
+      "action_abs_mean": 0.7598675284583402,
+      "action_abs_max": 0.9999988999537059,
+      "excitation_mean": 0.17688253883375965,
+      "activation_mean": 0.19698715484148582,
+      "actuator_force_abs_mean": 38.49717026125428,
+      "reward_totals": {
+        "official_total": -5678.802274131289,
+        "imitation": -23570.269055965684,
+        "energy": -908.5332181656012,
+        "survival_physical": 23600.0,
+        "official_healthy": 18800.0
+      },
+      "ncon_mean": 4.122881355932203,
+      "ncon_max": 10.0,
+      "total_normal_force_mean": 574.8519816719129,
+      "foot_contact_fraction": 1.0,
+      "max_abs_qvel": 39.39917061136372,
+      "max_abs_qacc": 49164.70336407091,
+      "qfrc_applied_abs_max": 0.0,
+      "xfrc_applied_abs_max": 0.0,
+      "jacobian_vs_index_max_diff": 1.9372584144860254,
+      "accounting": {
+        "n_control_steps_recorded": 236,
+        "n_control_steps_executed": 236,
+        "all_steps_recorded": true,
+        "n_physics_steps": 2360,
+        "physics_step_size_s": 0.002,
+        "control_dt_s": 0.02,
+        "elapsed_time_s": 4.719999999999702,
+        "nominal_time_s": 4.72,
+        "time_source": "data.time 差（实际仿真时间），非步数×dt",
+        "max_abs_diff_elapsed_vs_nominal": 2.9753977059954195e-13,
+        "per_step_gap_max_dev": 2.203098814490545e-15,
+        "last_step_recorded": true,
+        "last_step_termination_source": "physical_fall",
+        "ledger_covers_terminating_step": true
+      },
+      "final_force_terms": {
+        "qfrc_actuator_norm": 13922.964350287579,
+        "qfrc_actuator_absmax": 9512.281210376696,
+        "qfrc_passive_norm": 20.860003803466444,
+        "qfrc_passive_absmax": 15.75508899052042,
+        "qfrc_bias_norm": 627.3107673002871,
+        "qfrc_bias_absmax": 607.9838076178971,
+        "qfrc_constraint_norm": 13911.883199166288,
+        "qfrc_constraint_absmax": 9491.719386486733,
+        "qfrc_applied_norm": 0.0,
+        "qfrc_applied_absmax": 0.0,
+        "xfrc_applied_norm": 0.0,
+        "xfrc_applied_absmax": 0.0,
+        "qfrc_inverse_norm": 0.0,
+        "qfrc_inverse_absmax": 0.0,
+        "qacc_norm": 110.8425578311316,
+        "qacc_absmax": 102.55905000662463,
+        "n_translational_dofs": 0,
+        "unit_note": "qfrc_* 为广义力，混合 N 与 N·m；范数只用于量级/突变检测，不能解释为承重或贡献占比"
+      },
+      "final_constraint_decomposition": {
+        "nefc": 73,
+        "sign_convention": "+J^T·f",
+        "per_type_norm": {
+          "equality": 5766.373428680462,
+          "friction_dof": 0.0,
+          "friction_tendon": 0.0,
+          "limit_joint": 9434.018764121656,
+          "limit_tendon": 0.0,
+          "contact_frictionless": 0.0,
+          "contact_pyramidal": 215.28585145094516,
+          "contact_elliptic": 0.0
+        },
+        "per_type_absmax": {
+          "equality": 2652.2253771858486,
+          "friction_dof": 0.0,
+          "friction_tendon": 0.0,
+          "limit_joint": 6938.916041773977,
+          "limit_tendon": 0.0,
+          "contact_frictionless": 0.0,
+          "contact_pyramidal": 114.95992033737414,
+          "contact_elliptic": 0.0
+        },
+        "per_group_norm": {
+          "equality": 5766.373428680462,
+          "limit": 9434.018764121656,
+          "contact": 215.28585145094516,
+          "friction": 0.0
+        },
+        "target_qfrc_constraint_norm": 13911.883199166288,
+        "decomposition_residual_absmax": 5.684341886080802e-14,
+        "decomposition_ok": true,
+        "n_active_by_type": {
+          "equality": 42,
+          "limit_joint": 27,
+          "contact_pyramidal": 4
+        },
+        "note": "qfrc_constraint 是接触/限位/equality/摩擦的合计；本表按 mjCNSTR_* 类型拆开，残差接近 0 才说明拆解正确（而不是把整体归因于某一类）"
+      },
+      "final_muscle_split": {
+        "n_actuators": 700,
+        "total_force": {
+          "mean_abs": 117.44790503469966,
+          "abs_max": 2963.4261619955532,
+          "mean_signed": -117.44790503469966
+        },
+        "active_force": {
+          "mean_abs": 115.46496466626235,
+          "abs_max": 2963.4261619955532,
+          "mean_signed": -115.46496466626235
+        },
+        "passive_force": {
+          "mean_abs": 1.9829403684372977,
+          "abs_max": 950.5245540279011,
+          "mean_signed": -1.9829403684372977
+        },
+        "active_matches_definition_absmax": 7.105427357601002e-15,
+        "act_mean": 0.473084071146748,
+        "definition": "F_active = F(act) - F(act=0)；F_passive = F(act=0)"
+      },
+      "ledger_tail": [
+        {
+          "index": 233,
+          "sim_time_before": 4.659999999999709,
+          "sim_time_after": 4.679999999999707,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": -1039.252696556138,
+          "reward_imitation": -1027.7224970285602,
+          "reward_energy": -11.530199527577802,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 0.0,
+          "qpos_track_err": 0.28863763601733033,
+          "pelvis_z": 0.7212986216928544,
+          "up_tilt_deg": 56.01424303975368,
+          "official_terminated_flag": true,
+          "official_truncated_flag": true,
+          "termination_source": null
+        },
+        {
+          "index": 234,
+          "sim_time_before": 4.679999999999707,
+          "sim_time_after": 4.699999999999704,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": -1054.849625983225,
+          "reward_imitation": -1043.1270045001993,
+          "reward_energy": -11.722621483025733,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 0.0,
+          "qpos_track_err": 0.2908761152344397,
+          "pelvis_z": 0.6997266503030668,
+          "up_tilt_deg": 58.265166586932544,
+          "official_terminated_flag": true,
+          "official_truncated_flag": true,
+          "termination_source": null
+        },
+        {
+          "index": 235,
+          "sim_time_before": 4.699999999999704,
+          "sim_time_after": 4.719999999999702,
+          "control_dt": 0.02,
+          "physics_steps": 10,
+          "reward_total": -1070.6219708427466,
+          "reward_imitation": -1058.8771803392767,
+          "reward_energy": -11.744790503469966,
+          "reward_survival_physical": 100.0,
+          "reward_official_healthy": 0.0,
+          "qpos_track_err": 0.29358675527456796,
+          "pelvis_z": 0.6764926283172932,
+          "up_tilt_deg": 60.63194952080062,
+          "official_terminated_flag": true,
+          "official_truncated_flag": true,
+          "termination_source": "physical_fall"
+        }
+      ],
+      "trail": "/home/zrq/Documents/muscle-rl/runs/eval_long_research/trajectories/ep4_seed4.npz"
+    }
+  ]
+}
