@@ -89,6 +89,28 @@ class TerminationConfig:
     nan_check: bool = True
     #: 仿真时长上限（秒）。None 时沿用官方的 ``terminate_time * cycles``。
     time_limit_s: Optional[float] = None
+    #: 骨盆世界系侧向位置与**当前参考**侧向位置之差的绝对值上限（米）。None 表示不检查。
+    #:
+    #: 为什么需要这一项（实证依据）：长时失稳诊断显示，人体侧向漂移是**唯一**在跌倒前显著
+    #: 发散的信号（``drift_y_human_minus_ref`` 最大 0.438 m，而参考自身摆动只有 0.076 m），
+    #: 且它（3.58 s）排在跌倒（4.09 s）之前。但当前密集侧向惩罚只有 −15.8/步，
+    #: 而物理存活奖励是 +100/步，相差 6 倍 —— 漂移仍然净赚正回报，靠惩罚改不动。
+    #: 改成**终止**后，漂移的代价从「每步 −15.8」变为「损失剩余全部回报」，
+    #: 量级上才与存活奖励可竞争。
+    #:
+    #: 注意：这属于**任务失败**而非生理性跌倒，统计上单独归类（见
+    #: ``hemirl.research_env.SOURCE_TASK_LATERAL_DRIFT``），不得混入跌倒计数。
+    max_lateral_dev_from_ref_m: Optional[float] = None
+    #: 侧向偏移必须**连续**超过 ``max_lateral_dev_from_ref_m`` 的时长（秒）才判为终止。
+    #:
+    #: 为什么需要持续时长（实测依据，见 ``reports/lateral_threshold_calibration.json``）：
+    #: 官方策略的侧向偏移有一个**早期瞬态**（t≈2 s 中位 0.072 m、p90 0.113 m），
+    #: 之后回落到 0.012 m，再在 t≈4.5 s 终末发散到 0.30-0.44 m。瞬态与终末发散在
+    #: 量级上重叠，所以**单靠位置阈值无法区分“正常步态相位差”与“正在失去平衡”**：
+    #: 阈值 0.12 m 时首次越界中位 3.79 s（只比跌倒早 0.69 s），阈值 0.10 m 时
+    #: 2.22 s（早 2.71 s，但会打到正常瞬态）。加上持续时长后，可以用较低的阈值
+    #: 而不误打在瞬态上。设为 0 或 None 时退化为瞬时判定。
+    lateral_hold_s: float = 0.0
     #: 明确声明：**不**因偏离参考姿态而终止。
     allow_reference_deviation_termination: bool = False
 
@@ -181,11 +203,18 @@ def evaluate_research_termination(
     pelvis_body_id: int,
     time_s: float,
     upright_local: Optional[np.ndarray] = None,
+    ref_y: Optional[float] = None,
+    lateral_hold: Optional[float] = None,
 ) -> Optional[str]:
     """返回终止原因字符串；未触发返回 ``None``。
 
     Args:
         upright_local: 由 :func:`pelvis_upright_local_axis` 标定的直立轴；用于倾角判据。
+        ref_y: 当前参考轨迹的世界系侧向位置（米）。仅在
+            ``cfg.max_lateral_dev_from_ref_m`` 非 None 时需要；缺失时**报错**而不是
+            静默跳过，否则配置写了却不生效。
+        lateral_hold: 调用方维护的「已连续超限时长（秒）」。跨步状态不能在本函数里保存，
+            因为同一配置会被多个环境实例共享。
     """
     if cfg.kind == "official":
         return None
@@ -228,6 +257,24 @@ def evaluate_research_termination(
         n = float(np.linalg.norm(np.asarray(data.qvel, dtype=float)))
         if n > cfg.max_joint_speed_norm:
             return f"关节速度范数 {n:.1f} > {cfg.max_joint_speed_norm}"
+
+    if cfg.max_lateral_dev_from_ref_m is not None:
+        if ref_y is None:
+            raise ValueError(
+                "配置要求侧向偏移终止（max_lateral_dev_from_ref_m 非 None），"
+                "但调用处未传 ref_y —— 不能静默跳过，否则该终止项看似开启实则无效。"
+            )
+        y = float(data.xpos[pelvis_body_id][1])
+        dev = y - float(ref_y)
+        # 持续时长判据由调用方维护（需要跨步状态），此处在 ``lateral_hold`` 参数里传入
+        # 已连续超限的时长；未传时按瞬时判定。
+        held = float(lateral_hold) if lateral_hold is not None else 0.0
+        if abs(dev) > float(cfg.max_lateral_dev_from_ref_m) and held >= float(cfg.lateral_hold_s):
+            return (
+                f"侧向偏移 {dev:+.3f} m 超过 {cfg.max_lateral_dev_from_ref_m} m "
+                f"并已持续 {held:.2f} s（限 {cfg.lateral_hold_s:.2f} s）；"
+                f"人体 y={y:+.3f}，参考 y={float(ref_y):+.3f}"
+            )
 
     if cfg.time_limit_s is not None and time_s >= cfg.time_limit_s:
         return f"达到时间上限 {cfg.time_limit_s} s"

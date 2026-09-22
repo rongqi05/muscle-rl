@@ -61,6 +61,9 @@ SOURCE_TIME_LIMIT = "time_limit"
 SOURCE_STEP_CAP = "step_cap"
 SOURCE_OFFICIAL_REFERENCE = "official_reference_deviation"
 SOURCE_OFFICIAL_TIME = "official_time_limit"
+#: 任务失败：侧向偏移超限。属于**任务层面**的失败，不是生理性跌倒，
+#: 因此单独归类，不得计入 ``physical_fall`` 统计。
+SOURCE_TASK_LATERAL_DRIFT = "task_lateral_drift"
 
 #: 奖励模式
 REWARD_MODE_OFFICIAL = "official"  # 返回上游 reward（与 checkpoint 训练时一致）
@@ -188,8 +191,11 @@ class StepRecord:
     qpos_track_err: float
     pelvis_z: float
     up_tilt_deg: float
-    official_terminated_flag: bool
-    official_truncated_flag: bool
+    #: 骨盆侧向位置相对当前参考的偏移（米）。侧向漂移终止启用时必须可追溯。
+    lateral_dev_m: Optional[float] = None
+    lateral_dev_limit_m: Optional[float] = None
+    official_terminated_flag: bool = False
+    official_truncated_flag: bool = False
     termination_reason: Optional[str] = None
     termination_source: Optional[str] = None
 
@@ -261,6 +267,8 @@ class ResearchLocomotionEnv(gym.Wrapper):
         self._done = False
         self._termination_reason: Optional[str] = None
         self._termination_source: Optional[str] = None
+        #: 侧向偏移已连续超限的时长（秒）。跳步状态，reset 时清 0。
+        self._lateral_hold_s: float = 0.0
         self._terminated = False
         self._truncated = False
         self._n_official_term_flags = 0
@@ -338,6 +346,7 @@ class ResearchLocomotionEnv(gym.Wrapper):
             "n_official_terminated_flags": self._n_official_term_flags,
             "numeric_anomaly": self._termination_source == SOURCE_NUMERIC_ANOMALY,
             "physical_fall": self._termination_source == SOURCE_PHYSICAL_FALL,
+            "task_lateral_drift": self._termination_source == SOURCE_TASK_LATERAL_DRIFT,
             # 明确的截断标志（任务书第 5 条：达到本地上限必须能被显式识别）
             "reached_time_limit": self._termination_source == SOURCE_TIME_LIMIT,
             "reached_step_cap": self._termination_source == SOURCE_STEP_CAP,
@@ -363,6 +372,7 @@ class ResearchLocomotionEnv(gym.Wrapper):
         self._n_official_term_flags = 0
         self._reset_time = float(self.data.time)
         self._pelvis_y_start = self._pelvis_y()
+        self._lateral_hold_s = 0.0
         # 按本回合参考姿态标定骨盆直立轴（pelvis body 局部坐标系与世界「上」不对齐）
         self._upright_local = pelvis_upright_local_axis(
             self.model, np.asarray(self.raw_env.qpos_ref), self.pelvis_id
@@ -420,6 +430,8 @@ class ResearchLocomotionEnv(gym.Wrapper):
                     qpos_track_err=self.reference_track_err(),
                     pelvis_z=self.pelvis_height(),
                     up_tilt_deg=self.up_tilt_deg(),
+                    lateral_dev_m=self._lateral_dev(),
+                    lateral_dev_limit_m=self.cfg.termination.max_lateral_dev_from_ref_m,
                     official_terminated_flag=bool(term_official),
                     official_truncated_flag=bool(trunc_official),
                     termination_reason=reason,
@@ -565,6 +577,14 @@ class ResearchLocomotionEnv(gym.Wrapper):
                 return (reason, SOURCE_NUMERIC_ANOMALY)
 
         # 2) 物理跌倒 / 明确任务失败（不含参考姿态偏差，不含时间上限）
+        # 侧向偏移的「持续时长」是跳步状态（同一配置被多个环境实例共享，不能存在配置里），
+        # 因此在这里维护：超过阈值则累加一步 dt，回落则清 0。
+        lat_limit = self.cfg.termination.max_lateral_dev_from_ref_m
+        if lat_limit is not None and abs(self._lateral_dev()) > float(lat_limit):
+            self._lateral_hold_s += self.dt
+        else:
+            self._lateral_hold_s = 0.0
+
         phys_cfg = replace(self.cfg.termination, time_limit_s=None)
         r = evaluate_research_termination(
             self.model,
@@ -573,9 +593,18 @@ class ResearchLocomotionEnv(gym.Wrapper):
             self.pelvis_id,
             sim_time,
             upright_local=self._upright_local,
+            ref_y=self._ref_y(),
+            lateral_hold=self._lateral_hold_s,
         )
         if r is not None:
-            src = SOURCE_NUMERIC_ANOMALY if r.startswith("数值异常") else SOURCE_PHYSICAL_FALL
+            if r.startswith("数值异常"):
+                src = SOURCE_NUMERIC_ANOMALY
+            elif r.startswith("侧向偏移"):
+                # 任务层面的失败：策略选择往侧面走，不是物理上摔倒了。
+                # 任务书要求「不可把不同性质的结束混在一起」，故单独归类。
+                src = SOURCE_TASK_LATERAL_DRIFT
+            else:
+                src = SOURCE_PHYSICAL_FALL
             self._terminated, self._termination_reason, self._termination_source = True, r, src
             return (r, src)
 
@@ -613,6 +642,10 @@ class ResearchLocomotionEnv(gym.Wrapper):
     def _ref_y(self) -> float:
         """参考当前的世界系侧向位置（m）。qpos[0]=pelvis_tz 对应世界 −y。"""
         return -float(np.asarray(self.raw_env.qpos_ref, dtype=float)[0])
+
+    def _lateral_dev(self) -> float:
+        """骨盆侧向位置相对**当前参考**的偏移（m）。诊断中的领先指标。"""
+        return self._pelvis_y() - self._ref_y()
 
     def _root_lin_vel(self) -> np.ndarray:
         """骨盆 body 原点的世界系线速度（旋转 Jacobian，不依赖槽位顺序）。"""

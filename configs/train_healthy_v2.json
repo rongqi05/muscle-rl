@@ -1,0 +1,151 @@
+{
+  "_comment": "正常行走微调 v2（肌力固定 1.0）。相对 v1 的**唯一任务语义改动**是开启侧向偏移终止；预算保持 50000 transitions / 30 分钟不变，以便把 v1→v2 读成单因素对照。",
+  "tag": "healthy_v2",
+  "checkpoint_dir": "artifacts/checkpoints/LocomotionFull",
+  "seed": 0,
+  "parallel_envs": 12,
+  "_parallel_note": "实测（scripts/measure_throughput.py）：12 进程合计 2457 steps/s，8 进程 1942，单进程 298；12 是本机 20 核下的吞吐最优档。与 v1 相同。",
+  "replay_buffer_size": 100000,
+  "_buffer_note": "32 KB/transition（obs 3601 + next_obs 3601 + act 700，float32）。1e5 → 2.94 GiB；上游的 1e6 需要 29.4 GiB，会耗尽 31 GiB 内存，不能用。与 v1 相同。",
+  "batch_size": 256,
+  "train_freq": 2,
+  "gradient_steps": 1,
+  "_train_freq_note": "SB3 每轮 collect_rollouts 收集 train_freq × n_envs 个 transition 后调用一次 train()，所以 n_updates = 50000 / (2 × 12) = 2083 次。与 v1 相同，保证两次试训练梯度次数一致。",
+  "learning_starts": 200,
+  "_learning_starts_note": "上游 10000 步不做更新，在 50k 预算下会浪费 20%。此处 200 步即开始学习：critic 已从官方 checkpoint 继承（见 critic_init），不是从零学。与 v1 相同。",
+  "learning_rate": 0.0001,
+  "lr_schedule": "constant",
+  "_lr_note": "不继承 checkpoint 的 FloatSchedule（其进度为 0.1、对应 lr=1.25e-4）。改为显式常数 1e-4，避免「继承已完成训练的旧进度」带来的隐式变化。与 v1 相同。",
+  "critic_init": "keep",
+  "alpha_init": "keep",
+  "_init_note": "由 4 组 2000-transition 对照实验决定（reports/train_check_init.json）：keep+keep 验证集存活 4.95s；reset+keep 0.64s（崩溃）。结论：重置 critic 会立刻摧毁已学会的行走，因此沿用官方 critic 与 alpha。与 v1 相同。",
+  "dynsyn_weight_amp": 0.0,
+  "_dynsyn_note": "必须显式固定！checkpoint 里 dynsyn_weight_amp=None、dynsyn_k=5e-9、dynsyn_a=3e7、num_timesteps=4.5e7，上游 train() 会算出 amp=0.075 并在训练中把协同权重重标定，静默改变动作语义。固定为 0.0 时 weight 恒等于 1。与 v1 相同。",
+  "vec_normalize_update": false,
+  "_vec_note": "训练与评估都冻结官方 VecNormalize 统计（training=False）；评估环境绝不更新统计。与 v1 相同。",
+  "reward_mode": "split",
+  "reward_split": {
+    "w_survival": 100.0,
+    "include_official_healthy": false,
+    "normalization": 1.0
+  },
+  "extra_reward": {
+    "enable": true,
+    "w_lateral_dev": 125.8873230209337,
+    "w_lateral_vel": 32.617354566739145,
+    "w_forward_shortfall": 41.99930648837295,
+    "w_slip": 3.256271946166558,
+    "forward_speed_target": 1.0378,
+    "slip_tolerance": 1.0,
+    "reference_lateral_from": "ref"
+  },
+  "_extra_reward_note": "与 v1 逐位相同（权重由 reports/reward_calibration.json 的实测原始量反解：正常行走时每项 ≈ 5.0/步，4 项合计 ≈ -20/步，不盖过 imitation 的 -15.6/步）。forward_shortfall 同时防止「原地站立」退化。",
+  "termination": {
+    "max_lateral_dev_from_ref_m": 0.1,
+    "lateral_hold_s": 0.5,
+    "_note": "本阶段**唯一**的任务语义改动。原本（上一阶段报告 §8.2）拟用 0.25 m 瞬时判定，但本次实测**推翻了那个取值**：见下。",
+    "_calibration_note": "实测依据 reports/lateral_threshold_calibration.json + reports/lateral_hold_probe.json（10 个标定种子，非测试集）。官方策略 8 s 内跌倒中位时间 4.66 s。各纯位置阈值的首次越界中位（相对跌倒的提前量）：0.05→1.16 s(3.48)、0.08→1.73 s(2.85)、0.10→2.22 s(2.71)、0.12→3.79 s(0.69)、0.15→4.31 s(0.30)、0.20→4.38 s(0.22)、0.25→4.45 s(0.14)。→ **原拟的 0.25 m 只提前 0.14 s，几乎与跌倒同时触发，起不到预防作用——上一阶段的建议标定错了。**",
+    "_why_hold": "漂移存在**早期瞬态**（t≈2 s 中位 0.072 m、p90 0.113 m）与**终末发散**（t≈4.5 s 的 0.30–0.44 m）在量级上重叠，所以纯位置阈值无法区分「正常步态相位差」与「正在失去平衡」：阈值 0.12 m 只提前 0.69 s，阈值 0.10 m 虽提前 2.71 s 但会打在正常瞬态上。加上「必须连续超限」后，可以用较低阈值而不误打瞬态。实测组合对比（mean 存活 / 结束原因）：off 4.66s(fall×10)；0.10+hold0.5 3.90s(lateral×8,fall×2)；0.15+hold0.5 4.65s(fall×9,lateral×1)；0.15+hold0 4.34s(lateral×10)；0.25+hold0 4.51s(lateral×10)。→ 选 **0.10 m + hold 0.5 s**：它是所有可用组合中提前量最大的（。0.76 s，机制确实在训练中生效（8/10 由侧向终止）。",
+    "_honest_limitation": "**本项调整的力度很弱，已有实测证据。** 侧向偏移本质上是「跌倒探测器」而非早期预警：即使要求持续超限 0.5 s，也只能提前约 0.76 s。不存在既能避开正常瞬态、又能大幅提前的阈值。因此**不能指望这一项把 20 s 完成率从 0/20 改到 18/20**；它只能验证「把漂移从弱密集惩罚改成终止」这条机制是否正确。真正的主障碍已另行定位为价值函数更新量不足（见 reports/train_vs_baseline.json：Q_B/G_new = 1.360，高估 36% / 仅 2083 次更新）。",
+    "_cost_note": "代价：有效回合长度从 4.66 s 降到 3.90 s（−16%），同样 50k transitions 下的回合数增多、每回合梯度信号变少。该代价已计入评估（存活时间不会因此变好）。",
+    "_threshold_note": "0.10 m 仍在成功判据 max_lateral_drift_m=0.35 m 之内，且接近成人正常行走的侧向质心偏移量级（约 0.05 m）的 2 倍，不会把正常步态波动当成失败。",
+    "_classification_note": "该终止在统计上归类为 termination_source='task_lateral_drift'，与 physical_fall 分开计数，不得混入跌倒统计（已由 reports/termination_semantics.json 实测：触发时 TD 掩码=1，即不 bootstrap，确实产生代价）。"
+  },
+  "curriculum": {
+    "stages": [
+      {
+        "name": "s6",
+        "max_episode_seconds": 6.0,
+        "min_transitions": 0
+      },
+      {
+        "name": "s10",
+        "max_episode_seconds": 10.0,
+        "min_transitions": 15000
+      },
+      {
+        "name": "s20",
+        "max_episode_seconds": 20.0,
+        "min_transitions": 35000
+      }
+    ],
+    "promote_val_success_rate": 0.8,
+    "val_episodes": 5,
+    "val_seeds": [
+      101,
+      102,
+      103,
+      104,
+      105
+    ],
+    "_note": "升级需要「至少 min_transitions **且**独立验证集成功率 ≥ promote_val_success_rate」，不能只看训练步数。验证种子（101-105）与最终测试种子分离。与 v1 相同。"
+  },
+  "eval": {
+    "test_seeds": [
+      301,
+      302,
+      303,
+      304,
+      305,
+      306,
+      307,
+      308,
+      309,
+      310,
+      311,
+      312,
+      313,
+      314,
+      315,
+      316,
+      317,
+      318,
+      319,
+      320
+    ],
+    "_test_seeds_note": "本阶段启用**新的**留出测试集 301-320。原因：201-220 已在 v1 阶段被用于 A/B 判定，若再用它来判定 v2 就等于据测试结果调参。全部三个策略（A 官方 / B v1 / C v2）都在 301-320 上重新配对评估，同时附带报告 201-220 以保持与上阶段可比。",
+    "consumed_test_seeds": [
+      201,
+      202,
+      203,
+      204,
+      205,
+      206,
+      207,
+      208,
+      209,
+      210,
+      211,
+      212,
+      213,
+      214,
+      215,
+      216,
+      217,
+      218,
+      219,
+      220
+    ],
+    "episode_seconds": 20.0,
+    "success": {
+      "min_episode_seconds": 20.0,
+      "min_mean_forward_speed": 0.6,
+      "max_lateral_drift_m": 0.35,
+      "max_pelvis_tilt_deg": 45.0,
+      "max_foot_slip_mean_mps": 3.0,
+      "allow_numeric_anomaly": false
+    },
+    "degenerate_speed": 0.20,
+    "_degenerate_note": "双足均承重（法向力>20N）且前进速度绝对值低于该值时记一步「站着不走」；完成回合并列平均前进速度低于该值判为退化行为。",
+    "gate": {
+      "n_episodes": 20,
+      "n_required": 18,
+      "_note": "阶段性工程门槛，不代表临床有效性；本次小预算试训练不要求达到。"
+    }
+  },
+  "budget": {
+    "max_transitions": 50000,
+    "max_minutes": 30.0,
+    "_note": "所有并行环境合计的 transition 数；先到者停止。与 v1 相同，保证 v1→v2 是单因素对照。"
+  }
+}

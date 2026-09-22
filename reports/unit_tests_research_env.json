@@ -1,6 +1,6 @@
 {
-  "n": 11,
-  "n_pass": 11,
+  "n": 15,
+  "n_pass": 15,
   "results": [
     {
       "test": "T10 约束力分解：按类型拆开后残差为 0，不把 qfrc_constraint 整体归因 equality",
@@ -9,6 +9,26 @@
     },
     {
       "test": "T11 参考轨迹连续性：边界跳变可量化，且给出是否需要护栏的结论",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "T12 侧向偏移终止：触发时报 task_lateral_drift 且写清人体/参考两侧数值",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "T13 侧向限值宽松时不触发；未开限值时不记录该字段",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "T14 配置写了侧向限值却不传 ref_y → 必须报错而不是静默跳过",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "T15 侧向偏移与髋高/倾倒判据互不干扰（各份限值只触发自己的分支）",
       "ok": true,
       "error": null
     },

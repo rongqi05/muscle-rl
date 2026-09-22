@@ -1,0 +1,24 @@
+{
+  "entries": [
+    {
+      "recorded_at_utc": "2026-09-22T08:01:15.384915+00:00",
+      "resumed": false,
+      "resumed_from": null,
+      "transitions_this_run": 2004,
+      "num_timesteps_after": 45002004,
+      "wall_minutes": 0.4672441282833338,
+      "stop_reason": "到达 transition 预算",
+      "critic_init": "keep",
+      "alpha_init": "keep",
+      "dynsyn_weight_amp_pinned": 0.0,
+      "policy_drift": {
+        "max_abs_action_diff": 1.365253210067749,
+        "mean_abs_action_diff": 0.15568925440311432
+      },
+      "val_success_rate": 0.0,
+      "val_mean_alive_time_s": 4.947999999999677,
+      "saved_model_sha256": "dfeed4bb954be50aa1d7faada02115cbb46d123b9a15b67fa3d0e987f24e0395"
+    }
+  ],
+  "total_transitions_this_tag": 2004
+}

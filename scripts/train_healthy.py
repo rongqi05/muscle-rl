@@ -87,6 +87,8 @@ def make_research_env(spec: Dict[str, Any]):
             min_pelvis_height=spec["min_pelvis_height"],
             max_pelvis_up_tilt_deg=spec["max_pelvis_up_tilt_deg"],
             time_limit_s=None,
+            max_lateral_dev_from_ref_m=spec.get("max_lateral_dev_from_ref_m"),
+            lateral_hold_s=float(spec.get("lateral_hold_s") or 0.0),
         ),
         max_episode_seconds=spec["max_episode_seconds"],
         reward_mode="split",
@@ -108,6 +110,10 @@ def env_spec(cfg: Dict[str, Any], stage: Dict[str, Any]) -> Dict[str, Any]:
         "max_episode_seconds": float(stage["max_episode_seconds"]),
         "min_pelvis_height": 0.55,
         "max_pelvis_up_tilt_deg": 60.0,
+        "max_lateral_dev_from_ref_m": cfg.get("termination", {}).get(
+            "max_lateral_dev_from_ref_m"
+        ),
+        "lateral_hold_s": cfg.get("termination", {}).get("lateral_hold_s", 0.0),
         "w_survival": float(cfg["reward_split"]["w_survival"]),
         "include_official_healthy": bool(cfg["reward_split"]["include_official_healthy"]),
         "extra_reward": cfg.get("extra_reward"),

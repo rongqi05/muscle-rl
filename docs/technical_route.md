@@ -132,6 +132,37 @@ flowchart LR
 → **未达到**进入损伤适应训练的条件。下一次单项调整：给侧向偏移加**终止条件** + 提高训练预算
 （当前 critic 对新回报尺度高估 36%）。
 
+## 第三阶段：侧向偏移终止（已完成，实测为负结果）
+
+详见 [`reports/phase4_lateral_termination_report.md`](../reports/phase4_lateral_termination_report.md)。
+
+**做了什么**：把上一阶段 §8.2 建议的侧向终止真正实现（`hemirl/termination.py` 新增
+`max_lateral_dev_from_ref_m` + `lateral_hold_s`，`research_env` 中单独归类为
+`task_lateral_drift`），并**先做标定再训练**（上一阶段缺的这一步正是错误来源）。
+
+**标定结论**：上一阶段的 0.25 m 只提前 **0.14 s**（等于给跌倒改名）；漂移的早期瞬态
+（t≈2 s 到 0.11 m）与终末发散（t≈4.5 s 到 0.44 m）量级重叠，单靠位置阈值区分不了
+正常与失衡。加「持续超限」后选 0.10 m + 0.5 s，而提前量也只有 **0.76 s**
+→ 侧向偏移是**跌倒探测器，不是早期预警**。
+
+**机制核查（关键，不能靠推理）**：SB3 用 `dones * (1 - timeouts)` 作 TD 终止掩码，
+而 `timeouts = truncated and not terminated`。若把侧向终止报成 `truncated`，SB3 会继续
+bootstrap，**终止就完全不产生代价、机制静默失效**。`scripts/check_termination_semantics.py`
+把真实 transition 喂进真实 `ReplayBuffer` 实测：侧向终止掩码 = 1（不 bootstrap）、
+时间截断掩码 = 0（bootstrap）、物理跌倒掩码 = 1，SubprocVecEnv 同语义，6/6 通过。
+
+**结果（新留出测试集 301–320，A 官方 / B v1 / C v2）**：存活 4.96 / **5.56** / 5.29 s，
+20 s 完成率 **0/20 三路相同**。**B−A 全面改善**（+0.59 s、+0.064 m/s、倾角 −33.7°），
+但 **C−B 变差**（−0.27 s、−0.073 m/s）。归因：归一化与奖励定义均逐位未变（排除），
+C 动作饱和更低（更保守）。最可能机制：终止把回合从 4.66 s 截到 3.90 s，
+**砍掉了最接近跌倒的 0.76 s**，即学「如何挽回失衡」所需的样本。
+
+**结论**：门槛**未达**，**不得**开始损伤适应训练。下一次单项调整：`train_freq: 2 → 1`
+（同 50k transitions 内把更新 2083 → 4167，约 23 min < 30 min 上限），
+成功判据是 $Q/\mathrm{MC}$ 从 **1.376** 向 1 收敛。
+**两处结构性缺口**：课程阶段切换**未实现**（三次训练都只在 6 s 回合，20 s 从未训练过）；
+split 模式净奖励 **−38.7/步**（每步负回报，无正向目标）。
+
 ## 相关文档
 
 - [`README.md`](../README.md) — 环境准备、目录说明、可复制运行的命令

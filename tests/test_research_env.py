@@ -16,6 +16,7 @@ T8 奖励拆分    ``w_healthy`` 依赖参考姿态，不能被当成「物理�
 T9 根速度      ``root_state`` 的世界系角速度必须与旋转 Jacobian / 有限差分一致
 T10 力分解     约束力必须按类型拆开且残差为 0，不能把 qfrc_constraint 整体归因 equality
 T11 参考连续    参考轨迹的循环跳变必须被量化（长时评估的解释前提）
+T12-15 侧向     侧向偏移终止的触发、归类、与其它判据的隔离、缺参数时不得静默跳过
 ============  ==========================================================================
 
 运行：``PYTHONPATH=. python scripts/run_tests.py``（本文件不依赖 checkpoint）。
@@ -34,6 +35,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from hemirl import forces, muscle_groups, paths  # noqa: E402
 from hemirl.research_env import (  # noqa: E402
     REWARD_MODE_SPLIT,
+    SOURCE_TASK_LATERAL_DRIFT,
+    SOURCE_TIME_LIMIT,
     ResearchEnvConfig,
     build_research_env,
     reference_continuity_report,
@@ -427,6 +430,137 @@ def test_t11_reference_continuity():
     assert isinstance(rep["needs_loop_guard"], bool), rep
     # 前进位移累积不能有明显漂移
     assert rep["forward_accumulation_rel_err"] < 0.01, rep
+
+
+# ------------------------------------------------------------------ 侧向偏移终止
+
+
+@case("T12 侧向偏移终止：触发时报 task_lateral_drift 且写清人体/参考两侧数值")
+def test_t12_lateral_termination_triggers():
+    # 用一个极小的限值让第一个控制步就必然超限（确定性，不依赖跌倒时序）
+    term = TerminationConfig(kind="research", max_lateral_dev_from_ref_m=1e-4)
+    env, _raw = _make_env("t12", term, max_episode_seconds=6.0)
+    env.reset(seed=0)
+    info = None
+    for _ in range(5):
+        _obs, _rew, terminated, truncated, info = env.step(ZERO_ACTION)
+        if terminated or truncated:
+            break
+    assert terminated, "侧向限值 1e-4 m 时应在数步内终止"
+    meta = info["termination"]
+    assert meta["termination_source"] == SOURCE_TASK_LATERAL_DRIFT, meta
+    assert meta["task_lateral_drift"] is True, meta
+    # 必须与生理性跌倒分开：不得同时计入 physical_fall
+    assert meta["physical_fall"] is False, meta
+    assert "侧向偏移" in (meta["termination_reason"] or ""), meta
+    # 原因里要同时给出人体与参考位置，便于排查是"人在漂"还是"参考在漂"
+    assert "人体 y=" in meta["termination_reason"], meta
+    assert "参考 y=" in meta["termination_reason"], meta
+    # ledger 的终止步必须带上侧向偏移与限值
+    last = env.ledger[-1]
+    assert last.termination_source == SOURCE_TASK_LATERAL_DRIFT, last.to_dict()
+    assert last.lateral_dev_limit_m == 1e-4, last.to_dict()
+    assert last.lateral_dev_m is not None and abs(last.lateral_dev_m) > 1e-4, last.to_dict()
+
+
+@case("T13 侧向限值宽松时不触发；未开限值时不记录该字段")
+def test_t13_lateral_termination_not_triggered():
+    # 限值很大 → 不应因侧向而终止（改为由时间截断结束）
+    term = TerminationConfig(kind="research", max_lateral_dev_from_ref_m=100.0)
+    env, _raw = _make_env("t13", term, max_episode_seconds=0.4)
+    info = _run_until_done(env)
+    meta = info["termination"]
+    assert meta["termination_source"] == SOURCE_TIME_LIMIT, meta
+    assert meta["task_lateral_drift"] is False, meta
+    assert all(r.lateral_dev_limit_m == 100.0 for r in env.ledger), "应逐步记录限值"
+
+    # 未配置时：字段为 None，且不产生 task_lateral_drift
+    term_off = TerminationConfig(kind="research")
+    env2, _raw2 = _make_env("t13b", term_off, max_episode_seconds=0.4)
+    info2 = _run_until_done(env2)
+    assert info2["termination"]["termination_source"] == SOURCE_TIME_LIMIT, info2["termination"]
+    assert all(r.lateral_dev_limit_m is None for r in env2.ledger), "未开启时不应写限值"
+
+
+@case("T14 配置写了侧向限值却不传 ref_y → 必须报错而不是静默跳过")
+def test_t14_missing_ref_y_raises():
+    import mujoco
+
+    from hemirl.termination import evaluate_research_termination
+
+    env, raw = _make_env("t14", TerminationConfig(kind="research"), max_episode_seconds=0.4)
+    env.reset(seed=0)
+    cfg = TerminationConfig(kind="research", max_lateral_dev_from_ref_m=0.25)
+    try:
+        evaluate_research_termination(
+            env.model,
+            env.data,
+            cfg,
+            env.pelvis_id,
+            0.0,
+            upright_local=env._upright_local,
+            ref_y=None,
+        )
+    except ValueError as exc:
+        assert "ref_y" in str(exc), exc
+    else:
+        raise AssertionError("配置要求侧向终止但未传 ref_y 时必须抛 ValueError")
+    # 传了 ref_y 就能正常工作（此处差值远小于 0.25 m，应不触发）
+    assert (
+        evaluate_research_termination(
+            env.model,
+            env.data,
+            cfg,
+            env.pelvis_id,
+            0.0,
+            upright_local=env._upright_local,
+            ref_y=env._ref_y(),
+        )
+        is None
+    )
+
+
+@case("T15 侧向偏移与髋高/倾倒判据互不干扰（各份限值只触发自己的分支）")
+def test_t15_lateral_is_independent_branch():
+    from hemirl.termination import evaluate_research_termination
+
+    env, _raw = _make_env("t15", TerminationConfig(kind="research"), max_episode_seconds=0.4)
+    env.reset(seed=0)
+    # 把髋高与倾角判据关掉，只留侧向 → 触发时必须是侧向而不是髋高
+    cfg = TerminationConfig(
+        kind="research",
+        min_pelvis_height=None,
+        max_pelvis_up_tilt_deg=None,
+        max_lateral_dev_from_ref_m=1e-6,
+    )
+    r = evaluate_research_termination(
+        env.model,
+        env.data,
+        cfg,
+        env.pelvis_id,
+        0.0,
+        upright_local=env._upright_local,
+        ref_y=env._ref_y(),
+    )
+    assert r is not None and r.startswith("侧向偏移"), r
+
+    # 反过来：只留髋高判据（限值很大）→ 不应报侧向
+    cfg2 = TerminationConfig(
+        kind="research",
+        min_pelvis_height=0.55,
+        max_pelvis_up_tilt_deg=None,
+        max_lateral_dev_from_ref_m=100.0,
+    )
+    r2 = evaluate_research_termination(
+        env.model,
+        env.data,
+        cfg2,
+        env.pelvis_id,
+        0.0,
+        upright_local=env._upright_local,
+        ref_y=env._ref_y(),
+    )
+    assert r2 is None or not r2.startswith("侧向偏移"), r2
 
 
 def main() -> int:

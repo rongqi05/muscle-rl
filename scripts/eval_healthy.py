@@ -325,36 +325,61 @@ def main() -> int:
               f"跌倒={agg['n_fell']} 数值异常={agg['n_numeric_anomaly']} "
               f"退化站立={agg['n_degenerate_stood_still']}")
 
-    # 配对对比
+    # 配对对比：所有策略两两配对（不只比较前两个），便于 A/B/C 三方对照
     if len(report["policies"]) >= 2:
         names = list(report["policies"])
-        a, b = names[0], names[1]
-        ra = {r["seed"]: r for r in report["policies"][a]["episodes"]}
-        rb = {r["seed"]: r for r in report["policies"][b]["episodes"]}
-        common = sorted(set(ra) & set(rb))
-        report["paired_comparison"] = {
-            "A": a, "B": b, "n_paired": len(common),
-            "delta_alive_time_s": float(np.mean([rb[s]["alive_time_s"] - ra[s]["alive_time_s"] for s in common])),
-            "delta_forward_speed": float(np.mean([rb[s]["mean_forward_speed"] - ra[s]["mean_forward_speed"] for s in common])),
-            "delta_max_lateral_dev_m": float(
-                np.mean([rb[s]["max_lateral_dev_from_ref_m"] - ra[s]["max_lateral_dev_from_ref_m"] for s in common])
-            ),
-            "delta_max_tilt_deg": float(
-                np.mean([rb[s]["max_pelvis_tilt_deg"] - ra[s]["max_pelvis_tilt_deg"] for s in common])
-            ),
-            "delta_action_saturation": float(
-                np.mean([rb[s]["action_saturation_mean"] - ra[s]["action_saturation_mean"] for s in common])
-            ),
-            "delta_success_rate": float(
-                report["policies"][b]["aggregate"]["success_rate"]
-                - report["policies"][a]["aggregate"]["success_rate"]
-            ),
-            "per_seed": [
-                {"seed": s, "alive_A": ra[s]["alive_time_s"], "alive_B": rb[s]["alive_time_s"],
-                 "success_A": ra[s]["success"], "success_B": rb[s]["success"]}
-                for s in common
-            ],
+
+        def paired(x: str, y: str) -> Dict[str, Any]:
+            rx = {r["seed"]: r for r in report["policies"][x]["episodes"]}
+            ry = {r["seed"]: r for r in report["policies"][y]["episodes"]}
+            common = sorted(set(rx) & set(ry))
+            return {
+                "A": x, "B": y, "n_paired": len(common),
+                "delta_alive_time_s": float(np.mean([ry[s]["alive_time_s"] - rx[s]["alive_time_s"] for s in common])),
+                "delta_forward_speed": float(np.mean([ry[s]["mean_forward_speed"] - rx[s]["mean_forward_speed"] for s in common])),
+                "delta_max_lateral_dev_m": float(
+                    np.mean([ry[s]["max_lateral_dev_from_ref_m"] - rx[s]["max_lateral_dev_from_ref_m"] for s in common])
+                ),
+                "delta_max_tilt_deg": float(
+                    np.mean([ry[s]["max_pelvis_tilt_deg"] - rx[s]["max_pelvis_tilt_deg"] for s in common])
+                ),
+                "delta_action_saturation": float(
+                    np.mean([ry[s]["action_saturation_mean"] - rx[s]["action_saturation_mean"] for s in common])
+                ),
+                "delta_success_rate": float(
+                    report["policies"][y]["aggregate"]["success_rate"]
+                    - report["policies"][x]["aggregate"]["success_rate"]
+                ),
+                "n_success_x": int(sum(1 for s in common if rx[s]["success"])),
+                "n_success_y": int(sum(1 for s in common if ry[s]["success"])),
+                "per_seed": [
+                    {"seed": s, "alive_A": rx[s]["alive_time_s"], "alive_B": ry[s]["alive_time_s"],
+                     "success_A": rx[s]["success"], "success_B": ry[s]["success"]}
+                    for s in common
+                ],
+            }
+
+        all_pairs: Dict[str, Any] = {}
+        for i in range(len(names)):
+            for j in range(len(names)):
+                if i == j:
+                    continue
+                all_pairs[f"{names[j]}-{names[i]}"] = paired(names[i], names[j])
+        report["paired_comparisons"] = all_pairs
+        report["paired_comparison"] = all_pairs[f"{names[1]}-{names[0]}"]
+        # 三方（或更多）共同种子的逐种子表
+        per_seed_all = {
+            r["seed"]: {
+                names[k]: {
+                    "alive_s": report["policies"][names[k]]["episodes"][idx]["alive_time_s"],
+                    "success": report["policies"][names[k]]["episodes"][idx]["success"],
+                    "src": report["policies"][names[k]]["episodes"][idx]["termination_source"],
+                }
+                for k in range(len(names))
+            }
+            for idx, r in enumerate(report["policies"][names[0]]["episodes"])
         }
+        report["per_seed_all_policies"] = per_seed_all
 
     provenance.write_json(out_dir / "eval_report.json", report)
     provenance.write_json(out_dir / "run.json", provenance.run_provenance(

@@ -7,6 +7,8 @@
   "max_joint_speed_norm": 200.0,
   "nan_check": true,
   "time_limit_s": null,
+  "max_lateral_dev_from_ref_m": 0.25,
   "allow_reference_deviation_termination": false,
-  "_comment": "研究用终止规则。不再因偏离参考姿态终止。阈值量级来自实测：参考轨迹骨盆高度均值 0.9205 m（最低 0.9011）；min_pelvis_height=0.55 约为其 60%。参考步速 1.038 m/s，max_root_speed=10 m/s 只用于捕捉数值爆炸。使用时请核对 reports/model_inspection_full.json 与 runs/*/probe_env 输出。"
+  "_comment": "研究用终止规则。不再因偏离参考姿态终止。阈值量级来自实测：参考轨迹骨盆高度均值 0.9205 m（最低 0.9011）；min_pelvis_height=0.55 约为其 60%。参考步速 1.038 m/s，max_root_speed=10 m/s 只用于捕捉数值爆炸。使用时请核对 reports/model_inspection_full.json 与 runs/*/probe_env 输出。",
+  "_lateral_comment": "侧向偏移终止（骨盆世界系 y 与当前参考 y 之差）。依据：长时失稳诊断显示侧向漂移是唯一在跌倒前显著发散的信号（人体 0.438 m vs 参考自身 0.076 m），首次越界 3.58 s 早于跌倒 4.09 s；而密集侧向惩罚合计只有 −15.8/步，物理存活奖励是 +100/步，相差 6 倍，惩罚改不动 → 改用终止，让漂移付出「剩余全部回报」的代价。0.25 m 严格小于成功判据的 0.35 m，训练信号比验收标准更严。该终止归类为 termination_source='task_lateral_drift'，与 physical_fall 分开计数。设为 null 可关闭。"
 }
