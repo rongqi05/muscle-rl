@@ -1,0 +1,247 @@
+{
+  "stages_config": [
+    {
+      "name": "s4",
+      "max_episode_seconds": 4.0,
+      "min_transitions": 0
+    },
+    {
+      "name": "s5",
+      "max_episode_seconds": 5.0,
+      "min_transitions": 4000
+    },
+    {
+      "name": "s6",
+      "max_episode_seconds": 6.0,
+      "min_transitions": 6000
+    },
+    {
+      "name": "s8",
+      "max_episode_seconds": 8.0,
+      "min_transitions": 8000
+    },
+    {
+      "name": "s10",
+      "max_episode_seconds": 10.0,
+      "min_transitions": 10000
+    },
+    {
+      "name": "s14",
+      "max_episode_seconds": 14.0,
+      "min_transitions": 14000
+    },
+    {
+      "name": "s20",
+      "max_episode_seconds": 20.0,
+      "min_transitions": 20000
+    }
+  ],
+  "val_seeds": [
+    101,
+    102,
+    103,
+    104,
+    105
+  ],
+  "promote_val_success_rate": 0.8,
+  "events": [
+    {
+      "event": "start",
+      "stage": "s4",
+      "max_episode_seconds": 4.0,
+      "num_timesteps": 45000000
+    },
+    {
+      "event": "validate",
+      "stage": "s4",
+      "stage_seconds": 4.0,
+      "transitions_in_stage": 12,
+      "num_timesteps": 45000012,
+      "success_rate": 1.0,
+      "complete_rate": 1.0,
+      "mean_alive_time_s": 3.999999999999781,
+      "end_sources": {
+        "time_limit": 5
+      },
+      "elapsed_min": 0.3660072985833267
+    },
+    {
+      "event": "promote",
+      "from_stage": "s4",
+      "to_stage": "s5",
+      "to_seconds": 5.0,
+      "val_success_rate": 1.0,
+      "num_timesteps": 45000012,
+      "applied_in_workers": {
+        "max_episode_seconds": 5.0,
+        "time_limit_s": 5.0,
+        "max_control_steps": 250
+      },
+      "n_workers": 12,
+      "elapsed_min": 0.3660227402999984
+    },
+    {
+      "event": "validate",
+      "stage": "s5",
+      "stage_seconds": 5.0,
+      "transitions_in_stage": 4008,
+      "num_timesteps": 45004020,
+      "success_rate": 0.0,
+      "complete_rate": 0.4,
+      "mean_alive_time_s": 4.851999999999689,
+      "end_sources": {
+        "time_limit": 2,
+        "physical_fall": 3
+      },
+      "elapsed_min": 2.125268375566664
+    },
+    {
+      "event": "validate",
+      "stage": "s5",
+      "stage_seconds": 5.0,
+      "transitions_in_stage": 9012,
+      "num_timesteps": 45009024,
+      "success_rate": 0.6,
+      "complete_rate": 0.6,
+      "mean_alive_time_s": 4.951999999999677,
+      "end_sources": {
+        "time_limit": 3,
+        "physical_fall": 2
+      },
+      "elapsed_min": 3.9683878821666667
+    },
+    {
+      "event": "validate",
+      "stage": "s5",
+      "stage_seconds": 5.0,
+      "transitions_in_stage": 14016,
+      "num_timesteps": 45014028,
+      "success_rate": 0.4,
+      "complete_rate": 0.8,
+      "mean_alive_time_s": 4.935999999999678,
+      "end_sources": {
+        "time_limit": 4,
+        "physical_fall": 1
+      },
+      "elapsed_min": 6.06141575888333
+    },
+    {
+      "event": "validate",
+      "stage": "s5",
+      "stage_seconds": 5.0,
+      "transitions_in_stage": 19020,
+      "num_timesteps": 45019032,
+      "success_rate": 0.8,
+      "complete_rate": 0.8,
+      "mean_alive_time_s": 4.967999999999675,
+      "end_sources": {
+        "time_limit": 4,
+        "physical_fall": 1
+      },
+      "elapsed_min": 8.021516443499998
+    },
+    {
+      "event": "promote",
+      "from_stage": "s5",
+      "to_stage": "s6",
+      "to_seconds": 6.0,
+      "val_success_rate": 0.8,
+      "num_timesteps": 45019032,
+      "applied_in_workers": {
+        "max_episode_seconds": 6.0,
+        "time_limit_s": 6.0,
+        "max_control_steps": 300
+      },
+      "n_workers": 12,
+      "elapsed_min": 8.021548085683328
+    },
+    {
+      "event": "validate",
+      "stage": "s6",
+      "stage_seconds": 6.0,
+      "transitions_in_stage": 6000,
+      "num_timesteps": 45025032,
+      "success_rate": 0.0,
+      "complete_rate": 0.0,
+      "mean_alive_time_s": 4.9719999999996745,
+      "end_sources": {
+        "physical_fall": 5
+      },
+      "elapsed_min": 9.964024354133327
+    },
+    {
+      "event": "validate",
+      "stage": "s6",
+      "stage_seconds": 6.0,
+      "transitions_in_stage": 11004,
+      "num_timesteps": 45030036,
+      "success_rate": 0.0,
+      "complete_rate": 0.0,
+      "mean_alive_time_s": 4.939999999999678,
+      "end_sources": {
+        "physical_fall": 5
+      },
+      "elapsed_min": 11.6961244939
+    },
+    {
+      "event": "validate",
+      "stage": "s6",
+      "stage_seconds": 6.0,
+      "transitions_in_stage": 16008,
+      "num_timesteps": 45035040,
+      "success_rate": 0.0,
+      "complete_rate": 0.0,
+      "mean_alive_time_s": 4.879999999999685,
+      "end_sources": {
+        "physical_fall": 5
+      },
+      "elapsed_min": 13.888163045933327
+    },
+    {
+      "event": "validate",
+      "stage": "s6",
+      "stage_seconds": 6.0,
+      "transitions_in_stage": 21012,
+      "num_timesteps": 45040044,
+      "success_rate": 0.2,
+      "complete_rate": 0.2,
+      "mean_alive_time_s": 5.0719999999996634,
+      "end_sources": {
+        "physical_fall": 4,
+        "time_limit": 1
+      },
+      "elapsed_min": 15.679315518933338
+    },
+    {
+      "event": "stalled",
+      "stage": "s6",
+      "stage_seconds": 6.0,
+      "transitions_in_stage": 21012,
+      "best_success_rate": 0.2,
+      "note": "按设计**不**降低门槛晋级；此处仅记录以便分析该阶段的失败状态",
+      "elapsed_min": 15.679323092583331
+    },
+    {
+      "event": "validate",
+      "stage": "s6",
+      "stage_seconds": 6.0,
+      "transitions_in_stage": 26016,
+      "num_timesteps": 45045048,
+      "success_rate": 0.2,
+      "complete_rate": 0.2,
+      "mean_alive_time_s": 5.079999999999663,
+      "end_sources": {
+        "physical_fall": 4,
+        "time_limit": 1
+      },
+      "elapsed_min": 17.5366840091
+    },
+    {
+      "event": "end",
+      "stop_reason": "到达 transition 预算",
+      "stage": "s6",
+      "num_timesteps": 45050004,
+      "elapsed_min": 18.87850142283333
+    }
+  ]
+}

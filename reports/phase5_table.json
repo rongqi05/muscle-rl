@@ -1,0 +1,706 @@
+{
+  "generated_from": [
+    "6s=runs/phase5_eval_6s/eval_report.json",
+    "10s=runs/phase5_eval_10s/eval_report.json",
+    "20s=runs/phase5_eval_20s/eval_report.json"
+  ],
+  "n_rows": 15,
+  "rows": [
+    {
+      "group": "10s",
+      "seconds": "10s",
+      "policy": "A",
+      "gate": {
+        "n_episodes": 20,
+        "n_required": 18,
+        "_note": "阶段性工程门槛，不代表临床有效性。",
+        "n_ok": 0,
+        "passed": false
+      },
+      "sources": {
+        "physical_fall": 20
+      },
+      "aggregate": {
+        "n_episodes": 20,
+        "complete_rate": 0.0,
+        "success_rate": 0.0,
+        "n_completed": 0,
+        "n_fell": 20,
+        "n_numeric_anomaly": 0,
+        "n_time_truncated": 0,
+        "n_degenerate_stood_still": 0,
+        "mean_alive_time_s": 4.964999999999675,
+        "mean_forward_speed": 0.8919092904794146,
+        "mean_target_speed_error": 0.14593266324594031,
+        "mean_abs_lateral_drift_m": 0.49621023841545553,
+        "mean_max_lateral_dev_m": 0.4287025918128168,
+        "mean_max_pelvis_tilt_deg": 58.69805559005347,
+        "min_pelvis_height_m": 0.5174615950446995,
+        "mean_reward_sum": 2232.0175086856098,
+        "mean_foot_slip_mps": 2.6093570241279984,
+        "mean_activation": 0.1917932738044465,
+        "mean_action_saturation": 0.1284960767650563,
+        "completion_by_source": {
+          "physical_fall": 20
+        },
+        "gate": {
+          "n_episodes": 20,
+          "n_required": 18,
+          "_note": "阶段性工程门槛，不代表临床有效性。",
+          "n_ok": 0,
+          "passed": false
+        }
+      }
+    },
+    {
+      "group": "10s",
+      "seconds": "10s",
+      "policy": "B",
+      "gate": {
+        "n_episodes": 20,
+        "n_required": 18,
+        "_note": "阶段性工程门槛，不代表临床有效性。",
+        "n_ok": 0,
+        "passed": false
+      },
+      "sources": {
+        "physical_fall": 20
+      },
+      "aggregate": {
+        "n_episodes": 20,
+        "complete_rate": 0.0,
+        "success_rate": 0.0,
+        "n_completed": 0,
+        "n_fell": 20,
+        "n_numeric_anomaly": 0,
+        "n_time_truncated": 0,
+        "n_degenerate_stood_still": 0,
+        "mean_alive_time_s": 5.55999999999961,
+        "mean_forward_speed": 0.9554747752798385,
+        "mean_target_speed_error": 0.08236717844551641,
+        "mean_abs_lateral_drift_m": 0.4330105962921971,
+        "mean_max_lateral_dev_m": 0.4058073396339747,
+        "mean_max_pelvis_tilt_deg": 25.0340113562901,
+        "min_pelvis_height_m": 0.5146389760703964,
+        "mean_reward_sum": 14562.70674360187,
+        "mean_foot_slip_mps": 2.7447222422952127,
+        "mean_activation": 0.21267699514276953,
+        "mean_action_saturation": 0.12610984629295688,
+        "completion_by_source": {
+          "physical_fall": 20
+        },
+        "gate": {
+          "n_episodes": 20,
+          "n_required": 18,
+          "_note": "阶段性工程门槛，不代表临床有效性。",
+          "n_ok": 0,
+          "passed": false
+        }
+      }
+    },
+    {
+      "group": "10s",
+      "seconds": "10s",
+      "policy": "C",
+      "gate": {
+        "n_episodes": 20,
+        "n_required": 18,
+        "_note": "阶段性工程门槛，不代表临床有效性。",
+        "n_ok": 0,
+        "passed": false
+      },
+      "sources": {
+        "physical_fall": 20
+      },
+      "aggregate": {
+        "n_episodes": 20,
+        "complete_rate": 0.0,
+        "success_rate": 0.0,
+        "n_completed": 0,
+        "n_fell": 20,
+        "n_numeric_anomaly": 0,
+        "n_time_truncated": 0,
+        "n_degenerate_stood_still": 0,
+        "mean_alive_time_s": 5.288999999999639,
+        "mean_forward_speed": 0.8826333667945203,
+        "mean_target_speed_error": 0.15520858693083464,
+        "mean_abs_lateral_drift_m": 0.5123775155531116,
+        "mean_max_lateral_dev_m": 0.446574684725629,
+        "mean_max_pelvis_tilt_deg": 27.77046855860299,
+        "min_pelvis_height_m": 0.5115946675271277,
+        "mean_reward_sum": 9853.466829494348,
+        "mean_foot_slip_mps": 2.5861233457054453,
+        "mean_activation": 0.19983772986857512,
+        "mean_action_saturation": 0.1237974856653706,
+        "completion_by_source": {
+          "physical_fall": 20
+        },
+        "gate": {
+          "n_episodes": 20,
+          "n_required": 18,
+          "_note": "阶段性工程门槛，不代表临床有效性。",
+          "n_ok": 0,
+          "passed": false
+        }
+      }
+    },
+    {
+      "group": "10s",
+      "seconds": "10s",
+      "policy": "D",
+      "gate": {
+        "n_episodes": 20,
+        "n_required": 18,
+        "_note": "阶段性工程门槛，不代表临床有效性。",
+        "n_ok": 0,
+        "passed": false
+      },
+      "sources": {
+        "physical_fall": 20
+      },
+      "aggregate": {
+        "n_episodes": 20,
+        "complete_rate": 0.0,
+        "success_rate": 0.0,
+        "n_completed": 0,
+        "n_fell": 20,
+        "n_numeric_anomaly": 0,
+        "n_time_truncated": 0,
+        "n_degenerate_stood_still": 0,
+        "mean_alive_time_s": 5.024999999999668,
+        "mean_forward_speed": 0.9141974524090604,
+        "mean_target_speed_error": 0.1236445013162946,
+        "mean_abs_lateral_drift_m": 0.6501873978261249,
+        "mean_max_lateral_dev_m": 0.596409316337649,
+        "mean_max_pelvis_tilt_deg": 32.02891334643175,
+        "min_pelvis_height_m": 0.502624351649869,
+        "mean_reward_sum": 9921.344908937604,
+        "mean_foot_slip_mps": 2.4178594855795725,
+        "mean_activation": 0.1946468136267477,
+        "mean_action_saturation": 0.13169891868511563,
+        "completion_by_source": {
+          "physical_fall": 20
+        },
+        "gate": {
+          "n_episodes": 20,
+          "n_required": 18,
+          "_note": "阶段性工程门槛，不代表临床有效性。",
+          "n_ok": 0,
+          "passed": false
+        }
+      }
+    },
+    {
+      "group": "10s",
+      "seconds": "10s",
+      "policy": "E",
+      "gate": {
+        "n_episodes": 20,
+        "n_required": 18,
+        "_note": "阶段性工程门槛，不代表临床有效性。",
+        "n_ok": 0,
+        "passed": false
+      },
+      "sources": {
+        "physical_fall": 20
+      },
+      "aggregate": {
+        "n_episodes": 20,
+        "complete_rate": 0.0,
+        "success_rate": 0.0,
+        "n_completed": 0,
+        "n_fell": 20,
+        "n_numeric_anomaly": 0,
+        "n_time_truncated": 0,
+        "n_degenerate_stood_still": 0,
+        "mean_alive_time_s": 3.8269999999997992,
+        "mean_forward_speed": 0.8924660599137987,
+        "mean_target_speed_error": 0.18408521471812306,
+        "mean_abs_lateral_drift_m": 0.3445790999034987,
+        "mean_max_lateral_dev_m": 0.32831190067462745,
+        "mean_max_pelvis_tilt_deg": 44.188349899979954,
+        "min_pelvis_height_m": 0.5070309546499371,
+        "mean_reward_sum": -1536.166993382703,
+        "mean_foot_slip_mps": 3.059022062413123,
+        "mean_activation": 0.2199535375897766,
+        "mean_action_saturation": 0.18396833145461786,
+        "completion_by_source": {
+          "physical_fall": 20
+        },
+        "gate": {
+          "n_episodes": 20,
+          "n_required": 18,
+          "_note": "阶段性工程门槛，不代表临床有效性。",
+          "n_ok": 0,
+          "passed": false
+        }
+      }
+    },
+    {
+      "group": "20s",
+      "seconds": "20s",
+      "policy": "A",
+      "gate": {
+        "n_episodes": 20,
+        "n_required": 18,
+        "_note": "阶段性工程门槛，不代表临床有效性。",
+        "n_ok": 0,
+        "passed": false
+      },
+      "sources": {
+        "physical_fall": 20
+      },
+      "aggregate": {
+        "n_episodes": 20,
+        "complete_rate": 0.0,
+        "success_rate": 0.0,
+        "n_completed": 0,
+        "n_fell": 20,
+        "n_numeric_anomaly": 0,
+        "n_time_truncated": 0,
+        "n_degenerate_stood_still": 0,
+        "mean_alive_time_s": 4.964999999999675,
+        "mean_forward_speed": 0.8919092904794146,
+        "mean_target_speed_error": 0.14593266324594031,
+        "mean_abs_lateral_drift_m": 0.49621023841545553,
+        "mean_max_lateral_dev_m": 0.4287025918128168,
+        "mean_max_pelvis_tilt_deg": 58.69805559005347,
+        "min_pelvis_height_m": 0.5174615950446995,
+        "mean_reward_sum": 2232.0175086856098,
+        "mean_foot_slip_mps": 2.6093570241279984,
+        "mean_activation": 0.1917932738044465,
+        "mean_action_saturation": 0.1284960767650563,
+        "completion_by_source": {
+          "physical_fall": 20
+        },
+        "gate": {
+          "n_episodes": 20,
+          "n_required": 18,
+          "_note": "阶段性工程门槛，不代表临床有效性。",
+          "n_ok": 0,
+          "passed": false
+        }
+      }
+    },
+    {
+      "group": "20s",
+      "seconds": "20s",
+      "policy": "B",
+      "gate": {
+        "n_episodes": 20,
+        "n_required": 18,
+        "_note": "阶段性工程门槛，不代表临床有效性。",
+        "n_ok": 0,
+        "passed": false
+      },
+      "sources": {
+        "physical_fall": 20
+      },
+      "aggregate": {
+        "n_episodes": 20,
+        "complete_rate": 0.0,
+        "success_rate": 0.0,
+        "n_completed": 0,
+        "n_fell": 20,
+        "n_numeric_anomaly": 0,
+        "n_time_truncated": 0,
+        "n_degenerate_stood_still": 0,
+        "mean_alive_time_s": 5.55999999999961,
+        "mean_forward_speed": 0.9554747752798385,
+        "mean_target_speed_error": 0.08236717844551641,
+        "mean_abs_lateral_drift_m": 0.4330105962921971,
+        "mean_max_lateral_dev_m": 0.4058073396339747,
+        "mean_max_pelvis_tilt_deg": 25.0340113562901,
+        "min_pelvis_height_m": 0.5146389760703964,
+        "mean_reward_sum": 14562.70674360187,
+        "mean_foot_slip_mps": 2.7447222422952127,
+        "mean_activation": 0.21267699514276953,
+        "mean_action_saturation": 0.12610984629295688,
+        "completion_by_source": {
+          "physical_fall": 20
+        },
+        "gate": {
+          "n_episodes": 20,
+          "n_required": 18,
+          "_note": "阶段性工程门槛，不代表临床有效性。",
+          "n_ok": 0,
+          "passed": false
+        }
+      }
+    },
+    {
+      "group": "20s",
+      "seconds": "20s",
+      "policy": "C",
+      "gate": {
+        "n_episodes": 20,
+        "n_required": 18,
+        "_note": "阶段性工程门槛，不代表临床有效性。",
+        "n_ok": 0,
+        "passed": false
+      },
+      "sources": {
+        "physical_fall": 20
+      },
+      "aggregate": {
+        "n_episodes": 20,
+        "complete_rate": 0.0,
+        "success_rate": 0.0,
+        "n_completed": 0,
+        "n_fell": 20,
+        "n_numeric_anomaly": 0,
+        "n_time_truncated": 0,
+        "n_degenerate_stood_still": 0,
+        "mean_alive_time_s": 5.288999999999639,
+        "mean_forward_speed": 0.8826333667945203,
+        "mean_target_speed_error": 0.15520858693083464,
+        "mean_abs_lateral_drift_m": 0.5123775155531116,
+        "mean_max_lateral_dev_m": 0.446574684725629,
+        "mean_max_pelvis_tilt_deg": 27.77046855860299,
+        "min_pelvis_height_m": 0.5115946675271277,
+        "mean_reward_sum": 9853.466829494348,
+        "mean_foot_slip_mps": 2.5861233457054453,
+        "mean_activation": 0.19983772986857512,
+        "mean_action_saturation": 0.1237974856653706,
+        "completion_by_source": {
+          "physical_fall": 20
+        },
+        "gate": {
+          "n_episodes": 20,
+          "n_required": 18,
+          "_note": "阶段性工程门槛，不代表临床有效性。",
+          "n_ok": 0,
+          "passed": false
+        }
+      }
+    },
+    {
+      "group": "20s",
+      "seconds": "20s",
+      "policy": "D",
+      "gate": {
+        "n_episodes": 20,
+        "n_required": 18,
+        "_note": "阶段性工程门槛，不代表临床有效性。",
+        "n_ok": 0,
+        "passed": false
+      },
+      "sources": {
+        "physical_fall": 20
+      },
+      "aggregate": {
+        "n_episodes": 20,
+        "complete_rate": 0.0,
+        "success_rate": 0.0,
+        "n_completed": 0,
+        "n_fell": 20,
+        "n_numeric_anomaly": 0,
+        "n_time_truncated": 0,
+        "n_degenerate_stood_still": 0,
+        "mean_alive_time_s": 5.024999999999668,
+        "mean_forward_speed": 0.9141974524090604,
+        "mean_target_speed_error": 0.1236445013162946,
+        "mean_abs_lateral_drift_m": 0.6501873978261249,
+        "mean_max_lateral_dev_m": 0.596409316337649,
+        "mean_max_pelvis_tilt_deg": 32.02891334643175,
+        "min_pelvis_height_m": 0.502624351649869,
+        "mean_reward_sum": 9921.344908937604,
+        "mean_foot_slip_mps": 2.4178594855795725,
+        "mean_activation": 0.1946468136267477,
+        "mean_action_saturation": 0.13169891868511563,
+        "completion_by_source": {
+          "physical_fall": 20
+        },
+        "gate": {
+          "n_episodes": 20,
+          "n_required": 18,
+          "_note": "阶段性工程门槛，不代表临床有效性。",
+          "n_ok": 0,
+          "passed": false
+        }
+      }
+    },
+    {
+      "group": "20s",
+      "seconds": "20s",
+      "policy": "E",
+      "gate": {
+        "n_episodes": 20,
+        "n_required": 18,
+        "_note": "阶段性工程门槛，不代表临床有效性。",
+        "n_ok": 0,
+        "passed": false
+      },
+      "sources": {
+        "physical_fall": 20
+      },
+      "aggregate": {
+        "n_episodes": 20,
+        "complete_rate": 0.0,
+        "success_rate": 0.0,
+        "n_completed": 0,
+        "n_fell": 20,
+        "n_numeric_anomaly": 0,
+        "n_time_truncated": 0,
+        "n_degenerate_stood_still": 0,
+        "mean_alive_time_s": 3.8269999999997992,
+        "mean_forward_speed": 0.8924660599137987,
+        "mean_target_speed_error": 0.18408521471812306,
+        "mean_abs_lateral_drift_m": 0.3445790999034987,
+        "mean_max_lateral_dev_m": 0.32831190067462745,
+        "mean_max_pelvis_tilt_deg": 44.188349899979954,
+        "min_pelvis_height_m": 0.5070309546499371,
+        "mean_reward_sum": -1536.166993382703,
+        "mean_foot_slip_mps": 3.059022062413123,
+        "mean_activation": 0.2199535375897766,
+        "mean_action_saturation": 0.18396833145461786,
+        "completion_by_source": {
+          "physical_fall": 20
+        },
+        "gate": {
+          "n_episodes": 20,
+          "n_required": 18,
+          "_note": "阶段性工程门槛，不代表临床有效性。",
+          "n_ok": 0,
+          "passed": false
+        }
+      }
+    },
+    {
+      "group": "6s",
+      "seconds": "6s",
+      "policy": "A",
+      "gate": {
+        "n_episodes": 20,
+        "n_required": 18,
+        "_note": "阶段性工程门槛，不代表临床有效性。",
+        "n_ok": 0,
+        "passed": false
+      },
+      "sources": {
+        "physical_fall": 20
+      },
+      "aggregate": {
+        "n_episodes": 20,
+        "complete_rate": 0.0,
+        "success_rate": 0.0,
+        "n_completed": 0,
+        "n_fell": 20,
+        "n_numeric_anomaly": 0,
+        "n_time_truncated": 0,
+        "n_degenerate_stood_still": 0,
+        "mean_alive_time_s": 4.964999999999675,
+        "mean_forward_speed": 0.8919092904794146,
+        "mean_target_speed_error": 0.14593266324594031,
+        "mean_abs_lateral_drift_m": 0.49621023841545553,
+        "mean_max_lateral_dev_m": 0.4287025918128168,
+        "mean_max_pelvis_tilt_deg": 58.69805559005347,
+        "min_pelvis_height_m": 0.5174615950446995,
+        "mean_reward_sum": 2232.0175086856098,
+        "mean_foot_slip_mps": 2.6093570241279984,
+        "mean_activation": 0.1917932738044465,
+        "mean_action_saturation": 0.1284960767650563,
+        "completion_by_source": {
+          "physical_fall": 20
+        },
+        "gate": {
+          "n_episodes": 20,
+          "n_required": 18,
+          "_note": "阶段性工程门槛，不代表临床有效性。",
+          "n_ok": 0,
+          "passed": false
+        }
+      }
+    },
+    {
+      "group": "6s",
+      "seconds": "6s",
+      "policy": "B",
+      "gate": {
+        "n_episodes": 20,
+        "n_required": 18,
+        "_note": "阶段性工程门槛，不代表临床有效性。",
+        "n_ok": 5,
+        "passed": false
+      },
+      "sources": {
+        "physical_fall": 15,
+        "time_limit": 5
+      },
+      "aggregate": {
+        "n_episodes": 20,
+        "complete_rate": 0.25,
+        "success_rate": 0.25,
+        "n_completed": 5,
+        "n_fell": 15,
+        "n_numeric_anomaly": 0,
+        "n_time_truncated": 5,
+        "n_degenerate_stood_still": 0,
+        "mean_alive_time_s": 5.490999999999618,
+        "mean_forward_speed": 0.9527892356384886,
+        "mean_target_speed_error": 0.08505271808686625,
+        "mean_abs_lateral_drift_m": 0.3872991505729842,
+        "mean_max_lateral_dev_m": 0.37539143760657734,
+        "mean_max_pelvis_tilt_deg": 21.764373008127844,
+        "min_pelvis_height_m": 0.5146389760703964,
+        "mean_reward_sum": 15213.155153553313,
+        "mean_foot_slip_mps": 2.737038479024995,
+        "mean_activation": 0.21209354399095726,
+        "mean_action_saturation": 0.12477131544695916,
+        "completion_by_source": {
+          "physical_fall": 15,
+          "time_limit": 5
+        },
+        "gate": {
+          "n_episodes": 20,
+          "n_required": 18,
+          "_note": "阶段性工程门槛，不代表临床有效性。",
+          "n_ok": 5,
+          "passed": false
+        }
+      }
+    },
+    {
+      "group": "6s",
+      "seconds": "6s",
+      "policy": "C",
+      "gate": {
+        "n_episodes": 20,
+        "n_required": 18,
+        "_note": "阶段性工程门槛，不代表临床有效性。",
+        "n_ok": 6,
+        "passed": false
+      },
+      "sources": {
+        "time_limit": 6,
+        "physical_fall": 14
+      },
+      "aggregate": {
+        "n_episodes": 20,
+        "complete_rate": 0.3,
+        "success_rate": 0.3,
+        "n_completed": 6,
+        "n_fell": 14,
+        "n_numeric_anomaly": 0,
+        "n_time_truncated": 6,
+        "n_degenerate_stood_still": 0,
+        "mean_alive_time_s": 5.200999999999649,
+        "mean_forward_speed": 0.8808153012467466,
+        "mean_target_speed_error": 0.15702665247860845,
+        "mean_abs_lateral_drift_m": 0.4245373043465041,
+        "mean_max_lateral_dev_m": 0.3824898690688026,
+        "mean_max_pelvis_tilt_deg": 26.542305508438584,
+        "min_pelvis_height_m": 0.5115946675271277,
+        "mean_reward_sum": 10846.674288967955,
+        "mean_foot_slip_mps": 2.5577797527751356,
+        "mean_activation": 0.19936382011626963,
+        "mean_action_saturation": 0.1242302381553406,
+        "completion_by_source": {
+          "time_limit": 6,
+          "physical_fall": 14
+        },
+        "gate": {
+          "n_episodes": 20,
+          "n_required": 18,
+          "_note": "阶段性工程门槛，不代表临床有效性。",
+          "n_ok": 6,
+          "passed": false
+        }
+      }
+    },
+    {
+      "group": "6s",
+      "seconds": "6s",
+      "policy": "D",
+      "gate": {
+        "n_episodes": 20,
+        "n_required": 18,
+        "_note": "阶段性工程门槛，不代表临床有效性。",
+        "n_ok": 1,
+        "passed": false
+      },
+      "sources": {
+        "physical_fall": 19,
+        "time_limit": 1
+      },
+      "aggregate": {
+        "n_episodes": 20,
+        "complete_rate": 0.05,
+        "success_rate": 0.05,
+        "n_completed": 1,
+        "n_fell": 19,
+        "n_numeric_anomaly": 0,
+        "n_time_truncated": 1,
+        "n_degenerate_stood_still": 0,
+        "mean_alive_time_s": 4.989999999999672,
+        "mean_forward_speed": 0.913561593280226,
+        "mean_target_speed_error": 0.12428036044512898,
+        "mean_abs_lateral_drift_m": 0.6461542784415498,
+        "mean_max_lateral_dev_m": 0.5923955984814777,
+        "mean_max_pelvis_tilt_deg": 30.436811411453522,
+        "min_pelvis_height_m": 0.502624351649869,
+        "mean_reward_sum": 10275.680828780944,
+        "mean_foot_slip_mps": 2.4153072566954457,
+        "mean_activation": 0.1944857387069579,
+        "mean_action_saturation": 0.13176881562896778,
+        "completion_by_source": {
+          "physical_fall": 19,
+          "time_limit": 1
+        },
+        "gate": {
+          "n_episodes": 20,
+          "n_required": 18,
+          "_note": "阶段性工程门槛，不代表临床有效性。",
+          "n_ok": 1,
+          "passed": false
+        }
+      }
+    },
+    {
+      "group": "6s",
+      "seconds": "6s",
+      "policy": "E",
+      "gate": {
+        "n_episodes": 20,
+        "n_required": 18,
+        "_note": "阶段性工程门槛，不代表临床有效性。",
+        "n_ok": 0,
+        "passed": false
+      },
+      "sources": {
+        "physical_fall": 20
+      },
+      "aggregate": {
+        "n_episodes": 20,
+        "complete_rate": 0.0,
+        "success_rate": 0.0,
+        "n_completed": 0,
+        "n_fell": 20,
+        "n_numeric_anomaly": 0,
+        "n_time_truncated": 0,
+        "n_degenerate_stood_still": 0,
+        "mean_alive_time_s": 3.8269999999997992,
+        "mean_forward_speed": 0.8924660599137987,
+        "mean_target_speed_error": 0.18408521471812306,
+        "mean_abs_lateral_drift_m": 0.3445790999034987,
+        "mean_max_lateral_dev_m": 0.32831190067462745,
+        "mean_max_pelvis_tilt_deg": 44.188349899979954,
+        "min_pelvis_height_m": 0.5070309546499371,
+        "mean_reward_sum": -1536.166993382703,
+        "mean_foot_slip_mps": 3.059022062413123,
+        "mean_activation": 0.2199535375897766,
+        "mean_action_saturation": 0.18396833145461786,
+        "completion_by_source": {
+          "physical_fall": 20
+        },
+        "gate": {
+          "n_episodes": 20,
+          "n_required": 18,
+          "_note": "阶段性工程门槛，不代表临床有效性。",
+          "n_ok": 0,
+          "passed": false
+        }
+      }
+    }
+  ]
+}

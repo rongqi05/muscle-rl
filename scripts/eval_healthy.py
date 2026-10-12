@@ -43,7 +43,11 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from hemirl import paths, provenance  # noqa: E402
-from hemirl.research_env import ResearchEnvConfig, build_research_env  # noqa: E402
+from hemirl.research_env import (  # noqa: E402
+    ResearchEnvConfig,
+    RewardSplitConfig,
+    build_research_env,
+)
 from hemirl.termination import TerminationConfig  # noqa: E402
 
 FOOT_BODIES = ("calcn_r", "calcn_l", "toes_r", "toes_l")
@@ -66,6 +70,14 @@ class PairedEvaluator:
             termination=TerminationConfig(kind="research", min_pelvis_height=0.55,
                                           max_pelvis_up_tilt_deg=60.0),
             max_episode_seconds=float(cfg["episode_seconds"]),
+            # 必须显式设为 split：默认是 official，会让记录的 reward_sum 实际上是官方
+            # 奖励（不含侧偏/前进/滑步项），与训练时优化的目标不是同一个量，
+            # 做「奖励是否使策略退化」这类比较时会得出错误结论。
+            reward_mode="split",
+            reward_split=RewardSplitConfig(
+                w_survival=float(cfg.get("w_survival", 100.0)),
+                include_official_healthy=bool(cfg.get("include_official_healthy", False)),
+            ),
             keep_ledger=False,
             name=f"eval_{name}",
         )
@@ -116,6 +128,7 @@ class PairedEvaluator:
         act_vals: List[float] = []
         lateral_dev: List[float] = []
         tilt_vals: List[float] = []
+        pelvis_h_vals: List[float] = []
         standing_steps = 0
         reward_sum = 0.0
 
@@ -135,6 +148,7 @@ class PairedEvaluator:
             act_vals.append(float(np.mean(np.asarray(self.data.act, dtype=float))))
             lateral_dev.append(abs(float(rs["pos"][1]) - self.env._ref_y()))
             tilt_vals.append(float(self.env.up_tilt_deg()))
+            pelvis_h_vals.append(float(self.env.pelvis_height()))
             reward_sum += float(reward)
             # 退化检测：双足都在支撑且前进速度很低 → 站着不走
             if n_loaded >= 2 and abs(vx) < float(self.cfg["degenerate_speed"]):
@@ -178,6 +192,9 @@ class PairedEvaluator:
             "reference_forward_speed": self.ref_speed,
             "max_lateral_dev_from_ref_m": float(max(lateral_dev)) if lateral_dev else None,
             "max_pelvis_tilt_deg": float(max(tilt_vals)) if tilt_vals else None,
+            "min_pelvis_height_m": float(min(pelvis_h_vals)) if pelvis_h_vals else None,
+            "pelvis_height_end_m": float(pelvis_h_vals[-1]) if pelvis_h_vals else None,
+            "pelvis_height_mean_m": float(np.mean(pelvis_h_vals)) if pelvis_h_vals else None,
             "foot_slip_mean_mps": float(np.mean(slip_vals)) if slip_vals else None,
             "foot_slip_max_mps": float(np.max(slip_vals)) if slip_vals else None,
             "activation_mean": float(np.mean(act_vals)) if act_vals else None,
@@ -185,6 +202,8 @@ class PairedEvaluator:
             "standing_steps": int(standing_steps),
             "standing_fraction": float(standing_steps / n),
             "reward_sum": reward_sum,
+            "reward_mode": "split",
+            "reward_sum_note": "split 模式（imitation+energy+survival+extra），非官方奖励",
             "success_checks": checks,
             "success": bool(all(checks.values())),
             "degenerate_stood_still": bool(completed and mean_vx < float(self.cfg["degenerate_speed"])),
@@ -227,6 +246,12 @@ def aggregate(rows: List[Dict[str, Any]], gate: Dict[str, Any]) -> Dict[str, Any
         )
         if any(r["max_pelvis_tilt_deg"] is not None for r in rows)
         else 0.0,
+        "min_pelvis_height_m": float(
+            np.min([r["min_pelvis_height_m"] for r in rows if r.get("min_pelvis_height_m") is not None])
+        )
+        if any(r.get("min_pelvis_height_m") is not None for r in rows)
+        else 0.0,
+        "mean_reward_sum": float(np.mean([r["reward_sum"] for r in rows])) if n else 0.0,
         "mean_foot_slip_mps": float(
             np.mean([r["foot_slip_mean_mps"] for r in rows if r["foot_slip_mean_mps"] is not None])
         )
@@ -257,6 +282,8 @@ def main() -> int:
     parser.add_argument("--config", type=str, default=str(paths.CONFIGS_ROOT / "train_healthy_v1.json"))
     parser.add_argument("--seeds", type=str, default=None, help="如 201:220 或 201 202 203")
     parser.add_argument("--tag", type=str, default="healthy_vs_official")
+    parser.add_argument("--episode-seconds", type=float, default=None,
+                        help="覆盖配置里的 eval.episode_seconds（用于 6/10/20 s 三档对比）")
     parser.add_argument("--out-root", type=str, default=str(paths.RUNS_ROOT))
     args = parser.parse_args()
 
@@ -270,7 +297,14 @@ def main() -> int:
             seeds = [int(s) for s in args.seeds.split()]
     else:
         seeds = list(ev_cfg["test_seeds"])
-    ev_cfg["episode_seconds"] = float(ev_cfg.get("episode_seconds", 20.0))
+    ev_cfg["episode_seconds"] = float(
+        args.episode_seconds if args.episode_seconds is not None
+        else ev_cfg.get("episode_seconds", 20.0)
+    )
+    # 成功判据里的「最短时长」必须跟着一起改，否则 6 s / 10 s 档会被判成全部失败
+    if args.episode_seconds is not None and "success" in ev_cfg:
+        ev_cfg["success"] = dict(ev_cfg["success"])
+        ev_cfg["success"]["min_episode_seconds"] = float(args.episode_seconds)
 
     policies = []
     for item in args.policies:

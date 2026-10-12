@@ -61,6 +61,10 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+# CurriculumCallback 定义在模块级（便于单测直接实例化），因此这里必须在导入期就
+# 拿到 BaseCallback。SB3 本就是本脚本的硬依赖。
+from stable_baselines3.common.callbacks import BaseCallback  # noqa: E402
+
 from hemirl import paths, provenance  # noqa: E402
 from hemirl.research_env import ResearchEnvConfig, build_research_env  # noqa: E402
 from hemirl.reward_healthy import HealthyRewardConfig  # noqa: E402
@@ -117,8 +121,213 @@ def env_spec(cfg: Dict[str, Any], stage: Dict[str, Any]) -> Dict[str, Any]:
         "w_survival": float(cfg["reward_split"]["w_survival"]),
         "include_official_healthy": bool(cfg["reward_split"]["include_official_healthy"]),
         "extra_reward": cfg.get("extra_reward"),
+        # 验证/升级判定必须使用与最终评估同一套质量阈值，否则「达标」是另一个标准
+        "success": cfg.get("eval", {}).get("success"),
         "name": stage.get("name", "train"),
     }
+
+
+# ------------------------------------------------------------------ 课程
+
+
+class CurriculumCallback(BaseCallback):
+    """真正的课程阶段切换：**由独立验证集结果触发**，不是由训练步数触发。
+
+    设计要点（每条都对应一个曾经真实出错或明确禁止的做法）:
+
+    1. **升级必须由验证集触发**。`min_transitions` 只是「最早可以评估」的门槛，
+       单独达到步数绝不升级。
+    2. **验证用与训练完全相同的 spec**（同一终止判据、同一回合时长），
+       且与最终测试种子严格分离。
+    3. **不通过就一直留在当前阶段**，不会为了「晋级」而降低门槛；
+       停滞会在 `stall_after_transitions` 后记录一次 `stalled` 事件供人工分析。
+    4. **切换时长不重建环境进程**：通过 ``vec_env.env_method`` 广播到所有 worker。
+       重建 ``SubprocVecEnv`` 会丢失 worker 内部状态、重新加载 MuJoCo 模型
+       （实测约 2 s × n_envs），并使 ``VecNormalize`` 的挂载关系需要重新建立。
+    5. 每次评估/升级都落盘到 ``curriculum_history.json``，可事后核查。
+    """
+
+    def __init__(
+        self,
+        cfg: Dict[str, Any],
+        stages: List[Dict[str, Any]],
+        spec_builder,
+        budget_transitions: int,
+        budget_minutes: float,
+        vec_normalize=None,
+        model=None,
+    ):
+        super().__init__()
+        self.cfg = cfg
+        self.stages = list(stages)
+        self.spec_builder = spec_builder
+        self.budget_transitions = int(budget_transitions)
+        self.budget_minutes = float(budget_minutes)
+        self._vec_normalize = vec_normalize
+        self.cur = cfg["curriculum"]
+        self.val_seeds = list(self.cur["val_seeds"])
+        self.val_every = int(self.cur.get("val_every_transitions", 5000))
+        self.promote_at = float(self.cur["promote_val_success_rate"])
+        self.stall_after = int(self.cur.get("stall_after_transitions", 25000))
+
+        self.t0 = time.perf_counter()
+        self.start_transitions = 0  # 在 _on_training_start 里填
+        self.stage_idx = 0
+        self.transitions_in_stage = 0
+        self.stop_reason: Optional[str] = None
+        self.history: List[Dict[str, Any]] = []
+        self.last_val: Optional[Dict[str, Any]] = None
+        self._next_val_at = 0
+        self._stall_logged = False
+
+    # ---------------------------------------------------------------- 工具
+
+    def _elapsed_min(self) -> float:
+        return (time.perf_counter() - self.t0) / 60.0
+
+    def _done(self) -> int:
+        return int(self.num_timesteps) - self.start_transitions
+
+    def _current_stage(self) -> Dict[str, Any]:
+        return self.stages[self.stage_idx]
+
+    def _write_history(self) -> None:
+        run_dir = Path(self.cfg.get("_run_dir", "."))
+        try:
+            provenance.write_json(run_dir / "curriculum_history.json", {
+                "stages_config": self.stages,
+                "val_seeds": self.val_seeds,
+                "promote_val_success_rate": self.promote_at,
+                "events": self.history,
+            })
+        except Exception:  # noqa: BLE001 - 落盘失败不应中断训练
+            pass
+
+    # ---------------------------------------------------------------- 回调
+
+    def _on_training_start(self) -> None:
+        self.start_transitions = int(self.model.num_timesteps)
+        self._next_val_at = int(self._current_stage().get("min_transitions", 0))
+        self.history.append({
+            "event": "start",
+            "stage": self._current_stage()["name"],
+            "max_episode_seconds": float(self._current_stage()["max_episode_seconds"]),
+            "num_timesteps": self.start_transitions,
+        })
+        self._write_history()
+
+    def _evaluate_stage(self) -> Dict[str, Any]:
+        spec = self.spec_builder(self.cfg, self._current_stage())
+        res = quick_eval(self.model, self._vn, spec, self.val_seeds)
+        self.last_val = res
+        rec = {
+            "event": "validate",
+            "stage": self._current_stage()["name"],
+            "stage_seconds": spec["max_episode_seconds"],
+            "transitions_in_stage": int(self.transitions_in_stage),
+            "num_timesteps": int(self.num_timesteps),
+            "success_rate": res["success_rate"],
+            "complete_rate": res["complete_rate"],
+            "mean_alive_time_s": res["mean_alive_time_s"],
+            "end_sources": _count_sources(res["episodes"]),
+            "elapsed_min": self._elapsed_min(),
+        }
+        self.history.append(rec)
+        self._write_history()
+        print(f"\n[课程] 阶段 {rec['stage']} ({rec['stage_seconds']:.0f}s) 验证: "
+              f"成功率={res['success_rate']:.2f} 走满率={res['complete_rate']:.2f} "
+              f"平均存活={res['mean_alive_time_s']:.2f}s 结束原因={rec['end_sources']}")
+        return res
+
+    def _promote(self, val: Dict[str, Any]) -> None:
+        old = self._current_stage()
+        self.stage_idx += 1
+        new = self._current_stage()
+        secs = float(new["max_episode_seconds"])
+        # 广播到全部 worker（不重建进程）
+        try:
+            applied = self.training_env.env_method("configure_episode_seconds", secs)
+        except Exception as exc:  # noqa: BLE001
+            raise RuntimeError(f"课程切换广播失败（阶段 {new['name']}）：{exc}") from exc
+        self.transitions_in_stage = 0
+        self._stall_logged = False
+        self._next_val_at = int(new.get("min_transitions", 0))
+        self.history.append({
+            "event": "promote",
+            "from_stage": old["name"],
+            "to_stage": new["name"],
+            "to_seconds": secs,
+            "val_success_rate": val["success_rate"],
+            "num_timesteps": int(self.num_timesteps),
+            "applied_in_workers": applied[0] if applied else None,
+            "n_workers": len(applied) if applied else 0,
+            "elapsed_min": self._elapsed_min(),
+        })
+        self._write_history()
+        print(f"[课程] 升级 {old['name']} → {new['name']}（{secs:.0f} s）；"
+              f"已在 {len(applied) if applied else 0} 个 worker 生效: "
+              f"{applied[0] if applied else None}")
+
+    def _on_step(self) -> bool:
+        self.transitions_in_stage += self.training_env.num_envs
+
+        if self._done() >= self.budget_transitions:
+            self.stop_reason = "到达 transition 预算"
+            return False
+        if self._elapsed_min() >= self.budget_minutes:
+            self.stop_reason = "到达墙钟预算"
+            return False
+
+        stage = self._current_stage()
+        min_t = int(stage.get("min_transitions", 0))
+        at_last = self.stage_idx >= len(self.stages) - 1
+        if at_last and self._next_val_at > 10**12:
+            return True
+        if self.transitions_in_stage >= min_t and self.transitions_in_stage >= self._next_val_at:
+            val = self._evaluate_stage()
+            self._next_val_at = self.transitions_in_stage + self.val_every
+            if at_last:
+                return True
+            if val["success_rate"] >= self.promote_at:
+                self._promote(val)
+            elif self.transitions_in_stage >= self.stall_after and not self._stall_logged:
+                self._stall_logged = True
+                self.history.append({
+                    "event": "stalled",
+                    "stage": stage["name"],
+                    "stage_seconds": float(stage["max_episode_seconds"]),
+                    "transitions_in_stage": int(self.transitions_in_stage),
+                    "best_success_rate": val["success_rate"],
+                    "note": "按设计**不**降低门槛晋级；此处仅记录以便分析该阶段的失败状态",
+                    "elapsed_min": self._elapsed_min(),
+                })
+                self._write_history()
+                print(f"[课程] 阶段 {stage['name']} 停滞（成功率 {val['success_rate']:.2f} < "
+                      f"{self.promote_at}），按设计保持在该阶段，不降低标准晋级")
+        return True
+
+    # 让回调拿到归一化环境（构造时 vec_env 还没有；在 training_start 后可用）
+    @property
+    def _vn(self):
+        return self._vec_normalize if self._vec_normalize is not None else self.model.get_env()
+
+    def _on_training_end(self) -> None:
+        self.history.append({
+            "event": "end",
+            "stop_reason": self.stop_reason,
+            "stage": self._current_stage()["name"],
+            "num_timesteps": int(self.num_timesteps),
+            "elapsed_min": self._elapsed_min(),
+        })
+        self._write_history()
+
+
+def _count_sources(episodes: List[Dict[str, Any]]) -> Dict[str, int]:
+    out: Dict[str, int] = {}
+    for e in episodes:
+        k = str(e.get("termination_source"))
+        out[k] = out.get(k, 0) + 1
+    return out
 
 
 # ------------------------------------------------------------------ 模型装配
@@ -311,48 +520,88 @@ def save_checkpoint(model, vec_normalize, run_dir: Path, cfg: Dict[str, Any], me
 
 
 def quick_eval(model, vec_normalize, spec: Dict[str, Any], seeds: List[int]) -> Dict[str, Any]:
-    """在给定种子上跑一次确定性评估（单进程，不更新归一化统计）。"""
+    """在给定种子上跑一次确定性评估（单进程，不更新归一化统计）。
+
+    **必须用与训练完全相同的 spec 构建环境**（同一终止判据、同一回合时长）。
+    否则「验证集成功率」是在另一套规则下算出来的，课程升级就失去了意义。
+    成功判定同时要求「走满本阶段时长」与配置里的速度/侧偏/倾角/数值判据。
+    """
     from hemirl.research_env import ResearchEnvConfig as RC
+    from hemirl.research_env import RewardSplitConfig as RS
     from hemirl.termination import TerminationConfig as TC
+    from hemirl.rollout import root_state
 
     env_cfg = RC(
-        termination=TC(kind="research", min_pelvis_height=spec["min_pelvis_height"],
-                       max_pelvis_up_tilt_deg=spec["max_pelvis_up_tilt_deg"]),
+        termination=TC(
+            kind="research",
+            min_pelvis_height=spec["min_pelvis_height"],
+            max_pelvis_up_tilt_deg=spec["max_pelvis_up_tilt_deg"],
+            max_lateral_dev_from_ref_m=spec.get("max_lateral_dev_from_ref_m"),
+            lateral_hold_s=float(spec.get("lateral_hold_s") or 0.0),
+        ),
         max_episode_seconds=spec["max_episode_seconds"],
         reward_mode="split",
+        reward_split=RS(w_survival=float(spec["w_survival"]),
+                        include_official_healthy=bool(spec["include_official_healthy"])),
+        extra_reward=HealthyRewardConfig(**spec["extra_reward"]) if spec.get("extra_reward") else None,
         keep_ledger=False,
         name="val",
     )
+    success = dict(spec.get("success") or {})
     env, raw = build_research_env(env_cfg=env_cfg, checkpoint_dir=paths.checkpoint_dir("LocomotionFull"))
     vn = vec_normalize
     out: List[Dict[str, Any]] = []
     for seed in seeds:
         obs, _ = env.reset(seed=seed)
-        alive = 0.0
         steps = 0
+        speeds: List[float] = []
+        lats: List[float] = []
+        tilts: List[float] = []
         while True:
             z = vn.normalize_obs(np.asarray(obs, dtype=np.float32))
             action, _ = model.predict(z, deterministic=True)
             obs, _r, terminated, truncated, info = env.step(action)
             steps += 1
-            alive = info["termination"]["elapsed_time_s"]
+            rs = root_state(env.raw_env.model, env.raw_env.data, int(env.pelvis_id))
+            speeds.append(float(rs["lin_vel"][0]))
+            lats.append(abs(float(rs["pos"][1]) - env._ref_y()))
+            tilts.append(float(env.up_tilt_deg()))
             if terminated or truncated:
-                out.append({
-                    "seed": seed,
-                    "steps": steps,
-                    "alive_time_s": alive,
-                    "termination_source": info["termination"]["termination_source"],
-                    "completed": info["termination"]["termination_source"] in ("time_limit",),
-                })
+                meta = info["termination"]
                 break
+        alive = float(meta["elapsed_time_s"])
+        mean_vx = float(np.mean(speeds)) if speeds else 0.0
+        checks = {
+            "completed_planned_duration": meta["termination_source"] == "time_limit",
+            "speed_ok": mean_vx >= float(success.get("min_mean_forward_speed", 0.0)),
+            "lateral_ok": (max(lats) <= float(success.get("max_lateral_drift_m", 1e9))) if lats else False,
+            "tilt_ok": (max(tilts) <= float(success.get("max_pelvis_tilt_deg", 180.0))) if tilts else False,
+            "no_numeric_anomaly": not bool(meta["numeric_anomaly"]),
+        }
+        out.append({
+            "seed": seed,
+            "steps": steps,
+            "alive_time_s": alive,
+            "termination_source": meta["termination_source"],
+            "completed": meta["termination_source"] == "time_limit",
+            "mean_forward_speed": mean_vx,
+            "max_lateral_dev_from_ref_m": float(max(lats)) if lats else None,
+            "max_pelvis_tilt_deg": float(max(tilts)) if tilts else None,
+            "success_checks": checks,
+            "success": bool(all(checks.values())),
+        })
     env.close()
     n = len(out)
+    n_succ = sum(1 for r in out if r["success"])
     return {
         "n": n,
-        "success_rate": float(sum(1 for r in out if r["completed"]) / n) if n else 0.0,
+        "n_success": n_succ,
+        "success_rate": float(n_succ / n) if n else 0.0,
+        "complete_rate": float(sum(1 for r in out if r["completed"]) / n) if n else 0.0,
         "mean_alive_time_s": float(np.mean([r["alive_time_s"] for r in out])) if n else 0.0,
         "episodes": out,
         "seeds": seeds,
+        "stage_seconds": spec["max_episode_seconds"],
     }
 
 
@@ -492,33 +741,20 @@ def main() -> int:
         d = np.abs(now - probe_before)
         return {"max_abs_action_diff": float(d.max()), "mean_abs_action_diff": float(d.mean())}
 
-    # --- 训练（用 callback 控制预算与课程）
-    from stable_baselines3.common.callbacks import BaseCallback
-
-    class BudgetCallback(BaseCallback):
-        def __init__(self):
-            super().__init__()
-            self.t0 = time.perf_counter()
-            self.start_transitions = int(model.num_timesteps)
-            self.stop_reason: Optional[str] = None
-            self.history: List[Dict[str, Any]] = []
-            self.meta = meta
-
-        def _on_step(self) -> bool:
-            elapsed_min = (time.perf_counter() - self.t0) / 60.0
-            done = self.num_timesteps - self.start_transitions
-            if done >= budget_transitions:
-                self.stop_reason = "到达 transition 预算"
-                return False
-            if elapsed_min >= budget_minutes:
-                self.stop_reason = "到达墙钟预算"
-                return False
-            return True
-
-    cb = BudgetCallback()
+    # --- 训练（CurriculumCallback 同时负责预算控制与课程阶段切换）
+    cfg["_run_dir"] = str(run_dir)
+    cb = CurriculumCallback(
+        cfg=cfg,
+        stages=stages,
+        spec_builder=env_spec,
+        budget_transitions=budget_transitions,
+        budget_minutes=budget_minutes,
+        vec_normalize=vec_normalize,
+    )
     n_updates_before = int(getattr(model, "_n_updates", 0))
     t0 = time.perf_counter()
-    print(f"\n开始训练…（上限 {budget_transitions} transitions / {budget_minutes} 分钟）")
+    print(f"\n开始训练…（上限 {budget_transitions} transitions / {budget_minutes} 分钟）；"
+          f"课程阶段 = {[s['name'] for s in stages]}")
     model.learn(
         total_timesteps=int(budget_transitions) + 1000,  # 上限由 callback 控制
         callback=cb,
@@ -529,6 +765,7 @@ def main() -> int:
     wall_min = (time.perf_counter() - t0) / 60.0
     done_transitions = int(model.num_timesteps - cb.start_transitions)
     n_updates_done = int(getattr(model, "_n_updates", 0)) - n_updates_before
+    final_stage = cb._current_stage()
 
     drift = policy_drift()
     print(f"\n训练结束：{cb.stop_reason}")
@@ -545,18 +782,24 @@ def main() -> int:
     print(f"  数值有限性: actor={finite_ok} critic={critic_finite} alpha={alpha_val:.4f}")
     print(f"  dynsyn_weight_amp（训练后）= {model.actor.dynsyn_layer.dynsyn_weight_amp}（应恒为 0.0）")
 
-    # --- 验证集评估
-    val_spec = dict(spec_stage)
+    # --- 验证集评估（用**训练结束时所处阶段**的 spec，保证与训练规则一致）
+    val_spec = env_spec(cfg, final_stage)
     val_res = quick_eval(model, vec_normalize, val_spec, list(cfg["curriculum"]["val_seeds"]))
-    print(f"  验证集（{val_res['seeds']}）: 成功率={val_res['success_rate']:.2f} "
+    print(f"  验证集（{val_res['seeds']}，{val_spec['max_episode_seconds']:.0f}s 阶段）: "
+          f"成功率={val_res['success_rate']:.2f} 走满率={val_res['complete_rate']:.2f} "
           f"平均存活={val_res['mean_alive_time_s']:.2f}s")
 
     n_this_run = int(done_transitions)
-    n_total = int(model.num_timesteps - notes["inherited"]["num_timesteps"]) + int(
-        notes["inherited"]["num_timesteps"] - notes["inherited"]["num_timesteps"]
-    )
     n_total = int(model.num_timesteps)
     meta.update({
+        "curriculum": {
+            "stages": stages,
+            "events": cb.history,
+            "final_stage": final_stage["name"],
+            "final_stage_seconds": float(final_stage["max_episode_seconds"]),
+            "promoted_count": sum(1 for e in cb.history if e.get("event") == "promote"),
+            "stalled": any(e.get("event") == "stalled" for e in cb.history),
+        },
         "result": {
             # ``transitions`` 保留为**本次运行**的 transition 数（向后兼容）；
             # 另给 ``transitions_total`` = 该模型累计训练过的环境步数（含 checkpoint 自带的 4.5e7）。
@@ -616,6 +859,9 @@ def main() -> int:
         "num_timesteps_after": int(model.num_timesteps),
         "wall_minutes": wall_min,
         "stop_reason": cb.stop_reason,
+        "final_stage": final_stage["name"],
+        "final_stage_seconds": float(final_stage["max_episode_seconds"]),
+        "n_promotions": sum(1 for e in cb.history if e.get("event") == "promote"),
         "critic_init": cfg.get("critic_init"),
         "alpha_init": cfg.get("alpha_init"),
         "dynsyn_weight_amp_pinned": float(cfg.get("dynsyn_weight_amp", 0.0)),

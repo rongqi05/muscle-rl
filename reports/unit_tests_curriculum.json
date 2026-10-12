@@ -1,0 +1,51 @@
+{
+  "n": 9,
+  "n_pass": 9,
+  "results": [
+    {
+      "test": "C1 不达标不升级：验证成功率低于阈值时保持同一阶段，且不向 worker 广播",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "C2 达标才升级：成功率 ≥ 阈值时升级，并把新时长广播到全部 worker",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "C3 min_transitions 是「最早可评估」门槛：未到步数不验证、不升级",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "C4 停滞不晋级：长时间不达标只记录 stalled，不得降低门槛通过",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "C5 预算仍然生效：transition 与墙钟两个上限都能停止训练",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "C6 最高阶段不再尝试升级，但仍继续验证记录",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "C7 课程历史落盘：curriculum_history.json 含 start/validate/promote/end",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "C8 env_spec 传递完整性：终止项、奖励权重、质量阈值都必须进入 spec",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "C9 真实配置：课程最终阶段就是验收时长，且验证种子与测试种子不相交",
+      "ok": true,
+      "error": null
+    }
+  ]
+}

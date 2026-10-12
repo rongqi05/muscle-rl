@@ -45,6 +45,14 @@ def main() -> int:
             print("\n研究环境回归测试失败")
             return rc_env
 
+    from tests import test_curriculum
+
+    print()
+    rc_cur = test_curriculum.main()
+    if rc_cur != 0:
+        print("\n课程学习回归测试失败")
+        return rc_cur
+
     if args.with_heavy:
         print("\n=== 运行 scripts/verify_strength.py ===")
         r = subprocess.run(

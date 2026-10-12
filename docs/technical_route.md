@@ -169,3 +169,42 @@ split 模式净奖励 **−38.7/步**（每步负回报，无正向目标）。
 - [`reports/phase2_acceptance_report.md`](../reports/phase2_acceptance_report.md) — **第一阶段修复验收报告**（逐项状态、口径变更、长时失败归因、下一阶段入口与阻塞）
 - [`reports/phase1_report.md`](../reports/phase1_report.md) — 阶段一历史记录（数字使用修复前口径）
 - [`AGENTS.md`](../AGENTS.md) — 工作区硬性约定（上游只读、不用运动学回放、禁止预设结论等）
+
+## 第四阶段：正常肌力稳定行走（基线复现 + 流程修复 + 受控实验）
+
+详见 [`reports/phase5_stable_walking_report.md`](../reports/phase5_stable_walking_report.md)。
+
+**修复两个影响验收的真实缺陷**
+
+1. **课程阶段切换从未实现**：`scripts/train_healthy.py: main()` 里写死 `stage = stages[0]`。
+   新增 `CurriculumCallback` + `ResearchLocomotionEnv.configure_episode_seconds`：
+   升级**由独立验证集触发**（`promote_val_success_rate`）、通过
+   `vec_env.env_method` 广播到全部 worker（不重建进程）、落盘 `curriculum_history.json`、
+   停滞只记录 `stalled` 而**不降低标准晋级**。测试 C1–C9、T16–T17。
+2. **`time_limit` 在 dt 整数倍时长上被 `step_cap` 抢先**：`data.time` 累加到
+   `3.9999999999999996`，导致 4/6/10/20 s（验收时长全是）被记成 `step_cap`。
+   因为「走满规定时长」只认 `time_limit`，**修复前即使策略完美走满 20 s 也会被记为未完成，
+   18/20 门槛不可能达成**。修复：改用实际经过时间 + 1 ns 容差；测试 T18 覆盖 20.0 s。
+
+**失败模式（终止前 2 s 时间对齐诊断，`reports/phase1_prefix_diag.json`）**
+
+* 全部策略在约 **5 s** 终止，10/20 s 档存活与 6 s 档几乎相同 → 存在「5 s 墙」。
+* 领先顺序：官方是**倾角先行**（+0.86 s）；v1 是**侧向漂移先行**（+1.26 s）。
+* v1 的终末事件是**快速高度塌陷（下沉）**：最后 0.4 s 贡献 88% 的高度下降，
+  下沉速率 0.82 m/s（官方 0.48），倾角末段仅 15.8°。
+* 仅为**观察顺序，非因果**。
+
+**受控实验（各 5×10⁴ transitions）**
+
+* **E1 v3 = v1 + 已实现的课程**：s4→s5→s6 真实升级后 **stall 在 s6**（best 0.20）；
+  同预算下 6 s 走满 1/20（v1 5/20）→ 机制正确但**按当前配置预算不划算**。
+* **E2 v4 = v3 + `w_survival` 100→20**：每档每项都更差 → **H1 否定，方向相反**。
+
+**方法论修正**：多回合价值校准（5 种子）显示单点 $Q/G$ 误导——
+官方 0.832±0.061（非 0.989）、v1 1.141±0.101（非 1.376）。
+
+**验收**：独立测试集 301–320 上 20 s 走满 **0/20**（要求 18/20）→ **未通过**。
+
+**下一步**：`w_survival` 100→300（E2 的单调反证方向），同时报告三档行走表现与多回合校准；
+若无效则瓶颈为预算（建议 5×10⁵ transitions ≈ 3.2 小时，需显式确认）。
+

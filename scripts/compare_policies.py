@@ -120,6 +120,8 @@ def main() -> int:
     parser.add_argument("--policies", nargs="+", required=True)
     parser.add_argument("--config", type=str, default=str(paths.CONFIGS_ROOT / "train_healthy_v1.json"))
     parser.add_argument("--seed", type=int, default=0)
+    parser.add_argument("--seeds", type=str, default=None,
+                        help="多回合价值校准，如 301:305（给出每个种子的 Q/G 比值与均值±标准差）")
     parser.add_argument("--steps", type=int, default=260)
     parser.add_argument("--out", type=str, default=str(paths.REPORTS_ROOT / "train_vs_baseline.json"))
     args = parser.parse_args()
@@ -218,6 +220,54 @@ def main() -> int:
     print(f"价值: Q_A_mean={qA.mean():.1f} Q_B_mean={qB.mean():.1f} "
           f"ΔQ_max|.|={np.abs(qB-qA).max():.1f}")
     print(f"  MC 回报 t0: official={G_off[0]:.1f} new={G_new[0]:.1f}")
+
+    # ---------- 多回合价值校准（可选）
+    # 单点 Q(t0)/G(t0) 只是一个样本，不足以支撑"价值函数是否校准"的结论；
+    # 这里在多个种子上重复，给出逐种子比值与均值±标准差。
+    if args.seeds:
+        if ":" in args.seeds:
+            lo, hi = args.seeds.split(":")
+            calib_seeds = list(range(int(lo), int(hi) + 1))
+        else:
+            calib_seeds = [int(x) for x in args.seeds.split()]
+        rows = []
+        for sd in calib_seeds:
+            rA = rollout(envA, rawA, stackA, sd, args.steps, extra_cfg, w_survival)
+            if len(rA["z"]) < 5:
+                continue
+            zz, aa = rA["z"], rA["a"]
+            qa = float(q_values(stackA.model, zz, aa)[0])
+            qb = float(q_values(stackB.model, zz, aa)[0])
+            go = float(discounted_returns(rA["r_official"])[0])
+            gn = float(discounted_returns(rA["r_new"])[0])
+            rows.append({
+                "seed": sd, "n_steps": int(len(zz)),
+                "Q_A_t0": qa, "Q_B_t0": qb,
+                "G_official_t0": go, "G_new_t0": gn,
+                "ratio_A_over_G_official": (qa / go) if abs(go) > 1e-9 else None,
+                "ratio_B_over_G_new": (qb / gn) if abs(gn) > 1e-9 else None,
+            })
+        ra = [r["ratio_A_over_G_official"] for r in rows if r["ratio_A_over_G_official"] is not None]
+        rb = [r["ratio_B_over_G_new"] for r in rows if r["ratio_B_over_G_new"] is not None]
+        report["value_calibration_multi_seed"] = {
+            "seeds": calib_seeds,
+            "per_seed": rows,
+            "ratio_A_mean": float(np.mean(ra)) if ra else None,
+            "ratio_A_std": float(np.std(ra)) if ra else None,
+            "ratio_B_mean": float(np.mean(rb)) if rb else None,
+            "ratio_B_std": float(np.std(rb)) if rb else None,
+            "n_used": len(rows),
+            "note": ("比值 = critic 在同一状态-动作对上的 Q 与该轨迹的经验折扣回报之比。"
+                     "仅为诊断量，**不作为**「增加更新次数就能解决」的依据。"),
+        }
+        print(f"\n多回合价值校准（n={len(rows)}）: "
+              f"{A_name} Q/G = {np.mean(ra):.3f} ± {np.std(ra):.3f} | "
+              f"{B_name} Q/G = {np.mean(rb):.3f} ± {np.std(rb):.3f}")
+        for r in rows:
+            print(f"  seed={r['seed']:4d} n={r['n_steps']:3d}  "
+                  f"Q_A/G_off={r['ratio_A_over_G_official']:.3f}  "
+                  f"Q_B/G_new={r['ratio_B_over_G_new']:.3f}"
+                  if r['ratio_B_over_G_new'] is not None else "")
 
     # ---------- 结论
     improved_alive = float(np.mean([1.0]))  # 由配对评估提供，这里只做数值对比

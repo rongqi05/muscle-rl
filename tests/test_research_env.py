@@ -563,6 +563,105 @@ def test_t15_lateral_is_independent_branch():
     assert r2 is None or not r2.startswith("侧向偏移"), r2
 
 
+def _time_only_term() -> TerminationConfig:
+    """只留时间判据的终止配置，用于**隔离**测时间/时长逻辑。"""
+    return TerminationConfig(
+        kind="research",
+        min_pelvis_height=None,
+        max_pelvis_up_tilt_deg=None,
+        max_root_speed=None,
+        max_root_ang_speed=None,
+        max_joint_speed_norm=None,
+    )
+
+
+@case("T16 运行时改回合时长：派生量同步重算，且真的改变了截断时刻")
+def test_t16_configure_episode_seconds():
+    env, _raw = _make_env("t16", _time_only_term(), max_episode_seconds=1.0)
+    assert abs(env.time_limit_s - 1.0) < 1e-12, env.time_limit_s
+    assert env.max_control_steps == 50, env.max_control_steps
+
+    # 加长到 2.0 s：派生量必须**同步**，否则 max_control_steps 会变成陈旧值
+    ret = env.configure_episode_seconds(2.0)
+    assert ret == {"max_episode_seconds": 2.0, "time_limit_s": 2.0, "max_control_steps": 100}, ret
+    info = _run_until_done(env, max_iter=400)
+    t = info["termination"]
+    assert t["termination_source"] == "time_limit", t
+    assert t["n_control_steps"] == 100, t
+    assert abs(t["elapsed_time_s"] - 2.0) < 1e-9, t
+
+    # 缩短到 0.5 s：必须真的提前截断（不是沿用上一次的 2.0 s）
+    env.configure_episode_seconds(0.5)
+    info2 = _run_until_done(env, max_iter=400)
+    assert info2["termination"]["n_control_steps"] == 25, info2["termination"]
+    assert abs(info2["termination"]["elapsed_time_s"] - 0.5) < 1e-9, info2["termination"]
+
+    # None → 回到官方写死的上限
+    env.configure_episode_seconds(None)
+    assert abs(env.time_limit_s - env.official_time_limit_s) < 1e-12, env.time_limit_s
+    assert abs(env.official_time_limit_s - 3.51) < 1e-9, env.official_time_limit_s
+
+    # 非法值必须报错，不能静默接受
+    for bad in (0.0, -1.0):
+        try:
+            env.configure_episode_seconds(bad)
+        except ValueError:
+            pass
+        else:
+            raise AssertionError(f"回合时长 {bad} 应报 ValueError")
+    # 报错后不应把环境留在坏状态
+    assert abs(env.time_limit_s - env.official_time_limit_s) < 1e-12, env.time_limit_s
+
+
+@case("T17 单因素保证：改回合时长不得改变终止判据与奖励分量")
+def test_t17_episode_length_is_single_factor():
+    from hemirl import rollout as _rollout
+
+    env, _raw = _make_env("t17", TerminationConfig(kind="research"), max_episode_seconds=6.0)
+    env.reset(seed=3)
+    a = np.zeros(700, dtype=np.float32)
+    for _ in range(5):
+        _obs, r_before, _te, _tr, info_before = env.step(a)
+    comp_before = dict(info_before["reward_components"])
+    # 同一状态下把时长从 6 s 改成 20 s（这是课程切换会做的事）
+    env.configure_episode_seconds(20.0)
+    # 判据本身不变（只有时间上限变了）
+    assert env.cfg.termination.min_pelvis_height == 0.55
+    assert env.cfg.termination.max_pelvis_up_tilt_deg == 60.0
+    assert env.cfg.termination.max_lateral_dev_from_ref_m is None
+    # 物理判据的评估结果与时长无关：在远未到时间上限的时刻应给出同样的结论
+    r, src = env._evaluate_termination(0.1, False, False)
+    assert (r, src) == (None, None), (r, src)
+    # 奖励分量定义不变：相同状态-动作下各分量只由状态决定，与 time_limit 无关
+    rs = _rollout.root_state(env.model, env.data, int(env.pelvis_id))
+    assert np.isfinite(rs["pos"]).all() and np.isfinite(rs["lin_vel"]).all()
+    for k in ("imitation", "energy", "survival_physical"):
+        assert k in comp_before, (k, comp_before)
+    assert comp_before["survival_physical_is_reference_dependent"] is False
+    assert comp_before["official_healthy_is_reference_dependent"] is True
+
+
+@case("T18 时长恰为 dt 整数倍时必须以 time_limit 结束，不能被 step_cap 抢先")
+def test_t18_time_limit_beats_step_cap_on_exact_multiples():
+    """防止「走满时长却记成 step_cap」——这会让 18/20 的门槛永远不可达。
+
+    ``data.time`` 由 ``timestep=0.002`` 逐步累加，走满 N 步后是 ``N·0.02 − 4e-16``，
+    直接用 ``>=`` 比较会在 4/6/10/20 s 这些（验收用的）整数倍时长上判失败，
+    于是步数上限抢先触发、结束原因变成 ``step_cap``。
+    """
+    for seconds, expect_steps in ((0.4, 20), (1.0, 50), (4.0, 200), (20.0, 1000)):
+        env, _raw = _make_env(f"t18_{seconds}", _time_only_term(), max_episode_seconds=seconds)
+        assert env.max_control_steps == expect_steps, (seconds, env.max_control_steps)
+        info = _run_until_done(env, max_iter=expect_steps + 50)
+        t = info["termination"]
+        assert t["termination_source"] == "time_limit", (seconds, t)
+        assert t["truncated"] is True and t["terminated"] is False, (seconds, t)
+        assert t["n_control_steps"] == expect_steps, (seconds, t)
+        assert t["reached_step_cap"] is False, (seconds, t)
+        # 评估里「走满规定时长」就是靠这一点判定的
+        assert t["elapsed_time_s"] + 1e-9 >= seconds, (seconds, t)
+
+
 def main() -> int:
     tests = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     for t in tests:

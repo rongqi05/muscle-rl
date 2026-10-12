@@ -1,0 +1,172 @@
+{
+  "_comment": "正常行走微调 v4（肌力固定 1.0）。基线 = v4 的前身 v3（= v1 + 已实现的课程）。相对 v3 的**唯一**改动：reward_split.w_survival 100.0 → 20.0（平衡奖励配比）。这是单因素对照 E2。",
+  "tag": "healthy_v4",
+  "checkpoint_dir": "artifacts/checkpoints/LocomotionFull",
+  "seed": 0,
+  "parallel_envs": 12,
+  "_parallel_note": "实测（scripts/measure_throughput.py）：12 进程合计 2457 steps/s，8 进程 1942，单进程 298；12 是本机 20 核下的吞吐最优档。与 v1 相同。",
+  "replay_buffer_size": 100000,
+  "_buffer_note": "32 KB/transition（obs 3601 + next_obs 3601 + act 700，float32）。1e5 → 2.94 GiB；上游的 1e6 需要 29.4 GiB，会耗尽 31 GiB 内存，不能用。与 v1 相同。",
+  "batch_size": 256,
+  "train_freq": 2,
+  "gradient_steps": 1,
+  "_train_freq_note": "SB3 每轮 collect_rollouts 收集 train_freq × n_envs 个 transition 后调用一次 train()，所以 n_updates = 50000 / (2 × 12) = 2083 次。**与 v1 逐位相同**，保证 v1→v3 是单因素对照（只改课程）。",
+  "learning_starts": 200,
+  "_learning_starts_note": "critic 已从官方 checkpoint 继承，不是从零学，因此 200 步即可开始更新。与 v1 相同。",
+  "learning_rate": 0.0001,
+  "lr_schedule": "constant",
+  "_lr_note": "显式常数 1e-4，不继承 checkpoint 的 FloatSchedule（其进度为 0.1、对应 lr=1.25e-4）。与 v1 相同。",
+  "critic_init": "keep",
+  "alpha_init": "keep",
+  "_init_note": "由 4 组 2000-transition 对照实验决定（reports/train_check_init.json）：keep+keep 验证集存活 4.95s；reset+keep 0.64s（崩溃）。与 v1 相同。",
+  "dynsyn_weight_amp": 0.0,
+  "_dynsyn_note": "必须显式固定。checkpoint 的 dynsyn_k=5e-9 / dynsyn_a=3e7 / num_timesteps=4.5e7 会让上游 train() 算出 amp=0.075 并静默改变动作语义。固定 0.0 时 weight≡1。与 v1 相同。",
+  "vec_normalize_update": false,
+  "_vec_note": "训练与评估都冻结官方 VecNormalize 统计（training=False）；评估环境绝不更新统计。与 v1 相同。",
+  "reward_mode": "split",
+  "reward_split": {
+    "w_survival": 20.0,
+    "include_official_healthy": false,
+    "normalization": 1.0
+  },
+  "_reward_split_note": "**相对 v3 只改了 w_survival：100.0 → 20.0。** 依据（reports/phase1_prefix_diag.json，终止前 2 s、5 回合实测）：骨盆高度在 >0.85 m 的步上占 80%，而存活项只检查 高度≥0.55 m，因此在关键窗口内它恒为 +100 的常数、对「即将下沉」零区分度；同时它把参考跟踪项的相对权重压低。把它降到 20 后，「走对」（imitation/energy/额外项）成为主项。",
+  "extra_reward": {
+    "enable": true,
+    "w_lateral_dev": 125.8873230209337,
+    "w_lateral_vel": 32.617354566739145,
+    "w_forward_shortfall": 41.99930648837295,
+    "w_slip": 3.256271946166558,
+    "forward_speed_target": 1.0378,
+    "slip_tolerance": 1.0,
+    "reference_lateral_from": "ref"
+  },
+  "_extra_reward_note": "与 v1 逐位相同（由 reports/reward_calibration.json 的实测原始量反解：正常行走时每项 ≈ 5.0/步）。",
+  "termination": {
+    "max_lateral_dev_from_ref_m": null,
+    "lateral_hold_s": 0.0,
+    "_note": "**显式关闭**（与 v1 相同）。v2 的 0.10 m + 0.5 s 侧向终止经配对实验证明使长时指标变差：C−B 存活 −0.27 s、速度 −0.073 m/s、侧偏 +0.041 m（reports/phase4_lateral_termination_report.md §5）。这里显式写出 null 而不是省略，是为了让「本配置没有开这一项」可被机器核查。"
+  },
+  "curriculum": {
+    "stages": [
+      {
+        "name": "s4",
+        "max_episode_seconds": 4.0,
+        "min_transitions": 0
+      },
+      {
+        "name": "s5",
+        "max_episode_seconds": 5.0,
+        "min_transitions": 4000
+      },
+      {
+        "name": "s6",
+        "max_episode_seconds": 6.0,
+        "min_transitions": 6000
+      },
+      {
+        "name": "s8",
+        "max_episode_seconds": 8.0,
+        "min_transitions": 8000
+      },
+      {
+        "name": "s10",
+        "max_episode_seconds": 10.0,
+        "min_transitions": 10000
+      },
+      {
+        "name": "s14",
+        "max_episode_seconds": 14.0,
+        "min_transitions": 14000
+      },
+      {
+        "name": "s20",
+        "max_episode_seconds": 20.0,
+        "min_transitions": 20000
+      }
+    ],
+    "promote_val_success_rate": 0.8,
+    "val_episodes": 5,
+    "val_seeds": [
+      101,
+      102,
+      103,
+      104,
+      105
+    ],
+    "val_every_transitions": 5000,
+    "stall_after_transitions": 20000,
+    "_note": "**这才是实现了的课程**（见 scripts/train_healthy.py: CurriculumCallback）。升级条件 = 「本阶段已攒够 min_transitions」**且**「独立验证集成功率 ≥ 0.8」；成功率同时要求走满本阶段时长与满足速度/侧偏/倾角/数值判据。不达标就停在该阶段并记录 stalled，**不降低标准晋级**。",
+    "_why_short_stages": "v1 的课程从 6 s 起步，而官方策略只能走约 4.7 s、v1 约 5.6 s → 6 s 阶段的成功率恒为 0.00，课程在 v1 里**从未升过级**（reports/phase3_long_horizon_report.md §6.2）。这里把起步阶段设为 4 s（v1 在多数种子上能走满），使课程有可验证的第一级 —— 这是「设计可验证的较短阶段」，**不是**降低验收标准：最终 s20 阶段与 eval.success 的质量阈值一字未改。",
+    "_val_seed_discipline": "验证种子 101-105 与最终测试种子（201-220 已消耗、本阶段用 301-320）严格分离；奖励权重与 checkpoint 选择一律不看测试集。",
+    "_stall_note": "stall_after_transitions=20000：某阶段累计 20000 个 transition 仍不达标则记录一次 stalled 事件，供人工分析该阶段的失败状态（当前 50k 预算下最多触发一次）。"
+  },
+  "eval": {
+    "test_seeds": [
+      301,
+      302,
+      303,
+      304,
+      305,
+      306,
+      307,
+      308,
+      309,
+      310,
+      311,
+      312,
+      313,
+      314,
+      315,
+      316,
+      317,
+      318,
+      319,
+      320
+    ],
+    "_test_seeds_note": "沿用上一阶段启用的新留出集 301-320（201-220 已被消费，再用它判定就等于据测试结果调参）。",
+    "consumed_test_seeds": [
+      201,
+      202,
+      203,
+      204,
+      205,
+      206,
+      207,
+      208,
+      209,
+      210,
+      211,
+      212,
+      213,
+      214,
+      215,
+      216,
+      217,
+      218,
+      219,
+      220
+    ],
+    "episode_seconds": 20.0,
+    "success": {
+      "min_episode_seconds": 20.0,
+      "min_mean_forward_speed": 0.6,
+      "max_lateral_drift_m": 0.35,
+      "max_pelvis_tilt_deg": 45.0,
+      "max_foot_slip_mean_mps": 3.0,
+      "allow_numeric_anomaly": false
+    },
+    "degenerate_speed": 0.2,
+    "_degenerate_note": "双足均承重（法向力>20N）且前进速度绝对值低于该值时记一步「站着不走」；完成回合并列平均前进速度低于该值判为退化行为。",
+    "gate": {
+      "n_episodes": 20,
+      "n_required": 18,
+      "_note": "阶段性工程门槛，不代表临床有效性。"
+    }
+  },
+  "budget": {
+    "max_transitions": 50000,
+    "max_minutes": 30.0,
+    "_note": "所有并行环境合计的 transition 数；先到者停止。与 v1 相同，保证 v1→v3 是单因素对照。"
+  },
+  "_reward_change_prediction": "若 H1 成立：动作饱和应回升（v1 实测 0.114 vs 官方 0.200），下沉速率下降（v1 末段 0.82 m/s vs 官方 0.48 m/s），存活变长。若不成立：指标与 v3 无显著差异 → 说明瓶颈不在配比。"
+}

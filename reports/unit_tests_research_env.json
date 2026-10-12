@@ -1,6 +1,6 @@
 {
-  "n": 15,
-  "n_pass": 15,
+  "n": 18,
+  "n_pass": 18,
   "results": [
     {
       "test": "T10 约束力分解：按类型拆开后残差为 0，不把 qfrc_constraint 整体归因 equality",
@@ -29,6 +29,21 @@
     },
     {
       "test": "T15 侧向偏移与髋高/倾倒判据互不干扰（各份限值只触发自己的分支）",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "T16 运行时改回合时长：派生量同步重算，且真的改变了截断时刻",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "T17 单因素保证：改回合时长不得改变终止判据与奖励分量",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "T18 时长恰为 dt 整数倍时必须以 time_limit 结束，不能被 step_cap 抢先",
       "ok": true,
       "error": null
     },

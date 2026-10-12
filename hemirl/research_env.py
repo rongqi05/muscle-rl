@@ -65,6 +65,12 @@ SOURCE_OFFICIAL_TIME = "official_time_limit"
 #: 因此单独归类，不得计入 ``physical_fall`` 统计。
 SOURCE_TASK_LATERAL_DRIFT = "task_lateral_drift"
 
+#: 时间上限比较的容差（秒）。``data.time`` 由物理步长逐步累加，走满 N 步后典型值是
+#: ``N·dt − 4e-16``，直接用 ``>=`` 会在「时长恰为 dt 整数倍」时判定失败，
+#: 从而让步数上限抢先触发、把 ``time_limit`` 误报成 ``step_cap``（详见
+#: :meth:`ResearchLocomotionEnv._evaluate_termination` 的注释）。
+_TIME_EPS = 1e-9
+
 #: 奖励模式
 REWARD_MODE_OFFICIAL = "official"  # 返回上游 reward（与 checkpoint 训练时一致）
 REWARD_MODE_SPLIT = "split"  # 返回物理存活 + 模仿（供后续损伤适应训练使用）
@@ -313,6 +319,34 @@ class ResearchLocomotionEnv(gym.Wrapper):
             self.max_control_steps = int(np.ceil(round(self.time_limit_s / self.dt, 9)))
         else:
             self.max_control_steps = int(np.ceil(round(self.official_time_limit_s / self.dt, 9)))
+
+    def configure_episode_seconds(self, seconds: Optional[float]) -> Dict[str, Any]:
+        """运行时改变回合时长（秒），并同步重算 ``time_limit_s`` / ``max_control_steps``。
+
+        课程学习必须在**不重建环境进程**的前提下切换阶段时长，否则：
+        重建 ``SubprocVecEnv`` 会让 worker 里的历史与 ``VecNormalize`` 挂载关系一起丢掉，
+        且每一步训练都要重新加载 MuJoCo 模型（实测约 2 s × n_envs）。
+
+        本方法**只**改时长，不动终止判据与奖励，因此可以安全地在
+        ``vec_env.env_method("configure_episode_seconds", s)`` 中广播到所有 worker。
+
+        Args:
+            seconds: 新的回合时长；None 表示回到官方写死的 ``terminate_time × cycles``。
+
+        Returns:
+            变更后的派生量，便于在日志里核对（以及验收「课程确实切了」）。
+        """
+        seconds = None if seconds is None else float(seconds)
+        if seconds is not None and seconds <= 0:
+            raise ValueError(f"回合时长必须为正，收到 {seconds!r}")
+        self.cfg = replace(self.cfg, max_episode_seconds=seconds)
+        # 复用同一套派生逻辑，避免两处实现漂移
+        self.configure_termination(self.cfg.termination)
+        return {
+            "max_episode_seconds": seconds,
+            "time_limit_s": self.time_limit_s,
+            "max_control_steps": self.max_control_steps,
+        }
 
     # ------------------------------------------------------------ 状态
 
@@ -609,7 +643,18 @@ class ResearchLocomotionEnv(gym.Wrapper):
             return (r, src)
 
         # 3) 达到规定评估时长 → truncated（不是 terminated）
-        if self.time_limit_s is not None and sim_time >= self.time_limit_s:
+        #
+        # **浮点边界必须给容差**：``data.time`` 是由 ``munit=0.002`` 逐步累加出来的，
+        # 走满 ``max_control_steps`` 步后典型值是 ``3.9999999999999996`` 而不是 ``4.0``。
+        # 若直接写 ``sim_time >= time_limit_s``，在「时长恰为 dt 整数倍」时（4/6/10/20 s
+        # 全是这种情况）判据 3 会**失败**，于是紧接着的判据 4（步数上限）抢先触发，
+        # 结束原因被记成 ``step_cap`` 而不是 ``time_limit``。
+        #
+        # 后果不是显示问题：评估里「走满规定时长」的判定只认
+        # ``termination_source == 'time_limit'``，所以**即使策略完美走满 20 s 也会被
+        # 记为未完成，18/20 的门槛永远不可能达成**。容差取 1 ns：远大于累加误差
+        # （实测 ~4e-16），远小于一个物理步长（2 ms），不会掩盖真实的提前截断。
+        if self.time_limit_s is not None and (sim_time - self._reset_time) + _TIME_EPS >= self.time_limit_s:
             reason = f"达到规定评估时长 {self.time_limit_s} s"
             self._truncated, self._termination_reason, self._termination_source = (
                 True,
