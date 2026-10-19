@@ -168,6 +168,87 @@
           "physical_fall": 5
         }
       }
+    },
+    {
+      "event": "validate",
+      "stage": "s6",
+      "stage_seconds": 6.0,
+      "transitions_in_stage": 80028,
+      "num_timesteps": 45130632,
+      "success_rate": 0.0,
+      "complete_rate": 0.0,
+      "mean_alive_time_s": 4.595999999999715,
+      "end_sources": {
+        "physical_fall": 5
+      },
+      "elapsed_min": 47.856016580983336,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 4.595999999999715,
+        "fall_times_s": [
+          4.86,
+          5.84,
+          4.28,
+          3.56,
+          4.44
+        ],
+        "mean_forward_speed": 0.7640405042427585,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
+    },
+    {
+      "event": "stalled",
+      "stage": "s6",
+      "stage_seconds": 6.0,
+      "transitions_in_stage": 80028,
+      "best_success_rate": 0.0,
+      "note": "按设计**不**降低门槛晋级；此处仅记录以便分析该阶段的失败状态",
+      "elapsed_min": 47.85602470648334
+    },
+    {
+      "event": "checkpoint",
+      "transitions_done": 100008,
+      "stage": "s6",
+      "files": {
+        "model": "ckpt_model.zip",
+        "vec_normalize": "ckpt_env.zip",
+        "replay_buffer": "ckpt_replay_buffer.pkl"
+      },
+      "replay_buffer_size_bytes": 3161918233,
+      "elapsed_min": 53.78863498683333
+    },
+    {
+      "event": "validate",
+      "stage": "s6",
+      "stage_seconds": 6.0,
+      "transitions_in_stage": 100032,
+      "num_timesteps": 45150636,
+      "success_rate": 0.0,
+      "complete_rate": 0.0,
+      "mean_alive_time_s": 5.275999999999641,
+      "end_sources": {
+        "physical_fall": 5
+      },
+      "elapsed_min": 55.13406984974999,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 5.275999999999641,
+        "fall_times_s": [
+          4.94,
+          4.88,
+          4.76,
+          5.82,
+          5.98
+        ],
+        "mean_forward_speed": 0.7227439892538026,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
     }
   ]
 }
