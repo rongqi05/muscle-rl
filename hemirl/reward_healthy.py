@@ -50,6 +50,10 @@ class HealthyRewardConfig:
         w_lateral_vel: 侧向速度惩罚权重（对 |Δvy| 线性）。
         w_forward_shortfall: 前进速度不足惩罚权重（对 max(0, v_target − v_x) 线性）。
         w_slip: 滑步惩罚权重（对 max(0, slip − slip_tolerance) 线性）。
+        w_vertical_sink: 竖直下沉惩罚权重（对 max(0, −v_z − vertical_sink_tolerance)
+            线性铰链）。阶段 B 证据：骨盆竖直速度在跌倒前约 2.6 s 转负并持续加深，
+            而高度直到最后 0.5 s 才掉；正常行走时下沉深度约 0.12 m/s。
+        vertical_sink_tolerance: 竖直下沉容忍（m/s），低于此不惩罚（正常步态摆动）。
         forward_speed_target: 目标前进速度（m/s）。
         slip_tolerance: 允许的足部滑动（m/s），低于此值不惩罚。
         reference_lateral_from: 相对哪个量计算侧向偏移。
@@ -62,6 +66,8 @@ class HealthyRewardConfig:
     w_lateral_vel: float = 0.0
     w_forward_shortfall: float = 0.0
     w_slip: float = 0.0
+    w_vertical_sink: float = 0.0
+    vertical_sink_tolerance: float = 0.15
     forward_speed_target: float = DEFAULT_FORWARD_SPEED_TARGET
     slip_tolerance: float = 1.0
     reference_lateral_from: str = "ref"
@@ -192,6 +198,7 @@ def compute(
             "extra_lateral_vel": 0.0,
             "extra_forward_shortfall": 0.0,
             "extra_slip": 0.0,
+            "extra_vertical_sink": 0.0,
         }
         return zero, 0.0
 
@@ -202,6 +209,8 @@ def compute(
         "extra_forward_shortfall": -cfg.w_forward_shortfall
         * max(0.0, cfg.forward_speed_target - float(lin_vel[0])),
         "extra_slip": -cfg.w_slip * max(0.0, float(slip) - cfg.slip_tolerance),
+        "extra_vertical_sink": -cfg.w_vertical_sink
+        * max(0.0, -float(lin_vel[2]) - cfg.vertical_sink_tolerance),
     }
     return terms, float(sum(terms.values()))
 

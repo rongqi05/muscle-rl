@@ -96,6 +96,78 @@
           "physical_fall": 5
         }
       }
+    },
+    {
+      "event": "validate",
+      "stage": "s6",
+      "stage_seconds": 6.0,
+      "transitions_in_stage": 40020,
+      "num_timesteps": 45090624,
+      "success_rate": 0.0,
+      "complete_rate": 0.0,
+      "mean_alive_time_s": 5.339999999999634,
+      "end_sources": {
+        "physical_fall": 5
+      },
+      "elapsed_min": 24.70635829491666,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 5.339999999999634,
+        "fall_times_s": [
+          4.92,
+          5.6,
+          5.04,
+          5.2,
+          5.94
+        ],
+        "mean_forward_speed": 0.7117450299940512,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
+    },
+    {
+      "event": "checkpoint",
+      "transitions_done": 50004,
+      "stage": "s6",
+      "files": {
+        "model": "ckpt_model.zip",
+        "vec_normalize": "ckpt_env.zip",
+        "replay_buffer": "ckpt_replay_buffer.pkl"
+      },
+      "replay_buffer_size_bytes": 3161918234,
+      "elapsed_min": 29.215178026749996
+    },
+    {
+      "event": "validate",
+      "stage": "s6",
+      "stage_seconds": 6.0,
+      "transitions_in_stage": 60024,
+      "num_timesteps": 45110628,
+      "success_rate": 0.0,
+      "complete_rate": 0.0,
+      "mean_alive_time_s": 5.2079999999996485,
+      "end_sources": {
+        "physical_fall": 5
+      },
+      "elapsed_min": 38.56508571066667,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 5.2079999999996485,
+        "fall_times_s": [
+          5.92,
+          4.64,
+          4.98,
+          4.6,
+          5.9
+        ],
+        "mean_forward_speed": 0.7477022101618566,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
     }
   ]
 }

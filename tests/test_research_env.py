@@ -662,6 +662,35 @@ def test_t18_time_limit_beats_step_cap_on_exact_multiples():
         assert t["elapsed_time_s"] + 1e-9 >= seconds, (seconds, t)
 
 
+@case("T19 竖直下沉项默认关闭：w=0 时该项恒为 0，且键始终存在")
+def test_t19_vertical_sink_default_off():
+    from hemirl.reward_healthy import HealthyRewardConfig, compute
+
+    cfg = HealthyRewardConfig(enable=True, w_lateral_dev=1.0)
+    args = dict(pelvis_y=0.0, ref_y=0.0, pelvis_y_start=0.0,
+                lin_vel=np.array([1.0, 0.0, -0.5]), slip=0.0)
+    terms, _total = compute(cfg, **args)
+    assert "extra_vertical_sink" in terms
+    assert terms["extra_vertical_sink"] == 0.0
+    off_terms, _ = compute(HealthyRewardConfig(enable=False), **args)
+    assert off_terms["extra_vertical_sink"] == 0.0
+
+
+@case("T20 竖直下沉铰链：容差内不罚、向下越界线性罚、向上不罚")
+def test_t20_vertical_sink_hinge():
+    from hemirl.reward_healthy import HealthyRewardConfig, compute
+
+    cfg = HealthyRewardConfig(enable=True, w_vertical_sink=10.0,
+                              vertical_sink_tolerance=0.15)
+    args = dict(pelvis_y=0.0, ref_y=0.0, pelvis_y_start=0.0, slip=0.0)
+    t1, _ = compute(cfg, lin_vel=np.array([1.0, 0.0, -0.10]), **args)
+    assert abs(t1["extra_vertical_sink"] - 0.0) < 1e-12, t1
+    t2, _ = compute(cfg, lin_vel=np.array([1.0, 0.0, -0.25]), **args)
+    assert abs(t2["extra_vertical_sink"] - (-1.0)) < 1e-12, t2
+    t3, _ = compute(cfg, lin_vel=np.array([1.0, 0.0, +0.50]), **args)
+    assert abs(t3["extra_vertical_sink"] - 0.0) < 1e-12, t3
+
+
 def main() -> int:
     tests = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     for t in tests:

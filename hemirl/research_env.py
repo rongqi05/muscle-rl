@@ -556,6 +556,7 @@ class ResearchLocomotionEnv(gym.Wrapper):
                 "extra_lateral_vel": 0.0,
                 "extra_forward_shortfall": 0.0,
                 "extra_slip": 0.0,
+                "extra_vertical_sink": 0.0,
                 "extra_total": 0.0,
             })
         return out
