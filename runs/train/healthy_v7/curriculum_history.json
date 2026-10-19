@@ -457,6 +457,36 @@
           "physical_fall": 5
         }
       }
+    },
+    {
+      "event": "validate",
+      "stage": "s8",
+      "stage_seconds": 8.0,
+      "transitions_in_stage": 59976,
+      "num_timesteps": 45270624,
+      "success_rate": 0.0,
+      "complete_rate": 0.0,
+      "mean_alive_time_s": 5.8159999999995815,
+      "end_sources": {
+        "physical_fall": 5
+      },
+      "elapsed_min": 20.407151752283333,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 5.8159999999995815,
+        "fall_times_s": [
+          6.1,
+          5.96,
+          6.0,
+          4.82,
+          6.2
+        ],
+        "mean_forward_speed": 0.790780413809728,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
     }
   ]
 }
