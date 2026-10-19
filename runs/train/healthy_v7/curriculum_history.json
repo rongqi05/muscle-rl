@@ -252,6 +252,211 @@
           "physical_fall": 5
         }
       }
+    },
+    {
+      "event": "validate",
+      "stage": "s6",
+      "stage_seconds": 6.0,
+      "transitions_in_stage": 120036,
+      "num_timesteps": 45170640,
+      "success_rate": 0.2,
+      "complete_rate": 0.4,
+      "mean_alive_time_s": 5.395999999999627,
+      "end_sources": {
+        "time_limit": 2,
+        "physical_fall": 3
+      },
+      "elapsed_min": 57.61557358144999,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 5.46799999999962,
+        "fall_times_s": [
+          6.06,
+          5.98,
+          3.72,
+          5.28,
+          6.3
+        ],
+        "mean_forward_speed": 0.8201960410016358,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
+    },
+    {
+      "event": "validate",
+      "stage": "s6",
+      "stage_seconds": 6.0,
+      "transitions_in_stage": 140040,
+      "num_timesteps": 45190644,
+      "success_rate": 0.6,
+      "complete_rate": 0.6,
+      "mean_alive_time_s": 5.599999999999605,
+      "end_sources": {
+        "time_limit": 3,
+        "physical_fall": 2
+      },
+      "elapsed_min": 66.75381627279998,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 5.847999999999578,
+        "fall_times_s": [
+          6.5,
+          5.96,
+          6.32,
+          4.04,
+          6.42
+        ],
+        "mean_forward_speed": 0.9226469382253775,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
+    },
+    {
+      "event": "checkpoint",
+      "transitions_done": 150012,
+      "stage": "s6",
+      "files": {
+        "model": "ckpt_model.zip",
+        "vec_normalize": "ckpt_env.zip",
+        "replay_buffer": "ckpt_replay_buffer.pkl"
+      },
+      "replay_buffer_size_bytes": 3161918234,
+      "elapsed_min": 71.59058198631666
+    },
+    {
+      "event": "validate",
+      "stage": "s6",
+      "stage_seconds": 6.0,
+      "transitions_in_stage": 160044,
+      "num_timesteps": 45210648,
+      "success_rate": 1.0,
+      "complete_rate": 1.0,
+      "mean_alive_time_s": 5.999999999999561,
+      "end_sources": {
+        "time_limit": 5
+      },
+      "elapsed_min": 77.50895832226665,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 6.295999999999529,
+        "fall_times_s": [
+          6.34,
+          6.24,
+          6.14,
+          6.18,
+          6.58
+        ],
+        "mean_forward_speed": 0.8077735719730231,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
+    },
+    {
+      "event": "promote",
+      "from_stage": "s6",
+      "to_stage": "s8",
+      "to_seconds": 8.0,
+      "val_success_rate": 1.0,
+      "num_timesteps": 45210648,
+      "applied_in_workers": {
+        "max_episode_seconds": 8.0,
+        "time_limit_s": 8.0,
+        "max_control_steps": 400
+      },
+      "n_workers": 12,
+      "elapsed_min": 77.50899056165001
+    },
+    {
+      "event": "validate",
+      "stage": "s8",
+      "stage_seconds": 8.0,
+      "transitions_in_stage": 20004,
+      "num_timesteps": 45230652,
+      "success_rate": 0.0,
+      "complete_rate": 0.0,
+      "mean_alive_time_s": 5.5799999999996075,
+      "end_sources": {
+        "physical_fall": 5
+      },
+      "elapsed_min": 86.82963170146667,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 5.5799999999996075,
+        "fall_times_s": [
+          6.0,
+          5.84,
+          5.72,
+          4.02,
+          6.32
+        ],
+        "mean_forward_speed": 0.8067690777731148,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
+    },
+    {
+      "event": "end",
+      "stop_reason": "到达 transition 预算",
+      "stage": "s8",
+      "num_timesteps": 45250608,
+      "elapsed_min": 94.05016701815
+    },
+    {
+      "event": "resume",
+      "stage": "s8",
+      "stage_seconds": 8.0,
+      "transitions_in_stage": 39960,
+      "note": "从 curriculum_state 恢复；worker 在 _on_training_start 广播该阶段时长"
+    },
+    {
+      "event": "start",
+      "stage": "s8",
+      "max_episode_seconds": 8.0,
+      "num_timesteps": 45250608,
+      "broadcast_to_workers": 12,
+      "worker_reply": {
+        "max_episode_seconds": 8.0,
+        "time_limit_s": 8.0,
+        "max_control_steps": 400
+      }
+    },
+    {
+      "event": "validate",
+      "stage": "s8",
+      "stage_seconds": 8.0,
+      "transitions_in_stage": 39972,
+      "num_timesteps": 45250620,
+      "success_rate": 0.0,
+      "complete_rate": 0.0,
+      "mean_alive_time_s": 4.303999999999748,
+      "end_sources": {
+        "physical_fall": 5
+      },
+      "elapsed_min": 1.1626409496666688,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 4.303999999999748,
+        "fall_times_s": [
+          3.66,
+          4.86,
+          5.68,
+          4.78,
+          2.54
+        ],
+        "mean_forward_speed": 0.8203314097261771,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
     }
   ]
 }
