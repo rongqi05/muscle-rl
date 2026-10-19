@@ -40,3 +40,6 @@ runs/**/checkpoints/
 # 断点续训检查的临时探针文件
 runs/**/probe_segment*.pt
 runs/**/resume_probe_actions.npy
+
+# 评估暂存目录（软链+拷贝，不入库）
+runs/eval_staging/
