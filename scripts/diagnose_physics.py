@@ -337,6 +337,10 @@ def main() -> int:
     parser.add_argument("--window-s", type=float, default=2.0)
     parser.add_argument("--lead-window-s", type=float, default=4.0)
     parser.add_argument("--episode-seconds", type=float, default=20.0)
+    parser.add_argument("--out-prefix", default="phase6_physics_diag",
+                        help="输出文件名前缀（reports/<prefix>.json / .png）")
+    parser.add_argument("--keep-rows-seeds", type=int, default=2,
+                        help="JSON 里保留逐逐步行的种子数（其余只留统计）")
     args = parser.parse_args()
 
     seeds = parse_seeds(args.seeds)
@@ -351,13 +355,13 @@ def main() -> int:
         last = s["rows"][-1]
         print(f"  seed={s['seed']} alive={last['t']:.2f}s src={s['termination_source']}")
 
-    out_json = paths.REPORTS_ROOT / "phase6_physics_diag.json"
-    out_png = paths.REPORTS_ROOT / "phase6_physics_diag.png"
+    out_json = paths.REPORTS_ROOT / f"{args.out_prefix}.json"
+    out_png = paths.REPORTS_ROOT / f"{args.out_prefix}.png"
     make_figure(res, out_png)
     res["figure"] = str(out_png)
-    # 控制体积：逐种子逐步行只保留 2 个种子
+    # 控制体积：逐种子逐步行只保留前 N 个种子
     for i, s in enumerate(res["per_seed"]):
-        if i >= 2:
+        if i >= args.keep_rows_seeds:
             s["rows_dropped"] = len(s["rows"])
             s["rows"] = []
     res["provenance"] = provenance.run_provenance(
