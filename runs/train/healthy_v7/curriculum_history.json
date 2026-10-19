@@ -96,6 +96,162 @@
           "physical_fall": 5
         }
       }
+    },
+    {
+      "event": "validate",
+      "stage": "s6",
+      "stage_seconds": 6.0,
+      "transitions_in_stage": 40020,
+      "num_timesteps": 45090624,
+      "success_rate": 0.2,
+      "complete_rate": 0.4,
+      "mean_alive_time_s": 5.37199999999963,
+      "end_sources": {
+        "time_limit": 2,
+        "physical_fall": 3
+      },
+      "elapsed_min": 15.996292454100011,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 5.567999999999609,
+        "fall_times_s": [
+          6.6,
+          5.98,
+          4.38,
+          4.5,
+          6.38
+        ],
+        "mean_forward_speed": 0.8784949855450768,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
+    },
+    {
+      "event": "checkpoint",
+      "transitions_done": 50004,
+      "stage": "s6",
+      "files": {
+        "model": "ckpt_model.zip",
+        "vec_normalize": "ckpt_env.zip",
+        "replay_buffer": "ckpt_replay_buffer.pkl"
+      },
+      "replay_buffer_size_bytes": 3161918234,
+      "elapsed_min": 19.12198359319999
+    },
+    {
+      "event": "validate",
+      "stage": "s6",
+      "stage_seconds": 6.0,
+      "transitions_in_stage": 60024,
+      "num_timesteps": 45110628,
+      "success_rate": 0.0,
+      "complete_rate": 0.2,
+      "mean_alive_time_s": 5.6159999999996035,
+      "end_sources": {
+        "time_limit": 1,
+        "physical_fall": 4
+      },
+      "elapsed_min": 22.58065582568332,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 5.703999999999594,
+        "fall_times_s": [
+          6.44,
+          5.7,
+          4.96,
+          5.58,
+          5.84
+        ],
+        "mean_forward_speed": 0.7644392147379355,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
+    },
+    {
+      "event": "validate",
+      "stage": "s6",
+      "stage_seconds": 6.0,
+      "transitions_in_stage": 80028,
+      "num_timesteps": 45130632,
+      "success_rate": 0.0,
+      "complete_rate": 0.0,
+      "mean_alive_time_s": 3.811999999999802,
+      "end_sources": {
+        "physical_fall": 5
+      },
+      "elapsed_min": 27.77722095518334,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 3.811999999999802,
+        "fall_times_s": [
+          3.74,
+          5.56,
+          2.92,
+          2.74,
+          4.1
+        ],
+        "mean_forward_speed": 0.8638147777273739,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
+    },
+    {
+      "event": "stalled",
+      "stage": "s6",
+      "stage_seconds": 6.0,
+      "transitions_in_stage": 80028,
+      "best_success_rate": 0.0,
+      "note": "按设计**不**降低门槛晋级；此处仅记录以便分析该阶段的失败状态",
+      "elapsed_min": 27.777227906349996
+    },
+    {
+      "event": "checkpoint",
+      "transitions_done": 100008,
+      "stage": "s6",
+      "files": {
+        "model": "ckpt_model.zip",
+        "vec_normalize": "ckpt_env.zip",
+        "replay_buffer": "ckpt_replay_buffer.pkl"
+      },
+      "replay_buffer_size_bytes": 3161918233,
+      "elapsed_min": 33.602178133216675
+    },
+    {
+      "event": "validate",
+      "stage": "s6",
+      "stage_seconds": 6.0,
+      "transitions_in_stage": 100032,
+      "num_timesteps": 45150636,
+      "success_rate": 0.4,
+      "complete_rate": 0.4,
+      "mean_alive_time_s": 5.1799999999996515,
+      "end_sources": {
+        "time_limit": 2,
+        "physical_fall": 3
+      },
+      "elapsed_min": 35.17466826238334,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 5.2439999999996445,
+        "fall_times_s": [
+          6.18,
+          5.2,
+          4.2,
+          4.5,
+          6.14
+        ],
+        "mean_forward_speed": 0.8433120245930763,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
     }
   ]
 }
