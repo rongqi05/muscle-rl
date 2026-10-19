@@ -49,7 +49,7 @@
       "end_sources": {
         "physical_fall": 5
       },
-      "elapsed_min": 1.2772889310666717,
+      "elapsed_min": 1.2656234696166697,
       "survival_probe": {
         "seconds": 10.0,
         "complete_rate": 0.0,
@@ -66,13 +66,6 @@
           "physical_fall": 5
         }
       }
-    },
-    {
-      "event": "end",
-      "stop_reason": "到达 transition 预算",
-      "stage": "s6",
-      "num_timesteps": 45052608,
-      "elapsed_min": 1.890310792500001
     }
   ]
 }
