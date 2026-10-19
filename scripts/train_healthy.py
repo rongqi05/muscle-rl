@@ -628,8 +628,10 @@ def save_checkpoint(model, vec_normalize, run_dir: Path, cfg: Dict[str, Any], me
             "history": list(cb.history),
             "stop_reason": cb.stop_reason,
             "saved_at_num_timesteps": int(getattr(cb, "num_timesteps", 0)),
-            "replay_buffer_pos": int(model.replay_buffer.pos) if getattr(model, "replay_buffer", None) is not None else None,
-            "replay_buffer_full": bool(model.replay_buffer.full) if getattr(model, "replay_buffer", None) is not None else None,
+            "replay_buffer_pos": int(model.replay_buffer.pos)
+            if hasattr(model.replay_buffer, "pos") else None,
+            "replay_buffer_full": bool(model.replay_buffer.full)
+            if hasattr(model.replay_buffer, "full") else None,
         }
         sp = ckpt / f"{tag_name}_curriculum_state.json"
         provenance.write_json(sp, state)

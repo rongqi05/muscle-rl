@@ -1,6 +1,6 @@
 {
   "n": 11,
-  "n_pass": 11,
+  "n_pass": 10,
   "results": [
     {
       "test": "C10 续训恢复：阶段/阶段内计数/历史从 curriculum_state 恢复，训练开始广播当前阶段",
@@ -9,8 +9,8 @@
     },
     {
       "test": "C11 周期检查点：达到 checkpoint_every 时触发一次保存事件并记录文件与缓冲体积",
-      "ok": true,
-      "error": null
+      "ok": false,
+      "error": "AttributeError: 'str' object has no attribute 'pos'"
     },
     {
       "test": "C1 不达标不升级：验证成功率低于阈值时保持同一阶段，不向 worker 广播新时长",

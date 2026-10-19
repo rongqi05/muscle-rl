@@ -1,6 +1,6 @@
 {
-  "n": 18,
-  "n_pass": 18,
+  "n": 20,
+  "n_pass": 20,
   "results": [
     {
       "test": "T10 约束力分解：按类型拆开后残差为 0，不把 qfrc_constraint 整体归因 equality",
@@ -48,7 +48,17 @@
       "error": null
     },
     {
+      "test": "T19 竖直下沉项默认关闭：w=0 时该项恒为 0，且键始终存在",
+      "ok": true,
+      "error": null
+    },
+    {
       "test": "T1 终止步被记录：ledger 覆盖全部已执行控制步，含触发终止的最后一步",
+      "ok": true,
+      "error": null
+    },
+    {
+      "test": "T20 竖直下沉铰链：容差内不罚、向下越界线性罚、向上不罚",
       "ok": true,
       "error": null
     },
