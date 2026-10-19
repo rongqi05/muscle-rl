@@ -1,0 +1,78 @@
+{
+  "stages_config": [
+    {
+      "name": "s6",
+      "max_episode_seconds": 6.0,
+      "min_transitions": 0
+    },
+    {
+      "name": "s8",
+      "max_episode_seconds": 8.0,
+      "min_transitions": 20000
+    },
+    {
+      "name": "s10",
+      "max_episode_seconds": 10.0,
+      "min_transitions": 40000
+    }
+  ],
+  "val_seeds": [
+    101,
+    102,
+    103,
+    104,
+    105
+  ],
+  "promote_val_success_rate": 0.8,
+  "events": [
+    {
+      "event": "start",
+      "stage": "s6",
+      "max_episode_seconds": 6.0,
+      "num_timesteps": 45050604,
+      "broadcast_to_workers": 12,
+      "worker_reply": {
+        "max_episode_seconds": 6.0,
+        "time_limit_s": 6.0,
+        "max_control_steps": 300
+      }
+    },
+    {
+      "event": "validate",
+      "stage": "s6",
+      "stage_seconds": 6.0,
+      "transitions_in_stage": 12,
+      "num_timesteps": 45050616,
+      "success_rate": 0.0,
+      "complete_rate": 0.0,
+      "mean_alive_time_s": 5.511999999999615,
+      "end_sources": {
+        "physical_fall": 5
+      },
+      "elapsed_min": 1.2772889310666717,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 5.511999999999615,
+        "fall_times_s": [
+          5.08,
+          5.62,
+          5.68,
+          5.66,
+          5.52
+        ],
+        "mean_forward_speed": 0.9562833599629925,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
+    },
+    {
+      "event": "end",
+      "stop_reason": "到达 transition 预算",
+      "stage": "s6",
+      "num_timesteps": 45052608,
+      "elapsed_min": 1.890310792500001
+    }
+  ]
+}

@@ -31,3 +31,8 @@ MUJOCO_LOG.TXT
 .vscode/
 .idea/
 .DS_Store
+
+# ---- 阶段 A：断点续训产物 ----
+# replay buffer pickle 体积 ~2.9 GiB（31,613 B/transition × 1e5），不入库
+*_replay_buffer.pkl
+runs/**/checkpoints/

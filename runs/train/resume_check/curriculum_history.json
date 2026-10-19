@@ -1,0 +1,123 @@
+{
+  "stages_config": [
+    {
+      "name": "s4",
+      "max_episode_seconds": 4.0,
+      "min_transitions": 0
+    },
+    {
+      "name": "s5",
+      "max_episode_seconds": 5.0,
+      "min_transitions": 4000
+    },
+    {
+      "name": "s6",
+      "max_episode_seconds": 6.0,
+      "min_transitions": 6000
+    },
+    {
+      "name": "s8",
+      "max_episode_seconds": 8.0,
+      "min_transitions": 8000
+    },
+    {
+      "name": "s10",
+      "max_episode_seconds": 10.0,
+      "min_transitions": 10000
+    },
+    {
+      "name": "s14",
+      "max_episode_seconds": 14.0,
+      "min_transitions": 14000
+    },
+    {
+      "name": "s20",
+      "max_episode_seconds": 20.0,
+      "min_transitions": 20000
+    }
+  ],
+  "val_seeds": [
+    101,
+    102,
+    103,
+    104,
+    105
+  ],
+  "promote_val_success_rate": 0.8,
+  "events": [
+    {
+      "event": "start",
+      "stage": "s4",
+      "max_episode_seconds": 4.0,
+      "num_timesteps": 45000000,
+      "broadcast_to_workers": 12,
+      "worker_reply": {
+        "max_episode_seconds": 4.0,
+        "time_limit_s": 4.0,
+        "max_control_steps": 200
+      }
+    },
+    {
+      "event": "validate",
+      "stage": "s4",
+      "stage_seconds": 4.0,
+      "transitions_in_stage": 12,
+      "num_timesteps": 45000012,
+      "success_rate": 1.0,
+      "complete_rate": 1.0,
+      "mean_alive_time_s": 3.999999999999781,
+      "end_sources": {
+        "time_limit": 5
+      },
+      "elapsed_min": 0.529128497966667
+    },
+    {
+      "event": "promote",
+      "from_stage": "s4",
+      "to_stage": "s5",
+      "to_seconds": 5.0,
+      "val_success_rate": 1.0,
+      "num_timesteps": 45000012,
+      "applied_in_workers": {
+        "max_episode_seconds": 5.0,
+        "time_limit_s": 5.0,
+        "max_control_steps": 250
+      },
+      "n_workers": 12,
+      "elapsed_min": 0.529153250866663
+    },
+    {
+      "event": "end",
+      "stop_reason": "到达 transition 预算",
+      "stage": "s5",
+      "num_timesteps": 45000600,
+      "elapsed_min": 0.7454777796999982
+    },
+    {
+      "event": "resume",
+      "stage": "s5",
+      "stage_seconds": 5.0,
+      "transitions_in_stage": 588,
+      "note": "从 curriculum_state 恢复；worker 在 _on_training_start 广播该阶段时长"
+    },
+    {
+      "event": "start",
+      "stage": "s5",
+      "max_episode_seconds": 5.0,
+      "num_timesteps": 45000600,
+      "broadcast_to_workers": 12,
+      "worker_reply": {
+        "max_episode_seconds": 5.0,
+        "time_limit_s": 5.0,
+        "max_control_steps": 250
+      }
+    },
+    {
+      "event": "end",
+      "stop_reason": "到达 transition 预算",
+      "stage": "s5",
+      "num_timesteps": 45001200,
+      "elapsed_min": 0.20700223334999918
+    }
+  ]
+}

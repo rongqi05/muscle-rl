@@ -156,6 +156,9 @@ class CurriculumCallback(BaseCallback):
         budget_minutes: float,
         vec_normalize=None,
         model=None,
+        resume_state: Optional[Dict[str, Any]] = None,
+        run_dir: Optional[Path] = None,
+        checkpoint_every: int = 0,
     ):
         super().__init__()
         self.cfg = cfg
@@ -169,6 +172,10 @@ class CurriculumCallback(BaseCallback):
         self.val_every = int(self.cur.get("val_every_transitions", 5000))
         self.promote_at = float(self.cur["promote_val_success_rate"])
         self.stall_after = int(self.cur.get("stall_after_transitions", 25000))
+        self.run_dir = run_dir
+        self.checkpoint_every = int(checkpoint_every)
+        self._next_ckpt_at = int(checkpoint_every) if checkpoint_every > 0 else 10**12
+        self._model_ref = None  # _on_training_start 里填
 
         self.t0 = time.perf_counter()
         self.start_transitions = 0  # 在 _on_training_start 里填
@@ -179,6 +186,27 @@ class CurriculumCallback(BaseCallback):
         self.last_val: Optional[Dict[str, Any]] = None
         self._next_val_at = 0
         self._stall_logged = False
+
+        # 续训恢复：课程阶段/阶段内计数/事件历史。文件里存的是什么就恢复什么，
+        # 恢复后**仍向所有 worker 广播当前阶段**（worker 是新建的，默认在 stages[0]）。
+        if resume_state:
+            idx = int(resume_state.get("stage_idx", 0))
+            if not (0 <= idx < len(self.stages)):
+                raise ValueError(f"课程状态里的 stage_idx={idx} 越界（共 {len(self.stages)} 阶段）")
+            self.stage_idx = idx
+            self.transitions_in_stage = int(resume_state.get("transitions_in_stage", 0))
+            self.history = list(resume_state.get("history", []))
+            self._next_val_at = int(self._current_stage().get("min_transitions", 0))
+            self._stall_logged = bool(resume_state.get("stop_reason") is None
+                                      and any(e.get("event") == "stalled" for e in self.history))
+            self.history.append({
+                "event": "resume",
+                "stage": self._current_stage()["name"],
+                "stage_seconds": float(self._current_stage()["max_episode_seconds"]),
+                "transitions_in_stage": self.transitions_in_stage,
+                "note": "从 curriculum_state 恢复；worker 在 _on_training_start 广播该阶段时长",
+            })
+            self._write_history()
 
     # ---------------------------------------------------------------- 工具
 
@@ -207,18 +235,37 @@ class CurriculumCallback(BaseCallback):
 
     def _on_training_start(self) -> None:
         self.start_transitions = int(self.model.num_timesteps)
-        self._next_val_at = int(self._current_stage().get("min_transitions", 0))
+        self._model_ref = self.model
+        self._next_val_at = max(int(self._current_stage().get("min_transitions", 0)),
+                                int(self.transitions_in_stage))
+        # worker 环境是新建的，默认在 stages[0] 的时长；把当前阶段广播到全部 worker
+        # （全新训练时这也是无害的自洽操作）
+        secs = float(self._current_stage()["max_episode_seconds"])
+        try:
+            applied = self.training_env.env_method("configure_episode_seconds", secs)
+        except Exception as exc:  # noqa: BLE001
+            raise RuntimeError(f"训练开始时广播阶段时长失败（{secs}s）：{exc}") from exc
         self.history.append({
             "event": "start",
             "stage": self._current_stage()["name"],
-            "max_episode_seconds": float(self._current_stage()["max_episode_seconds"]),
+            "max_episode_seconds": secs,
             "num_timesteps": self.start_transitions,
+            "broadcast_to_workers": len(applied) if applied else 0,
+            "worker_reply": applied[0] if applied else None,
         })
         self._write_history()
 
     def _evaluate_stage(self) -> Dict[str, Any]:
         spec = self.spec_builder(self.cfg, self._current_stage())
         res = quick_eval(self.model, self._vn, spec, self.val_seeds)
+        # 存活探针：按固定时长（如 10 s）额外跑一次，记录「10 s 存活率」与跌倒时刻，
+        # 与当前阶段无关（阶段 C 要求逐次验证都记录）。
+        probe = None
+        probe_s = float(self.cur.get("survival_probe_seconds", 0) or 0)
+        if probe_s > 0 and abs(probe_s - spec["max_episode_seconds"]) > 1e-9:
+            probe_spec = dict(spec)
+            probe_spec["max_episode_seconds"] = probe_s
+            probe = quick_eval(self.model, self._vn, probe_spec, self.val_seeds)
         self.last_val = res
         rec = {
             "event": "validate",
@@ -232,11 +279,27 @@ class CurriculumCallback(BaseCallback):
             "end_sources": _count_sources(res["episodes"]),
             "elapsed_min": self._elapsed_min(),
         }
+        if probe is not None:
+            rec["survival_probe"] = {
+                "seconds": probe_s,
+                "complete_rate": probe["complete_rate"],
+                "mean_alive_time_s": probe["mean_alive_time_s"],
+                "fall_times_s": [round(e["alive_time_s"], 2) for e in probe["episodes"]],
+                "mean_forward_speed": float(np.mean(
+                    [e["mean_forward_speed"] for e in probe["episodes"] if e.get("mean_forward_speed") is not None]
+                )) if any(e.get("mean_forward_speed") is not None for e in probe["episodes"]) else None,
+                "end_sources": _count_sources(probe["episodes"]),
+            }
         self.history.append(rec)
         self._write_history()
         print(f"\n[课程] 阶段 {rec['stage']} ({rec['stage_seconds']:.0f}s) 验证: "
               f"成功率={res['success_rate']:.2f} 走满率={res['complete_rate']:.2f} "
               f"平均存活={res['mean_alive_time_s']:.2f}s 结束原因={rec['end_sources']}")
+        if probe is not None:
+            print(f"[课程] 10 s 存活探针: 走满率={probe['complete_rate']:.2f} "
+                  f"平均存活={probe['mean_alive_time_s']:.2f}s "
+                  f"跌倒时刻={rec['survival_probe']['fall_times_s']} "
+                  f"速度={rec['survival_probe']['mean_forward_speed']}")
         return res
 
     def _promote(self, val: Dict[str, Any]) -> None:
@@ -270,6 +333,27 @@ class CurriculumCallback(BaseCallback):
 
     def _on_step(self) -> bool:
         self.transitions_in_stage += self.training_env.num_envs
+
+        # 周期性完整检查点（模型+归一化+经验池+课程状态），供断点续训
+        if (self.checkpoint_every > 0 and self._model_ref is not None
+                and self._done() >= self._next_ckpt_at):
+            n = self._done()
+            ckpt_dir = self.run_dir / "checkpoints" / f"ckpt_{n}"
+            ckpt_dir.mkdir(parents=True, exist_ok=True)
+            saved = save_checkpoint(self._model_ref, self._vn, self.run_dir, self.cfg, {},
+                                    tag_name="ckpt", cb=self, save_buffer=True, sub_dir=ckpt_dir)
+            self.history.append({
+                "event": "checkpoint",
+                "transitions_done": n,
+                "stage": self._current_stage()["name"],
+                "files": {k: str(Path(v).name) for k, v in saved.items() if k != "curriculum_state"},
+                "replay_buffer_size_bytes": int(Path(saved["replay_buffer"]).stat().st_size)
+                if "replay_buffer" in saved else None,
+                "elapsed_min": self._elapsed_min(),
+            })
+            self._write_history()
+            self._next_ckpt_at = n + self.checkpoint_every
+            print(f"[检查点] {n} transitions：{saved}")
 
         if self._done() >= self.budget_transitions:
             self.stop_reason = "到达 transition 预算"
@@ -499,21 +583,76 @@ def load_official_model(vec_env, cfg: Dict[str, Any], ckpt_dir: Path):
 
 
 def save_checkpoint(model, vec_normalize, run_dir: Path, cfg: Dict[str, Any], meta: Dict[str, Any],
-                    tag_name: str = "best") -> Dict[str, str]:
-    """按官方 checkpoint 的目录布局保存，使同一套加载代码可直接评估。"""
-    ckpt = run_dir / "checkpoint"
+                    tag_name: str = "best", cb: Optional["CurriculumCallback"] = None,
+                    save_buffer: bool = True, sub_dir: Optional[Path] = None) -> Dict[str, str]:
+    """按官方 checkpoint 的目录布局保存，使同一套加载代码可直接评估。
+
+    SB3 的 ``model.save()`` **明确排除 replay buffer**（``_excluded_save_params``），
+    因此若不单独保存，续训就会从**空经验池**重新开始 —— 这会让「断点续训」名不副实。
+    这里额外保存：
+
+    * ``<tag>_replay_buffer.pkl``：SB3 ``save_replay_buffer``（约 2.9 GiB，实测
+      31,613 B/transition × 1e5）；
+    * ``<tag>_curriculum_state.json``：课程阶段索引 / 阶段内计数 / 事件历史，
+      供续训恢复（CurriculumCallback 新建时默认 stage_idx=0）。
+    """
+    import resource
+
+    t0 = time.perf_counter()
+    ckpt = (sub_dir if sub_dir is not None else run_dir / "checkpoint")
     ckpt.mkdir(parents=True, exist_ok=True)
+    saved: Dict[str, Any] = {}
+
     model.save(str(ckpt / f"{tag_name}_model"))
+    saved["model"] = str(ckpt / f"{tag_name}_model.zip")
     vec_normalize.save(str(ckpt / f"{tag_name}_env.zip"))
-    provenance.write_json(run_dir / "train_meta.json", meta)
-    if not (run_dir / "locomotionFull.json").is_file():
-        src = Path(cfg["checkpoint_dir"]) / "locomotionFull.json"
-        if src.is_file():
-            shutil.copy2(src, run_dir / "locomotionFull.json")
-    return {
-        "model": str(ckpt / f"{tag_name}_model.zip"),
-        "vec_normalize": str(ckpt / f"{tag_name}_env.zip"),
-    }
+    saved["vec_normalize"] = str(ckpt / f"{tag_name}_env.zip")
+
+    # 经验池：单独保存。体积大（~2.9 GiB）、耗时（~1-2 分钟），只在 5e4 间隔的
+    # 检查点与最终保存时做；平时训练循环不保存。
+    if save_buffer and getattr(model, "replay_buffer", None) is not None:
+        bp = ckpt / f"{tag_name}_replay_buffer.pkl"
+        t_buf = time.perf_counter()
+        model.save_replay_buffer(str(bp))
+        saved["replay_buffer"] = str(bp)
+        saved["replay_buffer_size_bytes"] = int(bp.stat().st_size)
+        saved["replay_buffer_save_seconds"] = float(time.perf_counter() - t_buf)
+
+    # 课程状态：独立小文件，续训时读回
+    if cb is not None:
+        state = {
+            "stage_idx": int(cb.stage_idx),
+            "stage_name": cb._current_stage()["name"] if cb.stage_idx < len(cb.stages) else None,
+            "stage_seconds": float(cb._current_stage()["max_episode_seconds"]) if cb.stage_idx < len(cb.stages) else None,
+            "transitions_in_stage": int(cb.transitions_in_stage),
+            "history": list(cb.history),
+            "stop_reason": cb.stop_reason,
+            "saved_at_num_timesteps": int(getattr(cb, "num_timesteps", 0)),
+            "replay_buffer_pos": int(model.replay_buffer.pos) if getattr(model, "replay_buffer", None) is not None else None,
+            "replay_buffer_full": bool(model.replay_buffer.full) if getattr(model, "replay_buffer", None) is not None else None,
+        }
+        sp = ckpt / f"{tag_name}_curriculum_state.json"
+        provenance.write_json(sp, state)
+        saved["curriculum_state"] = str(sp)
+
+    saved["peak_rss_gib"] = float(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss) / 1e6
+    saved["total_save_seconds"] = float(time.perf_counter() - t0)
+
+    if sub_dir is None:
+        provenance.write_json(run_dir / "train_meta.json", meta)
+        if not (run_dir / "locomotionFull.json").is_file():
+            src = Path(cfg["checkpoint_dir"]) / "locomotionFull.json"
+            if src.is_file():
+                shutil.copy2(src, run_dir / "locomotionFull.json")
+    return {k: v for k, v in saved.items() if isinstance(v, str)}
+
+
+def load_curriculum_state(run_dir: Path, tag_name: str = "last") -> Optional[Dict[str, Any]]:
+    """读回课程状态；文件不存在返回 None（旧产物没有这个文件）。"""
+    p = run_dir / "checkpoint" / f"{tag_name}_curriculum_state.json"
+    if not p.is_file():
+        return None
+    return json.loads(p.read_text(encoding="utf-8"))
 
 
 # ------------------------------------------------------------------ 评估
@@ -624,6 +763,10 @@ def main() -> int:
     parser.add_argument("--parallel-envs", type=int, default=None, help="覆盖并行环境数")
     parser.add_argument("--replay-buffer-size", type=int, default=None, help="覆盖 replay buffer 容量")
     parser.add_argument("--learning-rate", type=float, default=None)
+    parser.add_argument("--resume-probe-z", type=str, default=None,
+                        help="续训加载完成后、训练开始前，对给定 npz(z) 计算确定性动作并保存到 --resume-probe-out")
+    parser.add_argument("--resume-probe-out", type=str, default=None,
+                        help="--resume-probe-z 的输出路径（.npy）")
     args = parser.parse_args()
 
     cfg = json.loads(Path(args.config).read_text(encoding="utf-8"))
@@ -645,6 +788,8 @@ def main() -> int:
     ckpt_dir = Path(cfg["checkpoint_dir"])
     run_dir = Path(args.out_root) / cfg["tag"]
     run_dir.mkdir(parents=True, exist_ok=True)
+    # 课程状态提前读（stages 的起始阶段与探针都依赖它）
+    resume_state = load_curriculum_state(run_dir, "last") if args.resume else None
 
     budget_transitions = args.max_transitions or cfg["budget"]["max_transitions"]
     budget_minutes = args.max_minutes or cfg["budget"]["max_minutes"]
@@ -653,8 +798,9 @@ def main() -> int:
         budget_minutes = 10.0
 
     stages = cfg["curriculum"]["stages"]
-    stage = stages[0]
-    spec_stage = env_spec(cfg, stage)
+    # 续训时 worker 仍按 stages[0] 构建，但探针直接用恢复后的阶段时长
+    stage = stages[resume_state["stage_idx"]] if resume_state else stages[0]
+    spec_stage = env_spec(cfg, stages[0])
 
     print(f"=== 正常行走微调：{cfg['tag']} ===")
     print(f"  预算: {budget_transitions} transitions（所有并行环境合计） / {budget_minutes} 分钟，先到者停")
@@ -688,15 +834,39 @@ def main() -> int:
     # --- 模型
     model, notes = load_official_model(vec_normalize, cfg, ckpt_dir)
     if args.resume:
+        import resource
+
         last = run_dir / "checkpoint" / "last_model.zip"
         if not last.is_file():
             print(f"错误：--resume 需要 {last}")
             return 2
+        t_resume = time.perf_counter()
+        # 只加载 last，**不要**再走 load_official_model：
+        # SB3 的 load 会用官方 checkpoint 里存下的 buffer_size 重建经验池
+        # （1e6 → 29.4 GiB 瞬时分配），续训路径上这是无意义的开销与内存风险。
         model = type(model).load(str(last), env=vec_normalize, device="cpu", print_system_info=False)
-        # 恢复后重新应用本项目的显式设置（load 会把 lr_schedule / 优化器 / amp 换回 checkpoint 的值）
-        model, notes2 = load_official_model(vec_normalize, cfg, ckpt_dir)
-        _reloaded = type(model).load(str(last), env=vec_normalize, device="cpu", print_system_info=False)
-        model = _reloaded
+        # SB3 save() 明确排除 replay buffer；load() 会重建一个空 buffer。
+        # 这里从单独的 pkl 恢复经验池；文件不存在（旧产物）则显式标记热启动。
+        buf_p = run_dir / "checkpoint" / "last_replay_buffer.pkl"
+        if buf_p.is_file():
+            t_buf = time.perf_counter()
+            model.load_replay_buffer(str(buf_p))
+            notes["resume_replay_buffer"] = {
+                "file": str(buf_p),
+                "size_bytes": int(buf_p.stat().st_size),
+                "load_seconds": float(time.perf_counter() - t_buf),
+                "buffer_pos_after": int(model.replay_buffer.pos),
+                "buffer_full": bool(model.replay_buffer.full),
+            }
+            print(f"  经验池已从 {buf_p.name} 恢复（{buf_p.stat().st_size/1e9:.2f} GiB，"
+                  f"pos={model.replay_buffer.pos} full={model.replay_buffer.full}）")
+        else:
+            notes["resume_replay_buffer"] = {
+                "file": None,
+                "note": "v1 权重热启动、新 buffer —— 未找到经验池文件，不声称恢复了经验池",
+            }
+            print("  未找到经验池文件：本次是 v1 权重热启动 + 新 buffer（不声称恢复经验池）")
+        # 恢复后重新应用本项目的显式设置（load 会把 lr_schedule / amp 换成 checkpoint 里的值）
         model.dynsyn_weight_amp = float(cfg.get("dynsyn_weight_amp", 0.0))
         model.actor.dynsyn_layer.update_dynsyn_weight_amp(float(cfg.get("dynsyn_weight_amp", 0.0)))
         _lr = float(cfg["learning_rate"])
@@ -704,8 +874,25 @@ def main() -> int:
         for _opt in (model.actor.optimizer, model.critic.optimizer):
             for _g in _opt.param_groups:
                 _g["lr"] = _lr
+        resume_state = load_curriculum_state(run_dir, "last")
         notes["resumed_from"] = str(last)
-        print(f"  已从 {last} 恢复")
+        notes["resume_elapsed_seconds"] = float(time.perf_counter() - t_resume)
+        notes["resume_peak_rss_gib"] = float(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss) / 1e6
+        print(f"  已从 {last} 恢复（num_timesteps={model.num_timesteps}，"
+              f"_n_updates={getattr(model, '_n_updates', '?')}，"
+              f"课程状态={'有' if resume_state else '无'}）")
+
+        # 续训保真探针：加载+重设 lr/amp **之后、训练之前**立即算一批确定性动作，
+        # 供 scripts/check_resume.py 与断点前对比（验证续训路径没弄坏权重）。
+        if args.resume_probe_z and args.resume_probe_out:
+            import torch as _torch
+
+            _z = np.load(args.resume_probe_z)["z"].astype(np.float32)
+            with _torch.no_grad():
+                _a = np.asarray(model.policy.actor(
+                    _torch.as_tensor(_z), deterministic=True).numpy())
+            np.save(args.resume_probe_out, _a)
+            print(f"  续训保真探针已写: {args.resume_probe_out}")
 
     meta: Dict[str, Any] = {
         "entry": "scripts/train_healthy.py",
@@ -741,7 +928,7 @@ def main() -> int:
         d = np.abs(now - probe_before)
         return {"max_abs_action_diff": float(d.max()), "mean_abs_action_diff": float(d.mean())}
 
-    # --- 训练（CurriculumCallback 同时负责预算控制与课程阶段切换）
+    # --- 训练（CurriculumCallback 同时负责预算控制、课程阶段切换与周期检查点）
     cfg["_run_dir"] = str(run_dir)
     cb = CurriculumCallback(
         cfg=cfg,
@@ -750,6 +937,9 @@ def main() -> int:
         budget_transitions=budget_transitions,
         budget_minutes=budget_minutes,
         vec_normalize=vec_normalize,
+        resume_state=resume_state,
+        run_dir=run_dir,
+        checkpoint_every=int(cfg.get("checkpoint_every_transitions", 0)),
     )
     n_updates_before = int(getattr(model, "_n_updates", 0))
     t0 = time.perf_counter()
@@ -821,7 +1011,7 @@ def main() -> int:
     })
 
     # --- 保存
-    saved = save_checkpoint(model, vec_normalize, run_dir, cfg, meta, "last")
+    saved = save_checkpoint(model, vec_normalize, run_dir, cfg, meta, "last", cb=cb)
     saved_best = save_checkpoint(model, vec_normalize, run_dir, cfg, meta, "best")
     print(f"  已保存: {saved['model']}")
 

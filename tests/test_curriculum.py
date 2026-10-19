@@ -132,7 +132,8 @@ def make_cfg(tmp: Path, **cur_over) -> Dict[str, Any]:
     }
 
 
-def make_cb(cfg, tmp: Path, rates: List[float], budget: int = 100000, minutes: float = 60.0):
+def make_cb(cfg, tmp: Path, rates: List[float], budget: int = 100000, minutes: float = 60.0,
+            resume: dict = None, checkpoint_every: int = 0):
     """构造回调；``quick_eval`` 由模块级假实现接管，按 ``rates`` 依次返回成功率。
 
     注意：替换必须在**整个测试期间**生效（而不是只在构造回调时），否则
@@ -148,6 +149,9 @@ def make_cb(cfg, tmp: Path, rates: List[float], budget: int = 100000, minutes: f
         budget_transitions=budget,
         budget_minutes=minutes,
         vec_normalize=StubVN(),
+        resume_state=resume,
+        run_dir=tmp,
+        checkpoint_every=checkpoint_every,
     )
     cb.model = StubModel(0, venv=StubVecEnv(n_envs=4))
     cb._on_training_start()
@@ -175,18 +179,19 @@ def advance(cb, transitions: int, chunk: int = 4) -> List[bool]:
 # ------------------------------------------------------------------ 测试
 
 
-@case("C1 不达标不升级：验证成功率低于阈值时保持同一阶段，且不向 worker 广播")
+@case("C1 不达标不升级：验证成功率低于阈值时保持同一阶段，不向 worker 广播新时长")
 def test_c1_no_promotion_below_threshold():
     with tempfile.TemporaryDirectory() as d:
         cfg = make_cfg(Path(d))
         cb, state = make_cb(cfg, Path(d), rates=[0.0])
         advance(cb, 400)
         assert cb.stage_idx == 0, cb.stage_idx
-        assert cb.training_env.calls == [], cb.training_env.calls
+        # 训练开始时会广播**当前**阶段（4 s）一次；但绝不广播更高阶段
+        assert all(args[0] == 4.0 for _n, args in cb.training_env.calls), cb.training_env.calls
+        assert all(n == "configure_episode_seconds" for n, _ in cb.training_env.calls)
         kinds = [e["event"] for e in cb.history]
         assert kinds.count("validate") >= 1, kinds
         assert "promote" not in kinds, kinds
-        # 验证确实发生了，且用的是当前阶段（4 s）的 spec 与独立验证种子
         assert state["calls"], "quick_eval 未被调用"
         assert state["calls"][0]["spec"]["max_episode_seconds"] == 4.0, state["calls"][0]
         assert state["calls"][0]["seeds"] == [101, 102, 103], state["calls"][0]
@@ -202,10 +207,8 @@ def test_c2_promotion_and_broadcast():
         cb, _state = make_cb(cfg, Path(d), rates=[0.9, 0.9, 0.9])
         advance(cb, 40)
         assert cb.stage_idx == 1, (cb.stage_idx, cb.history)
-        assert len(cb.training_env.calls) == 1, cb.training_env.calls
-        name, args = cb.training_env.calls[0]
-        assert name == "configure_episode_seconds", cb.training_env.calls
-        assert float(args[0]) == 6.0, cb.training_env.calls
+        # 广播两次：训练开始广播 s4（4.0），升级后广播 s6（6.0）
+        assert [args[0] for _n, args in cb.training_env.calls] == [4.0, 6.0], cb.training_env.calls
         ev = [e for e in cb.history if e["event"] == "promote"]
         assert len(ev) == 1, ev
         assert ev[0]["from_stage"] == "s4" and ev[0]["to_stage"] == "s6", ev[0]
@@ -242,7 +245,8 @@ def test_c4_stall_records_but_never_promotes():
         cb, _state = make_cb(cfg, Path(d), rates=[0.0])
         advance(cb, 1000)
         assert cb.stage_idx == 0, cb.stage_idx
-        assert cb.training_env.calls == [], cb.training_env.calls
+        # 只有训练开始时的当前阶段广播（4.0），没有任何升级广播
+        assert [args[0] for _n, args in cb.training_env.calls] == [4.0], cb.training_env.calls
         stalls = [e for e in cb.history if e["event"] == "stalled"]
         assert len(stalls) == 1, cb.history
         assert stalls[0]["stage"] == "s4", stalls[0]
@@ -332,6 +336,78 @@ def test_c9_real_configs():
         # 所有阶段名唯一
         names = [s["name"] for s in stages]
         assert len(names) == len(set(names)), names
+
+
+@case("C10 续训恢复：阶段/阶段内计数/历史从 curriculum_state 恢复，训练开始广播当前阶段")
+def test_c10_resume_state_restored():
+    resume = {
+        "stage_idx": 2,
+        "transitions_in_stage": 7777,
+        "history": [{"event": "start", "stage": "s4", "max_episode_seconds": 4.0,
+                     "num_timesteps": 0, "broadcast_to_workers": 4}],
+        "stop_reason": None,
+    }
+    with tempfile.TemporaryDirectory() as d:
+        cfg = make_cfg(Path(d))
+        _FAKE["rates"] = [0.0]
+        _FAKE["i"] = 0
+        _FAKE["calls"] = []
+        cb = TH.CurriculumCallback(
+            cfg=cfg, stages=cfg["curriculum"]["stages"], spec_builder=TH.env_spec,
+            budget_transitions=10**9, budget_minutes=60.0, vec_normalize=StubVN(),
+            resume_state=resume, run_dir=Path(d), checkpoint_every=0,
+        )
+        cb.model = StubModel(45000000, venv=StubVecEnv(n_envs=4))
+        cb._on_training_start()
+        # 阶段与计数恢复
+        assert cb.stage_idx == 2, cb.stage_idx
+        assert cb._current_stage()["name"] == "s10", cb._current_stage()
+        assert cb.transitions_in_stage == 7777, cb.transitions_in_stage
+        # 训练开始必须广播**当前**阶段（10 s），而不是 worker 默认的 s4
+        assert [args[0] for _n, args in cb.training_env.calls] == [10.0], cb.training_env.calls
+        # 历史里带 resume 事件，且续上旧事件
+        kinds = [e["event"] for e in cb.history]
+        assert kinds.count("resume") == 1, kinds
+        assert any(e["event"] == "start" and e.get("max_episode_seconds") == 10.0 for e in cb.history)
+        assert any(e.get("num_timesteps") == 0 and e["event"] == "start" for e in cb.history)
+        # 非法 stage_idx 必须报错
+        bad = dict(resume, stage_idx=99)
+        try:
+            TH.CurriculumCallback(cfg=cfg, stages=cfg["curriculum"]["stages"],
+                                  spec_builder=TH.env_spec, budget_transitions=10**9,
+                                  budget_minutes=60.0, vec_normalize=StubVN(),
+                                  resume_state=bad, run_dir=Path(d))
+        except ValueError:
+            pass
+        else:
+            raise AssertionError("越界的 stage_idx 应报 ValueError")
+
+
+@case("C11 周期检查点：达到 checkpoint_every 时触发一次保存事件并记录文件与缓冲体积")
+def test_c11_periodic_checkpoint_trigger():
+    with tempfile.TemporaryDirectory() as d:
+        cfg = make_cfg(Path(d))
+        cb, _state = make_cb(cfg, Path(d), rates=[0.0], checkpoint_every=100)
+        # 桩模型需要 save 方法（周期检查点会调用）
+        class SaveModel(StubModel):
+            replay_buffer = "stub-buffer-object"
+
+            def save(self, path):
+                Path(path + ".zip").write_text("stub", encoding="utf-8")
+
+            def save_replay_buffer(self, path):
+                Path(path).write_text("stub-buffer", encoding="utf-8")
+        cb.model = SaveModel(cb.model.num_timesteps, venv=cb.model.get_env())
+        cb._model_ref = cb.model
+        cb._on_training_start()
+        advance(cb, 104)
+        ck = [e for e in cb.history if e["event"] == "checkpoint"]
+        assert len(ck) == 1, cb.history
+        assert ck[0]["transitions_done"] == 100, ck[0]
+        assert ck[0]["replay_buffer_size_bytes"] > 0, ck[0]
+        assert (Path(d) / "checkpoints" / "ckpt_100").is_dir(), "检查点目录应存在"
+        assert (Path(d) / "checkpoints" / "ckpt_100" / "ckpt_replay_buffer.pkl").is_file()
+        assert (Path(d) / "checkpoints" / "ckpt_100" / "ckpt_curriculum_state.json").is_file()
 
 
 def main() -> int:
