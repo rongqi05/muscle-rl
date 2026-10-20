@@ -65,3 +65,11 @@ transitions）、模型 SHA256 `b6ca800d…`、代码 commit `3810be8`、阈值
 预算 2e5、v1 热启动、与 v7 同种子配对。依据：验收里 v7 的跌倒倾角（45.5°）
 远大于 v1（25.0°），且 B 证据里髋内收/旋转力矩 3.6 s 就偏离——倾斜可能是
 下一个可奖励修复的信号。
+
+## 视频（补充）
+
+种子 410（验收存活 5.94 s ≈ 均值 5.90 s）已渲染：
+`runs/videos/phase6_video_5p9s/rollout.mp4`（296 帧 @ 50 fps = 5.92 s，
+physical_fall 终止，与验收协议一致：无侧偏终止、min_pelvis_height=0.55、
+倾角 60°；渲染配置 `configs/termination_render_video.json`）。视频不入库
+（.gitignore `*.mp4`），生成记录在 `runs/videos/phase6_video_5p9s/run.json`。

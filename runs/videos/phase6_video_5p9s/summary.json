@@ -1,0 +1,232 @@
+{
+  "n_episodes": 1,
+  "metrics": {
+    "steps": {
+      "mean": 295.0,
+      "std": 0.0,
+      "min": 295.0,
+      "max": 295.0
+    },
+    "sim_time_s": {
+      "mean": 5.899999999999572,
+      "std": 0.0,
+      "min": 5.899999999999572,
+      "max": 5.899999999999572
+    },
+    "displacement_xy": {
+      "mean": 5.5915066975445376,
+      "std": 0.0,
+      "min": 5.5915066975445376,
+      "max": 5.5915066975445376
+    },
+    "forward_displacement_x": {
+      "mean": 5.581821091854073,
+      "std": 0.0,
+      "min": 5.581821091854073,
+      "max": 5.581821091854073
+    },
+    "lateral_drift_y": {
+      "mean": -0.3289687632867626,
+      "std": 0.0,
+      "min": -0.3289687632867626,
+      "max": -0.3289687632867626
+    },
+    "mean_speed_xy": {
+      "mean": 0.9477129995838887,
+      "std": 0.0,
+      "min": 0.9477129995838887,
+      "max": 0.9477129995838887
+    },
+    "forward_speed_x": {
+      "mean": 0.946071371500759,
+      "std": 0.0,
+      "min": 0.946071371500759,
+      "max": 0.946071371500759
+    },
+    "mean_pelvis_height": {
+      "mean": 0.8910457030878463,
+      "std": 0.0,
+      "min": 0.8910457030878463,
+      "max": 0.8910457030878463
+    },
+    "min_pelvis_height": {
+      "mean": 0.5232044515786016,
+      "std": 0.0,
+      "min": 0.5232044515786016,
+      "max": 0.5232044515786016
+    },
+    "final_pelvis_height": {
+      "mean": 0.5232044515786016,
+      "std": 0.0,
+      "min": 0.5232044515786016,
+      "max": 0.5232044515786016
+    },
+    "max_pelvis_up_tilt_deg": {
+      "mean": 49.91834747131294,
+      "std": 0.0,
+      "min": 49.91834747131294,
+      "max": 49.91834747131294
+    },
+    "final_pelvis_up_tilt_deg": {
+      "mean": 49.91834747131294,
+      "std": 0.0,
+      "min": 49.91834747131294,
+      "max": 49.91834747131294
+    },
+    "posture_change_deg": {
+      "mean": 49.08720826755274,
+      "std": 0.0,
+      "min": 49.08720826755274,
+      "max": 49.08720826755274
+    },
+    "max_root_speed": {
+      "mean": 1.5746700580333632,
+      "std": 0.0,
+      "min": 1.5746700580333632,
+      "max": 1.5746700580333632
+    },
+    "max_root_ang_speed": {
+      "mean": 4.930789124335556,
+      "std": 0.0,
+      "min": 4.930789124335556,
+      "max": 4.930789124335556
+    },
+    "mean_qpos_track_err": {
+      "mean": 0.057830081210495404,
+      "std": 0.0,
+      "min": 0.057830081210495404,
+      "max": 0.057830081210495404
+    },
+    "max_qpos_track_err": {
+      "mean": 0.19723938392957208,
+      "std": 0.0,
+      "min": 0.19723938392957208,
+      "max": 0.19723938392957208
+    },
+    "final_qpos_track_err": {
+      "mean": 0.19723938392957208,
+      "std": 0.0,
+      "min": 0.19723938392957208,
+      "max": 0.19723938392957208
+    },
+    "action_abs_mean": {
+      "mean": 0.6991256133508451,
+      "std": 0.0,
+      "min": 0.6991256133508451,
+      "max": 0.6991256133508451
+    },
+    "activation_mean": {
+      "mean": 0.22067916162709783,
+      "std": 0.0,
+      "min": 0.22067916162709783,
+      "max": 0.22067916162709783
+    },
+    "actuator_force_abs_mean": {
+      "mean": 38.16113225406796,
+      "std": 0.0,
+      "min": 38.16113225406796,
+      "max": 38.16113225406796
+    },
+    "ncon_mean": {
+      "mean": 4.138983050847457,
+      "std": 0.0,
+      "min": 4.138983050847457,
+      "max": 4.138983050847457
+    },
+    "total_normal_force_mean": {
+      "mean": 572.0872232841914,
+      "std": 0.0,
+      "min": 572.0872232841914,
+      "max": 572.0872232841914
+    },
+    "foot_contact_fraction": {
+      "mean": 1.0,
+      "std": 0.0,
+      "min": 1.0,
+      "max": 1.0
+    },
+    "max_abs_qvel": {
+      "mean": 27.82560857668504,
+      "std": 0.0,
+      "min": 27.82560857668504,
+      "max": 27.82560857668504
+    },
+    "jacobian_vs_index_max_diff": {
+      "mean": 1.2031910349255954,
+      "std": 0.0,
+      "min": 1.2031910349255954,
+      "max": 1.2031910349255954
+    }
+  },
+  "outcome_counts": {
+    "physical_fall": 1,
+    "numeric_anomaly": 0,
+    "completed_planned_duration": 0,
+    "other": 0
+  },
+  "termination_reasons": {
+    "跌到骨盆高度 0.523 m < 0.55 m": 1
+  },
+  "termination_sources": {
+    "physical_fall": 1
+  },
+  "n_terminated": 1,
+  "n_truncated": 0,
+  "planned_duration_s": 20.0,
+  "fallen_only_speed_mean": 0.9477129995838887,
+  "fallen_only_alive_time_mean": 5.899999999999572,
+  "fallen_only_note": "跌倒前平均速度只描述「跌倒前跑了多快」，不代表任务完成或效果改善",
+  "strength_spec": null,
+  "termination_config": {
+    "kind": "research",
+    "min_pelvis_height": 0.55,
+    "max_pelvis_up_tilt_deg": 60.0,
+    "max_root_speed": 10.0,
+    "max_root_ang_speed": 50.0,
+    "max_joint_speed_norm": 200.0,
+    "nan_check": true,
+    "time_limit_s": null,
+    "max_lateral_dev_from_ref_m": null,
+    "lateral_hold_s": 0.0,
+    "allow_reference_deviation_termination": false
+  },
+  "research_env_config": {
+    "name": "eval_research",
+    "termination": {
+      "kind": "research",
+      "min_pelvis_height": 0.55,
+      "max_pelvis_up_tilt_deg": 60.0,
+      "max_root_speed": 10.0,
+      "max_root_ang_speed": 50.0,
+      "max_joint_speed_norm": 200.0,
+      "nan_check": true,
+      "time_limit_s": null,
+      "max_lateral_dev_from_ref_m": null,
+      "lateral_hold_s": 0.0,
+      "allow_reference_deviation_termination": false
+    },
+    "max_episode_seconds": 20.0,
+    "max_control_steps": null,
+    "reward_mode": "official",
+    "reward_split": {
+      "w_survival": 100.0,
+      "include_official_healthy": false,
+      "normalization": 1.0
+    },
+    "extra_reward": null,
+    "keep_ledger": true,
+    "suppresses_official_reference_termination": true,
+    "suppresses_official_time_truncation": true
+  },
+  "deterministic": true,
+  "video": {
+    "requested": true,
+    "ok": true,
+    "path": "runs/videos/phase6_video_5p9s/rollout.mp4",
+    "n_frames": 296,
+    "fps": 50.0,
+    "error": null,
+    "backend": "egl",
+    "note": "MuJoCo 离屏渲染（cameras: record_camera）"
+  }
+}
