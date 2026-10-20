@@ -1,14 +1,14 @@
 {
-  "generated_at_utc": "2026-10-19T11:44:29.654613+00:00",
+  "generated_at_utc": "2026-10-20T08:04:34.601740+00:00",
   "workspace": "/home/zrq/Documents/muscle-rl",
   "repos": [
     {
       "label": "muscle-rl",
       "path": "/home/zrq/Documents/muscle-rl",
       "is_git": true,
-      "commit": "766556a2f90a30e26366d22f109c22e312fdb11f",
-      "commit_date": "2026-10-19 19:00:13 +0800",
-      "commit_subject": "report: 阶段 D 100k 等预算配对评估——v7 存活+0.23s、倾角-12.4°、10s 仍 0/20",
+      "commit": "a2db506e4909af9fda90a4cc63bdc98a9b9d24b4",
+      "commit_date": "2026-10-19 20:47:02 +0800",
+      "commit_subject": "report: v7@150k（晋级前）10s 探针——存活 5.61s ≈ v1 5.56s、侧偏 0.123 优于 v1、倾角更差、0/20",
       "branch": "main",
       "remote": "https://github.com/rongqi05/muscle-rl.git",
       "dirty": true
@@ -1339,7 +1339,17 @@
         "n_envs": 12,
         "transitions_per_update": 24,
         "formula": "n_updates = total_transitions / (train_freq × n_envs)"
-      }
+      },
+      "resume_replay_buffer": {
+        "file": "/home/zrq/Documents/muscle-rl/runs/train/healthy_v7/checkpoint/last_replay_buffer.pkl",
+        "size_bytes": 3161918234,
+        "load_seconds": 1.3023413860000232,
+        "buffer_pos_after": 4166,
+        "buffer_full": true
+      },
+      "resumed_from": "/home/zrq/Documents/muscle-rl/runs/train/healthy_v7/checkpoint/last_model.zip",
+      "resume_elapsed_seconds": 1.9394801440000151,
+      "resume_peak_rss_gib": 3.86986
     }
   },
   "entry": "scripts/train_healthy.py",
@@ -1347,11 +1357,11 @@
     "config": "configs/train_healthy_v7.json",
     "tag": null,
     "out_root": "/home/zrq/Documents/muscle-rl/runs/train",
-    "resume": false,
+    "resume": true,
     "check_only": false,
     "check_transitions": 2000,
-    "max_transitions": 200000,
-    "max_minutes": 300.0,
+    "max_transitions": 250000,
+    "max_minutes": 400.0,
     "critic_init": null,
     "alpha_init": null,
     "no_extra_reward": false,
@@ -1362,8 +1372,8 @@
     "resume_probe_out": null
   },
   "code_version": {
-    "commit": "766556a2f90a30e26366d22f109c22e312fdb11f",
-    "commit_subject": "report: 阶段 D 100k 等预算配对评估——v7 存活+0.23s、倾角-12.4°、10s 仍 0/20",
+    "commit": "a2db506e4909af9fda90a4cc63bdc98a9b9d24b4",
+    "commit_subject": "report: v7@150k（晋级前）10s 探针——存活 5.61s ≈ v1 5.56s、侧偏 0.123 优于 v1、倾角更差、0/20",
     "branch": "main",
     "remote": "https://github.com/rongqi05/muscle-rl.git",
     "dirty": true,
@@ -1371,23 +1381,20 @@
     "code_dirty_files": [],
     "other_dirty_files": [
       "uns/train/healthy_v7/curriculum_history.json",
-      "runs/train/healthy_v7/locomotionFull.json",
       "runs/train/healthy_v7/train_meta.json"
     ],
     "untracked_files": [
-      "runs/train/healthy_v7/locomotionFull.json",
-      "runs/train/healthy_v7/train_meta.json",
       "uns/train/healthy_v7/curriculum_history.json"
     ],
     "patch_sha256": null,
-    "patch_sha256_all": "19a3f0bc00d8f89fc2a4ca3e2d08758dc4afcaebbfd1eda494438d1f64d4994d",
+    "patch_sha256_all": "1f101f295f78a3553babdf32c78c3a28c1edb3b5ffc57445db1019feca9176a6",
     "code_paths_used_for_describe": [
       "hemirl",
       "scripts",
       "tests",
       "configs"
     ],
-    "describe": "766556a"
+    "describe": "a2db506"
   },
   "upstream": {
     "MS-Human-700": {

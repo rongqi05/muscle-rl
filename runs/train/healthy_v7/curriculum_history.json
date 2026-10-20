@@ -440,7 +440,7 @@
       "end_sources": {
         "physical_fall": 5
       },
-      "elapsed_min": 1.1626409496666688,
+      "elapsed_min": 1.179255434483333,
       "survival_probe": {
         "seconds": 10.0,
         "complete_rate": 0.0,
@@ -470,7 +470,7 @@
       "end_sources": {
         "physical_fall": 5
       },
-      "elapsed_min": 20.407151752283333,
+      "elapsed_min": 8.585848629283333,
       "survival_probe": {
         "seconds": 10.0,
         "complete_rate": 0.0,
@@ -487,6 +487,501 @@
           "physical_fall": 5
         }
       }
+    },
+    {
+      "event": "validate",
+      "stage": "s8",
+      "stage_seconds": 8.0,
+      "transitions_in_stage": 79980,
+      "num_timesteps": 45290628,
+      "success_rate": 0.0,
+      "complete_rate": 0.0,
+      "mean_alive_time_s": 5.567999999999609,
+      "end_sources": {
+        "physical_fall": 5
+      },
+      "elapsed_min": 15.956561599983335,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 5.567999999999609,
+        "fall_times_s": [
+          7.2,
+          7.06,
+          2.34,
+          7.02,
+          4.22
+        ],
+        "mean_forward_speed": 0.955366160442735,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
+    },
+    {
+      "event": "resume",
+      "stage": "s8",
+      "stage_seconds": 8.0,
+      "transitions_in_stage": 89964,
+      "note": "从 curriculum_state 恢复；worker 在 _on_training_start 广播该阶段时长"
+    },
+    {
+      "event": "start",
+      "stage": "s8",
+      "max_episode_seconds": 8.0,
+      "num_timesteps": 45300612,
+      "broadcast_to_workers": 12,
+      "worker_reply": {
+        "max_episode_seconds": 8.0,
+        "time_limit_s": 8.0,
+        "max_control_steps": 400
+      }
+    },
+    {
+      "event": "validate",
+      "stage": "s8",
+      "stage_seconds": 8.0,
+      "transitions_in_stage": 89976,
+      "num_timesteps": 45300624,
+      "success_rate": 0.0,
+      "complete_rate": 0.0,
+      "mean_alive_time_s": 6.147999999999545,
+      "end_sources": {
+        "physical_fall": 5
+      },
+      "elapsed_min": 0.7069173275166662,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 6.147999999999545,
+        "fall_times_s": [
+          7.1,
+          6.98,
+          2.74,
+          6.78,
+          7.14
+        ],
+        "mean_forward_speed": 0.9433910473467109,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
+    },
+    {
+      "event": "validate",
+      "stage": "s8",
+      "stage_seconds": 8.0,
+      "transitions_in_stage": 109980,
+      "num_timesteps": 45320628,
+      "success_rate": 0.0,
+      "complete_rate": 0.0,
+      "mean_alive_time_s": 6.407999999999515,
+      "end_sources": {
+        "physical_fall": 5
+      },
+      "elapsed_min": 6.8828738752000005,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 6.407999999999515,
+        "fall_times_s": [
+          7.2,
+          6.68,
+          4.4,
+          7.28,
+          6.48
+        ],
+        "mean_forward_speed": 0.9377373807716476,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
+    },
+    {
+      "event": "validate",
+      "stage": "s8",
+      "stage_seconds": 8.0,
+      "transitions_in_stage": 129984,
+      "num_timesteps": 45340632,
+      "success_rate": 0.0,
+      "complete_rate": 0.0,
+      "mean_alive_time_s": 4.883999999999685,
+      "end_sources": {
+        "physical_fall": 5
+      },
+      "elapsed_min": 13.318722099916666,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 4.883999999999685,
+        "fall_times_s": [
+          6.06,
+          3.36,
+          2.98,
+          6.06,
+          5.96
+        ],
+        "mean_forward_speed": 0.8896732331099384,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
+    },
+    {
+      "event": "checkpoint",
+      "transitions_done": 50004,
+      "stage": "s8",
+      "files": {
+        "model": "ckpt_model.zip",
+        "vec_normalize": "ckpt_env.zip",
+        "replay_buffer": "ckpt_replay_buffer.pkl"
+      },
+      "replay_buffer_size_bytes": 3161918234,
+      "elapsed_min": 16.634101331866663
+    },
+    {
+      "event": "validate",
+      "stage": "s8",
+      "stage_seconds": 8.0,
+      "transitions_in_stage": 149988,
+      "num_timesteps": 45360636,
+      "success_rate": 0.0,
+      "complete_rate": 0.0,
+      "mean_alive_time_s": 6.01999999999956,
+      "end_sources": {
+        "physical_fall": 5
+      },
+      "elapsed_min": 21.082692392416668,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 6.01999999999956,
+        "fall_times_s": [
+          7.26,
+          4.6,
+          3.36,
+          7.16,
+          7.72
+        ],
+        "mean_forward_speed": 0.9032558870214557,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
+    },
+    {
+      "event": "validate",
+      "stage": "s8",
+      "stage_seconds": 8.0,
+      "transitions_in_stage": 169992,
+      "num_timesteps": 45380640,
+      "success_rate": 0.2,
+      "complete_rate": 0.2,
+      "mean_alive_time_s": 4.571999999999702,
+      "end_sources": {
+        "physical_fall": 4,
+        "time_limit": 1
+      },
+      "elapsed_min": 29.549072003566664,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 4.583999999999706,
+        "fall_times_s": [
+          4.56,
+          6.98,
+          1.24,
+          2.08,
+          8.06
+        ],
+        "mean_forward_speed": 0.963301136428678,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
+    },
+    {
+      "event": "checkpoint",
+      "transitions_done": 100008,
+      "stage": "s8",
+      "files": {
+        "model": "ckpt_model.zip",
+        "vec_normalize": "ckpt_env.zip",
+        "replay_buffer": "ckpt_replay_buffer.pkl"
+      },
+      "replay_buffer_size_bytes": 3161918234,
+      "elapsed_min": 37.838130780616666
+    },
+    {
+      "event": "validate",
+      "stage": "s8",
+      "stage_seconds": 8.0,
+      "transitions_in_stage": 189996,
+      "num_timesteps": 45400644,
+      "success_rate": 0.0,
+      "complete_rate": 0.0,
+      "mean_alive_time_s": 4.991999999999662,
+      "end_sources": {
+        "physical_fall": 5
+      },
+      "elapsed_min": 39.16796124275,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 4.991999999999662,
+        "fall_times_s": [
+          5.98,
+          5.9,
+          1.54,
+          5.52,
+          6.02
+        ],
+        "mean_forward_speed": 0.9627508860879317,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
+    },
+    {
+      "event": "validate",
+      "stage": "s8",
+      "stage_seconds": 8.0,
+      "transitions_in_stage": 210000,
+      "num_timesteps": 45420648,
+      "success_rate": 0.0,
+      "complete_rate": 0.0,
+      "mean_alive_time_s": 5.931999999999569,
+      "end_sources": {
+        "physical_fall": 5
+      },
+      "elapsed_min": 48.95178729888334,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 5.931999999999569,
+        "fall_times_s": [
+          6.1,
+          5.98,
+          5.78,
+          5.62,
+          6.18
+        ],
+        "mean_forward_speed": 0.9131226401888209,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
+    },
+    {
+      "event": "validate",
+      "stage": "s8",
+      "stage_seconds": 8.0,
+      "transitions_in_stage": 230004,
+      "num_timesteps": 45440652,
+      "success_rate": 0.0,
+      "complete_rate": 0.0,
+      "mean_alive_time_s": 5.351999999999633,
+      "end_sources": {
+        "physical_fall": 5
+      },
+      "elapsed_min": 57.548809603533336,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 5.351999999999633,
+        "fall_times_s": [
+          6.08,
+          6.02,
+          3.32,
+          5.56,
+          5.78
+        ],
+        "mean_forward_speed": 0.8665184272217296,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
+    },
+    {
+      "event": "checkpoint",
+      "transitions_done": 150012,
+      "stage": "s8",
+      "files": {
+        "model": "ckpt_model.zip",
+        "vec_normalize": "ckpt_env.zip",
+        "replay_buffer": "ckpt_replay_buffer.pkl"
+      },
+      "replay_buffer_size_bytes": 3161918233,
+      "elapsed_min": 61.35989738840001
+    },
+    {
+      "event": "validate",
+      "stage": "s8",
+      "stage_seconds": 8.0,
+      "transitions_in_stage": 250008,
+      "num_timesteps": 45460656,
+      "success_rate": 0.0,
+      "complete_rate": 0.0,
+      "mean_alive_time_s": 5.899999999999572,
+      "end_sources": {
+        "physical_fall": 5
+      },
+      "elapsed_min": 66.66428489461666,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 5.899999999999572,
+        "fall_times_s": [
+          6.12,
+          5.9,
+          5.8,
+          5.6,
+          6.08
+        ],
+        "mean_forward_speed": 0.9156454881299506,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
+    },
+    {
+      "event": "validate",
+      "stage": "s8",
+      "stage_seconds": 8.0,
+      "transitions_in_stage": 270012,
+      "num_timesteps": 45480660,
+      "success_rate": 0.0,
+      "complete_rate": 0.0,
+      "mean_alive_time_s": 5.8519999999995775,
+      "end_sources": {
+        "physical_fall": 5
+      },
+      "elapsed_min": 75.25936132121666,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 5.8519999999995775,
+        "fall_times_s": [
+          6.1,
+          5.88,
+          5.76,
+          5.44,
+          6.08
+        ],
+        "mean_forward_speed": 0.9300308757033591,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
+    },
+    {
+      "event": "checkpoint",
+      "transitions_done": 200016,
+      "stage": "s8",
+      "files": {
+        "model": "ckpt_model.zip",
+        "vec_normalize": "ckpt_env.zip",
+        "replay_buffer": "ckpt_replay_buffer.pkl"
+      },
+      "replay_buffer_size_bytes": 3161918234,
+      "elapsed_min": 83.66250735979999
+    },
+    {
+      "event": "validate",
+      "stage": "s8",
+      "stage_seconds": 8.0,
+      "transitions_in_stage": 290016,
+      "num_timesteps": 45500664,
+      "success_rate": 0.0,
+      "complete_rate": 0.0,
+      "mean_alive_time_s": 5.867999999999576,
+      "end_sources": {
+        "physical_fall": 5
+      },
+      "elapsed_min": 85.17772930688332,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 5.867999999999576,
+        "fall_times_s": [
+          6.0,
+          6.66,
+          5.78,
+          5.16,
+          5.74
+        ],
+        "mean_forward_speed": 0.9010950355777654,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
+    },
+    {
+      "event": "validate",
+      "stage": "s8",
+      "stage_seconds": 8.0,
+      "transitions_in_stage": 310020,
+      "num_timesteps": 45520668,
+      "success_rate": 0.0,
+      "complete_rate": 0.0,
+      "mean_alive_time_s": 5.743999999999589,
+      "end_sources": {
+        "physical_fall": 5
+      },
+      "elapsed_min": 95.35948466471667,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 5.743999999999589,
+        "fall_times_s": [
+          6.14,
+          5.98,
+          5.86,
+          4.56,
+          6.18
+        ],
+        "mean_forward_speed": 0.9023106611393722,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
+    },
+    {
+      "event": "validate",
+      "stage": "s8",
+      "stage_seconds": 8.0,
+      "transitions_in_stage": 330024,
+      "num_timesteps": 45540672,
+      "success_rate": 0.0,
+      "complete_rate": 0.0,
+      "mean_alive_time_s": 5.855999999999577,
+      "end_sources": {
+        "physical_fall": 5
+      },
+      "elapsed_min": 103.93281928578332,
+      "survival_probe": {
+        "seconds": 10.0,
+        "complete_rate": 0.0,
+        "mean_alive_time_s": 5.855999999999577,
+        "fall_times_s": [
+          5.98,
+          5.96,
+          5.72,
+          5.44,
+          6.18
+        ],
+        "mean_forward_speed": 0.911806821638527,
+        "end_sources": {
+          "physical_fall": 5
+        }
+      }
+    },
+    {
+      "event": "end",
+      "stop_reason": "到达 transition 预算",
+      "stage": "s8",
+      "num_timesteps": 45550620,
+      "elapsed_min": 107.57098587559999
     }
   ]
 }
