@@ -1,0 +1,25 @@
+{
+  "frozen_at": "2026-10-20",
+  "policy": "healthy_v7 (vertical_sink_hinge, 总 5e5 transitions)",
+  "model": "/home/zrq/Documents/muscle-rl/runs/train/healthy_v7/checkpoint/last_model.zip",
+  "model_sha256": "b6ca800d4a00a632581431c07ac01c8d084cad7a2ac74b397d8a31551fe9cc5f",
+  "env_zip_sha256": "de879e24eb9fe599ca1e27ca4d5a5181600e929f9bfacace50cdc23e2ec5621b",
+  "config": "configs/train_healthy_v7.json",
+  "config_sha256": "4e4dac18730b9ca71670b023e81b8b6c9589cd9f8c2388d6f796fd6a922501f3",
+  "commit": "03abd70917d65d9c0275754c7109a373627aa530",
+  "success_thresholds": {
+    "min_episode_seconds": 10.0,
+    "gate": "18/20"
+  },
+  "test_seeds": [
+    401,
+    420
+  ],
+  "dev_selection_evidence": {
+    "v1": "alive 5.56s speed 0.955 lat 0.406 tilt 25.0 (301-320@10s)",
+    "v7_150k": "alive 5.61s lat 0.123",
+    "v7_200k": "alive 4.93s",
+    "v7_500k": "alive 5.94s speed 0.936 lat 0.308 tilt 42.9 ← 选中"
+  },
+  "protocol": "deterministic, VecNormalize frozen, no mid-episode reset, no root override, no extra force, research termination"
+}
